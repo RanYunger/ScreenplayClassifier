@@ -1,0 +1,258 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
+    
+    <!--Backgrounds-->
+    <SolidColorBrush x:Key="WindowBackground" Color="DarkGoldenrod"/>
+    <SolidColorBrush x:Key="UserControlBackground" Color="Goldenrod"/>
+    <SolidColorBrush x:Key="GroupBoxBackground" Color="Transparent"/>
+    <SolidColorBrush x:Key="MainColumnHeaderBackground" Color="Orange"/>
+    <SolidColorBrush x:Key="SubColumnHeaderBackground" Color="Gold"/>
+    <SolidColorBrush x:Key="ButtonBackground" Color="Gold"/>
+    <SolidColorBrush x:Key="ButtonPressedBackground" Color="Sienna"/>
+    
+    <!--Components Style-->  
+    
+    <!--Window Style-->
+    <Style x:Key="WindowStyle" TargetType="Window">
+        <Setter Property="Background" Value="{StaticResource WindowBackground}"/>
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+    
+    <!--UserControl Style-->
+    <Style x:Key="UserControlStyle" TargetType="UserControl">
+        <Setter Property="Background" Value="{StaticResource UserControlBackground}"/>
+    </Style>
+    
+    <!--Button Style-->
+    <Style x:Key="ButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Width" Value="100"/>
+    </Style>
+
+    <!--Canvas Style-->
+    <Style x:Key="CanvasStyle" TargetType="Canvas">
+        <Setter Property="Height" Value="45"/>
+        <Setter Property="Width" Value="60"/>
+    </Style>
+
+    <!--CheckBox Styles-->
+    <Style x:Key="BaseCheckBoxStyle" TargetType="CheckBox">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    <Style x:Key="FrozenCheckBoxStyle" TargetType="CheckBox" BasedOn="{StaticResource BaseCheckBoxStyle}">
+        <Setter Property="IsEnabled" Value="False"/>
+    </Style>
+
+    <!--ComboBox Style-->
+    <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+        <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Width" Value="100"/>
+    </Style>
+    
+    <!--DataGrid Style-->
+    <Style x:Key="DataGridStyle" TargetType="DataGrid">
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="Background" Value="{StaticResource UserControlBackground}"/>
+        <Setter Property="CanUserResizeColumns" Value="False"/>
+        <Setter Property="CanUserReorderColumns" Value="False"/>
+        <Setter Property="CanUserSortColumns" Value="False"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+    </Style>
+
+    <!--DataGridColumnHeader Styles-->
+    <Style x:Key="BaseDataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    <Style x:Key="DataGridMainColumnHeaderStyle" TargetType="DataGridColumnHeader" BasedOn="{StaticResource BaseDataGridColumnHeaderStyle}">
+        <Setter Property="Background" Value="{StaticResource MainColumnHeaderBackground}"/>
+    </Style>
+    <Style x:Key="DataGridSubColumnHeaderStyle" TargetType="DataGridColumnHeader" BasedOn="{StaticResource BaseDataGridColumnHeaderStyle}">
+        <Setter Property="Background" Value="{StaticResource SubColumnHeaderBackground}"/>
+    </Style>
+    
+    <!--Expander Style-->
+    <Style x:Key="ExpanderStyle" TargetType="Expander">
+        <Setter Property="Background" Value="{StaticResource GroupBoxBackground}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    
+    <!--GroupBox Style-->
+    <Style x:Key="GroupBoxStyle" TargetType="GroupBox">
+        <Setter Property="Background" Value="{StaticResource GroupBoxBackground}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <!--Line Style-->
+    <Style x:Key="LineStyle" TargetType="Line">
+        <Setter Property="Stroke" Value="Black"/>
+        <Setter Property="StrokeThickness" Value="3"/>
+    </Style>
+    
+    <!--MenuItem Style-->
+    <Style x:Key="MenuItemStyle" TargetType="MenuItem">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    
+    <!--PasswordBox Style-->
+    <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="PasswordChar" Value="*"/>
+        <Setter Property="MaxLength" Value="6"/>
+    </Style>
+
+    <!--RadioButton Style-->
+    <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
+        <Setter Property="Background" Value="{StaticResource GroupBoxBackground}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="10,0"/>
+    </Style>
+
+    <!--TabItem Style-->
+    <Style x:Key="TabItemStyle" TargetType="TabItem">
+        <Setter Property="Background" Value="{StaticResource UserControlBackground}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    
+    <!--TextBlock Styles-->
+    <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <!--TextBox Styles-->
+    <Style x:Key="BaseTextBoxStyle" TargetType="TextBox">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="FrozenTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxStyle}">
+        <Setter Property="IsEnabled" Value="False"/>
+    </Style>
+    
+    <!--ToggleButton Style-->
+    <Style x:Key="LTRToggleButtonStyle" TargetType="ToggleButton">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Background" Value="#FAFAFB"/>
+        <Setter Property="BorderBrush" Value="#EAEAEB"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Viewbox Stretch="Uniform">
+                        <Canvas Name="Layer_1" Width="20" Height="20" Canvas.Left="10" Canvas.Top="0">
+                            <Ellipse Canvas.Left="0" Width="20" Height="20" Fill="Green" Stroke="Black" StrokeThickness="0.5"/>
+                            <Ellipse Canvas.Left="15" Width="20" Height="20" Stroke="Black" StrokeThickness="0.5"/>
+                            <Border Canvas.Left="10" Width="15" Height="20" Name="rect416927" BorderBrush="Black" BorderThickness="0,0.5,0,0.5"/>
+                            <Ellipse x:Name="ellipse" Canvas.Left="0" Width="20" Height="20" Fill="White" Stroke="Black" StrokeThickness="0.3">
+                                <Ellipse.RenderTransform>
+                                    <TranslateTransform X="0" Y="0"/>
+                                </Ellipse.RenderTransform>
+                                <Ellipse.BitmapEffect>
+                                    <DropShadowBitmapEffect Softness="0.1" ShadowDepth="0.7" Direction="270" Color="#BBBBBB"/>
+                                </Ellipse.BitmapEffect>
+                            </Ellipse>
+                        </Canvas>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True" >
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#52D468" Duration="0:0:0.2"/>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" To="#41C955" Duration="0:0:0.2"/>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Ellipse.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="ellipse">
+                                            <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <SplineDoubleKeyFrame KeyTime="0:0:0.4" Value="15" KeySpline="0, 1, 0.6, 1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#FAFAFB" Duration="0:0:0.2"/>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" To="#EAEAEB" Duration="0:0:0.2"/>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Ellipse.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="ellipse">
+                                            <SplineDoubleKeyFrame KeyTime="0" Value="15"/>
+                                            <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="0" KeySpline="0, 0.5, 0.5, 1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RTLToggleButtonStyle" TargetType="ToggleButton">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Background" Value="#FAFAFB"/>
+        <Setter Property="BorderBrush" Value="#EAEAEB"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Viewbox Stretch="Uniform">
+                        <Canvas Name="Layer_1" Width="20" Height="20" Canvas.Left="10" Canvas.Top="0">
+                            <Ellipse Canvas.Left="0" Width="20" Height="20" Stroke="Black" StrokeThickness="0.5"/>
+                            <Ellipse Canvas.Left="15" Width="20" Height="20" Fill="Green" Stroke="Black" StrokeThickness="0.5"/>
+                            <Border Canvas.Left="10" Width="15" Height="20" Name="rect416927" BorderBrush="Black" BorderThickness="0,0.5,0,0.5"/>
+                            <Ellipse x:Name="ellipse" Canvas.Left="15" Width="20" Height="20" Fill="White" Stroke="Black" StrokeThickness="0.3">
+                                <Ellipse.RenderTransform>
+                                    <TranslateTransform X="0" Y="0"/>
+                                </Ellipse.RenderTransform>
+                                <Ellipse.BitmapEffect>
+                                    <DropShadowBitmapEffect Softness="0.1" ShadowDepth="0.7" Direction="270" Color="#BBBBBB"/>
+                                </Ellipse.BitmapEffect>
+                            </Ellipse>
+                        </Canvas>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True" >
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#52D468" Duration="0:0:0.2"/>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" To="#41C955" Duration="0:0:0.2"/>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Ellipse.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="ellipse">
+                                            <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <SplineDoubleKeyFrame KeyTime="0:0:0.4" Value="-15" KeySpline="0, 1, 0.6, 1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#FAFAFB" Duration="0:0:0.2"/>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" To="#EAEAEB" Duration="0:0:0.2"/>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Ellipse.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="ellipse">
+                                            <SplineDoubleKeyFrame KeyTime="0" Value="-15"/>
+                                            <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="0" KeySpline="0, 0.5, 0.5, 1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

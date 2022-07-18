@@ -1,0 +1,177 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Screenplay.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Media\Images\Admin.png" />
+    <None Remove="Media\Images\Classification.png" />
+    <None Remove="Media\Images\Command Shell.png" />
+    <None Remove="Media\Images\Document.png" />
+    <None Remove="Media\Images\Genres\Action.png" />
+    <None Remove="Media\Images\Genres\Adventure.png" />
+    <None Remove="Media\Images\Genres\Comedy.png" />
+    <None Remove="Media\Images\Genres\Crime.png" />
+    <None Remove="Media\Images\Genres\Drama.png" />
+    <None Remove="Media\Images\Genres\Family.png" />
+    <None Remove="Media\Images\Genres\Fantasy.png" />
+    <None Remove="Media\Images\Genres\Horror.png" />
+    <None Remove="Media\Images\Genres\Romance.png" />
+    <None Remove="Media\Images\Genres\Sci-Fi.png" />
+    <None Remove="Media\Images\Genres\Thriller.png" />
+    <None Remove="Media\Images\Genres\Unknown.png" />
+    <None Remove="Media\Images\Genres\War.png" />
+    <None Remove="Media\Images\Home.png" />
+    <None Remove="Media\Images\Info.png" />
+    <None Remove="Media\Images\Login.png" />
+    <None Remove="Media\Images\Model.png" />
+    <None Remove="Media\Images\Password.png" />
+    <None Remove="Media\Images\Screenplay.ico" />
+    <None Remove="Media\Images\Screenplay.png" />
+    <None Remove="Media\Images\Signout.png" />
+    <None Remove="Media\Images\User.png" />
+    <None Remove="Media\Images\Username.png" />
+    <None Remove="Media\Videos\0 Much Later.mp4" />
+    <None Remove="Media\Videos\1 Hours Later.mp4" />
+    <None Remove="Media\Videos\1 Much Later.mp4" />
+    <None Remove="Media\Videos\2 Hours Later.mp4" />
+    <None Remove="Media\Videos\2 Much Later.mp4" />
+    <None Remove="Media\Videos\3 Hours Later.mp4" />
+    <None Remove="Media\Videos\3 Much Later.mp4" />
+    <None Remove="Media\Videos\Choice.mp4" />
+    <None Remove="Media\Videos\You Shall Not Pass.mp4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MVVM\Models\" />
+    <Folder Include="MVVM\ViewModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight.Extras.WPF4">
+      <HintPath>..\..\..\..\..\..\DLLs\GalaSoft.MvvmLight.Extras.WPF4.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.WPF4">
+      <HintPath>..\..\..\..\..\..\DLLs\GalaSoft.MvvmLight.WPF4.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\..\..\..\..\..\DLLs\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Media\Images\Admin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Classification.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Command Shell.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Document.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Genres\Action.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Genres\Adventure.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Genres\Comedy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Genres\Crime.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Genres\Drama.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Genres\Family.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Genres\Fantasy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Genres\Horror.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Genres\Romance.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Genres\Sci-Fi.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Genres\Thriller.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Genres\Unknown.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Genres\War.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Home.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Info.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Login.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Model.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Password.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Screenplay.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Screenplay.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Signout.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\User.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Username.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Media\Videos\0 Much Later.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Videos\1 Hours Later.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Videos\1 Much Later.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Videos\2 Hours Later.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Videos\2 Much Later.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Videos\3 Hours Later.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Videos\3 Much Later.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Videos\Choice.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Videos\You Shall Not Pass.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
