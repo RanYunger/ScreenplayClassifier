@@ -1,5 +1,4 @@
-﻿using ScreenplayClassifier.MVVM.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -9,19 +8,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ScreenplayClassifier.MVVM.Views
 {
     /// <summary>
-    /// Interaction logic for SignInView.xaml
+    /// Interaction logic for UserToolbarView.xaml
     /// </summary>
-    public partial class SignInView : Window
+    public partial class UserToolbarView : UserControl
     {
-        public SignInView()
+        public UserToolbarView()
         {
             InitializeComponent();
-            DataContext = new SignInViewModel();
         }
     }
 }

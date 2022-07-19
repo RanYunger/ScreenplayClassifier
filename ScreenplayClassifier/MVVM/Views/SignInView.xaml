@@ -3,29 +3,36 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ScreenplayClassifier.MVVM.Views"
+        xmlns:vm="clr-namespace:ScreenplayClassifier.MVVM.ViewModels"
+        xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
         mc:Ignorable="d"
-        Title="Screenplay Classifier" Height="600" Width="400" ResizeMode="NoResize">
+        Title="Screenplay Classifier" Height="600" Width="400" ResizeMode="NoResize" Style="{StaticResource WindowStyle}">
     <Grid>
         <StackPanel HorizontalAlignment="Stretch">
             <TextBlock FontSize="40" Text="Sign In" HorizontalAlignment="Center"/>
-            <Image Source="/Media/Images/Login.png" Height="250" Width="250"/>
-            <!--<MediaElement Source="/Media/Videos/You Shall Not Pass.mp4" Height="250" Width="350"
-                          LoadedBehavior="Play" UnloadedBehavior="Stop" Stretch="Fill"/>-->
+            <Image x:Name="WelcomeImage" Source="/Media/Images/Screenplay.png" Height="250" Width="250" Visibility="Visible"/>
+            <MediaElement x:Name="KickUserMediaElement" Height="245" Width="350" LoadedBehavior="Manual" UnloadedBehavior="Manual"
+                          Visibility="Collapsed" Stretch="Fill" Margin="0,5,0,0"/>
             <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,5">
                 <Image Source="/Media/Images/Username.png" Height="50" Width="50"/>
-                <TextBox x:Name="UsernameTextBox" Height="20" Width="150" Margin="20,0,0,0"/>
+                <TextBox x:Name="UsernameTextBox" Height="20" Width="150" ToolTip="Enter your username" Margin="20,0,0,0"
+                         Style="{StaticResource BaseTextBoxStyle}"/>
             </WrapPanel>
             <WrapPanel HorizontalAlignment="Center" Margin="0,5,0,10">
                 <Image Source="/Media/Images/Password.png" Height="50" Width="50"/>
-                <PasswordBox x:Name="PasswordTextBox" Height="20" Width="150" Margin="20,0,0,0"/>
+                <PasswordBox x:Name="PasswordBox" Height="20" Width="150" ToolTip="Enter your password" Margin="20,0,0,0"
+                             Style="{StaticResource PasswordBoxStyle}"/>
             </WrapPanel>
-            <Button Content="Sign In" Height="25" Width="150" Margin="0,0,0,5"/>
-            <Button Content="Continue as Guest" Height="25" Width="150" Margin="0,5,0,0"/>
-            <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,0">
-                <Image Source="/Media/Images/Command Shell.png" Height="50" Width="75" Margin="0,0,110,0"/>
-                <Image Source="/Media/Images/Signout.png" Height="50" Width="75" Margin="110,0,0,0"/>
-            </WrapPanel>
+            <Button x:Name="SignInButton" Content="Sign In" Height="25" Width="150" Margin="0,0,0,5"
+                    Command="{Binding SignInCommand}" Style="{StaticResource ButtonStyle}"/>
+            <Button x:Name="ContinueAsGuestButton" Content="Continue as Guest" Height="25" Width="150" Margin="0,5,0,10"
+                    Command="{Binding ContinueAsGuestCommand}" Style="{StaticResource ButtonStyle}"/>
+            <Button x:Name="OpenCommandShellButton" Height="50" Width="50" HorizontalAlignment="Center" ToolTip="Open command shell"
+                    Command="{Binding OpenCommandShellCommand}" Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <Image Source="/Media/Images/Command Shell.png"/>
+                </Button.Content>
+            </Button>
         </StackPanel>
     </Grid>
 </Window>

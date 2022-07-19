@@ -3,12 +3,12 @@
                     xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
     
     <!--Backgrounds-->
-    <SolidColorBrush x:Key="WindowBackground" Color="DarkGoldenrod"/>
-    <SolidColorBrush x:Key="UserControlBackground" Color="Goldenrod"/>
+    <SolidColorBrush x:Key="WindowBackground" Color="LightBlue"/>
+    <SolidColorBrush x:Key="UserControlBackground" Color="LightSeaGreen"/>
     <SolidColorBrush x:Key="GroupBoxBackground" Color="Transparent"/>
     <SolidColorBrush x:Key="MainColumnHeaderBackground" Color="Orange"/>
     <SolidColorBrush x:Key="SubColumnHeaderBackground" Color="Gold"/>
-    <SolidColorBrush x:Key="ButtonBackground" Color="Gold"/>
+    <SolidColorBrush x:Key="ButtonBackground" Color="LightGreen"/>
     <SolidColorBrush x:Key="ButtonPressedBackground" Color="Sienna"/>
     
     <!--Components Style-->  
@@ -108,10 +108,10 @@
     <!--PasswordBox Style-->
     <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="PasswordChar" Value="*"/>
-        <Setter Property="MaxLength" Value="6"/>
+        <Setter Property="MaxLength" Value="8"/>
     </Style>
 
     <!--RadioButton Style-->
@@ -137,7 +137,7 @@
     <!--TextBox Styles-->
     <Style x:Key="BaseTextBoxStyle" TargetType="TextBox">
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
     <Style x:Key="FrozenTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxStyle}">

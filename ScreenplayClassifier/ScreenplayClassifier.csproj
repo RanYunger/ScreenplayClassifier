@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Screenplay.ico</ApplicationIcon>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,11 +26,10 @@
     <None Remove="Media\Images\Genres\Unknown.png" />
     <None Remove="Media\Images\Genres\War.png" />
     <None Remove="Media\Images\Home.png" />
+    <None Remove="Media\Images\Icon.ico" />
     <None Remove="Media\Images\Info.png" />
-    <None Remove="Media\Images\Login.png" />
     <None Remove="Media\Images\Model.png" />
     <None Remove="Media\Images\Password.png" />
-    <None Remove="Media\Images\Screenplay.ico" />
     <None Remove="Media\Images\Screenplay.png" />
     <None Remove="Media\Images\Signout.png" />
     <None Remove="Media\Images\User.png" />
@@ -44,23 +43,6 @@
     <None Remove="Media\Videos\3 Much Later.mp4" />
     <None Remove="Media\Videos\Choice.mp4" />
     <None Remove="Media\Videos\You Shall Not Pass.mp4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MVVM\Models\" />
-    <Folder Include="MVVM\ViewModels\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="GalaSoft.MvvmLight.Extras.WPF4">
-      <HintPath>..\..\..\..\..\..\DLLs\GalaSoft.MvvmLight.Extras.WPF4.dll</HintPath>
-    </Reference>
-    <Reference Include="GalaSoft.MvvmLight.WPF4">
-      <HintPath>..\..\..\..\..\..\DLLs\GalaSoft.MvvmLight.WPF4.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows.Interactivity">
-      <HintPath>..\..\..\..\..\..\DLLs\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -121,16 +103,13 @@
     <Resource Include="Media\Images\Info.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Media\Images\Login.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Media\Images\Model.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Media\Images\Password.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Media\Images\Screenplay.ico">
+    <Resource Include="Media\Images\Icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Media\Images\Screenplay.png">

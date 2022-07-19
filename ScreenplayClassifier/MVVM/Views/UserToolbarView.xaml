@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="ScreenplayClassifier.MVVM.Views.UserToolbarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ScreenplayClassifier.MVVM.Views"
+             mc:Ignorable="d" 
+             Height="90" Width="1200" Style="{StaticResource UserControlStyle}">
+    <Grid>
+        <WrapPanel HorizontalAlignment="Left">
+            <Image>
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding User.role}" Value="Guest">
+                                <Setter Property="Source" Value="/Media/Images/User.png"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding User.role}" Value="Member">
+                                <Setter Property="Source" Value="/Media/Images/User.png"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding User.role}" Value="Admin">
+                                <Setter Property="Source" Value="/Media/Images/Admin.png"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <StackPanel>
+                <TextBox Text="{Binding Username}" Width="150" Margin="0,10,0,0" Style="{StaticResource FrozenTextBoxStyle}"/>
+                <WrapPanel>
+                    <Button Height="40" Width="40" Margin="0,15,5,0" Style="{StaticResource ButtonStyle}">
+                        <Button.Content>
+                            <Image Source="/Media/Images/Home.png"/>
+                        </Button.Content>
+                    </Button>
+                    <Button Height="40" Width="40" Margin="5,15,0,0" Style="{StaticResource ButtonStyle}">
+                        <Button.Content>
+                            <Image Source="/Media/Images/Signout.png"/>
+                        </Button.Content>
+                    </Button>
+                </WrapPanel>
+            </StackPanel>
+        </WrapPanel>
+        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Screenplay" FontSize="40" Style="{StaticResource TextBlockStyle}"/>
+            <Image Source="/Media/Images/Screenplay.png" Height="90" Width="90" Margin="10,0,10,0"/>
+            <TextBlock Text="Classifer ™" FontSize="40" Style="{StaticResource TextBlockStyle}"/>
+        </WrapPanel>
+        <Button Height="80" Width="80" HorizontalAlignment="Right" Margin="0,0,10,0" Style="{StaticResource ButtonStyle}">
+            <Button.Content>
+                <Image Source="/Media/Images/Info.png"/>
+            </Button.Content>
+        </Button>
+    </Grid>
+</UserControl>

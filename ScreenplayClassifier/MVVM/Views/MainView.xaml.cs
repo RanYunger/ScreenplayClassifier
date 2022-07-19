@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ScreenplayClassifier.MVVM.Models;
+using ScreenplayClassifier.MVVM.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -17,9 +19,10 @@ namespace ScreenplayClassifier.MVVM.Views
     /// </summary>
     public partial class MainView : Window
     {
-        public MainView()
+        public MainView(UserModel user)
         {
             InitializeComponent();
+            DataContext = new MainViewModel(user);
         }
     }
 }
