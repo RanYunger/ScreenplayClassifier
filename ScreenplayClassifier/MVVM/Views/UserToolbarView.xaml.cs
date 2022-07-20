@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ScreenplayClassifier.MVVM.Models;
+using ScreenplayClassifier.MVVM.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;

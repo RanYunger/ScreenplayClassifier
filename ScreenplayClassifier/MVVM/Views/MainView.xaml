@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
         mc:Ignorable="d"
-        Title="Screenplay Classifier" Height="800" Width="1000" SizeToContent="WidthAndHeight" Style="{StaticResource WindowStyle}">
+        Title="Screenplay Classifier" MinHeight="700" MinWidth="1210" WindowState="Maximized" SizeToContent="WidthAndHeight"
+        Style="{StaticResource WindowStyle}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <v:UserToolbarView Grid.Row="0"/>
+        <v:UserToolbarView x:Name="UserToolbarView" Grid.Row="0"/>
     </Grid>
 </Window>

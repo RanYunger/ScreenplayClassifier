@@ -5,20 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ScreenplayClassifier.MVVM.Views"
              mc:Ignorable="d" 
-             Height="90" Width="1200" Style="{StaticResource UserControlStyle}">
+             MaxHeight="90" MinWidth="1200" Style="{StaticResource UserControlStyle}">
     <Grid>
         <WrapPanel HorizontalAlignment="Left">
-            <Image>
+            <Image Cursor="Hand">
                 <Image.Style>
                     <Style TargetType="Image">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding User.role}" Value="Guest">
+                            <DataTrigger Binding="{Binding User.Role}" Value="Guest">
                                 <Setter Property="Source" Value="/Media/Images/User.png"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding User.role}" Value="Member">
-                                <Setter Property="Source" Value="/Media/Images/User.png"/>
+                            <DataTrigger Binding="{Binding User.Role}" Value="Member">
+                                <Setter Property="Source" Value="/Media/Images/Member.png"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding User.role}" Value="Admin">
+                            <DataTrigger Binding="{Binding User.Role}" Value="Admin">
                                 <Setter Property="Source" Value="/Media/Images/Admin.png"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -26,14 +26,16 @@
                 </Image.Style>
             </Image>
             <StackPanel>
-                <TextBox Text="{Binding Username}" Width="150" Margin="0,10,0,0" Style="{StaticResource FrozenTextBoxStyle}"/>
+                <TextBox Text="{Binding User.Username}" Width="150" Cursor="Hand" Margin="0,10,0,0" Style="{StaticResource FrozenTextBoxStyle}"/>
                 <WrapPanel>
-                    <Button Height="40" Width="40" Margin="0,15,5,0" Style="{StaticResource ButtonStyle}">
+                    <Button Height="40" Width="40" Command="{Binding ShowMainViewCommand}" ToolTip="Home window"
+                            Margin="0,15,5,0" Style="{StaticResource ButtonStyle}">
                         <Button.Content>
                             <Image Source="/Media/Images/Home.png"/>
                         </Button.Content>
                     </Button>
-                    <Button Height="40" Width="40" Margin="5,15,0,0" Style="{StaticResource ButtonStyle}">
+                    <Button Height="40" Width="40" Command="{Binding SignoutCommand}" ToolTip="Sign out"
+                            Margin="5,15,0,0" Style="{StaticResource ButtonStyle}">
                         <Button.Content>
                             <Image Source="/Media/Images/Signout.png"/>
                         </Button.Content>
@@ -44,9 +46,10 @@
         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Screenplay" FontSize="40" Style="{StaticResource TextBlockStyle}"/>
             <Image Source="/Media/Images/Screenplay.png" Height="90" Width="90" Margin="10,0,10,0"/>
-            <TextBlock Text="Classifer ™" FontSize="40" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Classifier" FontSize="40" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
-        <Button Height="80" Width="80" HorizontalAlignment="Right" Margin="0,0,10,0" Style="{StaticResource ButtonStyle}">
+        <Button Height="80" Width="80" Command="{Binding ShowAboutViewCommand}" HorizontalAlignment="Right" ToolTip="About Screenplay Classifer"
+                Margin="0,0,10,0" Style="{StaticResource ButtonStyle}">
             <Button.Content>
                 <Image Source="/Media/Images/Info.png"/>
             </Button.Content>

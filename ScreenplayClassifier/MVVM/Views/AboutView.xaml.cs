@@ -1,6 +1,4 @@
-﻿using ScreenplayClassifier.MVVM.Models;
-using ScreenplayClassifier.MVVM.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -15,14 +13,13 @@ using System.Windows.Shapes;
 namespace ScreenplayClassifier.MVVM.Views
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for AboutView.xaml
     /// </summary>
-    public partial class MainView : Window
+    public partial class AboutView : Window
     {
-        public MainView()
+        public AboutView()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }
     }
 }
