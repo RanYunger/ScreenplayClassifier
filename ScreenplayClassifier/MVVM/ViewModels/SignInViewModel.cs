@@ -9,6 +9,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Text.RegularExpressions;
+using System.Windows.Input;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
@@ -112,7 +113,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
-
         public Command OpenCommandShellCommand
         {
 
@@ -129,7 +129,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
-
         public Command KickUserCommand
         {
             get
@@ -172,7 +171,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
-
         private void VideoTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             App.Current.Dispatcher.Invoke(() => App.Current.MainWindow.Close());

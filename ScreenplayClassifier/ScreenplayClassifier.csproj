@@ -26,12 +26,13 @@
     <None Remove="Media\Images\Genres\Thriller.png" />
     <None Remove="Media\Images\Genres\Unknown.png" />
     <None Remove="Media\Images\Genres\War.png" />
+    <None Remove="Media\Images\History.png" />
     <None Remove="Media\Images\Home.png" />
     <None Remove="Media\Images\Icon.ico" />
     <None Remove="Media\Images\Info.png" />
     <None Remove="Media\Images\Member.png" />
-    <None Remove="Media\Images\Model.png" />
     <None Remove="Media\Images\Password.png" />
+    <None Remove="Media\Images\Reports.png" />
     <None Remove="Media\Images\Screenplay.png" />
     <None Remove="Media\Images\Signout.png" />
     <None Remove="Media\Images\User.png" />
@@ -102,6 +103,9 @@
     <Resource Include="Media\Images\Genres\War.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Media\Images\History.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Media\Images\Home.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -111,13 +115,13 @@
     <Resource Include="Media\Images\Member.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Media\Images\Model.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Media\Images\Password.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Media\Images\Icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Media\Images\Reports.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Media\Images\Screenplay.png">
@@ -159,6 +163,12 @@
     <Content Include="Media\Videos\You Shall Not Pass.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\..\RanProject - Sample\ShkediaSupervisor\Supervisor\DLLs\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
