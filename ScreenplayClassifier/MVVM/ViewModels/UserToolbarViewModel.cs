@@ -20,17 +20,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command ShowMainViewCommand
+        public Command OpenMainViewCommand
         {
             get
             {
                 return new Command(() =>
                 {
-                    foreach (Window window in App.Current.Windows)
-                        if (window != App.Current.MainWindow)
-                            window.Close();
+                    //MainView mainView = new MainView();
 
-                    App.Current.MainWindow.Focus();
+                    //foreach (Window window in App.Current.Windows)
+                    //    if(window != mainView)
+                    //        window.Close();
+
+                    //mainView.Show();
                 });
             }
         }
@@ -51,8 +53,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
+        public Command OpenSettingsViewCommand
+        {
+            get { return new Command(() => new SettingsView().Show()); }
+        }
 
-        public Command ShowAboutViewCommand
+        public Command OpenAboutViewCommand
         {
             get { return new Command(() => new AboutView().Show()); }
         }

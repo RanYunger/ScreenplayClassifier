@@ -7,20 +7,17 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         Title="Screenplay Classifier" MinHeight="700" MinWidth="1210" WindowState="Maximized" SizeToContent="WidthAndHeight"
         Style="{StaticResource WindowStyle}">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="KeyDown">
-            <i:InvokeCommandAction Command="{Binding CheckKeyCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <v:UserToolbarView x:Name="UserToolbarView" Grid.Row="0"/>
-        <StackPanel Grid.Row="1">
-            <!--<TextBlock Text="TEMPLATE" FontSize="70" Style="{StaticResource TextBlockStyle}"/>-->
+        <StackPanel x:Name="NormalDisplayStackPanel" Grid.Row="1">
+            <TextBlock Text="SOME WELCOME TEXT" HorizontalAlignment="Center" FontSize="70" Margin="20" Style="{StaticResource TextBlockStyle}"/>
             <v:MenuView x:Name="MenuView"/>
         </StackPanel>
+        <MediaElement x:Name="ChoiceMediaElement" Grid.RowSpan="2" LoadedBehavior="Manual" UnloadedBehavior="Manual"
+                      Visibility="Collapsed" Stretch="Fill"/>
     </Grid>
 </Window>

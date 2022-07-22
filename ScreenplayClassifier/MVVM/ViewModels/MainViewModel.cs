@@ -3,6 +3,8 @@ using ScreenplayClassifier.MVVM.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
@@ -17,40 +19,40 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command CheckKeyCommand
+        public Command PlayInstructionalVideoCommand
         {
             get
             {
                 MainView mainView = null;
-                MenuView menuView = null;
-                MenuViewModel menuViewModel = null;
+                MediaElement choiceMediaElement = null;
+                StackPanel normalDisplayStackPanel = null;
 
                 App.Current.Dispatcher.Invoke(() => mainView = (MainView)App.Current.MainWindow);
-                App.Current.Dispatcher.Invoke(() => menuView = (MenuView)mainView.FindName("MenuView"));
-                App.Current.Dispatcher.Invoke(() => menuViewModel = (MenuViewModel)menuView.DataContext);
+                App.Current.Dispatcher.Invoke(() => choiceMediaElement = (MediaElement)mainView.FindName("ChoiceMediaElement"));
+                App.Current.Dispatcher.Invoke(() => normalDisplayStackPanel = (StackPanel)mainView.FindName("NormalDisplayStackPanel"));
 
                 return new Command(() =>
                 {
-                    if (Keyboard.IsKeyDown(Key.Enter))
-                        OpenModuleCommand.Execute(menuViewModel.CurrentModule);
-                    else if (Keyboard.IsKeyDown(Key.Left))
-                        menuViewModel.RotateLeftCommand.Execute(null);
-                    else if (Keyboard.IsKeyDown(Key.Right))
-                        menuViewModel.RotateRightCommand.Execute(null);
+                    System.Timers.Timer videoTimer = new System.Timers.Timer(102500);
+
+                    normalDisplayStackPanel.Visibility = Visibility.Collapsed;
+
+                    choiceMediaElement.Visibility = Visibility.Visible;
+                    choiceMediaElement.Source = new Uri(Environment.CurrentDirectory + @"\Media\Videos\Choice.mp4");
+                    choiceMediaElement.Play();
+
+                    videoTimer.Elapsed += (sender, e) => VideoTimer_Elapsed(sender, e, normalDisplayStackPanel, choiceMediaElement);
+                    videoTimer.Start();
                 });
             }
         }
-        public Command OpenModuleCommand
+
+        private void VideoTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e, StackPanel stackPanel, MediaElement mediaElement)
         {
-            get
-            {
-                return new Command(() =>
-                {
-                    // TODO: COMPLETE (open view by text)
-                    new AboutView().Show();
-                });
-            }
+            App.Current.Dispatcher.Invoke(() => stackPanel.Visibility = Visibility.Visible);
+            App.Current.Dispatcher.Invoke(() => mediaElement.Visibility = Visibility.Collapsed);
         }
+
         #endregion
 
         public void Init(UserModel user)
