@@ -18,10 +18,15 @@
         <Setter Property="Background" Value="{StaticResource WindowBackground}"/>
         <Setter Property="FontSize" Value="14"/>
     </Style>
-    
+
+    <!--UserToolbar Style-->
+    <Style x:Key="UserToolbarStyle" TargetType="UserControl">
+        <Setter Property="Background" Value="{StaticResource UserControlBackground}"/>
+    </Style>
+
     <!--UserControl Style-->
     <Style x:Key="UserControlStyle" TargetType="UserControl">
-        <Setter Property="Background" Value="{StaticResource UserControlBackground}"/>
+        <Setter Property="Background" Value="{StaticResource WindowBackground}"/>
     </Style>
     
     <!--Button Style-->

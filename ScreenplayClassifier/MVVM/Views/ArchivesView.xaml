@@ -1,12 +1,27 @@
-﻿<Window x:Class="ScreenplayClassifier.MVVM.Views.ArchivesView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ScreenplayClassifier.MVVM.Views"
-        mc:Ignorable="d"
-        Title="Screenplay Classifier" MinHeight="700" MinWidth="1210" Style="{StaticResource WindowStyle}">
+﻿<UserControl x:Class="ScreenplayClassifier.MVVM.Views.ArchivesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
+             mc:Ignorable="d" 
+             MinHeight="500" MinWidth="1200" Style="{StaticResource UserControlStyle}">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <TextBlock Text="Screenplays" HorizontalAlignment="Center" FontSize="40" Margin="20" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <TextBlock Text="Genres" HorizontalAlignment="Center" FontSize="40" Margin="20" Style="{StaticResource TextBlockStyle}"/>
+            
+        </StackPanel>
+        <StackPanel Grid.Column="2">
+            <TextBlock Text="Screenplay Archives" HorizontalAlignment="Center" FontSize="40" Margin="20" Style="{StaticResource TextBlockStyle}"/>
+
+        </StackPanel>
     </Grid>
-</Window>
+</UserControl>

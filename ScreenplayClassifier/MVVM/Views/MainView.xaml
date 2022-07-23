@@ -13,10 +13,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <v:UserToolbarView x:Name="UserToolbarView" Grid.Row="0"/>
-        <StackPanel x:Name="NormalDisplayStackPanel" Grid.Row="1">
-            <TextBlock Text="SOME WELCOME TEXT" HorizontalAlignment="Center" FontSize="70" Margin="20" Style="{StaticResource TextBlockStyle}"/>
-            <v:MenuView x:Name="MenuView"/>
-        </StackPanel>
+        <v:HomeView x:Name="HomeView" Grid.Row="1" Visibility="Visible"/>
+        <v:SettingsView x:Name="SettingsView" Grid.Row="1" Visibility="Collapsed"/>
+        <v:AboutView x:Name="AboutView" Grid.Row="1" Visibility="Collapsed"/>
+        <v:ArchivesView x:Name="ArchivesView" Grid.Row="1" Visibility="Collapsed"/>
+        <v:ClassificationView x:Name="ClassificationView" Grid.Row="1" Visibility="Collapsed"/>
+        <v:ReportsView x:Name="ReportsView" Grid.Row="1" Visibility="Collapsed"/>
         <MediaElement x:Name="ChoiceMediaElement" Grid.RowSpan="2" LoadedBehavior="Manual" UnloadedBehavior="Manual"
                       Visibility="Collapsed" Stretch="Fill"/>
     </Grid>

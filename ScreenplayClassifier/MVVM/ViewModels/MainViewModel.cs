@@ -9,50 +9,31 @@ using System.Windows.Input;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    class MainViewModel
+    public class MainViewModel
     {
         // Properties
         public UserToolbarViewModel UserToolbarViewModel { get; private set; }
+        public HomeView HomeView { get; private set; }
+        public SettingsView SettingsView { get; private set; }
+        public AboutView AboutView { get; private set; }
+        public ArchivesView ArchivesView { get; private set; }
+        public ClassificationView ClassificationView { get; private set; }
+        public ReportsView ReportsView { get; private set; }
 
         // Constructors
-        public MainViewModel() { }
+        public MainViewModel()
+        {
+            HomeView = new HomeView();
+            SettingsView = new SettingsView();
+            AboutView = new AboutView();
+
+            ArchivesView = new ArchivesView();
+            ClassificationView = new ClassificationView();
+            ReportsView = new ReportsView();
+        }
 
         // Methods
-        #region Commands
-        public Command PlayInstructionalVideoCommand
-        {
-            get
-            {
-                MainView mainView = null;
-                MediaElement choiceMediaElement = null;
-                StackPanel normalDisplayStackPanel = null;
-
-                App.Current.Dispatcher.Invoke(() => mainView = (MainView)App.Current.MainWindow);
-                App.Current.Dispatcher.Invoke(() => choiceMediaElement = (MediaElement)mainView.FindName("ChoiceMediaElement"));
-                App.Current.Dispatcher.Invoke(() => normalDisplayStackPanel = (StackPanel)mainView.FindName("NormalDisplayStackPanel"));
-
-                return new Command(() =>
-                {
-                    System.Timers.Timer videoTimer = new System.Timers.Timer(102500);
-
-                    normalDisplayStackPanel.Visibility = Visibility.Collapsed;
-
-                    choiceMediaElement.Visibility = Visibility.Visible;
-                    choiceMediaElement.Source = new Uri(Environment.CurrentDirectory + @"\Media\Videos\Choice.mp4");
-                    choiceMediaElement.Play();
-
-                    videoTimer.Elapsed += (sender, e) => VideoTimer_Elapsed(sender, e, normalDisplayStackPanel, choiceMediaElement);
-                    videoTimer.Start();
-                });
-            }
-        }
-
-        private void VideoTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e, StackPanel stackPanel, MediaElement mediaElement)
-        {
-            App.Current.Dispatcher.Invoke(() => stackPanel.Visibility = Visibility.Visible);
-            App.Current.Dispatcher.Invoke(() => mediaElement.Visibility = Visibility.Collapsed);
-        }
-
+        #region Commands    
         #endregion
 
         public void Init(UserModel user)
@@ -62,7 +43,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             App.Current.Dispatcher.Invoke(() => mainView = (MainView)App.Current.MainWindow);
             App.Current.Dispatcher.Invoke(() => userToolbarView = (UserToolbarView)mainView.FindName("UserToolbarView"));
-            App.Current.Dispatcher.Invoke(() => userToolbarView.DataContext = UserToolbarViewModel = new UserToolbarViewModel(user));
+            App.Current.Dispatcher.Invoke(() => userToolbarView.DataContext = UserToolbarViewModel = new UserToolbarViewModel(user, this));
+
+            App.Current.Dispatcher.Invoke(() => HomeView = (HomeView)mainView.FindName("HomeView"));
+            App.Current.Dispatcher.Invoke(() => SettingsView = (SettingsView)mainView.FindName("SettingsView"));
+            App.Current.Dispatcher.Invoke(() => AboutView = (AboutView)mainView.FindName("AboutView"));
+            App.Current.Dispatcher.Invoke(() => ArchivesView = (ArchivesView)mainView.FindName("ArchivesView"));
+            App.Current.Dispatcher.Invoke(() => ClassificationView = (ClassificationView)mainView.FindName("ClassificationView"));
+            App.Current.Dispatcher.Invoke(() => ReportsView = (ReportsView)mainView.FindName("ReportsView"));
+        }
+
+        public void ShowView(UserControl viewToShow)
+        {
+            UserControl[] views = { HomeView, SettingsView, AboutView, ArchivesView, ClassificationView, ReportsView };
+
+            foreach (UserControl view in views)
+                view.Visibility = view == viewToShow ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

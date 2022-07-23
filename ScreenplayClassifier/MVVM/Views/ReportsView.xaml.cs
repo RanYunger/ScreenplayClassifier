@@ -8,6 +8,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ScreenplayClassifier.MVVM.Views
@@ -15,7 +16,7 @@ namespace ScreenplayClassifier.MVVM.Views
     /// <summary>
     /// Interaction logic for ReportsView.xaml
     /// </summary>
-    public partial class ReportsView : Window
+    public partial class ReportsView : UserControl
     {
         public ReportsView()
         {

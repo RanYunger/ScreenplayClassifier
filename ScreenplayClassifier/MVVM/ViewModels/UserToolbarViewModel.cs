@@ -11,30 +11,20 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Properties
         public UserModel User { get; set; }
+        public MainViewModel MainViewModel { get; set; }
 
         // Constructors
-        public UserToolbarViewModel(UserModel user)
+        public UserToolbarViewModel(UserModel user, MainViewModel mainViewModel)
         {
             User = user;
+            MainViewModel = mainViewModel;
         }
 
         // Methods
         #region Commands
-        public Command OpenMainViewCommand
+        public Command HomeCommand
         {
-            get
-            {
-                return new Command(() =>
-                {
-                    //MainView mainView = new MainView();
-
-                    //foreach (Window window in App.Current.Windows)
-                    //    if(window != mainView)
-                    //        window.Close();
-
-                    //mainView.Show();
-                });
-            }
+            get { return new Command(() => MainViewModel.ShowView(MainViewModel.HomeView)); }
         }
         public Command SignoutCommand
         {
@@ -53,14 +43,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
-        public Command OpenSettingsViewCommand
+        public Command SettingsCommand
         {
-            get { return new Command(() => new SettingsView().Show()); }
+            get { return new Command(() => MainViewModel.ShowView(MainViewModel.SettingsView)); }
         }
 
-        public Command OpenAboutViewCommand
+        public Command AboutCommand
         {
-            get { return new Command(() => new AboutView().Show()); }
+            get { return new Command(() => MainViewModel.ShowView(MainViewModel.AboutView)); }
         }
         #endregion
     }

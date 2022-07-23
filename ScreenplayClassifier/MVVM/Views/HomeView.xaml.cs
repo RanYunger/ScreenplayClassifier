@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 namespace ScreenplayClassifier.MVVM.Views
 {
     /// <summary>
-    /// Interaction logic for MenuView.xaml
+    /// Interaction logic for HomeView.xaml
     /// </summary>
-    public partial class MenuView : UserControl
+    public partial class HomeView : UserControl
     {
-        public MenuView()
+        public HomeView()
         {
             InitializeComponent();
-            DataContext = new MenuViewModel();
+            DataContext = new HomeViewModel();
         }
     }
 }
