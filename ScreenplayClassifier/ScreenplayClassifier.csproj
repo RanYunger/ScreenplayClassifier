@@ -8,12 +8,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Media\Audios\Genres\Action.m4a" />
+    <None Remove="Media\Audios\Genres\Adventure.m4a" />
+    <None Remove="Media\Audios\Genres\Comedy.m4a" />
+    <None Remove="Media\Audios\Genres\Crime.m4a" />
+    <None Remove="Media\Audios\Genres\Drama.m4a" />
+    <None Remove="Media\Audios\Genres\Family.m4a" />
+    <None Remove="Media\Audios\Genres\Fantasy.m4a" />
+    <None Remove="Media\Audios\Genres\Horror.m4a" />
+    <None Remove="Media\Audios\Genres\Romance.m4a" />
+    <None Remove="Media\Audios\Genres\SciFi.m4a" />
+    <None Remove="Media\Audios\Genres\Thriller.m4a" />
+    <None Remove="Media\Audios\Genres\War.m4a" />
+    <None Remove="Media\Audios\Jim.m4a" />
+    <None Remove="Media\Audios\Logoff.m4a" />
+    <None Remove="Media\Audios\Logon.m4a" />
+    <None Remove="Media\Audios\Shutdown.m4a" />
+    <None Remove="Media\Audios\Startup.m4a" />
+    <None Remove="Media\Audios\Wilhelm Scream.m4a" />
     <None Remove="Media\Images\Admin.png" />
     <None Remove="Media\Images\Archive.png" />
     <None Remove="Media\Images\Classification.png" />
     <None Remove="Media\Images\Command Shell.png" />
     <None Remove="Media\Images\Document.png" />
+    <None Remove="Media\Images\EmptyFolder.png" />
     <None Remove="Media\Images\Error.png" />
+    <None Remove="Media\Images\FullFolder.png" />
     <None Remove="Media\Images\Genres\Action.png" />
     <None Remove="Media\Images\Genres\Adventure.png" />
     <None Remove="Media\Images\Genres\Comedy.png" />
@@ -23,7 +43,7 @@
     <None Remove="Media\Images\Genres\Fantasy.png" />
     <None Remove="Media\Images\Genres\Horror.png" />
     <None Remove="Media\Images\Genres\Romance.png" />
-    <None Remove="Media\Images\Genres\Sci-Fi.png" />
+    <None Remove="Media\Images\Genres\SciFi.png" />
     <None Remove="Media\Images\Genres\Thriller.png" />
     <None Remove="Media\Images\Genres\Unknown.png" />
     <None Remove="Media\Images\Genres\War.png" />
@@ -50,96 +70,138 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Media\Images\Admin.png">
+    <Content Include="Media\Audios\Genres\Action.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Classification.png">
+    </Content>
+    <Content Include="Media\Audios\Genres\Adventure.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Command Shell.png">
+    </Content>
+    <Content Include="Media\Audios\Genres\Comedy.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Document.png">
+    </Content>
+    <Content Include="Media\Audios\Genres\Crime.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Error.png">
+    </Content>
+    <Content Include="Media\Audios\Genres\Drama.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Genres\Action.png">
+    </Content>
+    <Content Include="Media\Audios\Genres\Family.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Genres\Adventure.png">
+    </Content>
+    <Content Include="Media\Audios\Genres\Fantasy.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Genres\Comedy.png">
+    </Content>
+    <Content Include="Media\Audios\Genres\Horror.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Genres\Crime.png">
+    </Content>
+    <Content Include="Media\Audios\Genres\Romance.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Genres\Drama.png">
+    </Content>
+    <Content Include="Media\Audios\Genres\SciFi.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Genres\Family.png">
+    </Content>
+    <Content Include="Media\Audios\Genres\Thriller.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Genres\Fantasy.png">
+    </Content>
+    <Content Include="Media\Audios\Genres\War.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Genres\Horror.png">
+    </Content>
+    <Content Include="Media\Images\Admin.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Genres\Romance.png">
+    </Content>
+    <Content Include="Media\Images\Classification.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Genres\Sci-Fi.png">
+    </Content>
+    <Content Include="Media\Images\Command Shell.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Genres\Thriller.png">
+    </Content>
+    <Content Include="Media\Images\Document.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Genres\Unknown.png">
+    </Content>
+    <Content Include="Media\Images\EmptyFolder.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Genres\War.png">
+    </Content>
+    <Content Include="Media\Images\Error.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Archive.png">
+    </Content>
+    <Content Include="Media\Images\FullFolder.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Home.png">
+    </Content>
+    <Content Include="Media\Images\Genres\Action.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Info.png">
+    </Content>
+    <Content Include="Media\Images\Genres\Adventure.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Member.png">
+    </Content>
+    <Content Include="Media\Images\Genres\Comedy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Password.png">
+    </Content>
+    <Content Include="Media\Images\Genres\Crime.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Icon.ico">
+    </Content>
+    <Content Include="Media\Images\Genres\Drama.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Reports.png">
+    </Content>
+    <Content Include="Media\Images\Genres\Family.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Screenplay.png">
+    </Content>
+    <Content Include="Media\Images\Genres\Fantasy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Settings.png">
+    </Content>
+    <Content Include="Media\Images\Genres\Horror.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Signout.png">
+    </Content>
+    <Content Include="Media\Images\Genres\Romance.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\User.png">
+    </Content>
+    <Content Include="Media\Images\Genres\SciFi.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Media\Images\Username.png">
+    </Content>
+    <Content Include="Media\Images\Genres\Thriller.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
+    <Content Include="Media\Images\Genres\Unknown.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Genres\War.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Archive.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Home.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Info.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Member.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Password.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Reports.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Screenplay.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Settings.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Signout.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\User.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Username.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Videos\0 Much Later.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -173,6 +235,27 @@
     <Reference Include="System.Windows.Interactivity">
       <HintPath>..\..\RanProject - Sample\ShkediaSupervisor\Supervisor\DLLs\System.Windows.Interactivity.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Media\Audios\Jim.m4a">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Audios\Logoff.m4a">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Audios\Logon.m4a">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Audios\Shutdown.m4a">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Audios\Startup.m4a">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Audios\Wilhelm Scream.m4a">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

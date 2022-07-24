@@ -12,6 +12,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class MainViewModel
     {
         // Properties
+        public Dictionary<string, int> GenresDictionary { get; private set; }
         public UserToolbarViewModel UserToolbarViewModel { get; private set; }
         public HomeView HomeView { get; private set; }
         public SettingsView SettingsView { get; private set; }
@@ -23,6 +24,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Constructors
         public MainViewModel()
         {
+            GenresDictionary = ReadGenresDictionary();
+
             HomeView = new HomeView();
             SettingsView = new SettingsView();
             AboutView = new AboutView();
@@ -51,6 +54,30 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             App.Current.Dispatcher.Invoke(() => ArchivesView = (ArchivesView)mainView.FindName("ArchivesView"));
             App.Current.Dispatcher.Invoke(() => ClassificationView = (ClassificationView)mainView.FindName("ClassificationView"));
             App.Current.Dispatcher.Invoke(() => ReportsView = (ReportsView)mainView.FindName("ReportsView"));
+
+            ((ArchivesViewModel)ArchivesView.DataContext).Init(GenresDictionary);
+        }
+
+        public Dictionary<string, int> ReadGenresDictionary()
+        {
+            Dictionary<string, int> genresDictionary = new Dictionary<string, int>();
+
+            genresDictionary["Action"] = 0;
+            genresDictionary["Adventure"] = 0;
+            genresDictionary["Comedy"] = 2;
+            genresDictionary["Crime"] = 0;
+
+            genresDictionary["Drama"] = 0;
+            genresDictionary["Family"] = 0;
+            genresDictionary["Fantasy"] = 3;
+            genresDictionary["Horror"] = 0;
+
+            genresDictionary["Romance"] = 5;
+            genresDictionary["SciFi"] = 1;
+            genresDictionary["Thriller"] = 0;
+            genresDictionary["War"] = 0;
+
+            return genresDictionary;
         }
 
         public void ShowView(UserControl viewToShow)

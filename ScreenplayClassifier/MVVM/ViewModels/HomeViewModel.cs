@@ -37,20 +37,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 return new Command(() =>
                 {
-                    if (mainViewModel.UserToolbarViewModel.User.Role != Models.UserModel.UserRole.GUEST)
-                        mainViewModel.ShowView(mainViewModel.ArchivesView);
-                    else
-                    {
-                        if (!UserInstructed)
-                        {
-                            UserInstructed = true;
-                            MessageBoxHandler.Show("Before we start, an instructional video will be played", "Disclaimer",
-                                3, MessageBoxImage.Information);
-                            PlayInstructionalVideoCommand.Execute(null);
-                        }
-                        else
-                            mainViewModel.ShowView(mainViewModel.ArchivesView);
-                    }
+                    mainViewModel.ShowView(mainViewModel.ArchivesView);
+
+                    //if (mainViewModel.UserToolbarViewModel.User.Role != Models.UserModel.UserRole.GUEST)
+                    //    mainViewModel.ShowView(mainViewModel.ArchivesView);
+                    //else
+                    //{
+                    //    if (!UserInstructed)
+                    //    {
+                    //        UserInstructed = true;
+                    //        MessageBoxHandler.Show("Before we start, an instructional video will be played", "Disclaimer",
+                    //            3, MessageBoxImage.Information);
+                    //        PlayInstructionalVideoCommand.Execute(null);
+                    //    }
+                    //    else
+                    //        mainViewModel.ShowView(mainViewModel.ArchivesView);
+                    //}
                 });
             }
         }
@@ -66,20 +68,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 return new Command(() =>
                 {
-                    if (mainViewModel.UserToolbarViewModel.User.Role != Models.UserModel.UserRole.GUEST)
-                        mainViewModel.ShowView(mainViewModel.ClassificationView);
-                    else
-                    {
-                        if (!UserInstructed)
-                        {
-                            UserInstructed = true;
-                            MessageBoxHandler.Show("Before we start, an instructional video will be played", "Disclaimer",
-                                3, MessageBoxImage.Information);
-                            PlayInstructionalVideoCommand.Execute(null);
-                        }
-                        else
-                            mainViewModel.ShowView(mainViewModel.ClassificationView);
-                    }
+                    mainViewModel.ShowView(mainViewModel.ClassificationView);
+
+                    //if (mainViewModel.UserToolbarViewModel.User.Role != Models.UserModel.UserRole.GUEST)
+                    //    mainViewModel.ShowView(mainViewModel.ClassificationView);
+                    //else
+                    //{
+                    //    if (!UserInstructed)
+                    //    {
+                    //        UserInstructed = true;
+                    //        MessageBoxHandler.Show("Before we start, an instructional video will be played", "Disclaimer",
+                    //            3, MessageBoxImage.Information);
+                    //        PlayInstructionalVideoCommand.Execute(null);
+                    //    }
+                    //    else
+                    //        mainViewModel.ShowView(mainViewModel.ClassificationView);
+                    //}
                 });
             }
         }
@@ -95,20 +99,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 return new Command(() =>
                 {
-                    if (mainViewModel.UserToolbarViewModel.User.Role != Models.UserModel.UserRole.GUEST)
-                        mainViewModel.ShowView(mainViewModel.ReportsView);
-                    else
-                    {
-                        if (!UserInstructed)
-                        {
-                            UserInstructed = true;
-                            MessageBoxHandler.Show("Before we start, an instructional video will be played", "Disclaimer",
-                                3, MessageBoxImage.Information);
-                            PlayInstructionalVideoCommand.Execute(null);
-                        }
-                        else
-                            mainViewModel.ShowView(mainViewModel.ReportsView);
-                    }
+                    mainViewModel.ShowView(mainViewModel.ReportsView);
+
+                    //if (mainViewModel.UserToolbarViewModel.User.Role != Models.UserModel.UserRole.GUEST)
+                    //    mainViewModel.ShowView(mainViewModel.ReportsView);
+                    //else
+                    //{
+                    //    if (!UserInstructed)
+                    //    {
+                    //        UserInstructed = true;
+                    //        MessageBoxHandler.Show("Before we start, an instructional video will be played", "Disclaimer",
+                    //            3, MessageBoxImage.Information);
+                    //        PlayInstructionalVideoCommand.Execute(null);
+                    //    }
+                    //    else
+                    //        mainViewModel.ShowView(mainViewModel.ReportsView);
+                    //}
                 });
             }
         }

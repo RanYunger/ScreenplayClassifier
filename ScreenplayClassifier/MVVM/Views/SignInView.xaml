@@ -3,9 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:ScreenplayClassifier.MVVM.ViewModels"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
-        mc:Ignorable="d"
         Title="Screenplay Classifier" Height="600" Width="400" ResizeMode="NoResize" Style="{StaticResource WindowStyle}">
     <Grid>
         <StackPanel HorizontalAlignment="Stretch">

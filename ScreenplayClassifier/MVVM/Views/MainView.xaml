@@ -4,9 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
-        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        Title="Screenplay Classifier" MinHeight="700" MinWidth="1210" WindowState="Maximized" SizeToContent="WidthAndHeight"
-        Style="{StaticResource WindowStyle}">
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"         
+        Title="Screenplay Classifier" MinHeight="700" MinWidth="1210" SizeToContent="WidthAndHeight" Style="{StaticResource WindowStyle}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>

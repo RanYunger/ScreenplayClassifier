@@ -4,24 +4,35 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
-             mc:Ignorable="d" 
              MinHeight="500" MinWidth="1200" Style="{StaticResource UserControlStyle}">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <TextBlock Text="Screenplays" HorizontalAlignment="Center" FontSize="40" Margin="20" Style="{StaticResource TextBlockStyle}"/>
-        </StackPanel>
-        <StackPanel Grid.Column="1">
-            <TextBlock Text="Genres" HorizontalAlignment="Center" FontSize="40" Margin="20" Style="{StaticResource TextBlockStyle}"/>
-            
-        </StackPanel>
-        <StackPanel Grid.Column="2">
-            <TextBlock Text="Screenplay Archives" HorizontalAlignment="Center" FontSize="40" Margin="20" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Text="Screenplay Archives" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" FontSize="60" Margin="10"
+                   Style="{StaticResource TextBlockStyle}"/>
+        <v:FolderView x:Name="ActionFolderView" Grid.Row="1" Grid.Column="0"/>
+        <v:FolderView x:Name="AdventureFolderView" Grid.Row="1" Grid.Column="1"/>
+        <v:FolderView x:Name="ComedyFolderView" Grid.Row="1" Grid.Column="2"/>
+        <v:FolderView x:Name="CrimeFolderView" Grid.Row="1" Grid.Column="3"/>
 
-        </StackPanel>
+        <v:FolderView x:Name="DramaFolderView" Grid.Row="2" Grid.Column="0"/>
+        <v:FolderView x:Name="FamilyFolderView" Grid.Row="2" Grid.Column="1"/>
+        <v:FolderView x:Name="FantasyFolderView" Grid.Row="2" Grid.Column="2"/>
+        <v:FolderView x:Name="HorrorFolderView" Grid.Row="2" Grid.Column="3"/>
+
+        <v:FolderView x:Name="RomanceFolderView" Grid.Row="3" Grid.Column="0"/>
+        <v:FolderView x:Name="SciFiFolderView" Grid.Row="3" Grid.Column="1"/>
+        <v:FolderView x:Name="ThrillerFolderView" Grid.Row="3" Grid.Column="2"/>
+        <v:FolderView x:Name="WarFolderView" Grid.Row="3" Grid.Column="3"/>
     </Grid>
 </UserControl>

@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ScreenplayClassifier.MVVM.Views"
-             mc:Ignorable="d" 
              MinHeight="500" MinWidth="1200" Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -12,11 +11,12 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <TabControl Grid.Column="0" AllowDrop="False">
-            <TabControl.Items>
-                <TabItem Header="Step 1" FontSize="40" Style="{StaticResource TabItemStyle}"/>
-                <TabItem Header="Step 2" FontSize="40" Style="{StaticResource TabItemStyle}"/>
-                <TabItem Header="Step 3" FontSize="40" Style="{StaticResource TabItemStyle}"/>
-            </TabControl.Items>
+            <TabItem Header="Step 1" FontSize="40" Style="{StaticResource TabItemStyle}">
+            </TabItem>
+            <TabItem Header="Step 2" FontSize="40" Style="{StaticResource TabItemStyle}">
+            </TabItem>
+            <TabItem Header="Step 3" FontSize="40" Style="{StaticResource TabItemStyle}">
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>
