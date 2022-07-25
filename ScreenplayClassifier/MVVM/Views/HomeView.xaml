@@ -13,7 +13,7 @@
                 <StackPanel Cursor="Hand" ToolTip="View past classifications">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding ArchivesCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding ShowArchivesViewCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <StackPanel.Triggers>
@@ -49,7 +49,7 @@
                 <StackPanel Cursor="Hand" ToolTip="Classify screenplays to genres">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding ClassificationCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding ShowClassificationViewCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <StackPanel.Triggers>
@@ -85,7 +85,7 @@
                 <StackPanel Cursor="Hand" ToolTip="View classification reports">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding ReportsCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding ShowReportsViewCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <StackPanel.Triggers>

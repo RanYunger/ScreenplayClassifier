@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScreenplayClassifier.MVVM.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,6 +22,7 @@ namespace ScreenplayClassifier.MVVM.Views
         public SettingsView()
         {
             InitializeComponent();
+            DataContext = new SettingsViewModel();
         }
     }
 }

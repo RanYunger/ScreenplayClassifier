@@ -16,28 +16,23 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class HomeViewModel
     {
         // Properties
+        public HomeView HomeView { get; private set; }
+        public MainViewModel MainViewModel { get; private set; }
+
         public bool UserInstructed { get; private set; }
 
         // Constructors
-        public HomeViewModel()
-        {
-        }
+        public HomeViewModel() { }
 
         // Methods
         #region Commands   
-        public Command ArchivesCommand
+        public Command ShowArchivesViewCommand
         {
             get
             {
-                MainView mainView = null;
-                MainViewModel mainViewModel = null;
-
-                App.Current.Dispatcher.Invoke(() => mainView = (MainView)App.Current.MainWindow);
-                App.Current.Dispatcher.Invoke(() => mainViewModel = (MainViewModel)mainView.DataContext);
-
                 return new Command(() =>
                 {
-                    mainViewModel.ShowView(mainViewModel.ArchivesView);
+                    MainViewModel.ShowView(MainViewModel.ArchivesView);
 
                     //if (mainViewModel.UserToolbarViewModel.User.Role != Models.UserModel.UserRole.GUEST)
                     //    mainViewModel.ShowView(mainViewModel.ArchivesView);
@@ -56,19 +51,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
-        public Command ClassificationCommand
+        public Command ShowClassificationViewCommand
         {
             get
             {
-                MainView mainView = null;
-                MainViewModel mainViewModel = null;
-
-                App.Current.Dispatcher.Invoke(() => mainView = (MainView)App.Current.MainWindow);
-                App.Current.Dispatcher.Invoke(() => mainViewModel = (MainViewModel)mainView.DataContext);
-
                 return new Command(() =>
                 {
-                    mainViewModel.ShowView(mainViewModel.ClassificationView);
+                    MainViewModel.ShowView(MainViewModel.ClassificationView);
 
                     //if (mainViewModel.UserToolbarViewModel.User.Role != Models.UserModel.UserRole.GUEST)
                     //    mainViewModel.ShowView(mainViewModel.ClassificationView);
@@ -87,19 +76,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
-        public Command ReportsCommand
+        public Command ShowReportsViewCommand
         {
             get
             {
-                MainView mainView = null;
-                MainViewModel mainViewModel = null;
-
-                App.Current.Dispatcher.Invoke(() => mainView = (MainView)App.Current.MainWindow);
-                App.Current.Dispatcher.Invoke(() => mainViewModel = (MainViewModel)mainView.DataContext);
-
                 return new Command(() =>
                 {
-                    mainViewModel.ShowView(mainViewModel.ReportsView);
+                    MainViewModel.ShowView(MainViewModel.ReportsView);
 
                     //if (mainViewModel.UserToolbarViewModel.User.Role != Models.UserModel.UserRole.GUEST)
                     //    mainViewModel.ShowView(mainViewModel.ReportsView);
@@ -166,5 +149,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             App.Current.Dispatcher.Invoke(() => mediaElement.Visibility = Visibility.Collapsed);
         }
         #endregion
+
+        public void Init(HomeView homeView, MainViewModel mainViewModel)
+        {
+            HomeView = homeView;
+            MainViewModel = mainViewModel;
+        }
     }
 }

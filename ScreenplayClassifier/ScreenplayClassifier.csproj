@@ -26,9 +26,12 @@
     <None Remove="Media\Audios\Shutdown.m4a" />
     <None Remove="Media\Audios\Startup.m4a" />
     <None Remove="Media\Audios\Wilhelm Scream.m4a" />
+    <None Remove="Media\Images\Add.png" />
     <None Remove="Media\Images\Admin.png" />
     <None Remove="Media\Images\Archive.png" />
+    <None Remove="Media\Images\Browse.png" />
     <None Remove="Media\Images\Classification.png" />
+    <None Remove="Media\Images\Clear.png" />
     <None Remove="Media\Images\Command Shell.png" />
     <None Remove="Media\Images\Document.png" />
     <None Remove="Media\Images\EmptyFolder.png" />
@@ -52,6 +55,9 @@
     <None Remove="Media\Images\Info.png" />
     <None Remove="Media\Images\Member.png" />
     <None Remove="Media\Images\Password.png" />
+    <None Remove="Media\Images\Pause.png" />
+    <None Remove="Media\Images\Play.png" />
+    <None Remove="Media\Images\Remove.png" />
     <None Remove="Media\Images\Reports.png" />
     <None Remove="Media\Images\Screenplay.png" />
     <None Remove="Media\Images\Settings.png" />
@@ -106,10 +112,19 @@
     <Content Include="Media\Audios\Genres\War.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\Add.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\Admin.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\Browse.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\Classification.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Clear.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Command Shell.png">
@@ -182,6 +197,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Pause.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Play.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Remove.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Reports.png">

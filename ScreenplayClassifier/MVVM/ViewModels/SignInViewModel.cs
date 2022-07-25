@@ -99,14 +99,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
+                MainView mainView = new MainView();
                 SignInView signInView = null;
 
                 App.Current.Dispatcher.Invoke(() => signInView = (SignInView)App.Current.MainWindow);
 
                 return new Command(() =>
                 {
-                    App.Current.MainWindow = new MainView();
-                    App.Current.Dispatcher.Invoke(() => ((MainViewModel)App.Current.MainWindow.DataContext).Init(new UserModel()));
+                    App.Current.MainWindow = mainView;
+                    App.Current.Dispatcher.Invoke(() => ((MainViewModel)mainView.DataContext).Init(new UserModel()));
                     App.Current.MainWindow.Show();
 
                     signInView.Close();

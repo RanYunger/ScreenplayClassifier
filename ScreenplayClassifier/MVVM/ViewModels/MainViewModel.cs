@@ -55,7 +55,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             App.Current.Dispatcher.Invoke(() => ClassificationView = (ClassificationView)mainView.FindName("ClassificationView"));
             App.Current.Dispatcher.Invoke(() => ReportsView = (ReportsView)mainView.FindName("ReportsView"));
 
-            ((ArchivesViewModel)ArchivesView.DataContext).Init(GenresDictionary);
+            ((HomeViewModel)HomeView.DataContext).Init(HomeView, this);
+            ((SettingsViewModel)SettingsView.DataContext).Init(SettingsView, this);
+            ((ArchivesViewModel)ArchivesView.DataContext).Init(ArchivesView, this, GenresDictionary);
+            ((ClassificationViewModel)ClassificationView.DataContext).Init(ClassificationView, this);
+            ((ReportsViewModel)ReportsView.DataContext).Init(ReportsView, this);
         }
 
         public Dictionary<string, int> ReadGenresDictionary()

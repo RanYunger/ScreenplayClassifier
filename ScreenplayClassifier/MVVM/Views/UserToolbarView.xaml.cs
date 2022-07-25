@@ -23,6 +23,7 @@ namespace ScreenplayClassifier.MVVM.Views
         public UserToolbarView()
         {
             InitializeComponent();
+            //DataContext = new UserToolbarViewModel();
         }
     }
 }

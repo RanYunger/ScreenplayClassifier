@@ -67,7 +67,7 @@
         <Setter Property="AutoGenerateColumns" Value="False"/>
         <Setter Property="Background" Value="{StaticResource UserControlBackground}"/>
         <Setter Property="CanUserResizeColumns" Value="False"/>
-        <Setter Property="CanUserReorderColumns" Value="False"/>
+        <Setter Property="CanUserReorderColumns" Value="True"/>
         <Setter Property="CanUserSortColumns" Value="False"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
