@@ -120,13 +120,6 @@
         <Setter Property="MaxLength" Value="8"/>
     </Style>
 
-    <!--Polygon Style-->
-    <Style x:Key="PolygonStyle" TargetType="Polygon">
-        <Setter Property="Stroke" Value="Black"/>
-        <Setter Property="Fill" Value="DarkBlue"/>
-        <Setter Property="Cursor" Value="Hand"/>
-    </Style>
-    
     <!--RadioButton Style-->
     <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
         <Setter Property="Background" Value="{StaticResource GroupBoxBackground}"/>
@@ -139,6 +132,7 @@
     <Style x:Key="TabItemStyle" TargetType="TabItem">
         <Setter Property="Background" Value="{StaticResource UserControlBackground}"/>
         <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Cursor" Value="Hand"/>
     </Style>
     
     <!--TextBlock Styles-->
@@ -153,8 +147,8 @@
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
-    <Style x:Key="FrozenTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxStyle}">
-        <Setter Property="IsEnabled" Value="False"/>
+    <Style x:Key="ReadOnlyTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxStyle}">
+        <Setter Property="IsReadOnly" Value="True"/>
     </Style>
     
     <!--ToggleButton Style-->

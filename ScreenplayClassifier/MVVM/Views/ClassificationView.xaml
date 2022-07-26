@@ -5,69 +5,88 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
-             MinHeight="500" MinWidth="1200" Style="{StaticResource UserControlStyle}">
+             Style="{StaticResource UserControlStyle}">
     <Grid>
-        <StackPanel x:Name="BrowseStackPanel" HorizontalAlignment="Center" Visibility="Visible">
-            <StackPanel.Style>
-                <Style TargetType="StackPanel">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=ClassificationStackPanel, Path=Visibility}" Value="Collapsed">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=ClassificationStackPanel, Path=Visibility}" Value="Visible">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-            <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,10">
-                <TextBlock Text="Browse screenplays to classify:" HorizontalAlignment="Center" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
-                <Button x:Name="BrowseScreenplaysButton" Command="{Binding BrowseScreenplaysCommand}" Height="50" Width="50"
-                        ToolTip="Browse..." Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
-                    <Button.Content>
-                        <Image Source="/Media/Images/Browse.png"/>
-                    </Button.Content>
-                </Button>
-                <Button x:Name="ClearScreenplaysButton" Command="{Binding ClearScreenplaysCommand}" Height="50" Width="50" ToolTip="Browse..."
+        <TabControl TabStripPlacement="Left">
+            <TabItem Header="Browse Screenplays" Style="{StaticResource TabItemStyle}">
+                <StackPanel x:Name="BrowseStackPanel" HorizontalAlignment="Center" Visibility="Visible">
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=ClassificationStackPanel, Path=Visibility}" Value="Collapsed">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=ClassificationStackPanel, Path=Visibility}" Value="Visible">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,10">
+                        <Button x:Name="BrowseScreenplaysButton" Command="{Binding BrowseScreenplaysCommand}" Height="100" Width="100"
+                        ToolTip="Browse..." Style="{StaticResource ButtonStyle}">
+                            <Button.Content>
+                                <Image Source="/Media/Images/Browse.png"/>
+                            </Button.Content>
+                        </Button>
+                        <Button x:Name="ClearScreenplaysButton" Command="{Binding ClearScreenplaysCommand}" Height="100" Width="100" ToolTip="Clear"
                         Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
-                    <Button.Content>
-                        <Image Source="/Media/Images/Clear.png"/>
-                    </Button.Content>
-                </Button>
-            </WrapPanel>
-            <DataGrid x:Name="ScreenplaysDataGrid" Height="250" SelectedIndex="{Binding SelectedScreenplay}" ItemsSource="{Binding BrowsedScreenplays}"
-                      Style="{StaticResource DataGridStyle}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="KeyDown">
-                        <i:InvokeCommandAction Command="{Binding CheckKeyCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Path=Name}"/>
-                    <DataGridTextColumn Header="File Path" Width="350" Binding="{Binding Path=FilePath}">
-                    </DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Command="{Binding ClassifyScreenplaysCommand}" Height="50" Width="50" ToolTip="Browse..."
-                        Margin="0,10,0,0" Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <Image Source="/Media/Images/Play.png"/>
-                </Button.Content>
-            </Button>
-        </StackPanel>
-        <StackPanel x:Name="ClassificationStackPanel" HorizontalAlignment="Center">
-            <StackPanel.Style>
-                <Style TargetType="StackPanel">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=BrowseStackPanel, Path=Visibility}" Value="Collapsed">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=BrowseStackPanel, Path=Visibility}" Value="Visible">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-        </StackPanel>
+                            <Button.Content>
+                                <Image Source="/Media/Images/Clear.png"/>
+                            </Button.Content>
+                        </Button>
+                    </WrapPanel>
+                    <DataGrid x:Name="BrowsedScreenplaysDataGrid" Height="475" SelectedIndex="{Binding SelectedBrowsedScreenplay}"
+                              ItemsSource="{Binding BrowsedScreenplays}" Style="{StaticResource DataGridStyle}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="KeyDown">
+                                <i:InvokeCommandAction Command="{Binding CheckKeyCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Width="500" Binding="{Binding Path=Name}"/>
+                            <DataGridTextColumn Header="File Path" Width="800" Binding="{Binding Path=FilePath}">
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="ProceedToClassificationButton" Command="{Binding ProceedToClassificationCommand}" IsEnabled="False"
+                            Height="125" Width="125" ToolTip="Proceed to classification" Margin="0,10,0,0" Style="{StaticResource ButtonStyle}">
+                        <Button.Content>
+                            <Image Source="/Media/Images/Play.png"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Classify Screenplays" Style="{StaticResource TabItemStyle}">
+
+            </TabItem>
+            <TabItem Header="View Classifications" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Screenplays" FontSize="40" HorizontalAlignment="Center" Margin="0,10,0,10"
+                                   Style="{StaticResource TextBlockStyle}"/>
+                        <DataGrid x:Name="ClassifiedScreenplaysDataGrid" Height="475" SelectedIndex="{Binding SelectedClassifiedScreenplay}"
+                              ItemsSource="{Binding ClassifiedScreenplays}" Style="{StaticResource DataGridStyle}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="KeyDown">
+                                    <i:InvokeCommandAction Command="{Binding CheckKeyCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Width="390" Binding="{Binding Path=Name}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="Classification Report" FontSize="40" HorizontalAlignment="Center" Margin="0,10,0,10"
+                                   Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>

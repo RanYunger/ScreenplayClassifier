@@ -5,12 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
-             MinHeight="500" MinWidth="1200" Style="{StaticResource UserControlStyle}">
+             Style="{StaticResource UserControlStyle}">
     <Grid>
-        <StackPanel x:Name="MenuStackPanel">
-            <TextBlock Text="SOME WELCOME TEXT" HorizontalAlignment="Center" FontSize="70" Margin="20" Style="{StaticResource TextBlockStyle}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Welcome to Screenplay Classifier" HorizontalAlignment="Center" FontSize="70" Style="{StaticResource TextBlockStyle}"/>
+        <StackPanel x:Name="MenuStackPanel" Grid.Row="1" VerticalAlignment="Center">
             <WrapPanel HorizontalAlignment="Center">
-                <StackPanel Cursor="Hand" ToolTip="View past classifications">
+                <StackPanel Cursor="Hand" ToolTip="View past classifications" Margin="0,0,50,0">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding ShowArchivesViewCommand}"/>
@@ -21,6 +25,18 @@
                             <BeginStoryboard>
                                 <Storyboard>
                                     <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ArchivesImage"
+                                                 Storyboard.TargetProperty="Height" To="400"/>
+                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ArchivesImage"
+                                                 Storyboard.TargetProperty="Width" To="400"/>
+                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ArchivesTextBlock"
+                                                     Storyboard.TargetProperty="FontSize" To="80"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ArchivesImage"
                                                  Storyboard.TargetProperty="Height" To="300"/>
                                     <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ArchivesImage"
                                                  Storyboard.TargetProperty="Width" To="300"/>
@@ -29,24 +45,12 @@
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
-                        <EventTrigger RoutedEvent="MouseLeave">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ArchivesImage"
-                                                 Storyboard.TargetProperty="Height" To="200"/>
-                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ArchivesImage"
-                                                 Storyboard.TargetProperty="Width" To="200"/>
-                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ArchivesTextBlock"
-                                                     Storyboard.TargetProperty="FontSize" To="40"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
                     </StackPanel.Triggers>
-                    <Image x:Name="ArchivesImage" Source="/Media/Images/Archive.png" Height="200" Width="200" Margin="50,0,50,0"/>
-                    <TextBlock x:Name="ArchivesTextBlock" Text="Archives" HorizontalAlignment="Center" FontSize="40"
+                    <Image x:Name="ArchivesImage" Source="/Media/Images/Archive.png" Height="300" Width="300" Margin="50,0,50,0"/>
+                    <TextBlock x:Name="ArchivesTextBlock" Text="Archives" HorizontalAlignment="Center" FontSize="60"
                            Style="{StaticResource TextBlockStyle}"/>
                 </StackPanel>
-                <StackPanel Cursor="Hand" ToolTip="Classify screenplays to genres">
+                <StackPanel Cursor="Hand" ToolTip="Classify screenplays to genres" Margin="50,0,50,0">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding ShowClassificationViewCommand}"/>
@@ -57,6 +61,18 @@
                             <BeginStoryboard>
                                 <Storyboard>
                                     <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ClassificationImage"
+                                                 Storyboard.TargetProperty="Height" To="400"/>
+                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ClassificationImage"
+                                                 Storyboard.TargetProperty="Width" To="400"/>
+                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ClassificationTextBlock"
+                                                     Storyboard.TargetProperty="FontSize" To="80"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ClassificationImage"
                                                  Storyboard.TargetProperty="Height" To="300"/>
                                     <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ClassificationImage"
                                                  Storyboard.TargetProperty="Width" To="300"/>
@@ -65,24 +81,12 @@
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
-                        <EventTrigger RoutedEvent="MouseLeave">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ClassificationImage"
-                                                 Storyboard.TargetProperty="Height" To="200"/>
-                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ClassificationImage"
-                                                 Storyboard.TargetProperty="Width" To="200"/>
-                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ClassificationTextBlock"
-                                                     Storyboard.TargetProperty="FontSize" To="40"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
                     </StackPanel.Triggers>
-                    <Image x:Name="ClassificationImage" Source="/Media/Images/Classification.png" Height="200" Width="200" Margin="50,0,50,0"/>
-                    <TextBlock x:Name="ClassificationTextBlock" Text="Classification" HorizontalAlignment="Center" FontSize="40"
+                    <Image x:Name="ClassificationImage" Source="/Media/Images/Classification.png" Height="300" Width="300" Margin="50,0,50,0"/>
+                    <TextBlock x:Name="ClassificationTextBlock" Text="Classification" HorizontalAlignment="Center" FontSize="60"
                            Style="{StaticResource TextBlockStyle}"/>
                 </StackPanel>
-                <StackPanel Cursor="Hand" ToolTip="View classification reports">
+                <StackPanel Cursor="Hand" ToolTip="View classification reports" Margin="50,0,0,0">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding ShowReportsViewCommand}"/>
@@ -93,6 +97,18 @@
                             <BeginStoryboard>
                                 <Storyboard>
                                     <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ReportsImage"
+                                                 Storyboard.TargetProperty="Height" To="400"/>
+                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ReportsImage"
+                                                 Storyboard.TargetProperty="Width" To="400"/>
+                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ReportsTextBlock"
+                                                     Storyboard.TargetProperty="FontSize" To="80"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ReportsImage"
                                                  Storyboard.TargetProperty="Height" To="300"/>
                                     <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ReportsImage"
                                                  Storyboard.TargetProperty="Width" To="300"/>
@@ -101,21 +117,9 @@
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
-                        <EventTrigger RoutedEvent="MouseLeave">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ReportsImage"
-                                                 Storyboard.TargetProperty="Height" To="200"/>
-                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ReportsImage"
-                                                 Storyboard.TargetProperty="Width" To="200"/>
-                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ReportsTextBlock"
-                                                     Storyboard.TargetProperty="FontSize" To="40"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
                     </StackPanel.Triggers>
-                    <Image x:Name="ReportsImage" Source="/Media/Images/Reports.png" Height="200" Width="200" Margin="50,0,50,0"/>
-                    <TextBlock x:Name="ReportsTextBlock" Text="Reports" HorizontalAlignment="Center" FontSize="40"
+                    <Image x:Name="ReportsImage" Source="/Media/Images/Reports.png" Height="300" Width="300" Margin="50,0,50,0"/>
+                    <TextBlock x:Name="ReportsTextBlock" Text="Reports" HorizontalAlignment="Center" FontSize="60"
                            Style="{StaticResource TextBlockStyle}"/>
                 </StackPanel>
             </WrapPanel>

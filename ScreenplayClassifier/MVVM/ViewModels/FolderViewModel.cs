@@ -1,4 +1,5 @@
 ﻿using ScreenplayClassifier.MVVM.Views;
+using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,12 +10,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 {
     public class FolderViewModel
     {
-        // Fields
-        private string basePath = Environment.CurrentDirectory + @"\Media\Images\";
-
         // Properties
         public FolderView FolderView { get; private set; }
-        public string ItemsCount { get; private set; }
 
         // Constructors
         public FolderViewModel() { }
@@ -22,11 +19,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Methods
         public void Init(FolderView folderView, string genreName, int itemsCount)
         {
-            // TODO: FIX (textblock not showing in runtime)
             Image folderImage = null, genreImage = null;
             TextBlock screenplaysCountTextBlock = null;
-            string folderImageFilePath = string.Format("{0}{1}", basePath, itemsCount > 0 ? "FullFolder.png" : "EmptyFolder.png"),
-                genreImageFilePath = string.Format(@"{0}\Genres\{1}.png", basePath, genreName);
+            string folderImageFilePath = string.Format("{0}{1}", FolderPaths.IMAGES, itemsCount > 0 ? "FullFolder.png" : "EmptyFolder.png"),
+                genreImageFilePath = string.Format(@"{0}{1}.png", FolderPaths.GENREIMAGES, genreName);
 
             FolderView = folderView;
             folderImage = (Image)FolderView.FindName("FolderImage");

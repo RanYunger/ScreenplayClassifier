@@ -16,8 +16,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class HomeViewModel
     {
         // Properties
-        public HomeView HomeView { get; private set; }
         public MainViewModel MainViewModel { get; private set; }
+        public HomeView HomeView { get; private set; }
 
         public bool UserInstructed { get; private set; }
 
@@ -106,15 +106,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
-                MainView mainView = null;
-                HomeView homeView = null;
-                StackPanel menuStackPanel = null;
-                MediaElement choiceMediaElement = null;
-
-                App.Current.Dispatcher.Invoke(() => mainView = (MainView)App.Current.MainWindow);
-                App.Current.Dispatcher.Invoke(() => homeView = ((MainViewModel)mainView.DataContext).HomeView);
-                App.Current.Dispatcher.Invoke(() => menuStackPanel = (StackPanel)homeView.FindName("MenuStackPanel"));
-                App.Current.Dispatcher.Invoke(() => choiceMediaElement = (MediaElement)mainView.FindName("ChoiceMediaElement"));
+                MainView mainView = MainViewModel.MainView;
+                StackPanel menuStackPanel = menuStackPanel = (StackPanel)HomeView.FindName("MenuStackPanel");
+                MediaElement choiceMediaElement = (MediaElement)mainView.FindName("ChoiceMediaElement");
 
                 return new Command(() =>
                 {

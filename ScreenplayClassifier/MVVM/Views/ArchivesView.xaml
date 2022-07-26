@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
-             MinHeight="500" MinWidth="1200" Style="{StaticResource UserControlStyle}">
+             Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>

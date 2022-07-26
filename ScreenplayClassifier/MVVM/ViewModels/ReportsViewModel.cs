@@ -8,9 +8,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     class ReportsViewModel
     {
         // Properties
-        public ReportsView ReportsView { get; private set; }
         public MainViewModel MainViewModel { get; private set; }
-
+        public ReportsView ReportsView { get; private set; }
 
         // Constructors
         public ReportsViewModel() { }

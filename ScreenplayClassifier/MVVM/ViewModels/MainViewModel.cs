@@ -12,14 +12,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class MainViewModel
     {
         // Properties
-        public Dictionary<string, int> GenresDictionary { get; private set; }
-        public UserToolbarViewModel UserToolbarViewModel { get; private set; }
+        public MainView MainView { get; private set; }
+        public UserToolbarView UserToolbarView { get; private set; }
+
         public HomeView HomeView { get; private set; }
         public SettingsView SettingsView { get; private set; }
         public AboutView AboutView { get; private set; }
         public ArchivesView ArchivesView { get; private set; }
         public ClassificationView ClassificationView { get; private set; }
         public ReportsView ReportsView { get; private set; }
+
+        public Dictionary<string, int> GenresDictionary { get; private set; }
 
         // Constructors
         public MainViewModel()
@@ -41,19 +44,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void Init(UserModel user)
         {
-            MainView mainView = null;
-            UserToolbarView userToolbarView = null;
+            App.Current.Dispatcher.Invoke(() => MainView = (MainView)App.Current.MainWindow);
+            UserToolbarView = (UserToolbarView)MainView.FindName("UserToolbarView");
+            UserToolbarView.DataContext = new UserToolbarViewModel(user, this);
 
-            App.Current.Dispatcher.Invoke(() => mainView = (MainView)App.Current.MainWindow);
-            App.Current.Dispatcher.Invoke(() => userToolbarView = (UserToolbarView)mainView.FindName("UserToolbarView"));
-            App.Current.Dispatcher.Invoke(() => userToolbarView.DataContext = UserToolbarViewModel = new UserToolbarViewModel(user, this));
-
-            App.Current.Dispatcher.Invoke(() => HomeView = (HomeView)mainView.FindName("HomeView"));
-            App.Current.Dispatcher.Invoke(() => SettingsView = (SettingsView)mainView.FindName("SettingsView"));
-            App.Current.Dispatcher.Invoke(() => AboutView = (AboutView)mainView.FindName("AboutView"));
-            App.Current.Dispatcher.Invoke(() => ArchivesView = (ArchivesView)mainView.FindName("ArchivesView"));
-            App.Current.Dispatcher.Invoke(() => ClassificationView = (ClassificationView)mainView.FindName("ClassificationView"));
-            App.Current.Dispatcher.Invoke(() => ReportsView = (ReportsView)mainView.FindName("ReportsView"));
+            HomeView = (HomeView)MainView.FindName("HomeView");
+            SettingsView = (SettingsView)MainView.FindName("SettingsView");
+            AboutView = (AboutView)MainView.FindName("AboutView");
+            ArchivesView = (ArchivesView)MainView.FindName("ArchivesView");
+            ClassificationView = (ClassificationView)MainView.FindName("ClassificationView");
+            ReportsView = (ReportsView)MainView.FindName("ReportsView");
 
             ((HomeViewModel)HomeView.DataContext).Init(HomeView, this);
             ((SettingsViewModel)SettingsView.DataContext).Init(SettingsView, this);

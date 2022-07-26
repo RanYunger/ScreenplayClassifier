@@ -112,6 +112,9 @@
     <Content Include="Media\Audios\Genres\War.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Audios\Jim.m4a">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\Add.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -133,13 +136,7 @@
     <Content Include="Media\Images\Document.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\EmptyFolder.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\Images\Error.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\FullFolder.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Genres\Action.png">
@@ -262,9 +259,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Media\Audios\Jim.m4a">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\Audios\Logoff.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -278,6 +272,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Audios\Wilhelm Scream.m4a">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Media\Images\EmptyFolder.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Media\Images\FullFolder.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
