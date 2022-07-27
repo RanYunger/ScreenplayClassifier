@@ -10,27 +10,66 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class SignInViewModel
+    public class SignInViewModel : INotifyPropertyChanged
     {
         // Constants
         public string usernamePattern = "([A-Z]{1}[a-z]+){2,3}";
         public string passwordPattern = "[A-Z]{2,3}[0-9]{5,6}";
 
+        // Fields
+        private ObservableCollection<UserModel> members;
+        private string usernameInput;
+        private int attemptsCount;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         // Properties
-        public List<UserModel> membersList { get; private set; }
-        public string UsernameInput { get; set; }
-        public int AttemptsCount { get; private set; }
+        public ObservableCollection<UserModel> Members
+        {
+            get { return members; }
+            set
+            {
+                members = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("Members"));
+            }
+        }
+        public string UsernameInput
+        {
+            get { return usernameInput; }
+            set
+            {
+                usernameInput = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("UsernameInput"));
+            }
+        }
+        public int AttemptsCount
+        {
+            get { return attemptsCount; }
+            set
+            {
+                attemptsCount = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("AttemptsCount"));
+            }
+        }
 
         // Constructors
         public SignInViewModel()
         {
-            membersList = new List<UserModel>();
+            Members = new ObservableCollection<UserModel>();
+            UsernameInput = string.Empty;
 
-            membersList.Add(new UserModel("RanYunger", UserModel.UserRole.ADMIN, "RY120696"));
-            membersList.Add(new UserModel("ShyOhevZion", UserModel.UserRole.MEMBER, "SHZ12345"));
+            Members.Add(new UserModel("RanYunger", UserModel.UserRole.ADMIN, "RY120696"));
+            Members.Add(new UserModel("ShyOhevZion", UserModel.UserRole.MEMBER, "SHZ12345"));
         }
 
         // Methods
@@ -81,7 +120,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         passwordErrorWrapPanel.Visibility = Visibility.Visible;
                     }
 
-                    identifiedUser = membersList.Find(u => u.Username.Equals(UsernameInput) && u.Password.Equals(passwordBox.Password));
+                    identifiedUser = FindUser(UsernameInput.Trim(), passwordBox.Password.Trim());
                     if (identifiedUser != null)
                     {
                         App.Current.MainWindow = new MainView();
@@ -175,7 +214,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void VideoTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             App.Current.Dispatcher.Invoke(() => App.Current.MainWindow.Close());
+            App.Current.Dispatcher.Invoke(() => Environment.Exit(0));
         }
         #endregion
+
+        public UserModel FindUser(string username, string password)
+        {
+            foreach (UserModel user in members)
+                if (user.Username.Equals(username) && user.Password.Equals(password))
+                    return user;
+
+            return null;
+        }
     }
 }

@@ -2,12 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ArchivesViewModel
+    public class ArchivesViewModel : INotifyPropertyChanged
     {
+        // Fields
+        public event PropertyChangedEventHandler PropertyChanged;
+
         // Properties
         public MainViewModel MainViewModel { get; private set; }
         public ArchivesView ArchivesView { get; private set; }
@@ -26,15 +30,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             FolderView folderView = null;
             FolderViewModel folderViewModel = null;
 
-            ArchivesView = archivesView;
             MainViewModel = mainViewModel;
+            ArchivesView = archivesView;
+
             GenresDictionary = genreNames;
 
             foreach (KeyValuePair<string, int> genreRecord in GenresDictionary)
             {
-                App.Current.Dispatcher.Invoke(() => folderView = (FolderView)ArchivesView.FindName(genreRecord.Key + "FolderView"));
-                App.Current.Dispatcher.Invoke(() => folderViewModel = (FolderViewModel)folderView.DataContext);
-                App.Current.Dispatcher.Invoke(() => folderViewModel.Init(folderView, genreRecord.Key, genreRecord.Value));
+                folderView = (FolderView)ArchivesView.FindName(genreRecord.Key + "FolderView");
+                folderViewModel = (FolderViewModel)folderView.DataContext;
+                folderViewModel.Init(genreRecord.Key, genreRecord.Value);
             }
         }
     }

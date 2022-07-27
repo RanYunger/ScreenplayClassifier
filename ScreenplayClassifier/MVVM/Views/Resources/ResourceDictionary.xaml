@@ -69,6 +69,8 @@
         <Setter Property="CanUserResizeColumns" Value="False"/>
         <Setter Property="CanUserReorderColumns" Value="True"/>
         <Setter Property="CanUserSortColumns" Value="False"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
     </Style>
@@ -132,6 +134,7 @@
     <Style x:Key="TabItemStyle" TargetType="TabItem">
         <Setter Property="Background" Value="{StaticResource UserControlBackground}"/>
         <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="25"/>
         <Setter Property="Cursor" Value="Hand"/>
     </Style>
     

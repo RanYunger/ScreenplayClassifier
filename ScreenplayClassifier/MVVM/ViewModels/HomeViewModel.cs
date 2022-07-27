@@ -1,8 +1,10 @@
-﻿using ScreenplayClassifier.MVVM.Views;
+﻿using ScreenplayClassifier.MVVM.Models;
+using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,13 +15,28 @@ using System.Windows.Shapes;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class HomeViewModel
+    public class HomeViewModel : INotifyPropertyChanged
     {
+        // Fields
+        private bool userInstructed;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         // Properties
         public MainViewModel MainViewModel { get; private set; }
         public HomeView HomeView { get; private set; }
 
-        public bool UserInstructed { get; private set; }
+        public bool UserInstructed
+        {
+            get { return userInstructed; }
+            set
+            {
+                userInstructed = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("UserInstructed"));
+            }
+        }
+        public Dictionary<string, int> GenresDictionary { get; private set; }
 
         // Constructors
         public HomeViewModel() { }
@@ -34,19 +51,21 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     MainViewModel.ShowView(MainViewModel.ArchivesView);
 
-                    //if (mainViewModel.UserToolbarViewModel.User.Role != Models.UserModel.UserRole.GUEST)
-                    //    mainViewModel.ShowView(mainViewModel.ArchivesView);
+                    //UserModel user = ((UserToolbarViewModel)MainViewModel.UserToolbarView.DataContext).User;
+
+                    //if (user.Role != UserModel.UserRole.GUEST)
+                    //    MainViewModel.ShowView(MainViewModel.ArchivesView);
                     //else
                     //{
                     //    if (!UserInstructed)
                     //    {
                     //        UserInstructed = true;
-                    //        MessageBoxHandler.Show("Before we start, an instructional video will be played", "Disclaimer",
+                    //        MessageBoxHandler.Show("Before we start, an instructional video will be played", "Not so fast",
                     //            3, MessageBoxImage.Information);
                     //        PlayInstructionalVideoCommand.Execute(null);
                     //    }
                     //    else
-                    //        mainViewModel.ShowView(mainViewModel.ArchivesView);
+                    //        MainViewModel.ShowView(MainViewModel.ArchivesView);
                     //}
                 });
             }
@@ -59,19 +78,21 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     MainViewModel.ShowView(MainViewModel.ClassificationView);
 
-                    //if (mainViewModel.UserToolbarViewModel.User.Role != Models.UserModel.UserRole.GUEST)
-                    //    mainViewModel.ShowView(mainViewModel.ClassificationView);
+                    //UserModel user = ((UserToolbarViewModel)MainViewModel.UserToolbarView.DataContext).User;
+
+                    //if (user.Role != UserModel.UserRole.GUEST)
+                    //    MainViewModel.ShowView(MainViewModel.ClassificationView);
                     //else
                     //{
                     //    if (!UserInstructed)
                     //    {
                     //        UserInstructed = true;
-                    //        MessageBoxHandler.Show("Before we start, an instructional video will be played", "Disclaimer",
+                    //        MessageBoxHandler.Show("Before we start, an instructional video will be played", "Not so fast",
                     //            3, MessageBoxImage.Information);
                     //        PlayInstructionalVideoCommand.Execute(null);
                     //    }
                     //    else
-                    //        mainViewModel.ShowView(mainViewModel.ClassificationView);
+                    //        MainViewModel.ShowView(MainViewModel.ClassificationView);
                     //}
                 });
             }
@@ -84,19 +105,21 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     MainViewModel.ShowView(MainViewModel.ReportsView);
 
-                    //if (mainViewModel.UserToolbarViewModel.User.Role != Models.UserModel.UserRole.GUEST)
-                    //    mainViewModel.ShowView(mainViewModel.ReportsView);
+                    //UserModel user = ((UserToolbarViewModel)MainViewModel.UserToolbarView.DataContext).User;
+
+                    //if (user.Role != UserModel.UserRole.GUEST)
+                    //    MainViewModel.ShowView(MainViewModel.ReportsView);
                     //else
                     //{
                     //    if (!UserInstructed)
                     //    {
                     //        UserInstructed = true;
-                    //        MessageBoxHandler.Show("Before we start, an instructional video will be played", "Disclaimer",
+                    //        MessageBoxHandler.Show("Before we start, an instructional video will be played", "Not so fast",
                     //            3, MessageBoxImage.Information);
                     //        PlayInstructionalVideoCommand.Execute(null);
                     //    }
                     //    else
-                    //        mainViewModel.ShowView(mainViewModel.ReportsView);
+                    //        MainViewModel.ShowView(MainViewModel.ReportsView);
                     //}
                 });
             }
@@ -116,13 +139,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     Mouse.OverrideCursor = Cursors.None;
 
-                    mainView.WindowState = WindowState.Maximized;
                     mainView.WindowStyle = WindowStyle.None;
 
                     menuStackPanel.Visibility = Visibility.Collapsed;
 
                     choiceMediaElement.Visibility = Visibility.Visible;
-                    choiceMediaElement.Source = new Uri(Environment.CurrentDirectory + @"\Media\Videos\Choice.mp4");
+                    choiceMediaElement.Source = new Uri(FolderPaths.VIDEOS + "Choice.mp4");
                     choiceMediaElement.Play();
 
                     videoTimer.Elapsed += (sender, e) => VideoTimer_Elapsed(sender, e, mainView, menuStackPanel, choiceMediaElement);
@@ -136,7 +158,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             App.Current.Dispatcher.Invoke(() => Mouse.OverrideCursor = Cursors.Arrow);
 
-            App.Current.Dispatcher.Invoke(() => mainView.WindowState = WindowState.Normal);
             App.Current.Dispatcher.Invoke(() => mainView.WindowStyle = WindowStyle.SingleBorderWindow);
 
             App.Current.Dispatcher.Invoke(() => stackPanel.Visibility = Visibility.Visible);
@@ -146,8 +167,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void Init(HomeView homeView, MainViewModel mainViewModel)
         {
-            HomeView = homeView;
             MainViewModel = mainViewModel;
+            HomeView = homeView;
         }
     }
 }

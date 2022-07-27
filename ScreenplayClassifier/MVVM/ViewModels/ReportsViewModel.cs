@@ -1,12 +1,16 @@
 ﻿using ScreenplayClassifier.MVVM.Views;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    class ReportsViewModel
+    class ReportsViewModel : INotifyPropertyChanged
     {
+        // Fields
+        public event PropertyChangedEventHandler PropertyChanged;
+
         // Properties
         public MainViewModel MainViewModel { get; private set; }
         public ReportsView ReportsView { get; private set; }
@@ -20,8 +24,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void Init(ReportsView reportsView, MainViewModel mainViewModel)
         {
-            ReportsView = reportsView;
             MainViewModel = mainViewModel;
+            ReportsView = reportsView;
         }
     }
 }

@@ -22,6 +22,7 @@ namespace ScreenplayClassifier.MVVM.Models
             set
             {
                 username = value;
+
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("Username"));
             }
@@ -32,6 +33,7 @@ namespace ScreenplayClassifier.MVVM.Models
             set
             {
                 role = value;
+
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("Role"));
             }
@@ -42,6 +44,7 @@ namespace ScreenplayClassifier.MVVM.Models
             set
             {
                 password = value;
+
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("Password"));
             }

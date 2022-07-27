@@ -3,17 +3,33 @@ using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class UserToolbarViewModel
+    public class UserToolbarViewModel : INotifyPropertyChanged
     {
+        // Fields
+        private UserModel user;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         // Properties
         public MainViewModel MainViewModel { get; set; }
-        public UserModel User { get; set; }
+
+        public UserModel User
+        {
+            get { return user; }
+            set
+            {
+                user = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("User"));
+            }
+        }
 
         // Constructors
         public UserToolbarViewModel(UserModel user, MainViewModel mainViewModel)

@@ -5,11 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views">
     <Grid>
-        <Image x:Name="FolderImage" Source="/Media/Images/EmptyFolder.png" Cursor="Hand"/>
+        <Image Source="{Binding FolderImage}" Cursor="Hand"/>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand">
-            <Image x:Name="GenreImage" Source="/Media/Images/Genres/Unknown.png" Height="100" Width="120" Margin="0,20,0,10"/>
-            <TextBlock x:Name="ScreenplaysCountTextBlock" Text="WTF?" HorizontalAlignment="Center" FontSize="20"
-                   Style="{StaticResource TextBlockStyle}"/>
+            <Image Source="{Binding GenreImage}" Height="100" Width="120" Margin="0,20,0,10"/>
+            <TextBlock Text="{Binding ScreenplaysCountText}" HorizontalAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
         </StackPanel>
     </Grid>
 </UserControl>

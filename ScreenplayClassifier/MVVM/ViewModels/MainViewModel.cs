@@ -2,6 +2,7 @@
 using ScreenplayClassifier.MVVM.Views;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,8 +10,11 @@ using System.Windows.Input;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : INotifyPropertyChanged
     {
+        // Fields
+        public event PropertyChangedEventHandler PropertyChanged;
+
         // Properties
         public MainView MainView { get; private set; }
         public UserToolbarView UserToolbarView { get; private set; }
