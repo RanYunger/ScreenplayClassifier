@@ -60,6 +60,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public FolderViewModel() { }
 
         // Methods
+        #region Commands
+        public Command ShowGenreViewCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    GenreView genreView = new GenreView();
+
+                    ((GenreViewModel)genreView.DataContext).Init(GenreImage);
+                    genreView.Show();
+                });
+            }
+        }
+        #endregion
+
         public void Init(string genreName, int itemsCount)
         {
             string folderImageFilePath = string.Format("{0}{1}", FolderPaths.IMAGES, itemsCount > 0 ? "FullFolder.png" : "EmptyFolder.png"),

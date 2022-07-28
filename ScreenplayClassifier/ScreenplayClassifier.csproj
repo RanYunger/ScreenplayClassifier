@@ -55,13 +55,17 @@
     <None Remove="Media\Images\Info.png" />
     <None Remove="Media\Images\Member.png" />
     <None Remove="Media\Images\Password.png" />
-    <None Remove="Media\Images\Pause.png" />
-    <None Remove="Media\Images\Play.png" />
+    <None Remove="Media\Images\PausePressed.png" />
+    <None Remove="Media\Images\PauseUnpressed.png" />
+    <None Remove="Media\Images\PlayPressed.png" />
+    <None Remove="Media\Images\PlayUnpressed.png" />
     <None Remove="Media\Images\Remove.png" />
     <None Remove="Media\Images\Reports.png" />
     <None Remove="Media\Images\Screenplay.png" />
     <None Remove="Media\Images\Settings.png" />
     <None Remove="Media\Images\Signout.png" />
+    <None Remove="Media\Images\StopPressed.png" />
+    <None Remove="Media\Images\StopUnpressed.png" />
     <None Remove="Media\Images\User.png" />
     <None Remove="Media\Images\Username.png" />
     <None Remove="Media\Videos\0 Much Later.mp4" />
@@ -196,10 +200,16 @@
     <Content Include="Media\Images\Icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\Pause.png">
+    <Content Include="Media\Images\PausePressed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\Play.png">
+    <Content Include="Media\Images\PauseUnpressed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\PlayPressed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\PlayUnpressed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Remove.png">
@@ -215,6 +225,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Signout.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\StopPressed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\StopUnpressed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\User.png">
@@ -286,6 +302,10 @@
     <Content Include="Media\Images\FullFolder.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Media\Gifs\" />
   </ItemGroup>
 
 </Project>
