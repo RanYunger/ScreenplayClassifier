@@ -1,4 +1,5 @@
-﻿using ScreenplayClassifier.MVVM.Views;
+﻿using ScreenplayClassifier.MVVM.Models;
+using ScreenplayClassifier.MVVM.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,7 +17,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public MainViewModel MainViewModel { get; private set; }
         public ArchivesView ArchivesView { get; private set; }
 
-        public Dictionary<string, int> GenresDictionary { get; private set; }
+        public Dictionary<string, ObservableCollection<ScreenplayModel>> GenresDictionary { get; private set; }
 
         // Constructors
         public ArchivesViewModel() { }
@@ -25,8 +26,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         #region Commands
         #endregion
 
-        public void Init(ArchivesView archivesView, MainViewModel mainViewModel, Dictionary<string, int> genreNames)
-        {          
+        public void Init(ArchivesView archivesView, MainViewModel mainViewModel,
+            Dictionary<string, ObservableCollection<ScreenplayModel>> genreNames)
+        {
             FolderView folderView = null;
             FolderViewModel folderViewModel = null;
 
@@ -35,11 +37,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             GenresDictionary = genreNames;
 
-            foreach (KeyValuePair<string, int> genreRecord in GenresDictionary)
+            foreach (string genreName in GenresDictionary.Keys)
             {
-                folderView = (FolderView)ArchivesView.FindName(genreRecord.Key + "FolderView");
+                folderView = (FolderView)ArchivesView.FindName(genreName + "FolderView");
                 folderViewModel = (FolderViewModel)folderView.DataContext;
-                folderViewModel.Init(genreRecord.Key, genreRecord.Value);
+                folderViewModel.Init(genreName, GenresDictionary[genreName]);
             }
         }
     }

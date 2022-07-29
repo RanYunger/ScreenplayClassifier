@@ -2,6 +2,7 @@
 using ScreenplayClassifier.MVVM.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Windows;
@@ -13,6 +14,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         // Fields
+        private Dictionary<string, ObservableCollection<ScreenplayModel>> genresDictionary;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -26,7 +28,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ClassificationView ClassificationView { get; private set; }
         public ReportsView ReportsView { get; private set; }
 
-        public Dictionary<string, int> GenresDictionary { get; private set; }
+        public Dictionary<string, ObservableCollection<ScreenplayModel>> GenresDictionary
+        {
+            get { return genresDictionary; }
+            set
+            {
+                genresDictionary = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("GenresDictionary"));
+            }
+        }
 
         // Constructors
         public MainViewModel()
@@ -44,6 +56,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands    
+        public Command ClosingCommand
+        {
+            get { return new Command(() => Environment.Exit(0)); }
+        }
         #endregion
 
         public void Init(UserModel user)
@@ -66,26 +82,37 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ((ReportsViewModel)ReportsView.DataContext).Init(ReportsView, this);
         }
 
-        public Dictionary<string, int> ReadGenresDictionary()
+        public Dictionary<string, ObservableCollection<ScreenplayModel>> ReadGenresDictionary()
         {
-            Dictionary<string, int> genresDictionary = new Dictionary<string, int>();
+            string[] genreNames = ReadGenresName();
+            Dictionary<string, ObservableCollection<ScreenplayModel>> genresDictionary
+                = new Dictionary<string, ObservableCollection<ScreenplayModel>>();
 
-            genresDictionary["Action"] = 0;
-            genresDictionary["Adventure"] = 0;
-            genresDictionary["Comedy"] = 2;
-            genresDictionary["Crime"] = 0;
-
-            genresDictionary["Drama"] = 0;
-            genresDictionary["Family"] = 0;
-            genresDictionary["Fantasy"] = 3;
-            genresDictionary["Horror"] = 0;
-
-            genresDictionary["Romance"] = 5;
-            genresDictionary["SciFi"] = 1;
-            genresDictionary["Thriller"] = 0;
-            genresDictionary["War"] = 0;
+            foreach (string genreName in genreNames)
+                genresDictionary[genreName] = ReadScreenplaysInGenre(genreName);
 
             return genresDictionary;
+        }
+
+        public string[] ReadGenresName()
+        {
+            List<string> genreNames = new List<string>();
+
+            genreNames.AddRange(new string[] { "Action", "Adventure", "Comedy", "Crime" });
+            genreNames.AddRange(new string[] { "Drama", "Family", "Fantasy", "Horror" });
+            genreNames.AddRange(new string[] { "Romance", "SciFi", "Thriller", "War" });
+
+            return genreNames.ToArray();
+        }
+
+        public ObservableCollection<ScreenplayModel> ReadScreenplaysInGenre(string genreName)
+        {
+            ObservableCollection<ScreenplayModel> screenplaysInGenre = new ObservableCollection<ScreenplayModel>();
+
+            if (genreName == "Horror")
+                screenplaysInGenre.Add(new ScreenplayModel("Saw", "bla.txt"));
+
+            return screenplaysInGenre;
         }
 
         public void ShowView(UserControl viewToShow)

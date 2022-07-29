@@ -11,10 +11,37 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <Image Source="{Binding FolderImage}" Cursor="Hand"/>
+        <Image x:Name="FolderImage" Source="{Binding FolderImage}" Cursor="Hand"/>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand">
-            <Image Source="{Binding GenreImage}" Height="100" Width="120" Margin="0,20,0,10"/>
-            <TextBlock Text="{Binding ScreenplaysCountText}" HorizontalAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+            <StackPanel.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="GenreImage"
+                                                 Storyboard.TargetProperty="Height" To="110"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="GenreImage"
+                                                 Storyboard.TargetProperty="Width" To="110"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ItemsTextBlock"
+                                                     Storyboard.TargetProperty="FontSize" To="25"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="GenreImage"
+                                                 Storyboard.TargetProperty="Height" To="90"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="GenreImage"
+                                                 Storyboard.TargetProperty="Width" To="90"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ItemsTextBlock"
+                                                     Storyboard.TargetProperty="FontSize" To="20"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </StackPanel.Triggers>
+            <Image x:Name="GenreImage" Source="{Binding GenreImage}" Height="90" Width="90" Margin="0,20,0,10"/>
+            <TextBlock x:Name="ItemsTextBlock" Text="{Binding ScreenplaysCountText}" HorizontalAlignment="Center" FontSize="20"
+                       Style="{StaticResource TextBlockStyle}"/>
         </StackPanel>
     </Grid>
 </UserControl>

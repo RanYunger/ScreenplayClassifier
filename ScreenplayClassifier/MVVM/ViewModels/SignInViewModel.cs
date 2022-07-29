@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using ScreenplayClassifier.Utilities;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
@@ -198,12 +199,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     System.Timers.Timer videoTimer = new System.Timers.Timer(6000);
 
                     welcomeImage.Visibility = Visibility.Collapsed;
+
                     usernameTextBox.IsEnabled = passwordBox.IsEnabled = false;
+                    UsernameInput = string.Empty;
+                    passwordBox.Clear();
+
                     usernameErrorWrapPanel.Visibility = passwordErrorWrapPanel.Visibility = Visibility.Hidden;
                     signInButton.IsEnabled = continueAsGuestButton.IsEnabled = openCommandShellButton.IsEnabled = false;
 
                     kickUserMediaElement.Visibility = Visibility.Visible;
-                    kickUserMediaElement.Source = new Uri(Environment.CurrentDirectory + @"\Media\Videos\You Shall Not Pass.mp4");
+                    kickUserMediaElement.Source = new Uri(FolderPaths.VIDEOS + "You Shall Not Pass.mp4");
                     kickUserMediaElement.Play();
 
                     videoTimer.Elapsed += VideoTimer_Elapsed;

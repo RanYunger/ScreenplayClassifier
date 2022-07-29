@@ -95,16 +95,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     for (int i = 0; i < openFileDialog.FileNames.Length; i++)
                     {
-                        if (BrowsedScreenplays.Count == 20)
-                        {
-                            browseScreenplaysButton.IsEnabled = false;
-                            break;
-                        }
-                        else
-                        {
-                            screenplayName = Path.GetFileNameWithoutExtension(openFileDialog.FileNames[i]);
-                            BrowsedScreenplays.Add(new ScreenplayModel(screenplayName, openFileDialog.FileNames[i]));
-                        }
+                        screenplayName = Path.GetFileNameWithoutExtension(openFileDialog.FileNames[i]);
+                        BrowsedScreenplays.Add(new ScreenplayModel(screenplayName, openFileDialog.FileNames[i]));
                     }
 
                     proceedToClassificationButton.IsEnabled = BrowsedScreenplays.Count > 0;

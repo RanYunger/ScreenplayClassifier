@@ -6,6 +6,11 @@
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"         
         Title="Screenplay Classifier" ResizeMode="CanMinimize" WindowState="Maximized" Style="{StaticResource WindowStyle}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding ClosingCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>

@@ -29,6 +29,8 @@
     <None Remove="Media\Images\Add.png" />
     <None Remove="Media\Images\Admin.png" />
     <None Remove="Media\Images\Archive.png" />
+    <None Remove="Media\Images\AudioOff.png" />
+    <None Remove="Media\Images\AudioOn.png" />
     <None Remove="Media\Images\Browse.png" />
     <None Remove="Media\Images\Classification.png" />
     <None Remove="Media\Images\Clear.png" />
@@ -123,6 +125,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Admin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\AudioOff.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\AudioOn.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Browse.png">
