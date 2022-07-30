@@ -2,14 +2,11 @@
 using ScreenplayClassifier.MVVM.Views;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using System.Timers;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Text.RegularExpressions;
-using System.Windows.Input;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using ScreenplayClassifier.Utilities;
@@ -19,27 +16,31 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class SignInViewModel : INotifyPropertyChanged
     {
         // Constants
-        public string usernamePattern = "([A-Z]{1}[a-z]+){2,3}";
-        public string passwordPattern = "[A-Z]{2,3}[0-9]{5,6}";
+        public string usernamePattern = "([A-Z]{1}[a-z]+){2,3}"; // E.G. RanYunger
+        public string passwordPattern = "[A-Z]{2,3}[0-9]{5,6}"; // E.G. RY120696
 
         // Fields
-        private ObservableCollection<UserModel> members;
-        private string usernameInput;
+        private ObservableCollection<UserModel> authenticatedUsers;
+        private string usernameInput, usernameError, passwordError;
         private int attemptsCount;
+        private bool canSignin;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
-        public ObservableCollection<UserModel> Members
+        public SignInView SignInView { get; private set; }
+
+        public ObservableCollection<UserModel> AuthenticatedUsers
         {
-            get { return members; }
+            get { return authenticatedUsers; }
             set
             {
-                members = value;
+                authenticatedUsers = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Members"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("AuthenticatedUsers"));
             }
         }
+
         public string UsernameInput
         {
             get { return usernameInput; }
@@ -51,6 +52,31 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     PropertyChanged(this, new PropertyChangedEventArgs("UsernameInput"));
             }
         }
+
+        public string UsernameError
+        {
+            get { return usernameError; }
+            set
+            {
+                usernameError = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("UsernameError"));
+            }
+        }
+
+        public string PasswordError
+        {
+            get { return passwordError; }
+            set
+            {
+                passwordError = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("PasswordError"));
+            }
+        }
+
         public int AttemptsCount
         {
             get { return attemptsCount; }
@@ -63,14 +89,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public bool CanSignin
+        {
+            get { return canSignin; }
+            set
+            {
+                canSignin = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanSignin"));
+            }
+        }
+
         // Constructors
         public SignInViewModel()
         {
-            Members = new ObservableCollection<UserModel>();
-            UsernameInput = string.Empty;
-
-            Members.Add(new UserModel("RanYunger", UserModel.UserRole.ADMIN, "RY120696"));
-            Members.Add(new UserModel("ShyOhevZion", UserModel.UserRole.MEMBER, "SHZ12345"));
+            Init();
         }
 
         // Methods
@@ -79,45 +113,36 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
-                SignInView signInView = null;
-                PasswordBox passwordBox = null;
-                WrapPanel usernameErrorWrapPanel = null, passwordErrorWrapPanel = null;
-                TextBlock usernameErrorTextBlock = null, passwordErrorTextBlock = null;
-
-                App.Current.Dispatcher.Invoke(() => signInView = (SignInView)App.Current.MainWindow);
-                App.Current.Dispatcher.Invoke(() => passwordBox = (PasswordBox)signInView.FindName("PasswordBox"));
-
-                App.Current.Dispatcher.Invoke(() => usernameErrorWrapPanel = (WrapPanel)signInView.FindName("UsernameErrorWrapPanel"));
-                App.Current.Dispatcher.Invoke(() => passwordErrorWrapPanel = (WrapPanel)signInView.FindName("PasswordErrorWrapPanel"));
-                App.Current.Dispatcher.Invoke(() => usernameErrorTextBlock = (TextBlock)usernameErrorWrapPanel.FindName("UsernameErrorTextBlock"));
-                App.Current.Dispatcher.Invoke(() => passwordErrorTextBlock = (TextBlock)passwordErrorWrapPanel.FindName("PasswordErrorTextBlock"));
+                PasswordBox passwordBox = (PasswordBox)SignInView.FindName("PasswordBox");
+                WrapPanel usernameErrorWrapPanel = (WrapPanel)SignInView.FindName("UsernameErrorWrapPanel"),
+                    passwordErrorWrapPanel = (WrapPanel)SignInView.FindName("PasswordErrorWrapPanel");
 
                 return new Command(() =>
                 {
                     Regex usernameRegex = new Regex(usernamePattern), passwordRegex = new Regex(passwordPattern);
-                    UserModel identifiedUser;
+                    UserModel identifiedUser = null;
 
                     usernameErrorWrapPanel.Visibility = Visibility.Hidden;
-                    if ((UsernameInput == null) || (UsernameInput.Trim().Equals(string.Empty)))
+                    if (UsernameInput.Trim() == string.Empty)
                     {
-                        usernameErrorTextBlock.Text = "Enter username";
+                        UsernameError = "Enter username";
                         usernameErrorWrapPanel.Visibility = Visibility.Visible;
                     }
                     else if (!usernameRegex.IsMatch(UsernameInput))
                     {
-                        usernameErrorTextBlock.Text = "Invalid username";
+                        UsernameError = "Invalid username";
                         usernameErrorWrapPanel.Visibility = Visibility.Visible;
                     }
 
                     passwordErrorWrapPanel.Visibility = Visibility.Hidden;
-                    if ((passwordBox.Password == null) || (passwordBox.Password.Trim().Equals(string.Empty)))
+                    if (passwordBox.Password.Trim() == string.Empty)
                     {
-                        passwordErrorTextBlock.Text = "Enter password";
+                        PasswordError = "Enter password";
                         passwordErrorWrapPanel.Visibility = Visibility.Visible;
                     }
                     else if (!passwordRegex.IsMatch(passwordBox.Password))
                     {
-                        passwordErrorTextBlock.Text = "Invalid password";
+                        PasswordError = "Invalid password";
                         passwordErrorWrapPanel.Visibility = Visibility.Visible;
                     }
 
@@ -125,32 +150,32 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if (identifiedUser != null)
                     {
                         App.Current.MainWindow = new MainView();
-                        App.Current.Dispatcher.Invoke(() => ((MainViewModel)App.Current.MainWindow.DataContext).Init(identifiedUser));
+                        ((MainViewModel)App.Current.MainWindow.DataContext).Init(identifiedUser);
                         App.Current.MainWindow.Show();
 
-                        signInView.Close();
+                        SignInView.Close();
                     }
                     else if (++AttemptsCount == 3)
+                    {
+                        CanSignin = false;
                         KickUserCommand.Execute(null);
+                    }
                 });
             }
         }
+
         public Command ContinueAsGuestCommand
         {
             get
             {
-                MainView mainView = new MainView();
-                SignInView signInView = null;
-
-                App.Current.Dispatcher.Invoke(() => signInView = (SignInView)App.Current.MainWindow);
-
                 return new Command(() =>
                 {
-                    App.Current.MainWindow = mainView;
-                    App.Current.Dispatcher.Invoke(() => ((MainViewModel)mainView.DataContext).Init(new UserModel()));
+                    App.Current.MainWindow = new MainView();
+
+                    ((MainViewModel)App.Current.MainWindow.DataContext).Init(new UserModel());
                     App.Current.MainWindow.Show();
 
-                    signInView.Close();
+                    SignInView.Close();
                 });
             }
         }
@@ -159,14 +184,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             get
             {
-                SignInView signInView = null;
-
-                App.Current.Dispatcher.Invoke(() => signInView = (SignInView)App.Current.MainWindow);
-
                 return new Command(() =>
                 {
                     // TODO: COMPLETE (Open the command shell version of ScreenplayClassifier)
-                    signInView.Close();
+                    SignInView.Close();
                 });
             }
         }
@@ -174,40 +195,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
-                SignInView signInView = null;
-                Image welcomeImage = null;
-                MediaElement kickUserMediaElement = null;
-                TextBox usernameTextBox = null;
-                PasswordBox passwordBox = null;
-                WrapPanel usernameErrorWrapPanel = null, passwordErrorWrapPanel = null;
-                Button signInButton = null, continueAsGuestButton = null, openCommandShellButton = null;
-
-                App.Current.Dispatcher.Invoke(() => signInView = (SignInView)App.Current.MainWindow);
-                App.Current.Dispatcher.Invoke(() => welcomeImage = (Image)signInView.FindName("WelcomeImage"));
-                App.Current.Dispatcher.Invoke(() => kickUserMediaElement = (MediaElement)signInView.FindName("KickUserMediaElement"));
-
-                App.Current.Dispatcher.Invoke(() => usernameTextBox = (TextBox)signInView.FindName("UsernameTextBox"));
-                App.Current.Dispatcher.Invoke(() => passwordBox = (PasswordBox)signInView.FindName("PasswordBox"));
-                App.Current.Dispatcher.Invoke(() => usernameErrorWrapPanel = (WrapPanel)signInView.FindName("UsernameErrorWrapPanel"));
-                App.Current.Dispatcher.Invoke(() => passwordErrorWrapPanel = (WrapPanel)signInView.FindName("PasswordErrorWrapPanel"));
-                App.Current.Dispatcher.Invoke(() => signInButton = (Button)signInView.FindName("SignInButton"));
-                App.Current.Dispatcher.Invoke(() => continueAsGuestButton = (Button)signInView.FindName("ContinueAsGuestButton"));
-                App.Current.Dispatcher.Invoke(() => openCommandShellButton = (Button)signInView.FindName("OpenCommandShellButton"));
+                MediaElement kickUserMediaElement = (MediaElement)SignInView.FindName("KickUserMediaElement");
+                PasswordBox passwordBox = passwordBox = (PasswordBox)SignInView.FindName("PasswordBox");
+                WrapPanel usernameErrorWrapPanel = (WrapPanel)SignInView.FindName("UsernameErrorWrapPanel"),
+                    passwordErrorWrapPanel = (WrapPanel)SignInView.FindName("PasswordErrorWrapPanel");
 
                 return new Command(() =>
                 {
-                    System.Timers.Timer videoTimer = new System.Timers.Timer(6000);
+                    Timer videoTimer = new Timer(5800);
 
-                    welcomeImage.Visibility = Visibility.Collapsed;
-
-                    usernameTextBox.IsEnabled = passwordBox.IsEnabled = false;
                     UsernameInput = string.Empty;
                     passwordBox.Clear();
 
                     usernameErrorWrapPanel.Visibility = passwordErrorWrapPanel.Visibility = Visibility.Hidden;
-                    signInButton.IsEnabled = continueAsGuestButton.IsEnabled = openCommandShellButton.IsEnabled = false;
-
-                    kickUserMediaElement.Visibility = Visibility.Visible;
                     kickUserMediaElement.Source = new Uri(FolderPaths.VIDEOS + "You Shall Not Pass.mp4");
                     kickUserMediaElement.Play();
 
@@ -218,14 +218,28 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         private void VideoTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            App.Current.Dispatcher.Invoke(() => App.Current.MainWindow.Close());
-            App.Current.Dispatcher.Invoke(() => Environment.Exit(0));
+            Environment.Exit(0);
         }
         #endregion
 
+        public void Init()
+        {
+            foreach (Window view in App.Current.Windows)
+                if (view is SignInView)
+                {
+                    SignInView = (SignInView)view;
+                    break;
+                }
+
+            AuthenticatedUsers = Storage.ReadAuthenticatedUsers();
+            UsernameInput = UsernameError = PasswordError = string.Empty;
+
+            CanSignin = true;
+        }
+
         public UserModel FindUser(string username, string password)
         {
-            foreach (UserModel user in members)
+            foreach (UserModel user in AuthenticatedUsers)
                 if (user.Username.Equals(username) && user.Password.Equals(password))
                     return user;
 

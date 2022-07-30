@@ -11,7 +11,7 @@ namespace ScreenplayClassifier.MVVM.Models
     public class ScreenplayModel : INotifyPropertyChanged
     {
         // Fields
-        private static int IDGenerator = 1;
+        private static int IDGenerator = 0;
 
         private int screenplayID;
         private string name, filePath;
@@ -142,12 +142,11 @@ namespace ScreenplayClassifier.MVVM.Models
         // Constructors
         public ScreenplayModel(string name, string filePath)
         {
+            genres = new string[3];
+
             ID = IDGenerator++;
             Name = name;
             FilePath = filePath;
-
-            genres = new string[3];
-
             Genre = SubGenre1 = SubGenre2 = "Unknown";
         }
     }

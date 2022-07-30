@@ -22,12 +22,15 @@
             </Image>
             <TextBlock Text="Screenplays In Genre" FontSize="20" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
             <Image Source="{Binding GenreImage}" Height="300" Width="300" Margin="0,0,0,20"/>
-            <DataGrid ItemsSource="{Binding ScreenplaysInGenre}" Height="325" IsEnabled="False" FontSize="20" Margin="10,0,10,0"
+            <DataGrid ItemsSource="{Binding ScreenplaysInGenre}" Height="325" IsReadOnly="True" FontSize="20" Margin="10,0,10,0"
                       Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="280"/>
-                    <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=SubGenre1}" Width="150"/>
-                    <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=SubGenre2}" Width="150"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="280"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                    <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=SubGenre1}" Width="150"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                    <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=SubGenre2}" Width="150"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                     <!--<DataGridTemplateColumn Header="Sub-Genre 1" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

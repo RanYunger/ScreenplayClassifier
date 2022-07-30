@@ -99,7 +99,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     if (screenplaysInGenre.Count == 0)
                     {
-                        MessageBoxHandler.Show("There are no screenplays in this genre", string.Empty, 2, MessageBoxImage.Information);
+                        MessageBoxHandler.Show("No screenplays in this genre", "Error", 2, MessageBoxImage.Stop);
                         return;
                     }
 

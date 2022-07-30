@@ -32,11 +32,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Constructors
-        public UserToolbarViewModel(UserModel user, MainViewModel mainViewModel)
-        {
-            User = user;
-            MainViewModel = mainViewModel;
-        }
+        public UserToolbarViewModel() { }
 
         // Methods
         #region Commands
@@ -48,16 +44,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
-                MainView mainView = null;
-
-                App.Current.Dispatcher.Invoke(() => mainView = (MainView)App.Current.MainWindow);
-
                 return new Command(() =>
                 {
                     App.Current.MainWindow = new SignInView();
                     App.Current.MainWindow.Show();
 
-                    mainView.Close();
+                    MainViewModel.MainView.Close();
                 });
             }
         }
@@ -86,5 +78,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
         #endregion
+
+        public void Init(UserModel user, MainViewModel mainViewModel)
+        {
+            User = user;
+            MainViewModel = mainViewModel;
+        }
     }
 }

@@ -70,11 +70,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (browseComplete)
                 {
-                    int x = BrowseViewModel.BrowsedScreenplays.Count < 5 ? BrowseViewModel.BrowsedScreenplays.Count : 5;
+                    int batchSize = BrowseViewModel.BrowsedScreenplays.Count < 5 ? BrowseViewModel.BrowsedScreenplays.Count : 5;
 
                     foreach (ScreenplayModel screenplay in BrowseViewModel.BrowsedScreenplays)
                         ProgressViewModel.InactiveClassifications.Add(new ClassificationModel(screenplay));
-                    for (int i = 0; i < x; i++)
+                    for (int i = 0; i < batchSize; i++)
                     {
                         ProgressViewModel.ActiveClassifications.Add(progressViewModel.InactiveClassifications[0]);
                         ProgressViewModel.InactiveClassifications.RemoveAt(0);

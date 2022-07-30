@@ -6,8 +6,8 @@
     <SolidColorBrush x:Key="WindowBackground" Color="LightBlue"/>
     <SolidColorBrush x:Key="UserControlBackground" Color="LightSeaGreen"/>
     <SolidColorBrush x:Key="GroupBoxBackground" Color="Transparent"/>
-    <SolidColorBrush x:Key="MainColumnHeaderBackground" Color="Orange"/>
-    <SolidColorBrush x:Key="SubColumnHeaderBackground" Color="Gold"/>
+    <SolidColorBrush x:Key="MainColumnHeaderBackground" Color="CadetBlue"/>
+    <SolidColorBrush x:Key="SubColumnHeaderBackground" Color="CornflowerBlue"/>
     <SolidColorBrush x:Key="ButtonBackground" Color="LightGreen"/>
     <SolidColorBrush x:Key="ButtonPressedBackground" Color="Sienna"/>
     

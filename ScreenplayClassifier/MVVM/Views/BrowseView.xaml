@@ -30,8 +30,10 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Width="500" CanUserResize="False" IsReadOnly="True" Binding="{Binding Path=Name}"/>
-                    <DataGridTextColumn Header="File Path" Width="690" CanUserResize="False" IsReadOnly="True" Binding="{Binding Path=FilePath}">
+                    <DataGridTextColumn Header="Name" Width="500" CanUserResize="False" IsReadOnly="True" Binding="{Binding Path=Name}"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                    <DataGridTextColumn Header="File Path" Width="690" CanUserResize="False" IsReadOnly="True" Binding="{Binding Path=FilePath}"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
