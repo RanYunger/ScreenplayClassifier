@@ -27,6 +27,6 @@ namespace ScreenplayClassifier.MVVM.Models
         public ClassificationModel(ScreenplayModel screenplay)
         {
             Screenplay = screenplay;
-        }
+        } 
     }
 }

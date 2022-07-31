@@ -59,7 +59,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         #region Commands  
         public Command ClosingCommand
         {
-            get { return new Command(() => Environment.Exit(0)); }
+            get
+            {
+                return new Command(() =>
+                {
+                    // TODO: COMPLETE (save everything to database)
+                });
+            }
         }
         #endregion
 

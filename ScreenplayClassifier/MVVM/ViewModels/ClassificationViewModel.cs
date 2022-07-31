@@ -23,7 +23,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
-
         public MainViewModel MainViewModel { get; private set; }
         public ClassificationView ClassificationView { get; private set; }
 
@@ -72,12 +71,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     int batchSize = BrowseViewModel.BrowsedScreenplays.Count < 5 ? BrowseViewModel.BrowsedScreenplays.Count : 5;
 
+                    progressViewModel.DurationTimer.Start();
+                    progressViewModel.ClassificationsLeft = BrowseViewModel.BrowsedScreenplays.Count;
+                    progressViewModel.ClassificationsComplete = 0;
+
                     foreach (ScreenplayModel screenplay in BrowseViewModel.BrowsedScreenplays)
                         ProgressViewModel.InactiveClassifications.Add(new ClassificationModel(screenplay));
                     for (int i = 0; i < batchSize; i++)
                     {
                         ProgressViewModel.ActiveClassifications.Add(progressViewModel.InactiveClassifications[0]);
                         ProgressViewModel.InactiveClassifications.RemoveAt(0);
+
+                        ProgressViewModel.ClassificationsProgress[i].BackgroundWorker.RunWorkerAsync();
+                        ProgressViewModel.ClassificationsProgress[i].DurationTimer.Start();
                     }
 
                     ChangeTabVisibility("ProgressTabItem", Visibility.Visible);
