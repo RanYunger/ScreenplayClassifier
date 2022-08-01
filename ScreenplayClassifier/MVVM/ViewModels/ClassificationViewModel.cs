@@ -72,7 +72,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     int batchSize = BrowseViewModel.BrowsedScreenplays.Count < 5 ? BrowseViewModel.BrowsedScreenplays.Count : 5;
 
                     progressViewModel.DurationTimer.Start();
-                    progressViewModel.ClassificationsLeft = BrowseViewModel.BrowsedScreenplays.Count;
+                    progressViewModel.ClassificationsRequired = BrowseViewModel.BrowsedScreenplays.Count;
                     progressViewModel.ClassificationsComplete = 0;
 
                     foreach (ScreenplayModel screenplay in BrowseViewModel.BrowsedScreenplays)
@@ -82,11 +82,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         ProgressViewModel.ActiveClassifications.Add(progressViewModel.InactiveClassifications[0]);
                         ProgressViewModel.InactiveClassifications.RemoveAt(0);
 
-                        ProgressViewModel.ClassificationsProgress[i].BackgroundWorker.RunWorkerAsync();
-                        ProgressViewModel.ClassificationsProgress[i].DurationTimer.Start();
+                        ProgressViewModel.ClassificationsProgresses[i].BackgroundWorker.RunWorkerAsync();
+                        ProgressViewModel.ClassificationsProgresses[i].DurationTimer.Start();
                     }
 
-                    ChangeTabVisibility("ProgressTabItem", Visibility.Visible);
+                    ChangeTabVisibility("ProgressTabItem", Visibility.Visible, true);
                 }
 
                 if (PropertyChanged != null)
@@ -99,9 +99,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             set
             {
                 progerssComplete = value;
+                BrowseComplete = !progerssComplete;
 
                 if (progerssComplete)
-                    ChangeTabVisibility("ResultsTabItem", Visibility.Visible);
+                    ChangeTabVisibility("ResultsTabItem", Visibility.Visible, false);
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ProgressComplete"));
@@ -148,12 +149,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ResultsViewModel.Init(this, resultsView);
         }
 
-        private void ChangeTabVisibility(string tabName, Visibility visibility)
+        private void ChangeTabVisibility(string tabName, Visibility visibility, bool focus)
         {
             TabControl tabControl = (TabControl)ClassificationView.FindName("TabControl");
             TabItem tabItem = (TabItem)tabControl.FindName(tabName);
 
-            tabItem.IsSelected = true;
+            tabItem.IsSelected = focus;
             tabItem.Visibility = visibility;
         }
     }

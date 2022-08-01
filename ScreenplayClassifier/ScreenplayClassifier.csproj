@@ -26,6 +26,7 @@
     <None Remove="Media\Audios\Shutdown.m4a" />
     <None Remove="Media\Audios\Startup.m4a" />
     <None Remove="Media\Audios\Wilhelm Scream.m4a" />
+    <None Remove="Media\Gifs\Reading.gif" />
     <None Remove="Media\Images\Add.png" />
     <None Remove="Media\Images\Admin.png" />
     <None Remove="Media\Images\Archive.png" />
@@ -119,6 +120,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Audios\Jim.m4a">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Gifs\Reading.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Add.png">
@@ -313,7 +317,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Media\Gifs\" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
 </Project>

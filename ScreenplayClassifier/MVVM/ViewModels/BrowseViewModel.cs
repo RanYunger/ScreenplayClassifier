@@ -18,6 +18,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Fields
         private ObservableCollection<ScreenplayModel> browsedScreenplays;
         private int selectedBrowsedScreenplay;
+        private bool canBrowse, canClear, canProceed;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -48,11 +49,49 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public bool CanBrowse
+        {
+            get { return canBrowse; }
+            set
+            {
+                canBrowse = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanBrowse"));
+            }
+        }
+
+        public bool CanClear
+        {
+            get { return canClear; }
+            set
+            {
+                canClear = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanClear"));
+            }
+        }
+
+        public bool CanProceed
+        {
+            get { return canProceed; }
+            set
+            {
+                canProceed = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanProceed"));
+            }
+        }
+
         // Constructors
         public BrowseViewModel()
         {
             BrowsedScreenplays = new ObservableCollection<ScreenplayModel>();
             SelectedBrowsedScreenplay = -1;
+            CanBrowse = CanClear = true;
+            CanProceed = false;
         }
 
         // Methods
@@ -64,14 +103,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     DataGrid browsedScreenplaysDataGrid = (DataGrid)BrowseView.FindName("BrowsedScreenplaysDataGrid");
-                    Button proceedToClassificationButton = (Button)BrowseView.FindName("ProceedToClassificationButton");
 
                     if (Keyboard.IsKeyDown(Key.Back))
                         for (int i = 0; i < browsedScreenplaysDataGrid.Items.Count; i++)
                             if (browsedScreenplaysDataGrid.SelectedItems.Contains(browsedScreenplaysDataGrid.Items[i]))
                                 BrowsedScreenplays.RemoveAt(i);
 
-                    proceedToClassificationButton.IsEnabled = BrowsedScreenplays.Count > 0;
+                    CanProceed = BrowsedScreenplays.Count > 0;
                 });
             }
         }
@@ -83,8 +121,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     OpenFileDialog openFileDialog = new OpenFileDialog();
                     string screenplayName = string.Empty;
-                    Button browseScreenplaysButton = (Button)BrowseView.FindName("BrowseScreenplaysButton"),
-                        proceedToClassificationButton = (Button)BrowseView.FindName("ProceedToClassificationButton");
 
                     openFileDialog.Title = "Browse screenplays to classify";
                     openFileDialog.DefaultExt = "txt";
@@ -99,7 +135,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         BrowsedScreenplays.Add(new ScreenplayModel(screenplayName, openFileDialog.FileNames[i]));
                     }
 
-                    proceedToClassificationButton.IsEnabled = BrowsedScreenplays.Count > 0;
+                    CanProceed = BrowsedScreenplays.Count > 0;
                 });
             }
         }
@@ -109,13 +145,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    Button browseScreenplaysButton = (Button)BrowseView.FindName("BrowseScreenplaysButton"),
-                        proceedToClassificationButton = (Button)BrowseView.FindName("ProceedToClassificationButton");
-
                     BrowsedScreenplays.Clear();
 
-                    browseScreenplaysButton.IsEnabled = true;
-                    proceedToClassificationButton.IsEnabled = false;
+                    CanBrowse = true;
+                    CanProceed = false;
                 });
             }
         }
@@ -125,14 +158,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    DataGrid browsedScreenplaysDataGrid = (DataGrid)BrowseView.FindName("BrowsedScreenplaysDataGrid");
-                    Button browseScreenplaysButton = (Button)BrowseView.FindName("BrowseScreenplaysButton"),
-                        clearScreenplaysButton = (Button)BrowseView.FindName("ClearScreenplaysButton"),
-                        proceedToClassificationButton = (Button)BrowseView.FindName("ProceedToClassificationButton");
-
-                    browsedScreenplaysDataGrid.IsEnabled = false;
-                    browseScreenplaysButton.IsEnabled = clearScreenplaysButton.IsEnabled = proceedToClassificationButton.IsEnabled = false;
-
+                    CanBrowse = CanClear = CanProceed = false;
                     ClassificationViewModel.BrowseComplete = true;
                 });
             }

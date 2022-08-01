@@ -9,21 +9,22 @@
     <Grid>
         <StackPanel x:Name="BrowseStackPanel" HorizontalAlignment="Center" Visibility="Visible">
             <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,10">
-                <Button x:Name="BrowseScreenplaysButton" Command="{Binding BrowseScreenplaysCommand}" Height="100" Width="100"
-                        ToolTip="Browse..." Style="{StaticResource ButtonStyle}">
+                <Button Command="{Binding BrowseScreenplaysCommand}" Height="100" Width="100"  IsEnabled="{Binding CanBrowse}" ToolTip="Browse..."
+                        Style="{StaticResource ButtonStyle}">
                     <Button.Content>
                         <Image Source="/Media/Images/Browse.png"/>
                     </Button.Content>
                 </Button>
-                <Button x:Name="ClearScreenplaysButton" Command="{Binding ClearScreenplaysCommand}" Height="100" Width="100" ToolTip="Clear"
+                <Button Command="{Binding ClearScreenplaysCommand}" Height="100" Width="100" IsEnabled="{Binding CanClear}" ToolTip="Clear"
                         Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
                     <Button.Content>
                         <Image Source="/Media/Images/Clear.png"/>
                     </Button.Content>
                 </Button>
             </WrapPanel>
-            <DataGrid x:Name="BrowsedScreenplaysDataGrid" Height="475" FontSize="20" SelectedIndex="{Binding SelectedBrowsedScreenplay}"
-                              ItemsSource="{Binding BrowsedScreenplays}" Style="{StaticResource DataGridStyle}">
+            <DataGrid x:Name="BrowsedScreenplaysDataGrid" Height="475" FontSize="20" IsEnabled="{Binding CanBrowse}"
+                      SelectedIndex="{Binding SelectedBrowsedScreenplay}" ItemsSource="{Binding BrowsedScreenplays}"
+                      Style="{StaticResource DataGridStyle}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="KeyDown">
                         <i:InvokeCommandAction Command="{Binding CheckKeyCommand}"/>
@@ -37,8 +38,8 @@
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button x:Name="ProceedToClassificationButton" Command="{Binding ProceedToClassificationCommand}" IsEnabled="False"
-                            Height="125" Width="125" ToolTip="Proceed to classification" Margin="0,10,0,0" Style="{StaticResource ButtonStyle}">
+            <Button Command="{Binding ProceedToClassificationCommand}" Height="125" Width="125" IsEnabled="{Binding CanProceed}"
+                    ToolTip="Proceed to classification" Margin="0,10,0,0" Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <Image Source="/Media/Images/PlayUnpressed.png"/>
                 </Button.Content>

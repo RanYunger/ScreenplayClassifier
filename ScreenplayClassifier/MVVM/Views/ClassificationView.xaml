@@ -14,7 +14,7 @@
             <TabItem x:Name="ProgressTabItem" Header="View Progress" Visibility="Collapsed" Style="{StaticResource TabItemStyle}">
                 <v:ProgressView x:Name="ProgressView"/>
             </TabItem>
-            <TabItem x:Name="ResultsTabItem" Header="View Classifications" Visibility="Collapsed" Style="{StaticResource TabItemStyle}">
+            <TabItem x:Name="ResultsTabItem" Header="View Results" Visibility="Collapsed" Style="{StaticResource TabItemStyle}">
                 <v:ResultsView x:Name="ResultsView"/>
             </TabItem>
         </TabControl>

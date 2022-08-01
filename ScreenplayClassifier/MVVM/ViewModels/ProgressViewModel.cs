@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Threading;
 using System.Timers;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -17,12 +18,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private ObservableCollection<ClassificationModel> activeClassifications, inactiveClassifications;
-        private ImageSource stopImage, pauseImage;
-        private ProgressModel[] classificationsProgress;
+        private ObservableCollection<ProgressModel> classificationsProgresses;
+        private ImageSource stopImage, pauseImage, selectedGifImage;
         private System.Timers.Timer durationTimer;
         private TimeSpan totalDuration, selectedDuration;
-        private bool allClassificationsPaused, canPause;
-        private int classificationsLeft, classificationsComplete, selectedClassification, selectedPercentage;
+        private bool allClassificationsPaused, canStop, canPause;
+        private int classificationsRequired, classificationsComplete, classificationsProgress, selectedClassification, selectedPercentage;
         private string classificationsText, selectedDescription;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -54,6 +55,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public ObservableCollection<ProgressModel> ClassificationsProgresses
+        {
+            get { return classificationsProgresses; }
+            set
+            {
+                classificationsProgresses = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ClassificationsProgresses"));
+            }
+        }
+
         public ImageSource StopImage
         {
             get { return stopImage; }
@@ -77,15 +90,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     PropertyChanged(this, new PropertyChangedEventArgs("PauseImage"));
             }
         }
-        public ProgressModel[] ClassificationsProgress
+
+        public ImageSource SelectedGifImage
         {
-            get { return classificationsProgress; }
+            get { return selectedGifImage; }
             set
             {
-                classificationsProgress = value;
+                selectedGifImage = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassificationsProgress"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedGifImage"));
             }
         }
 
@@ -131,13 +145,25 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             set
             {
                 allClassificationsPaused = value;
-                CanPause = !allClassificationsPaused;
-                for (int i = 0; i < ClassificationsProgress.Length; i++)
-                    ClassificationsProgress[i].IsPaused = allClassificationsPaused;
-                SelectedClassification = SelectedClassification; // Triggers PropertyChanged event
+                DurationTimer.Enabled = CanPause = !allClassificationsPaused;
+
+                for (int i = 0; i < ClassificationsProgresses.Count; i++)
+                    ClassificationsProgresses[i].IsPaused = allClassificationsPaused;
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("AllClassificationsPaused"));
+            }
+        }
+
+        public bool CanStop
+        {
+            get { return canStop; }
+            set
+            {
+                canStop = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanStop"));
             }
         }
 
@@ -153,15 +179,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public int ClassificationsLeft
+        public int ClassificationsRequired
         {
-            get { return classificationsLeft; }
+            get { return classificationsRequired; }
             set
             {
-                classificationsLeft = value;
+                classificationsRequired = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassificationsLeft"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("ClassificationsRequired"));
             }
         }
 
@@ -171,10 +197,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             set
             {
                 classificationsComplete = value;
-                ClassificationsText = string.Format("Classified: {0}/{1}", classificationsComplete, ClassificationsLeft);
+                ClassificationsText = string.Format("Classified: {0}/{1}", classificationsComplete, ClassificationsRequired);
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ClassificationsComplete"));
+            }
+        }
+
+        public int ClassificationsProgress
+        {
+            get { return classificationsProgress; }
+            set
+            {
+                classificationsProgress = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ClassificationsProgress"));
             }
         }
 
@@ -186,13 +224,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 string imagePath = string.Empty;
 
                 selectedClassification = value;
-                if (selectedClassification != -1)
+                if ((ClassificationsProgresses.Count > 0) && (selectedClassification != -1))
                 {
-                    SelectedDuration = ClassificationsProgress[selectedClassification].Duration;
-                    SelectedPercentage = ClassificationsProgress[selectedClassification].Percentage;
-                    SelectedDescription = ClassificationsProgress[selectedClassification].Description;
+                    SelectedDuration = ClassificationsProgresses[selectedClassification].Duration;
+                    SelectedPercentage = ClassificationsProgresses[selectedClassification].Percentage;
+                    SelectedDescription = ClassificationsProgresses[selectedClassification].Description;
+                    SelectedGifImage = ClassificationsProgresses[selectedClassification].GifImage;
 
-                    imagePath = string.Format("{0}Pause{1}.png", FolderPaths.IMAGES, ClassificationsProgress[selectedClassification].IsPaused
+                    imagePath = string.Format("{0}Pause{1}.png", FolderPaths.IMAGES, ClassificationsProgresses[selectedClassification].IsPaused
                         ? "Pressed" : "Unpressed");
                     PauseImage = new BitmapImage(new Uri(imagePath));
                 }
@@ -254,11 +293,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             StopImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "StopUnpressed.png"));
             PauseImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "PauseUnpressed.png"));
 
-            ClassificationsProgress = new ProgressModel[5];
+            ClassificationsProgresses = new ObservableCollection<ProgressModel>();
             for (int i = 0; i < 5; i++)
-                ClassificationsProgress[i] = new ProgressModel();
+                ClassificationsProgresses.Add(new ProgressModel());
 
-            AllClassificationsPaused = false;
+            CanStop = true;
             SelectedClassification = 0;
         }
 
@@ -288,42 +327,73 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     string imagePath = string.Empty;
 
-                    if (ActiveClassifications.Count > 0)
+                    if ((ActiveClassifications.Count > 0) && (SelectedClassification != -1))
                     {
-                        ClassificationsProgress[SelectedClassification].IsPaused = !ClassificationsProgress[SelectedClassification].IsPaused;
-                        if (ClassificationsProgress[SelectedClassification].IsPaused)
-                            ClassificationsProgress[SelectedClassification].BackgroundWorker.CancelAsync();
+                        ClassificationsProgresses[SelectedClassification].IsPaused = !ClassificationsProgresses[SelectedClassification].IsPaused;
 
-                        imagePath = string.Format("{0}Pause{1}.png", FolderPaths.IMAGES, ClassificationsProgress[SelectedClassification].IsPaused
-                            ? "Pressed" : "Unpressed");
+                        imagePath = string.Format("{0}Pause{1}.png", FolderPaths.IMAGES,
+                            ClassificationsProgresses[SelectedClassification].IsPaused ? "Pressed" : "Unpressed");
                         PauseImage = new BitmapImage(new Uri(imagePath));
                     }
                 });
             }
         }
         #endregion
+
         private void DurationTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             TotalDuration = TotalDuration.Add(new TimeSpan(0, 0, 1));
+
+            if (ClassificationsComplete == ClassificationsRequired)
+                lock (this)
+                {
+                    DurationTimer.Stop();
+                    CanStop = CanPause = false;
+
+                    App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
+                    App.Current.Dispatcher.Invoke(() => ClassificationViewModel.BrowseViewModel.BrowsedScreenplays.Clear());
+
+                    MessageBoxHandler.Show("Results are now available at the Results tab", "Classifications Complete", 3,
+                        MessageBoxImage.Information);
+                }
         }
 
         private void ProgressUpdateTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            // Triggers PropertyChange events
-            if (App.Current != null)
-            {
-                App.Current.Dispatcher.Invoke(() => SelectedClassification = SelectedClassification);
-                /*if (ClassificationsProgress[0].IsComplete)
-                {
-                    App.Current.Dispatcher.Invoke(() => ClassificationsComplete++);
+            // TODO: FIX (stabilize the code - throws random exceptions from time to time)
 
-                    App.Current.Dispatcher.Invoke(() => ActiveClassifications.RemoveAt(0));
-                    if (InactiveClassifications.Count > 0)
+            // Validations
+            if ((App.Current == null) || (ClassificationsProgresses.Count == 0))
+                return;
+
+            App.Current.Dispatcher.Invoke(() => SelectedClassification = SelectedClassification); // Triggers PropertyChange events
+            for (int i = 0; i < ClassificationsProgresses.Count; i++)
+            {
+                if (ClassificationsProgresses[i].IsPaused)
+                    continue;
+
+                if (ClassificationsProgresses[i].IsComplete)
+                {
+                    lock (this)
                     {
-                        App.Current.Dispatcher.Invoke(() => activeClassifications.Insert(0, InactiveClassifications[0]));
-                        App.Current.Dispatcher.Invoke(() => InactiveClassifications.RemoveAt(0));
+                        ClassificationsComplete++;
+                        ClassificationsProgress = (int)(((float)ClassificationsComplete / ClassificationsRequired) * 100);
+
+                        App.Current.Dispatcher.Invoke(() => ActiveClassifications.RemoveAt(i));
+                        App.Current.Dispatcher.Invoke(() => ClassificationsProgresses.RemoveAt(i));
+
+                        if (InactiveClassifications.Count > 0)
+                        {
+                            App.Current.Dispatcher.Invoke(() => activeClassifications.Add(InactiveClassifications[0]));
+                            App.Current.Dispatcher.Invoke(() => ClassificationsProgresses.Add(new ProgressModel()));
+                            ClassificationsProgresses[ClassificationsProgresses.Count - 1].BackgroundWorker.RunWorkerAsync();
+                            ClassificationsProgresses[ClassificationsProgresses.Count - 1].DurationTimer.Start();
+
+                            App.Current.Dispatcher.Invoke(() => InactiveClassifications.RemoveAt(0));
+                        }
                     }
-                }*/
+                    break;
+                }
             }
         }
 

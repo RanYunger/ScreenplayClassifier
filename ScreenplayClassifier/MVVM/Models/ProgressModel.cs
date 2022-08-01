@@ -1,16 +1,23 @@
-﻿using System;
+﻿using ScreenplayClassifier.Utilities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.Models
 {
     public class ProgressModel : INotifyPropertyChanged
     {
+        // Constants
+        private string[] descriptions = { "Reading screenplay...", "desc 2", "desc 3", "desc 4", "desc 5", "Complete!" };
+
         // Fields
         private BackgroundWorker backgroundWorker;
+        private ImageSource gifImage;
         private System.Timers.Timer durationTimer;
         private TimeSpan duration;
         private int percentage;
@@ -29,6 +36,18 @@ namespace ScreenplayClassifier.MVVM.Models
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("BackgroundWorker"));
+            }
+        }
+
+        public ImageSource GifImage
+        {
+            get { return gifImage; }
+            set
+            {
+                gifImage = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("GifImage"));
             }
         }
 
@@ -62,6 +81,7 @@ namespace ScreenplayClassifier.MVVM.Models
             set
             {
                 percentage = value;
+                Description = descriptions[percentage / 20];
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("Percentage"));
@@ -85,6 +105,9 @@ namespace ScreenplayClassifier.MVVM.Models
             set
             {
                 isPaused = value;
+                DurationTimer.Enabled = isPaused;
+                if (isPaused)
+                    BackgroundWorker.CancelAsync();
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("IsPaused"));
@@ -106,6 +129,8 @@ namespace ScreenplayClassifier.MVVM.Models
         // Constructors
         public ProgressModel()
         {
+            GifImage = new BitmapImage(new Uri(FolderPaths.GIFS + "Reading.gif"));
+
             DurationTimer = new System.Timers.Timer(1000);
             DurationTimer.Elapsed += DurationTimer_Elapsed;
 
@@ -116,8 +141,7 @@ namespace ScreenplayClassifier.MVVM.Models
             BackgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
 
             Percentage = 0;
-            Description = "Reading screenplay...";
-            IsPaused = false;
+            IsPaused = IsComplete = false;
         }
 
         // Methods
@@ -128,13 +152,15 @@ namespace ScreenplayClassifier.MVVM.Models
 
         private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            IsComplete = true;
             durationTimer.Stop();
 
             if (IsPaused)
                 Description = "Paused!";
             else
-                Description = e.Error != null ? "Error: " + e.Error.Message : "Complete!";
+            {
+                IsComplete = true;
+                Description = e.Error != null ? "Error: " + e.Error.Message : descriptions[descriptions.Length - 1];
+            }
         }
 
         private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
