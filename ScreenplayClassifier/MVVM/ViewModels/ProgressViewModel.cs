@@ -376,21 +376,25 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     lock (this)
                     {
-                        ClassificationsComplete++;
-                        ClassificationsProgress = (int)(((float)ClassificationsComplete / ClassificationsRequired) * 100);
+                        ClassificationsProgresses[i].DurationTimer.Stop();
+                        ActiveClassifications[i].Duration = ClassificationsProgresses[i].Duration;
+                        App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ResultsViewModel.ClassifiedScreenplays.Add(ActiveClassifications[i]));
 
                         App.Current.Dispatcher.Invoke(() => ActiveClassifications.RemoveAt(i));
                         App.Current.Dispatcher.Invoke(() => ClassificationsProgresses.RemoveAt(i));
 
                         if (InactiveClassifications.Count > 0)
                         {
-                            App.Current.Dispatcher.Invoke(() => activeClassifications.Add(InactiveClassifications[0]));
+                            App.Current.Dispatcher.Invoke(() => ActiveClassifications.Add(InactiveClassifications[0]));
                             App.Current.Dispatcher.Invoke(() => ClassificationsProgresses.Add(new ProgressModel()));
                             ClassificationsProgresses[ClassificationsProgresses.Count - 1].BackgroundWorker.RunWorkerAsync();
                             ClassificationsProgresses[ClassificationsProgresses.Count - 1].DurationTimer.Start();
 
                             App.Current.Dispatcher.Invoke(() => InactiveClassifications.RemoveAt(0));
                         }
+
+                        ClassificationsComplete++;
+                        ClassificationsProgress = (int)(((float)ClassificationsComplete / ClassificationsRequired) * 100);
                     }
                     break;
                 }

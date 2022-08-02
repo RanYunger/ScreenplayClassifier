@@ -49,24 +49,24 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    MainViewModel.ShowView(MainViewModel.ArchivesView);
+                    //MainViewModel.ShowView(MainViewModel.ArchivesView);
 
-                    //UserModel user = ((UserToolbarViewModel)MainViewModel.UserToolbarView.DataContext).User;
+                    UserModel user = ((UserToolbarViewModel)MainViewModel.UserToolbarView.DataContext).User;
 
-                    //if (user.Role != UserModel.UserRole.GUEST)
-                    //    MainViewModel.ShowView(MainViewModel.ArchivesView);
-                    //else
-                    //{
-                    //    if (!UserInstructed)
-                    //    {
-                    //        UserInstructed = true;
-                    //        MessageBoxHandler.Show("Before we start, an instructional video will be played", "Not so fast",
-                    //            3, MessageBoxImage.Information);
-                    //        PlayInstructionalVideoCommand.Execute(null);
-                    //    }
-                    //    else
-                    //        MainViewModel.ShowView(MainViewModel.ArchivesView);
-                    //}
+                    if (user.Role != UserModel.UserRole.GUEST)
+                        MainViewModel.ShowView(MainViewModel.ArchivesView);
+                    else
+                    {
+                        if (!UserInstructed)
+                        {
+                            UserInstructed = true;
+                            MessageBoxHandler.Show("Before we start, an instructional video will be played", "Not so fast",
+                                3, MessageBoxImage.Information);
+                            PlayInstructionalVideoCommand.Execute(null);
+                        }
+                        else
+                            MainViewModel.ShowView(MainViewModel.ArchivesView);
+                    }
                 });
             }
         }
@@ -103,24 +103,24 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    MainViewModel.ShowView(MainViewModel.ReportsView);
+                    //MainViewModel.ShowView(MainViewModel.ReportsView);
 
-                    //UserModel user = ((UserToolbarViewModel)MainViewModel.UserToolbarView.DataContext).User;
+                    UserModel user = ((UserToolbarViewModel)MainViewModel.UserToolbarView.DataContext).User;
 
-                    //if (user.Role != UserModel.UserRole.GUEST)
-                    //    MainViewModel.ShowView(MainViewModel.ReportsView);
-                    //else
-                    //{
-                    //    if (!UserInstructed)
-                    //    {
-                    //        UserInstructed = true;
-                    //        MessageBoxHandler.Show("Before we start, an instructional video will be played", "Not so fast",
-                    //            3, MessageBoxImage.Information);
-                    //        PlayInstructionalVideoCommand.Execute(null);
-                    //    }
-                    //    else
-                    //        MainViewModel.ShowView(MainViewModel.ReportsView);
-                    //}
+                    if (user.Role != UserModel.UserRole.GUEST)
+                        MainViewModel.ShowView(MainViewModel.ReportsView);
+                    else
+                    {
+                        if (!UserInstructed)
+                        {
+                            UserInstructed = true;
+                            MessageBoxHandler.Show("Before we start, an instructional video will be played", "Not so fast",
+                                3, MessageBoxImage.Information);
+                            PlayInstructionalVideoCommand.Execute(null);
+                        }
+                        else
+                            MainViewModel.ShowView(MainViewModel.ReportsView);
+                    }
                 });
             }
         }
