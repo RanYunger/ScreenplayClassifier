@@ -39,6 +39,7 @@
     <None Remove="Media\Images\Document.png" />
     <None Remove="Media\Images\EmptyFolder.png" />
     <None Remove="Media\Images\Error.png" />
+    <None Remove="Media\Images\Filter.png" />
     <None Remove="Media\Images\FullFolder.png" />
     <None Remove="Media\Images\Genres\Action.png" />
     <None Remove="Media\Images\Genres\Adventure.png" />
@@ -153,6 +154,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Error.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Filter.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Genres\Action.png">
