@@ -95,16 +95,25 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    GenreView genreView = new GenreView();
+                    GenreView genreView = null;
 
                     if (screenplaysInGenre.Count == 0)
-                    {
                         MessageBoxHandler.Show("No screenplays in this genre", "Error", 2, MessageBoxImage.Stop);
-                        return;
-                    }
+                    else
+                    {
+                        foreach (Window view in App.Current.Windows)
+                        {
+                            if (view is GenreView)
+                            {
+                                view.Focus();
+                                return;
+                            }
+                        }
 
-                    ((GenreViewModel)genreView.DataContext).Init(Genre, ScreenplaysInGenre);
-                    genreView.Show();
+                        genreView = new GenreView();
+                        ((GenreViewModel)genreView.DataContext).Init(Genre, ScreenplaysInGenre);
+                        genreView.Show();
+                    }
                 });
             }
         }

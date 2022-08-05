@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="ScreenplayClassifier.MVVM.Views.GenresView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
+             Style="{StaticResource UserControlStyle}">
+    <Grid>
+        <StackPanel>
+            <Image Source="{Binding GenreImage}" Height="370" Width="370" Cursor="Hand" Margin="0,10,0,20">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding SelectGenreCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Image>
+            <WrapPanel HorizontalAlignment="Center">
+                <Image Source="{Binding SubGenre1Image}" Height="150" Width="150" Cursor="Hand" Margin="0,25,30,0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding SelectSubGenre1Command}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
+                <Image Source="{Binding SubGenre2Image}" Height="150" Width="150" Cursor="Hand" Margin="30,25,0,0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding SelectSubGenre2Command}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

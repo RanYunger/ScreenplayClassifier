@@ -15,13 +15,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private ObservableCollection<ClassificationModel> classifiedScreenplays;
-        private ImageSource selectedGenreImage, selectedSubGenre1Image, selectedSubGenre2Image;
+        private TimeSpan selectedDuration;
         private int selectedClassifiedScreenplay;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
         public ResultsView ResultsView { get; private set; }
+        public GenresView GenresView { get; private set; }
 
         public ObservableCollection<ClassificationModel> ClassifiedScreenplays
         {
@@ -35,62 +36,36 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public ImageSource SelectedGenreImage
+        public TimeSpan SelectedDuration
         {
-            get { return selectedGenreImage; }
+            get { return selectedDuration; }
             set
             {
-                selectedGenreImage = value;
+                selectedDuration = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedGenreImage"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedDuration"));
             }
         }
-
-        public ImageSource SelectedSubGenre1Image
-        {
-            get { return selectedSubGenre1Image; }
-            set
-            {
-                selectedSubGenre1Image = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedSubGenre1Image"));
-            }
-        }
-        public ImageSource SelectedSubGenre2Image
-        {
-            get { return selectedSubGenre2Image; }
-            set
-            {
-                selectedSubGenre2Image = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedSubGenre2Image"));
-            }
-        }
-
         public int SelectedClassifiedScreenplay
         {
             get { return selectedClassifiedScreenplay; }
             set
             {
-                string genreImagePath = string.Empty, subGenre1ImagePath = string.Empty, subGenre2ImagePath = string.Empty;
+                ScreenplayModel selectedScreenplay;
+                string genreName = string.Empty, subGenre1Name = string.Empty, subGenre2Name = string.Empty;
 
                 selectedClassifiedScreenplay = value;
 
                 if (selectedClassifiedScreenplay != -1)
                 {
-                    genreImagePath = string.Format("{0}{1}.png", FolderPaths.GENREIMAGES,
-                        ClassifiedScreenplays[selectedClassifiedScreenplay].Screenplay.Genre);
-                    subGenre1ImagePath = string.Format("{0}{1}.png", FolderPaths.GENREIMAGES,
-                        ClassifiedScreenplays[selectedClassifiedScreenplay].Screenplay.SubGenre1);
-                    subGenre2ImagePath = string.Format("{0}{1}.png", FolderPaths.GENREIMAGES,
-                        ClassifiedScreenplays[selectedClassifiedScreenplay].Screenplay.SubGenre2);
+                    selectedScreenplay = ClassifiedScreenplays[selectedClassifiedScreenplay].Screenplay;
+                    genreName = selectedScreenplay.ClassifiedGenre;
+                    subGenre1Name = selectedScreenplay.ClassifiedSubGenre1;
+                    subGenre2Name = selectedScreenplay.ClassifiedSubGenre2;
 
-                    SelectedGenreImage = new BitmapImage(new Uri(genreImagePath));
-                    SelectedSubGenre1Image = new BitmapImage(new Uri(subGenre1ImagePath));
-                    SelectedSubGenre2Image = new BitmapImage(new Uri(subGenre2ImagePath));
+                    ((GenresViewModel)GenresView.DataContext).Init(selectedScreenplay, "Classified", GenresView);
+                    SelectedDuration = ClassifiedScreenplays[selectedClassifiedScreenplay].Duration;
                 }
 
                 if (PropertyChanged != null)
@@ -102,6 +77,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ResultsViewModel()
         {
             ClassifiedScreenplays = new ObservableCollection<ClassificationModel>();
+
             SelectedClassifiedScreenplay = -1;
         }
 
@@ -113,6 +89,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             ClassificationViewModel = classificationViewModel;
             ResultsView = resultsView;
+            GenresView = (GenresView)ResultsView.FindName("GenresView");
         }
     }
 }

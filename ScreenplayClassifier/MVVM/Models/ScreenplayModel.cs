@@ -15,7 +15,7 @@ namespace ScreenplayClassifier.MVVM.Models
 
         private int screenplayID;
         private string name, filePath;
-        private string[] genres;
+        private string[] designatedGenres, classifiedGenres;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -53,49 +53,88 @@ namespace ScreenplayClassifier.MVVM.Models
             }
         }
 
-        public string Genre
+        public string DesignatedGenre
         {
-            get { return genres[0]; }
+            get { return designatedGenres[0]; }
             set
             {
-                genres[0] = value;
+                designatedGenres[0] = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Genre"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("DesignatedGenre"));
             }
         }
-        public string SubGenre1
+
+        public string DesignatedSubGenre1
         {
-            get { return genres[1]; }
+            get { return designatedGenres[1]; }
             set
             {
-                genres[1] = value;
+                designatedGenres[1] = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre1"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("DesignatedSubGenre1"));
             }
         }
-        public string SubGenre2
+
+        public string DesignatedSubGenre2
         {
-            get { return genres[2]; }
+            get { return designatedGenres[2]; }
             set
             {
-                genres[2] = value;
+                designatedGenres[2] = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre2"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("DesignatedSubGenre2"));
+            }
+        }
+
+        public string ClassifiedGenre
+        {
+            get { return classifiedGenres[0]; }
+            set
+            {
+                classifiedGenres[0] = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ClassifiedGenre"));
+            }
+        }
+
+        public string ClassifiedSubGenre1
+        {
+            get { return classifiedGenres[1]; }
+            set
+            {
+                classifiedGenres[1] = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ClassifiedSubGenre1"));
+            }
+        }
+
+        public string ClassifiedSubGenre2
+        {
+            get { return classifiedGenres[2]; }
+            set
+            {
+                classifiedGenres[2] = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ClassifiedSubGenre2"));
             }
         }
 
         // Constructors
         public ScreenplayModel(string name, string filePath)
         {
-            genres = new string[3];
+            designatedGenres = classifiedGenres = new string[3];
 
             ID = IDGenerator++;
             Name = name;
             FilePath = filePath;
-            Genre = SubGenre1 = SubGenre2 = "Unknown";
+            DesignatedGenre = DesignatedSubGenre1 = DesignatedSubGenre2 = "Unknown";
+            ClassifiedGenre = ClassifiedSubGenre1 = ClassifiedSubGenre2 = "Unknown";
         }
     }
 }

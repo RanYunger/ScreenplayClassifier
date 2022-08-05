@@ -16,10 +16,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ClassificationViewModel : INotifyPropertyChanged
     {
         // Fields
-        private bool browseComplete, progerssComplete, resultsComplete;
         private BrowseViewModel browseViewModel;
         private ProgressViewModel progressViewModel;
         private ResultsViewModel resultsViewModel;
+        private FeedbackViewModel feedbackViewModel;
+        private bool browseComplete, progerssComplete, feedbackComplete;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -57,6 +58,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ResultsViewModel"));
+            }
+        }
+
+        public FeedbackViewModel FeedbackViewModel
+        {
+            get { return feedbackViewModel; }
+            set
+            {
+                feedbackViewModel = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("FeedbackViewModel"));
             }
         }
 
@@ -102,21 +115,24 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 BrowseComplete = !progerssComplete;
 
                 if (progerssComplete)
+                {
                     ChangeTabVisibility("ResultsTabItem", Visibility.Visible, false);
+                    ChangeTabVisibility("FeedbackTabItem", Visibility.Visible, false);
+                }
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ProgressComplete"));
             }
         }
-        public bool ResultsComplete
+        public bool FeedbackComplete
         {
-            get { return resultsComplete; }
+            get { return feedbackComplete; }
             set
             {
-                resultsComplete = value;
+                feedbackComplete = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ResultsComplete"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("FeedbackComplete"));
             }
         }
 
@@ -132,6 +148,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             BrowseView browseView = null;
             ProgressView progressView = null;
             ResultsView resultsView = null;
+            FeedbackView feedbackView = null;
 
             MainViewModel = mainViewModel;
             ClassificationView = classificationView;
@@ -147,6 +164,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             resultsView = (ResultsView)ClassificationView.FindName("ResultsView");
             ResultsViewModel = (ResultsViewModel)resultsView.DataContext;
             ResultsViewModel.Init(this, resultsView);
+
+            feedbackView = (FeedbackView)ClassificationView.FindName("FeedbackView");
+            FeedbackViewModel = (FeedbackViewModel)feedbackView.DataContext;
+            FeedbackViewModel.Init(this, feedbackView);
         }
 
         private void ChangeTabVisibility(string tabName, Visibility visibility, bool focus)
