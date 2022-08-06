@@ -34,14 +34,28 @@
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="2">
             <TextBlock Text="Stats" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-            <WrapPanel Margin="10">
-                <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
+            <StackPanel>
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsSelected}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <WrapPanel Margin="10">
+                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
                          Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                <TextBlock Text="Duration:" FontSize="20" Margin="40,0,0,0" Style="{StaticResource TextBlockStyle}"/>
-                <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
+                    <TextBlock Text="Duration:" FontSize="20" Margin="40,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
                          Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-            </WrapPanel>
+                </WrapPanel>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

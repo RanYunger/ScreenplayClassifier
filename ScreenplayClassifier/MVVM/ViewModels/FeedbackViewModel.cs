@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -123,7 +124,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     selectedScreenplay = ClassifiedScreenplays[selectedClassifiedScreenplay].Screenplay;
 
                     ((GenresViewModel)ClassifiedGenresView.DataContext).Init(selectedScreenplay, "Classified", ClassifiedGenresView);
-                    ((GenresViewModel)DesignatedGenresView.DataContext).Init(selectedScreenplay, "Classified", DesignatedGenresView);
+                    ((GenresViewModel)DesignatedGenresView.DataContext).Init(selectedScreenplay, "Designated", DesignatedGenresView);
                 }
 
                 if (PropertyChanged != null)
@@ -140,12 +141,50 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Methods
+        #region Commands
+        public Command SubmitFeedbackCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    MessageBoxResult startOver;
+
+                    if (!CanSubmit())
+                        MessageBoxHandler.Show("Complete feedback for all screenplays", "Error", 3, MessageBoxImage.Error);
+                    else
+                    {
+                        //MessageBoxHandler.Show("Feedback submitted successfuly", "Success", 3, MessageBoxImage.Information);
+
+                        startOver = MessageBox.Show("Would you like to start over?", "something", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        ClassificationViewModel.FeedbackComplete = startOver == MessageBoxResult.No;
+                    }
+                });
+            }
+        }
+        #endregion
+
         public void Init(ClassificationViewModel classificationViewModel, FeedbackView feedbackView)
         {
             ClassificationViewModel = classificationViewModel;
             FeedbackView = feedbackView;
             ClassifiedGenresView = (GenresView)FeedbackView.FindName("ClassifiedGenresView");
             DesignatedGenresView = (GenresView)FeedbackView.FindName("DesignatedGenresView");
+        }
+
+        public bool CanSubmit()
+        {
+            ScreenplayModel currentScreenplay = null;
+
+            for (int i = 0; i < ClassifiedScreenplays.Count; i++)
+            {
+                currentScreenplay = ClassifiedScreenplays[i].Screenplay;
+                if ((currentScreenplay.DesignatedGenre == "Unknown") || (currentScreenplay.DesignatedSubGenre1 == "Unknown")
+                    || (currentScreenplay.DesignatedSubGenre2 == "Unknown"))
+                    return false;
+            }
+
+            return true;
         }
     }
 }

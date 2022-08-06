@@ -17,6 +17,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private ObservableCollection<ClassificationModel> classifiedScreenplays;
         private TimeSpan selectedDuration;
         private int selectedClassifiedScreenplay;
+        private bool isSelected;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -56,6 +57,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 string genreName = string.Empty, subGenre1Name = string.Empty, subGenre2Name = string.Empty;
 
                 selectedClassifiedScreenplay = value;
+                IsSelected = selectedClassifiedScreenplay != -1;
 
                 if (selectedClassifiedScreenplay != -1)
                 {
@@ -70,6 +72,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("SelectedClassifiedScreenplay"));
+            }
+        }
+
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set
+            {
+                isSelected = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("IsSelected"));
             }
         }
 

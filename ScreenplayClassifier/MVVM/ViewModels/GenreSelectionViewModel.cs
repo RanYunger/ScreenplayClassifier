@@ -1,5 +1,6 @@
 ﻿using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
+using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -63,29 +64,114 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Methods
-        #region Command
-        public Command CheckSelectionCommand
+        #region Commands
+        public Command SelectActionGenreCommand
+        {
+            get { return new Command(() => { SelectedGenre = "Action"; ChangeGenreCommand.Execute(null); }); }
+        }
+
+        public Command SelectAdventureGenreCommand
+        {
+            get { return new Command(() => { SelectedGenre = "Adventure"; ChangeGenreCommand.Execute(null); }); }
+        }
+
+        public Command SelectComedyGenreCommand
+        {
+            get { return new Command(() => { SelectedGenre = "Comedy"; ChangeGenreCommand.Execute(null); }); }
+        }
+
+        public Command SelectCrimeGenreCommand
+        {
+            get { return new Command(() => { SelectedGenre = "Crime"; ChangeGenreCommand.Execute(null); }); }
+        }
+
+        public Command SelectDramaGenreCommand
+        {
+            get { return new Command(() => { SelectedGenre = "Drama"; ChangeGenreCommand.Execute(null); }); }
+        }
+
+        public Command SelectFamilyGenreCommand
+        {
+            get { return new Command(() => { SelectedGenre = "Family"; ChangeGenreCommand.Execute(null); }); }
+        }
+
+        public Command SelectFantasyGenreCommand
+        {
+            get { return new Command(() => { SelectedGenre = "Fantasy"; ChangeGenreCommand.Execute(null); }); }
+        }
+
+        public Command SelectHorrorGenreCommand
+        {
+            get { return new Command(() => { SelectedGenre = "Horror"; ChangeGenreCommand.Execute(null); }); }
+        }
+
+        public Command SelectRomanceGenreCommand
+        {
+            get { return new Command(() => { SelectedGenre = "Romance"; ChangeGenreCommand.Execute(null); }); }
+        }
+
+        public Command SelectSciFiGenreCommand
+        {
+            get { return new Command(() => { SelectedGenre = "SciFi"; ChangeGenreCommand.Execute(null); }); }
+        }
+
+        public Command SelectThrillerGenreCommand
+        {
+            get { return new Command(() => { SelectedGenre = "Thriller"; ChangeGenreCommand.Execute(null); }); }
+        }
+
+        public Command SelectWarGenreCommand
+        {
+            get { return new Command(() => { SelectedGenre = "War"; ChangeGenreCommand.Execute(null); }); }
+        }
+
+        public Command ChangeGenreCommand
         {
             get
             {
                 return new Command(() =>
                 {
-                    SelectedGenre = GetSelectedGenre();
                     switch (affectedGenre)
                     {
                         case "Genre":
-                            Screenplay.DesignatedGenre = SelectedGenre;
+                            {
+                                if ((Screenplay.DesignatedSubGenre1 == SelectedGenre) || (Screenplay.DesignatedSubGenre2 == SelectedGenre))
+                                    MessageBoxHandler.Show(SelectedGenre + " genre already selected", "Error", 3, MessageBoxImage.Error);
+                                else
+                                {
+                                    Screenplay.DesignatedGenre = SelectedGenre;
+                                    ((GenresViewModel)GenresView.DataContext).Init(Screenplay, "Designated", GenresView);
+                                    GenreSelectionView.Close();
+                                }
+                            }
                             break;
                         case "SubGenre1":
-                            Screenplay.DesignatedSubGenre1 = SelectedGenre;
+                            {
+                                if ((Screenplay.DesignatedGenre == SelectedGenre) || (Screenplay.DesignatedSubGenre2 == SelectedGenre))
+                                    MessageBoxHandler.Show(SelectedGenre + " genre already selected", "Error", 3, MessageBoxImage.Error);
+                                else
+                                {
+                                    Screenplay.DesignatedSubGenre1 = SelectedGenre;
+                                    ((GenresViewModel)GenresView.DataContext).Init(Screenplay, "Designated", GenresView);
+                                    GenreSelectionView.Close();
+                                }
+                            }
                             break;
                         case "SubGenre2":
-                            Screenplay.DesignatedSubGenre2 = SelectedGenre;
+                            {
+                                if ((Screenplay.DesignatedGenre == SelectedGenre) || (Screenplay.DesignatedSubGenre1 == SelectedGenre))
+                                    MessageBoxHandler.Show(SelectedGenre + " genre already selected", "Error", 3, MessageBoxImage.Error);
+                                else
+                                {
+                                    Screenplay.DesignatedSubGenre2 = SelectedGenre;
+                                    ((GenresViewModel)GenresView.DataContext).Init(Screenplay, "Designated", GenresView);
+                                    GenreSelectionView.Close();
+                                }
+                            }
                             break;
                     }
 
-                    ((GenresViewModel)GenresView.DataContext).Init(Screenplay, "Designated", GenresView);
-                    GenreSelectionView.Close();
+
                 });
             }
         }
@@ -97,29 +183,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             Screenplay = screenplay;
             GenreSelectionView = genreSelectionView;
             GenresView = genresView;
-        }
-
-        public string GetSelectedGenre()
-        {
-            // TODO: FIX (find which image was pressed)
-            MainView mainView = null;
-            MainViewModel mainViewModel = null;
-            Image image = null;
-            List<string> genreNames = null;
-
-            App.Current.Dispatcher.Invoke(() => mainView = (MainView)App.Current.MainWindow);
-            App.Current.Dispatcher.Invoke(() => mainViewModel = (MainViewModel)mainView.DataContext);
-
-            genreNames = new List<string>(mainViewModel.GenresDictionary.Keys);
-
-            /*for (int i = 0; i < genreNames.Count; i++)
-            {
-                image = (Image)GenreSelectionView.FindName(genreNames[i] + "Image");
-                if (image.IsFocused)
-                    return genreNames[i];
-            }*/
-
-            return "Horror"; //"Unknown";
         }
     }
 }

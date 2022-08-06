@@ -6,11 +6,6 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
         Title="Screenplay Classifier" Height="450" Width="600" Style="{StaticResource WindowStyle}">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseDown">
-            <i:InvokeCommandAction Command="{Binding CheckSelectionCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -23,19 +18,91 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="ActionImage" Grid.Row="0" Grid.Column="0" Source="/Media/Images/Genres/Action.png" Cursor="Hand" Margin="10"/>
-        <Image x:Name="AdventureImage" Grid.Row="0" Grid.Column="1" Source="/Media/Images/Genres/Adventure.png" Cursor="Hand" Margin="10"/>
-        <Image x:Name="ComedyImage" Grid.Row="0" Grid.Column="2" Source="/Media/Images/Genres/Comedy.png" Cursor="Hand" Margin="10"/>
-        <Image x:Name="CrimeImage" Grid.Row="0" Grid.Column="3" Source="/Media/Images/Genres/Crime.png" Cursor="Hand" Margin="10"/>
+        <Image Grid.Row="0" Grid.Column="0" Source="/Media/Images/Genres/Action.png" Cursor="Hand" Margin="10">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding SelectActionGenreCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
+        <Image Grid.Row="0" Grid.Column="1" Source="/Media/Images/Genres/Adventure.png" Cursor="Hand" Margin="10">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding SelectAdventureGenreCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
+        <Image Grid.Row="0" Grid.Column="2" Source="/Media/Images/Genres/Comedy.png" Cursor="Hand" Margin="10">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding SelectComedyGenreCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
+        <Image Grid.Row="0" Grid.Column="3" Source="/Media/Images/Genres/Crime.png" Cursor="Hand" Margin="10">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding SelectCrimeGenreCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
 
-        <Image x:Name="DramaImage" Grid.Row="1" Grid.Column="0" Source="/Media/Images/Genres/Drama.png" Cursor="Hand" Margin="10"/>
-        <Image x:Name="FamilyImage" Grid.Row="1" Grid.Column="1" Source="/Media/Images/Genres/Family.png" Cursor="Hand" Margin="10"/>
-        <Image x:Name="FantasyImage" Grid.Row="1" Grid.Column="2" Source="/Media/Images/Genres/Fantasy.png" Cursor="Hand" Margin="10"/>
-        <Image x:Name="HorrorImage" Grid.Row="1" Grid.Column="3" Source="/Media/Images/Genres/Horror.png" Cursor="Hand" Margin="10"/>
+        <Image Grid.Row="1" Grid.Column="0" Source="/Media/Images/Genres/Drama.png" Cursor="Hand" Margin="10">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding SelectDramaGenreCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
+        <Image Grid.Row="1" Grid.Column="1" Source="/Media/Images/Genres/Family.png" Cursor="Hand" Margin="10">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding SelectFamilyGenreCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
+        <Image Grid.Row="1" Grid.Column="2" Source="/Media/Images/Genres/Fantasy.png" Cursor="Hand" Margin="10">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding SelectFantasyGenreCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
+        <Image Grid.Row="1" Grid.Column="3" Source="/Media/Images/Genres/Horror.png" Cursor="Hand" Margin="10">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding SelectHorrorGenreCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
 
-        <Image x:Name="RomanceImage" Grid.Row="2" Grid.Column="0" Source="/Media/Images/Genres/Romance.png" Margin="10"/>
-        <Image x:Name="SciFiImage" Grid.Row="2" Grid.Column="1" Source="/Media/Images/Genres/SciFi.png" Margin="10"/>
-        <Image x:Name="ThrillerImage" Grid.Row="2" Grid.Column="2" Source="/Media/Images/Genres/Thriller.png" Margin="10"/>
-        <Image x:Name="WarImage" Grid.Row="2" Grid.Column="3" Source="/Media/Images/Genres/War.png" Margin="10"/>
+        <Image Grid.Row="2" Grid.Column="0" Source="/Media/Images/Genres/Romance.png" Cursor="Hand" Margin="10">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding SelectRomanceGenreCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
+        <Image Grid.Row="2" Grid.Column="1" Source="/Media/Images/Genres/SciFi.png" Cursor="Hand" Margin="10">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding SelectSciFiGenreCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
+        <Image Grid.Row="2" Grid.Column="2" Source="/Media/Images/Genres/Thriller.png" Cursor="Hand" Margin="10">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding SelectThrillerGenreCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
+        <Image Grid.Row="2" Grid.Column="3" Source="/Media/Images/Genres/War.png" Cursor="Hand" Margin="10">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding SelectWarGenreCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
     </Grid>
 </Window>

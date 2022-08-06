@@ -18,14 +18,18 @@
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Screenplays" FontSize="40" HorizontalAlignment="Center" Margin="0,10,0,10"
                    Style="{StaticResource TextBlockStyle}"/>
-        <DataGrid Grid.Row="1" Grid.Column="0" Height="620" FontSize="20" SelectionMode="Single"
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <DataGrid  Height="520" FontSize="20" SelectionMode="Single"
                   SelectedIndex="{Binding SelectedClassifiedScreenplay}" ItemsSource="{Binding ClassifiedScreenplays}" Margin="10"
                   Style="{StaticResource DataGridStyle}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Width="50" IsReadOnly="True" Binding="{Binding Path=Screenplay.ID}"/>
-                <DataGridTextColumn Header="Name" Width="340" IsReadOnly="True" Binding="{Binding Path=Screenplay.Name}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="50" IsReadOnly="True" Binding="{Binding Path=Screenplay.ID}"/>
+                    <DataGridTextColumn Header="Name" Width="340" IsReadOnly="True" Binding="{Binding Path=Screenplay.Name}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Width="150" Content="Submit" FontSize="40" Command="{Binding SubmitFeedbackCommand}" ToolTip="Submit Feedback"
+                    Margin="10" Style="{StaticResource ButtonStyle}"/>
+        </StackPanel>
         <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="Genres Feedback" FontSize="40" HorizontalAlignment="Center"
                    Margin="0,10,0,10" Style="{StaticResource TextBlockStyle}"/>
         <StackPanel Grid.Row="1" Grid.Column="1">

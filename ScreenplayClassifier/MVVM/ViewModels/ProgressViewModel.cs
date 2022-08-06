@@ -294,8 +294,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             PauseImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "PauseUnpressed.png"));
 
             ClassificationsProgresses = new ObservableCollection<ProgressModel>();
-            for (int i = 0; i < 5; i++)
-                ClassificationsProgresses.Add(new ProgressModel());
 
             CanStop = true;
             SelectedClassification = 0;
@@ -351,9 +349,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     CanStop = CanPause = false;
 
                     App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
-                    App.Current.Dispatcher.Invoke(() => ClassificationViewModel.BrowseViewModel.BrowsedScreenplays.Clear());
 
-                    MessageBoxHandler.Show("Results are now available at the Results tab", "Classifications Complete", 3,
+                    MessageBoxHandler.Show("You can now view the classifications at the Results tab", "Classifications Complete", 3,
                         MessageBoxImage.Information);
                 }
         }
@@ -363,43 +360,50 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             // TODO: FIX (stabilize the code - throws random exceptions from time to time)
 
             // Validations
-            if ((App.Current == null) || (ClassificationsProgresses.Count == 0))
-                return;
-
-            App.Current.Dispatcher.Invoke(() => SelectedClassification = SelectedClassification); // Triggers PropertyChange events
-            for (int i = 0; i < ClassificationsProgresses.Count; i++)
+            try
             {
-                if (ClassificationsProgresses[i].IsPaused)
-                    continue;
+                if ((App.Current == null) || (ClassificationsProgresses.Count == 0))
+                    return;
 
-                if (ClassificationsProgresses[i].IsComplete)
+                App.Current.Dispatcher.Invoke(() => SelectedClassification = SelectedClassification); // Triggers PropertyChange events
+                for (int i = 0; i < ClassificationsProgresses.Count; i++)
                 {
-                    lock (this)
+                    if (ClassificationsProgresses[i].IsPaused)
+                        continue;
+
+                    if (ClassificationsProgresses[i].IsComplete)
                     {
-                        ClassificationsProgresses[i].DurationTimer.Stop();
-                        ActiveClassifications[i].Duration = ClassificationsProgresses[i].Duration;
-                        App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ResultsViewModel.ClassifiedScreenplays.Add(ActiveClassifications[i]));
-                        App.Current.Dispatcher.Invoke(() => ClassificationViewModel.FeedbackViewModel.ClassifiedScreenplays.Add(ActiveClassifications[i]));
-
-                        App.Current.Dispatcher.Invoke(() => ActiveClassifications.RemoveAt(i));
-                        App.Current.Dispatcher.Invoke(() => ClassificationsProgresses.RemoveAt(i));
-
-                        if (InactiveClassifications.Count > 0)
+                        lock (this)
                         {
-                            App.Current.Dispatcher.Invoke(() => ActiveClassifications.Add(InactiveClassifications[0]));
-                            App.Current.Dispatcher.Invoke(() => ClassificationsProgresses.Add(new ProgressModel()));
-                            ClassificationsProgresses[ClassificationsProgresses.Count - 1].BackgroundWorker.RunWorkerAsync();
-                            ClassificationsProgresses[ClassificationsProgresses.Count - 1].DurationTimer.Start();
+                            try
+                            {
+                                ClassificationsProgresses[i].DurationTimer.Stop();
+                                ActiveClassifications[i].Duration = ClassificationsProgresses[i].Duration;
+                                App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ResultsViewModel.ClassifiedScreenplays.Add(ActiveClassifications[i]));
+                                //App.Current.Dispatcher.Invoke(() => ClassificationViewModel.FeedbackViewModel.ClassifiedScreenplays.Add(ActiveClassifications[i]));
 
-                            App.Current.Dispatcher.Invoke(() => InactiveClassifications.RemoveAt(0));
+                                App.Current.Dispatcher.Invoke(() => ActiveClassifications.RemoveAt(i));
+                                App.Current.Dispatcher.Invoke(() => ClassificationsProgresses.RemoveAt(i));
+
+                                if (InactiveClassifications.Count > 0)
+                                {
+                                    App.Current.Dispatcher.Invoke(() => ActiveClassifications.Add(InactiveClassifications[0]));
+                                    App.Current.Dispatcher.Invoke(() => ClassificationsProgresses.Add(new ProgressModel()));
+                                    ClassificationsProgresses[ClassificationsProgresses.Count - 1].BackgroundWorker.RunWorkerAsync();
+                                    ClassificationsProgresses[ClassificationsProgresses.Count - 1].DurationTimer.Start();
+
+                                    App.Current.Dispatcher.Invoke(() => InactiveClassifications.RemoveAt(0));
+                                }
+
+                                ClassificationsComplete++;
+                                ClassificationsProgress = (int)(((float)ClassificationsComplete / ClassificationsRequired) * 100);
+                            }
+                            catch { }
                         }
-
-                        ClassificationsComplete++;
-                        ClassificationsProgress = (int)(((float)ClassificationsComplete / ClassificationsRequired) * 100);
                     }
-                    //break;
                 }
             }
+            catch { }
         }
 
         public void Init(ClassificationViewModel classificationViewModel, ProgressView progressView)

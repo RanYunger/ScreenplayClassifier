@@ -128,7 +128,8 @@ namespace ScreenplayClassifier.MVVM.Models
         // Constructors
         public ScreenplayModel(string name, string filePath)
         {
-            designatedGenres = classifiedGenres = new string[3];
+            designatedGenres = new string[3];
+            classifiedGenres = new string[3];
 
             ID = IDGenerator++;
             Name = name;
