@@ -172,7 +172,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             DesignatedGenresView = (GenresView)FeedbackView.FindName("DesignatedGenresView");
         }
 
-        public bool CanSubmit()
+        public void Set(ObservableCollection<ClassificationModel> classifiedScreenplays)
+        {
+            ClassifiedScreenplays = classifiedScreenplays;
+            SelectedClassifiedScreenplay = 0;
+        }
+
+        public void Reset()
+        {
+            ClassifiedScreenplays.Clear();
+            SelectedClassifiedScreenplay = -1;
+        }
+
+        private bool CanSubmit()
         {
             ScreenplayModel currentScreenplay = null;
 

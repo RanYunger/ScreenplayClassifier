@@ -3,16 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              Style="{StaticResource UserControlStyle}">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="700"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <TextBlock Text="Reports" FontSize="40" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-            <GroupBox Margin="10" Style="{StaticResource GroupBoxStyle}">
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Reports" FontSize="40" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <GroupBox Header="Filter" Margin="10" Style="{StaticResource GroupBoxStyle}">
                 <WrapPanel HorizontalAlignment="Center">
                     <DataGrid Margin="10" Style="{StaticResource DataGridStyle}">
                         <DataGrid.Columns>
@@ -21,13 +27,13 @@
                             <DataGridTextColumn Header="Value" Width="150" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button Command="{Binding FilterReportsCommand}" Height="80" Width="80" IsEnabled="{Binding CanClear}" ToolTip="Filter"
-                        Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
+                    <Button Command="{Binding FilterReportsCommand}" Height="80" Width="80" IsEnabled="{Binding CanClear}"
+                            ToolTip="Filter reports" Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
                         <Button.Content>
                             <Image Source="/Media/Images/Filter.png"/>
                         </Button.Content>
                     </Button>
-                    <Button Command="{Binding ClearFilterCommand}" Height="80" Width="80" IsEnabled="{Binding CanClear}" ToolTip="Clear"
+                    <Button Command="{Binding ClearFilterCommand}" Height="80" Width="80" IsEnabled="{Binding CanClear}" ToolTip="Clear filter"
                         Margin="10" Style="{StaticResource ButtonStyle}">
                         <Button.Content>
                             <Image Source="/Media/Images/Clear.png"/>
@@ -35,16 +41,16 @@
                     </Button>
                 </WrapPanel>
             </GroupBox>
-            <DataGrid ItemsSource="{Binding ClassificationReports}" Height="525" IsReadOnly="True" SelectionMode="Single" FontSize="20"
+            <DataGrid ItemsSource="{Binding ClassificationReports}" Height="485" IsReadOnly="True" SelectionMode="Single" FontSize="20"
                       Margin="10,0,10,0" Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="280"
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Screenplay.Name}" Width="300"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="Genre" Binding="{Binding Path=Screenplay.Genre}" Width="150"
+                    <DataGridTextColumn Header="Genre" Binding="{Binding Path=Screenplay.ClassifiedGenre}" Width="125"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=Screenplay.SubGenre1}" Width="150"
+                    <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=Screenplay.ClassifiedSubGenre1}" Width="125"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=Screenplay.SubGenre2}" Width="150"
+                    <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=Screenplay.ClassifiedSubGenre2}" Width="125"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                     <!--<DataGridTemplateColumn Width="50">
                         <DataGridTemplateColumn.CellTemplate>
@@ -60,8 +66,81 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <StackPanel Grid.Column="1">
-            <TextBlock Text="Statistics" FontSize="40" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-        </StackPanel>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="Statistics" FontSize="40" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+        <WrapPanel Grid.Row="1" Grid.Column="1">
+            <StackPanel>
+                <WrapPanel Margin="10">
+                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                </WrapPanel>
+                <WrapPanel Margin="10">
+                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                </WrapPanel>
+                <WrapPanel Margin="10">
+                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                </WrapPanel>
+                <WrapPanel Margin="10">
+                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                </WrapPanel>
+                <WrapPanel Margin="10">
+                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                </WrapPanel>
+                <WrapPanel Margin="10">
+                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                </WrapPanel>
+                <WrapPanel Margin="10">
+                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                </WrapPanel>
+                <WrapPanel Margin="10">
+                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                </WrapPanel>
+                <WrapPanel Margin="10">
+                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                </WrapPanel>
+                <WrapPanel Margin="10">
+                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                </WrapPanel>
+                <WrapPanel Margin="10">
+                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                </WrapPanel>
+                <WrapPanel Margin="10">
+                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                </WrapPanel>
+                <WrapPanel Margin="10">
+                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                </WrapPanel>
+            </StackPanel>
+            <lvc:CartesianChart>
+                
+            </lvc:CartesianChart>
+            <lvc:PieChart>
+                
+            </lvc:PieChart>
+        </WrapPanel>
     </Grid>
 </UserControl>

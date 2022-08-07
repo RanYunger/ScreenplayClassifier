@@ -411,5 +411,37 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ClassificationViewModel = classificationViewModel;
             ProgressView = progressView;
         }
+
+        public void Set(ObservableCollection<ScreenplayModel> browsedScreenplays)
+        {
+            int batchSize = browsedScreenplays.Count < 5 ? browsedScreenplays.Count : 5;
+
+            ClassificationsRequired = browsedScreenplays.Count;
+            ClassificationsComplete = 0;
+
+            foreach (ScreenplayModel screenplay in browsedScreenplays)
+                InactiveClassifications.Add(new ClassificationModel(screenplay));
+            for (int i = 0; i < batchSize; i++)
+            {
+                ActiveClassifications.Add(InactiveClassifications[0]);
+                ClassificationsProgresses.Add(new ProgressModel());
+                InactiveClassifications.RemoveAt(0);
+
+                ClassificationsProgresses[i].BackgroundWorker.RunWorkerAsync();
+                ClassificationsProgresses[i].DurationTimer.Start();
+            }
+
+            SelectedClassification = 0;
+            DurationTimer.Start();
+        }
+
+        public void Reset()
+        {
+            ClassificationsProgresses.Clear();
+            TotalDuration = TimeSpan.Zero;
+            ClassificationsRequired = ClassificationsComplete = ClassificationsProgress = 0;
+            SelectedClassification = -1;
+            CanStop = CanPause = true;
+        }
     }
 }

@@ -78,38 +78,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return browseComplete; }
             set
             {
-                int batchSize = BrowseViewModel.BrowsedScreenplays.Count < 5 ? BrowseViewModel.BrowsedScreenplays.Count : 5;
-
                 browseComplete = value;
 
                 if (browseComplete)
                 {
-                    ProgressViewModel.DurationTimer.Start();
-                    ProgressViewModel.ClassificationsRequired = BrowseViewModel.BrowsedScreenplays.Count;
-                    ProgressViewModel.ClassificationsComplete = 0;
-
-                    foreach (ScreenplayModel screenplay in BrowseViewModel.BrowsedScreenplays)
-                        ProgressViewModel.InactiveClassifications.Add(new ClassificationModel(screenplay));
-                    for (int i = 0; i < batchSize; i++)
-                    {
-                        ProgressViewModel.ActiveClassifications.Add(progressViewModel.InactiveClassifications[0]);
-                        ProgressViewModel.ClassificationsProgresses.Add(new ProgressModel());
-                        ProgressViewModel.InactiveClassifications.RemoveAt(0);
-
-                        ProgressViewModel.ClassificationsProgresses[i].BackgroundWorker.RunWorkerAsync();
-                        ProgressViewModel.ClassificationsProgresses[i].DurationTimer.Start();
-                    }
-
-                    ProgressViewModel.SelectedClassification = 0;
+                    ProgressViewModel.Set(BrowseViewModel.BrowsedScreenplays);
 
                     ChangeTabVisibility("ProgressTabItem", Visibility.Visible, true);
                 }
                 else
                 {
-                    BrowseViewModel.BrowsedScreenplays.Clear();
-                    BrowseViewModel.CanBrowse = BrowseViewModel.CanClear = true;
-
-                    ProgressViewModel.SelectedClassification = -1;
+                    BrowseViewModel.Reset();
+                    ProgressViewModel.Reset();
 
                     ChangeTabVisibility("BrowseTabItem", Visibility.Visible, true);
                 }
@@ -127,28 +107,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (progerssComplete)
                 {
-                    ResultsViewModel.SelectedClassifiedScreenplay = 0;
-
-                    foreach (ClassificationModel classification in ResultsViewModel.ClassifiedScreenplays)
-                        FeedbackViewModel.ClassifiedScreenplays.Add(classification);
-                    FeedbackViewModel.SelectedClassifiedScreenplay = 0;
+                    ResultsViewModel.Set();
+                    FeedbackViewModel.Set(ResultsViewModel.ClassifiedScreenplays);
 
                     ChangeTabVisibility("ResultsTabItem", Visibility.Visible, false);
                     ChangeTabVisibility("FeedbackTabItem", Visibility.Visible, false);
                 }
                 else
                 {
-                    ProgressViewModel.ClassificationsProgresses.Clear();
-                    ProgressViewModel.TotalDuration = TimeSpan.Zero;
-                    ProgressViewModel.ClassificationsRequired = ProgressViewModel.ClassificationsComplete
-                        = ProgressViewModel.ClassificationsProgress = 0;
-                    ProgressViewModel.CanStop = ProgressViewModel.CanPause = true;
-
-                    ResultsViewModel.ClassifiedScreenplays.Clear();
-                    ResultsViewModel.SelectedClassifiedScreenplay = -1;
-
-                    FeedbackViewModel.ClassifiedScreenplays.Clear();
-                    FeedbackViewModel.SelectedClassifiedScreenplay = -1;
+                    ProgressViewModel.Reset();
+                    ResultsViewModel.Reset();
+                    FeedbackViewModel.Reset();
 
                     ChangeTabVisibility("ProgressTabItem", Visibility.Collapsed, false);
                     ChangeTabVisibility("ResultsTabItem", Visibility.Collapsed, false);
@@ -168,8 +137,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (!feedbackComplete)
                 {
-                    FeedbackViewModel.SelectedClassifiedScreenplay = -1;
-
                     BrowseComplete = false;
                     ProgressComplete = false;
                 }

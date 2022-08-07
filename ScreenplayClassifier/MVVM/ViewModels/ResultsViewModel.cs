@@ -105,5 +105,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ResultsView = resultsView;
             GenresView = (GenresView)ResultsView.FindName("GenresView");
         }
+
+        public void Set()
+        {
+            SelectedClassifiedScreenplay = 0;
+        }
+
+        public void Reset() 
+        {
+            ClassifiedScreenplays.Clear();
+            SelectedClassifiedScreenplay = -1;
+        }
     }
 }

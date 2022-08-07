@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Screenplays" FontSize="40" HorizontalAlignment="Center" Margin="0,10,0,10"
                                    Style="{StaticResource TextBlockStyle}"/>
-        <DataGrid Grid.Row="1" Grid.Column="0" Height="620" FontSize="20" SelectionMode="Single"
+        <DataGrid Grid.Row="1" Grid.Column="0" Height="620" FontSize="20" SelectionMode="Single" IsReadOnly="True"
                   SelectedIndex="{Binding SelectedClassifiedScreenplay}" ItemsSource="{Binding ClassifiedScreenplays}" Margin="10"
                   Style="{StaticResource DataGridStyle}">
             <DataGrid.Columns>

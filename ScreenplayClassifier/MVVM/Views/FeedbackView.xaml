@@ -19,7 +19,7 @@
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Screenplays" FontSize="40" HorizontalAlignment="Center" Margin="0,10,0,10"
                    Style="{StaticResource TextBlockStyle}"/>
         <StackPanel Grid.Row="1" Grid.Column="0">
-            <DataGrid  Height="520" FontSize="20" SelectionMode="Single"
+            <DataGrid Height="520" FontSize="20" IsReadOnly="True" SelectionMode="Single"
                   SelectedIndex="{Binding SelectedClassifiedScreenplay}" ItemsSource="{Binding ClassifiedScreenplays}" Margin="10"
                   Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>

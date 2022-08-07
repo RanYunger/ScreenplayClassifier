@@ -170,5 +170,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ClassificationViewModel = classificationViewModel;
             BrowseView = browseView;
         }
+
+        public void Reset()
+        {
+            BrowsedScreenplays.Clear();
+            CanBrowse = CanClear = true;
+        }
     }
 }
