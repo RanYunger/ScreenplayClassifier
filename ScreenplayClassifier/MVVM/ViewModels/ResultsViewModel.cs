@@ -62,11 +62,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 if (selectedClassifiedScreenplay != -1)
                 {
                     selectedScreenplay = ClassifiedScreenplays[selectedClassifiedScreenplay].Screenplay;
-                    genreName = selectedScreenplay.ClassifiedGenre;
-                    subGenre1Name = selectedScreenplay.ClassifiedSubGenre1;
-                    subGenre2Name = selectedScreenplay.ClassifiedSubGenre2;
+                    genreName = selectedScreenplay.PredictedGenre;
+                    subGenre1Name = selectedScreenplay.PredictedSubGenre1;
+                    subGenre2Name = selectedScreenplay.PredictedSubGenre2;
 
-                    ((GenresViewModel)GenresView.DataContext).Init(selectedScreenplay, "Classified", GenresView);
+                    ((GenresViewModel)GenresView.DataContext).Init(selectedScreenplay, "Predicted", GenresView);
                     SelectedDuration = ClassifiedScreenplays[selectedClassifiedScreenplay].Duration;
                 }
 

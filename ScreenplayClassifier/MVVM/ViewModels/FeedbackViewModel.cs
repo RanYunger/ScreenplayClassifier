@@ -16,16 +16,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private ObservableCollection<ClassificationModel> classifiedScreenplays;
-        private ImageSource selectedClassifiedGenreImage, selectedClassifiedSubGenre1Image, selectedClassifiedSubGenre2Image;
-        private ImageSource selectedDesignatedGenreImage, selectedDesignatedSubGenre1Image, selectedDesignatedSubGenre2Image;
+        private ImageSource selectedPredictedGenreImage, selectedPredictedSubGenre1Image, selectedPredictedSubGenre2Image;
+        private ImageSource selectedActualGenreImage, selectedActualSubGenre1Image, selectedActualSubGenre2Image;
         private int selectedClassifiedScreenplay;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
         public FeedbackView FeedbackView { get; private set; }
-        public GenresView ClassifiedGenresView { get; private set; }
-        public GenresView DesignatedGenresView { get; private set; }
+        public GenresView PredictedGenresView { get; private set; }
+        public GenresView ActualGenresView { get; private set; }
 
         public ObservableCollection<ClassificationModel> ClassifiedScreenplays
         {
@@ -39,74 +39,74 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public ImageSource SelectedClassifiedGenreImage
+        public ImageSource SelectedPredictedGenreImage
         {
-            get { return selectedClassifiedGenreImage; }
+            get { return selectedPredictedGenreImage; }
             set
             {
-                selectedClassifiedGenreImage = value;
+                selectedPredictedGenreImage = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedClassifiedGenreImage"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedPredictedGenreImage"));
             }
         }
 
-        public ImageSource SelectedClassifiedSubGenre1Image
+        public ImageSource SelectedPredictedSubGenre1Image
         {
-            get { return selectedClassifiedSubGenre1Image; }
+            get { return selectedPredictedSubGenre1Image; }
             set
             {
-                selectedClassifiedSubGenre1Image = value;
+                selectedPredictedSubGenre1Image = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedClassifiedSubGenre1Image"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedPredictedSubGenre1Image"));
             }
         }
-        public ImageSource SelectedClassifiedSubGenre2Image
+        public ImageSource SelectedPredictedSubGenre2Image
         {
-            get { return selectedClassifiedSubGenre2Image; }
+            get { return selectedPredictedSubGenre2Image; }
             set
             {
-                selectedClassifiedSubGenre2Image = value;
+                selectedPredictedSubGenre2Image = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedClassifiedSubGenre2Image"));
-            }
-        }
-
-        public ImageSource SelectedDesignatedGenreImage
-        {
-            get { return selectedDesignatedGenreImage; }
-            set
-            {
-                selectedDesignatedGenreImage = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedDesignatedGenreImage"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedPredictedSubGenre2Image"));
             }
         }
 
-        public ImageSource SelectedDesignatedSubGenre1Image
+        public ImageSource SelectedActualGenreImage
         {
-            get { return selectedDesignatedSubGenre1Image; }
+            get { return selectedActualGenreImage; }
             set
             {
-                selectedDesignatedSubGenre1Image = value;
+                selectedActualGenreImage = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedDesignatedSubGenre1Image"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedActualGenreImage"));
             }
         }
 
-        public ImageSource SelectedDesignatedSubGenre2Image
+        public ImageSource SelectedActualSubGenre1Image
         {
-            get { return selectedDesignatedSubGenre2Image; }
+            get { return selectedActualSubGenre1Image; }
             set
             {
-                selectedDesignatedSubGenre2Image = value;
+                selectedActualSubGenre1Image = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedDesignatedSubGenre2Image"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedActualSubGenre1Image"));
+            }
+        }
+
+        public ImageSource SelectedActualSubGenre2Image
+        {
+            get { return selectedActualSubGenre2Image; }
+            set
+            {
+                selectedActualSubGenre2Image = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedActualSubGenre2Image"));
             }
         }
 
@@ -123,8 +123,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     selectedScreenplay = ClassifiedScreenplays[selectedClassifiedScreenplay].Screenplay;
 
-                    ((GenresViewModel)ClassifiedGenresView.DataContext).Init(selectedScreenplay, "Classified", ClassifiedGenresView);
-                    ((GenresViewModel)DesignatedGenresView.DataContext).Init(selectedScreenplay, "Designated", DesignatedGenresView);
+                    ((GenresViewModel)PredictedGenresView.DataContext).Init(selectedScreenplay, "Predicted", PredictedGenresView);
+                    ((GenresViewModel)ActualGenresView.DataContext).Init(selectedScreenplay, "Actual", ActualGenresView);
                 }
 
                 if (PropertyChanged != null)
@@ -168,8 +168,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             ClassificationViewModel = classificationViewModel;
             FeedbackView = feedbackView;
-            ClassifiedGenresView = (GenresView)FeedbackView.FindName("ClassifiedGenresView");
-            DesignatedGenresView = (GenresView)FeedbackView.FindName("DesignatedGenresView");
+            PredictedGenresView = (GenresView)FeedbackView.FindName("PredictedGenresView");
+            ActualGenresView = (GenresView)FeedbackView.FindName("ActualGenresView");
         }
 
         public void Set(ObservableCollection<ClassificationModel> classifiedScreenplays)
@@ -191,8 +191,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             for (int i = 0; i < ClassifiedScreenplays.Count; i++)
             {
                 currentScreenplay = ClassifiedScreenplays[i].Screenplay;
-                if ((currentScreenplay.DesignatedGenre == "Unknown") || (currentScreenplay.DesignatedSubGenre1 == "Unknown")
-                    || (currentScreenplay.DesignatedSubGenre2 == "Unknown"))
+                if ((currentScreenplay.ActualGenre == "Unknown") || (currentScreenplay.ActualSubGenre1 == "Unknown")
+                    || (currentScreenplay.ActualSubGenre2 == "Unknown"))
                     return false;
             }
 

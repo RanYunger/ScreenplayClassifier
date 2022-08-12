@@ -135,36 +135,36 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     {
                         case "Genre":
                             {
-                                if ((Screenplay.DesignatedSubGenre1 == SelectedGenre) || (Screenplay.DesignatedSubGenre2 == SelectedGenre))
+                                if ((Screenplay.ActualSubGenre1 == SelectedGenre) || (Screenplay.ActualSubGenre2 == SelectedGenre))
                                     MessageBoxHandler.Show(SelectedGenre + " genre already selected", "Error", 3, MessageBoxImage.Error);
                                 else
                                 {
-                                    Screenplay.DesignatedGenre = SelectedGenre;
-                                    ((GenresViewModel)GenresView.DataContext).Init(Screenplay, "Designated", GenresView);
+                                    Screenplay.ActualGenre = SelectedGenre;
+                                    ((GenresViewModel)GenresView.DataContext).Init(Screenplay, "Actual", GenresView);
                                     GenreSelectionView.Close();
                                 }
                             }
                             break;
                         case "SubGenre1":
                             {
-                                if ((Screenplay.DesignatedGenre == SelectedGenre) || (Screenplay.DesignatedSubGenre2 == SelectedGenre))
+                                if ((Screenplay.ActualGenre == SelectedGenre) || (Screenplay.ActualSubGenre2 == SelectedGenre))
                                     MessageBoxHandler.Show(SelectedGenre + " genre already selected", "Error", 3, MessageBoxImage.Error);
                                 else
                                 {
-                                    Screenplay.DesignatedSubGenre1 = SelectedGenre;
-                                    ((GenresViewModel)GenresView.DataContext).Init(Screenplay, "Designated", GenresView);
+                                    Screenplay.ActualSubGenre1 = SelectedGenre;
+                                    ((GenresViewModel)GenresView.DataContext).Init(Screenplay, "Actual", GenresView);
                                     GenreSelectionView.Close();
                                 }
                             }
                             break;
                         case "SubGenre2":
                             {
-                                if ((Screenplay.DesignatedGenre == SelectedGenre) || (Screenplay.DesignatedSubGenre1 == SelectedGenre))
+                                if ((Screenplay.ActualGenre == SelectedGenre) || (Screenplay.ActualSubGenre1 == SelectedGenre))
                                     MessageBoxHandler.Show(SelectedGenre + " genre already selected", "Error", 3, MessageBoxImage.Error);
                                 else
                                 {
-                                    Screenplay.DesignatedSubGenre2 = SelectedGenre;
-                                    ((GenresViewModel)GenresView.DataContext).Init(Screenplay, "Designated", GenresView);
+                                    Screenplay.ActualSubGenre2 = SelectedGenre;
+                                    ((GenresViewModel)GenresView.DataContext).Init(Screenplay, "Actual", GenresView);
                                     GenreSelectionView.Close();
                                 }
                             }

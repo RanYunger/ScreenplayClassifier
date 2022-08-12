@@ -25,11 +25,11 @@
             <DataGrid ItemsSource="{Binding ScreenplaysInGenre}" Height="325" IsReadOnly="True" FontSize="20" Margin="10,0,10,0"
                       Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="280"
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="260"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=ClassifiedSubGenre1}" Width="150"
+                    <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=PredictedSubGenre1}" Width="150"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=ClassifiedSubGenre2}" Width="150"
+                    <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=PredictedSubGenre2}" Width="150"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>

@@ -15,7 +15,7 @@ namespace ScreenplayClassifier.MVVM.Models
 
         private int screenplayID;
         private string name, filePath;
-        private string[] designatedGenres, classifiedGenres;
+        private string[] predictedGenres, actualGenres;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -52,90 +52,88 @@ namespace ScreenplayClassifier.MVVM.Models
                     PropertyChanged(this, new PropertyChangedEventArgs("FilePath"));
             }
         }
-
-        public string DesignatedGenre
+        public string PredictedGenre
         {
-            get { return designatedGenres[0]; }
+            get { return predictedGenres[0]; }
             set
             {
-                designatedGenres[0] = value;
+                predictedGenres[0] = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("DesignatedGenre"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("PredictedGenre"));
             }
         }
 
-        public string DesignatedSubGenre1
+        public string PredictedSubGenre1
         {
-            get { return designatedGenres[1]; }
+            get { return predictedGenres[1]; }
             set
             {
-                designatedGenres[1] = value;
+                predictedGenres[1] = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("DesignatedSubGenre1"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("PredictedSubGenre1"));
             }
         }
 
-        public string DesignatedSubGenre2
+        public string PredictedSubGenre2
         {
-            get { return designatedGenres[2]; }
+            get { return predictedGenres[2]; }
             set
             {
-                designatedGenres[2] = value;
+                predictedGenres[2] = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("DesignatedSubGenre2"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("PredictedSubGenre2"));
+            }
+        }
+        public string ActualGenre
+        {
+            get { return actualGenres[0]; }
+            set
+            {
+                actualGenres[0] = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ActualGenre"));
             }
         }
 
-        public string ClassifiedGenre
+        public string ActualSubGenre1
         {
-            get { return classifiedGenres[0]; }
+            get { return actualGenres[1]; }
             set
             {
-                classifiedGenres[0] = value;
+                actualGenres[1] = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassifiedGenre"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("ActualSubGenre1"));
             }
         }
 
-        public string ClassifiedSubGenre1
+        public string ActualSubGenre2
         {
-            get { return classifiedGenres[1]; }
+            get { return actualGenres[2]; }
             set
             {
-                classifiedGenres[1] = value;
+                actualGenres[2] = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassifiedSubGenre1"));
-            }
-        }
-
-        public string ClassifiedSubGenre2
-        {
-            get { return classifiedGenres[2]; }
-            set
-            {
-                classifiedGenres[2] = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassifiedSubGenre2"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("ActualSubGenre2"));
             }
         }
 
         // Constructors
         public ScreenplayModel(string name, string filePath)
         {
-            designatedGenres = new string[3];
-            classifiedGenres = new string[3];
+            predictedGenres = new string[3];
+            actualGenres = new string[3];
 
             ID = IDGenerator++;
             Name = name;
             FilePath = filePath;
-            DesignatedGenre = DesignatedSubGenre1 = DesignatedSubGenre2 = "Unknown";
-            ClassifiedGenre = ClassifiedSubGenre1 = ClassifiedSubGenre2 = "Unknown";
+            ActualGenre = ActualSubGenre1 = ActualSubGenre2 = "Unknown";
+            PredictedGenre = PredictedSubGenre1 = PredictedSubGenre2 = "Unknown";
         }
     }
 }

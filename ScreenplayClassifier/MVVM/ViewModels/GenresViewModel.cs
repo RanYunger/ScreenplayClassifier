@@ -150,13 +150,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void Init(ScreenplayModel screenplay, string genresAffiliation, GenresView genresView)
         {
-            bool isDesignated = genresAffiliation == "Designated";
+            bool isActual = genresAffiliation == "Actual";
             string genreImagePath = string.Format("{0}{1}.png", FolderPaths.GENREIMAGES,
-                isDesignated ? screenplay.DesignatedGenre : screenplay.ClassifiedGenre),
+                isActual ? screenplay.ActualGenre : screenplay.PredictedGenre),
                 subGenre1ImagePath = string.Format("{0}{1}.png", FolderPaths.GENREIMAGES,
-                isDesignated ? screenplay.DesignatedSubGenre1 : screenplay.ClassifiedSubGenre1),
+                isActual ? screenplay.ActualSubGenre1 : screenplay.PredictedSubGenre1),
                 subGenre2ImagePath = string.Format("{0}{1}.png", FolderPaths.GENREIMAGES,
-                isDesignated ? screenplay.DesignatedSubGenre2 : screenplay.ClassifiedSubGenre2);
+                isActual ? screenplay.ActualSubGenre2 : screenplay.PredictedSubGenre2);
 
             Screenplay = screenplay;
             GenreImage = new BitmapImage(new Uri(genreImagePath));
