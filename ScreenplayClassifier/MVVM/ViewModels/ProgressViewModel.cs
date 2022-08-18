@@ -282,7 +282,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             System.Timers.Timer progressUpdateTimer = new System.Timers.Timer(10);
             progressUpdateTimer.Elapsed += ProgressUpdateTimer_Elapsed;
-            progressUpdateTimer.Start();
+            //progressUpdateTimer.Start();
 
             DurationTimer = new System.Timers.Timer(1000);
             DurationTimer.Elapsed += DurationTimer_Elapsed;

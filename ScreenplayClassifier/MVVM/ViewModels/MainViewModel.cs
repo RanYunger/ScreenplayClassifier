@@ -90,6 +90,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             ((HomeViewModel)HomeView.DataContext).Init(HomeView, this);
             ((SettingsViewModel)SettingsView.DataContext).Init(SettingsView, this);
+            ((AboutViewModel)AboutView.DataContext).Init(AboutView, this);
             ((ArchivesViewModel)ArchivesView.DataContext).Init(ArchivesView, this, GenresDictionary);
             ((ClassificationViewModel)ClassificationView.DataContext).Init(ClassificationView, this);
             ((ReportsViewModel)ReportsView.DataContext).Init(ReportsView, this);
@@ -101,6 +102,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             foreach (UserControl view in views)
                 view.Visibility = view == viewToShow ? Visibility.Visible : Visibility.Collapsed;
+
+            //if (viewToShow == AboutView)
+            //    ((AboutViewModel)AboutView.DataContext).PlayVideoCommand.Execute(null);
         }
     }
 }

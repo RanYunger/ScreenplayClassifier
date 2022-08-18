@@ -33,6 +33,7 @@
     <None Remove="Media\Images\AudioOff.png" />
     <None Remove="Media\Images\AudioOn.png" />
     <None Remove="Media\Images\Browse.png" />
+    <None Remove="Media\Images\Cinema.png" />
     <None Remove="Media\Images\Classification.png" />
     <None Remove="Media\Images\Clear.png" />
     <None Remove="Media\Images\Command Shell.png" />
@@ -80,6 +81,7 @@
     <None Remove="Media\Videos\3 Hours Later.mp4" />
     <None Remove="Media\Videos\3 Much Later.mp4" />
     <None Remove="Media\Videos\Choice.mp4" />
+    <None Remove="Media\Videos\Countdown.mp4" />
     <None Remove="Media\Videos\You Shall Not Pass.mp4" />
   </ItemGroup>
 
@@ -139,6 +141,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Browse.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Cinema.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Classification.png">
@@ -277,6 +282,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Videos\Choice.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Videos\Countdown.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Videos\You Shall Not Pass.mp4">
