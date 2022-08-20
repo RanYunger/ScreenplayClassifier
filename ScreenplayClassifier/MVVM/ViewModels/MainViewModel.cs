@@ -9,12 +9,14 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
         // Fields
+        private MediaPlayer mediaPlayer;
         private Dictionary<string, ObservableCollection<ScreenplayModel>> genresDictionary;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -44,6 +46,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Constructors
         public MainViewModel()
         {
+            mediaPlayer = new MediaPlayer();
+
             GenresDictionary = Storage.ReadGenresDictionary();
 
             HomeView = new HomeView();
@@ -56,14 +60,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Methods
-        #region Commands  
-        public Command ClosingCommand
+        #region Commands
+        public Command CloseCommand
         {
             get
             {
                 return new Command(() =>
                 {
                     // TODO: COMPLETE (save everything to database)
+                    if (((UserToolbarViewModel)UserToolbarView.DataContext).User.Role != UserModel.UserRole.GUEST)
+                    {
+                        mediaPlayer.Open(new Uri(FolderPaths.AUDIOS + "Logoff.m4a"));
+                        mediaPlayer.Play();
+                    }
                 });
             }
         }
@@ -100,11 +109,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             UserControl[] views = { HomeView, SettingsView, AboutView, ArchivesView, ClassificationView, ReportsView };
 
+            if (viewToShow.Visibility == Visibility.Visible)
+            {
+                viewToShow.Focus();
+                return;
+            }
+
             foreach (UserControl view in views)
                 view.Visibility = view == viewToShow ? Visibility.Visible : Visibility.Collapsed;
 
-            //if (viewToShow == AboutView)
-            //    ((AboutViewModel)AboutView.DataContext).PlayVideoCommand.Execute(null);
+            if (viewToShow == AboutView)
+                ((AboutViewModel)AboutView.DataContext).PlayVideoCommand.Execute(null);
         }
     }
 }

@@ -8,7 +8,7 @@
         Title="Screenplay Classifier" ResizeMode="CanMinimize" WindowState="Maximized" Style="{StaticResource WindowStyle}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
-            <i:InvokeCommandAction Command="{Binding ClosingCommand}"/>
+            <i:InvokeCommandAction Command="{Binding CloseCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>

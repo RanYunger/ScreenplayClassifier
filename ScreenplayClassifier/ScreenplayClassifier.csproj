@@ -23,9 +23,8 @@
     <None Remove="Media\Audios\Jim.m4a" />
     <None Remove="Media\Audios\Logoff.m4a" />
     <None Remove="Media\Audios\Logon.m4a" />
-    <None Remove="Media\Audios\Shutdown.m4a" />
-    <None Remove="Media\Audios\Startup.m4a" />
     <None Remove="Media\Audios\Wilhelm Scream.m4a" />
+    <None Remove="Media\Gifs\Gears.gif" />
     <None Remove="Media\Gifs\Reading.gif" />
     <None Remove="Media\Images\Add.png" />
     <None Remove="Media\Images\Admin.png" />
@@ -123,6 +122,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Audios\Jim.m4a">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Gifs\Gears.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Gifs\Reading.gif">
@@ -303,12 +305,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Audios\Logon.m4a">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Shutdown.m4a">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Startup.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Audios\Wilhelm Scream.m4a">

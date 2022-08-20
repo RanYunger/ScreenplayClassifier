@@ -43,7 +43,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     MediaElement mediaElement = (MediaElement)AboutView.FindName("MediaElement");
-                    Timer videoTimer = new Timer(12900);
+                    Timer videoTimer = new Timer(13100);
 
                     IsPlaying = true;
 
