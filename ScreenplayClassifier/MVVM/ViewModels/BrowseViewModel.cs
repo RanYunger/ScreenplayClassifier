@@ -124,7 +124,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     openFileDialog.Title = "Browse screenplays to classify";
                     openFileDialog.DefaultExt = "txt";
-                    openFileDialog.Filter = "txt files (*.txt)|*.txt|docx files (*.docx)|*.*";
+                    openFileDialog.Filter = "txt files (*.txt)|*.txt|*.*";
                     openFileDialog.Multiselect = true;
                     openFileDialog.InitialDirectory = Environment.CurrentDirectory;
                     openFileDialog.ShowDialog();
@@ -132,7 +132,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     for (int i = 0; i < openFileDialog.FileNames.Length; i++)
                     {
                         screenplayName = Path.GetFileNameWithoutExtension(openFileDialog.FileNames[i]);
-                        BrowsedScreenplays.Add(new ScreenplayModel(screenplayName, openFileDialog.FileNames[i]));
+                        BrowsedScreenplays.Add(new ScreenplayModel(screenplayName));
                     }
 
                     CanProceed = BrowsedScreenplays.Count > 0;

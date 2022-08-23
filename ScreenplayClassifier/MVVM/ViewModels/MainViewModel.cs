@@ -48,7 +48,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             mediaPlayer = new MediaPlayer();
 
-            GenresDictionary = Storage.ReadGenresDictionary();
+            GenresDictionary = Storage.LoadArchives();
 
             HomeView = new HomeView();
             SettingsView = new SettingsView();
@@ -63,18 +63,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         #region Commands
         public Command CloseCommand
         {
-            get
-            {
-                return new Command(() =>
-                {
-                    // TODO: COMPLETE (save everything to database)
-                    if (((UserToolbarViewModel)UserToolbarView.DataContext).User.Role != UserModel.UserRole.GUEST)
-                    {
-                        mediaPlayer.Open(new Uri(FolderPaths.AUDIOS + "Logoff.m4a"));
-                        mediaPlayer.Play();
-                    }
-                });
-            }
+            get { return new Command(() => Storage.SaveArchives(GenresDictionary)); }
         }
         #endregion
 

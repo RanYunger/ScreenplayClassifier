@@ -52,8 +52,9 @@
             <WrapPanel HorizontalAlignment="Center" Margin="0,5,0,10">
                 <Image Source="/Media/Images/Password.png" Height="50" Width="50"/>
                 <StackPanel>
-                    <PasswordBox x:Name="PasswordBox" Height="20" Width="150" VerticalAlignment="Top" IsEnabled="{Binding CanSignin}"
-                                 ToolTip="Enter your password" Margin="20,0,0,0" Style="{StaticResource PasswordBoxStyle}"/>
+                    <PasswordBox x:Name="PasswordBox" Height="20" Width="150" MaxLength="9" VerticalAlignment="Top"
+                                 IsEnabled="{Binding CanSignin}" ToolTip="Enter your password" Margin="20,0,0,0"
+                                 Style="{StaticResource PasswordBoxStyle}"/>
                     <WrapPanel x:Name="PasswordErrorWrapPanel" Visibility="Hidden">
                         <Image Source="/Media/Images/Error.png" Height="20" Width="20" HorizontalAlignment="Left" Margin="20,5,0,0"/>
                         <TextBlock Text="{Binding PasswordError}" Foreground="DarkRed" Margin="10,0,0,0"

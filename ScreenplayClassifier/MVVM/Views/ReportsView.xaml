@@ -68,78 +68,11 @@
         </StackPanel>
         <TextBlock Grid.Row="0" Grid.Column="1" Text="Statistics" FontSize="40" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
         <WrapPanel Grid.Row="1" Grid.Column="1">
-            <StackPanel>
-                <WrapPanel Margin="10">
-                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
-                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                </WrapPanel>
-                <WrapPanel Margin="10">
-                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
-                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                </WrapPanel>
-                <WrapPanel Margin="10">
-                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
-                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                </WrapPanel>
-                <WrapPanel Margin="10">
-                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
-                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                </WrapPanel>
-                <WrapPanel Margin="10">
-                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
-                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                </WrapPanel>
-                <WrapPanel Margin="10">
-                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
-                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                </WrapPanel>
-                <WrapPanel Margin="10">
-                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
-                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                </WrapPanel>
-                <WrapPanel Margin="10">
-                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
-                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                </WrapPanel>
-                <WrapPanel Margin="10">
-                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
-                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                </WrapPanel>
-                <WrapPanel Margin="10">
-                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
-                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                </WrapPanel>
-                <WrapPanel Margin="10">
-                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
-                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                </WrapPanel>
-                <WrapPanel Margin="10">
-                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
-                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                </WrapPanel>
-                <WrapPanel Margin="10">
-                    <TextBlock Text="Duration:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBox Text="{Binding Path=SelectedDuration, StringFormat={}{0:mm':'ss}}" Width="100" Margin="10,0,10,0"
-                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                </WrapPanel>
-            </StackPanel>
-            <lvc:CartesianChart>
-                
-            </lvc:CartesianChart>
-            <lvc:PieChart>
-                
+            <!--<lvc:CartesianChart Height="485" Width="485" Margin="0,0,20,0">
+
+            </lvc:CartesianChart>-->
+            <lvc:PieChart Height="485" Width="485" Margin="20,0,0,0">
+
             </lvc:PieChart>
         </WrapPanel>
     </Grid>

@@ -16,8 +16,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class SignInViewModel : INotifyPropertyChanged
     {
         // Constants
-        public string usernamePattern = "([A-Z]{1}[a-z]+){2,3}"; // E.G. RanYunger
-        public string passwordPattern = "[A-Z]{2,3}[0-9]{5,6}"; // E.G. RY120696
+        public string usernamePattern = "([A-Z]{1}[a-z]+){2,3}"; // E.G. RanYunger, ShyOhevZion
+        public string passwordPattern = "[A-Z]{2,3}[0-9]{5,6}"; // E.G. RY120696, SHZ101098
 
         // Fields
         private ObservableCollection<UserModel> authenticatedUsers;
@@ -231,7 +231,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     break;
                 }
 
-            AuthenticatedUsers = Storage.ReadAuthenticatedUsers();
+            AuthenticatedUsers = Storage.LoadUsers();
             UsernameInput = UsernameError = PasswordError = string.Empty;
 
             CanSignin = true;

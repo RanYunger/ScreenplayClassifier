@@ -14,7 +14,7 @@ namespace ScreenplayClassifier.MVVM.Models
         private static int IDGenerator = 0;
 
         private int screenplayID;
-        private string name, filePath;
+        private string name;
         private string[] predictedGenres, actualGenres;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -39,17 +39,6 @@ namespace ScreenplayClassifier.MVVM.Models
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("Name"));
-            }
-        }
-        public string FilePath
-        {
-            get { return filePath; }
-            set
-            {
-                filePath = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilePath"));
             }
         }
         public string PredictedGenre
@@ -124,16 +113,27 @@ namespace ScreenplayClassifier.MVVM.Models
         }
 
         // Constructors
-        public ScreenplayModel(string name, string filePath)
+        public ScreenplayModel()
         {
             predictedGenres = new string[3];
             actualGenres = new string[3];
 
             ID = IDGenerator++;
-            Name = name;
-            FilePath = filePath;
+
             ActualGenre = ActualSubGenre1 = ActualSubGenre2 = "Unknown";
             PredictedGenre = PredictedSubGenre1 = PredictedSubGenre2 = "Unknown";
+        }
+        public ScreenplayModel(string name)
+            : this()
+        {
+            Name = name;
+        }
+        public ScreenplayModel(string name, string actualGenre, string actualSubGenre1, string actualSubGenre2)
+            : this(name)
+        {
+            ActualGenre = actualGenre;
+            ActualSubGenre1 = actualSubGenre1;
+            ActualSubGenre2 = actualSubGenre2;
         }
     }
 }

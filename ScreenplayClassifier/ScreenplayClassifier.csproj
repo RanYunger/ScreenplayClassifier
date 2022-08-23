@@ -8,6 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Jsons\Genres.json" />
+    <None Remove="Jsons\Screenplays\Action.json" />
+    <None Remove="Jsons\Screenplays\Adventure.json" />
+    <None Remove="Jsons\Screenplays\Comedy.json" />
+    <None Remove="Jsons\Screenplays\Crime.json" />
+    <None Remove="Jsons\Screenplays\Drama.json" />
+    <None Remove="Jsons\Screenplays\Family.json" />
+    <None Remove="Jsons\Screenplays\Fantasy.json" />
+    <None Remove="Jsons\Screenplays\Horror.json" />
+    <None Remove="Jsons\Screenplays\Romance.json" />
+    <None Remove="Jsons\Screenplays\SciFi.json" />
+    <None Remove="Jsons\Screenplays\Thriller.json" />
+    <None Remove="Jsons\Screenplays\War.json" />
+    <None Remove="Jsons\Users.json" />
     <None Remove="Media\Audios\Genres\Action.m4a" />
     <None Remove="Media\Audios\Genres\Adventure.m4a" />
     <None Remove="Media\Audios\Genres\Comedy.m4a" />
@@ -21,8 +35,6 @@
     <None Remove="Media\Audios\Genres\Thriller.m4a" />
     <None Remove="Media\Audios\Genres\War.m4a" />
     <None Remove="Media\Audios\Jim.m4a" />
-    <None Remove="Media\Audios\Logoff.m4a" />
-    <None Remove="Media\Audios\Logon.m4a" />
     <None Remove="Media\Audios\Wilhelm Scream.m4a" />
     <None Remove="Media\Gifs\Gears.gif" />
     <None Remove="Media\Gifs\Reading.gif" />
@@ -85,6 +97,42 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Jsons\Screenplays\Action.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Jsons\Screenplays\Adventure.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Jsons\Screenplays\Comedy.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Jsons\Screenplays\Crime.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Jsons\Screenplays\Drama.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Jsons\Screenplays\Family.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Jsons\Screenplays\Fantasy.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Jsons\Screenplays\Romance.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Jsons\Screenplays\SciFi.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Jsons\Screenplays\Thriller.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Jsons\Screenplays\War.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Jsons\Users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Audios\Genres\Action.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -301,12 +349,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Media\Audios\Logoff.m4a">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Logon.m4a">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\Audios\Wilhelm Scream.m4a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -328,6 +370,18 @@
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Jsons\Genres.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Jsons\Screenplays\Horror.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

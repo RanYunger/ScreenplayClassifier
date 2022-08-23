@@ -2,54 +2,52 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
+using System.Text.Json;
 
 namespace ScreenplayClassifier.Utilities
 {
     public static class Storage
     {
         // Methods
-        public static ObservableCollection<UserModel> ReadAuthenticatedUsers()
+        public static ObservableCollection<UserModel> LoadUsers()
         {
-            ObservableCollection<UserModel> authenticatedUsers = new ObservableCollection<UserModel>();
+            string usersJson = File.ReadAllText(FolderPaths.JSONS + "Users.json");
 
-            authenticatedUsers.Add(new UserModel("RanYunger", UserModel.UserRole.ADMIN, "RY120696"));
-            authenticatedUsers.Add(new UserModel("ShyOhevZion", UserModel.UserRole.MEMBER, "SHZ12345"));
-
-            return authenticatedUsers;
+            return new ObservableCollection<UserModel>(JsonSerializer.Deserialize<List<UserModel>>(usersJson));
         }
 
-        public static Dictionary<string, ObservableCollection<ScreenplayModel>> ReadGenresDictionary()
+        public static Dictionary<string, ObservableCollection<ScreenplayModel>> LoadArchives()
         {
-            string[] genreNames = ReadGenresName();
+            string genresJson = File.ReadAllText(FolderPaths.JSONS + "Genres.json");
+            string[] genreNames = JsonSerializer.Deserialize<string[]>(genresJson);
+            string screenplaysInGenreJson = string.Empty;
+            List<ScreenplayModel> screenplaysInGenre = null;
             Dictionary<string, ObservableCollection<ScreenplayModel>> genresDictionary
                 = new Dictionary<string, ObservableCollection<ScreenplayModel>>();
 
             foreach (string genreName in genreNames)
-                genresDictionary[genreName] = ReadScreenplaysInGenre(genreName);
+            {
+                screenplaysInGenreJson = File.ReadAllText(FolderPaths.SCREENPLAYS + genreName + ".json");
+                screenplaysInGenre = JsonSerializer.Deserialize<List<ScreenplayModel>>(screenplaysInGenreJson);
+                genresDictionary[genreName] = new ObservableCollection<ScreenplayModel>(screenplaysInGenre);
+            }
 
             return genresDictionary;
         }
 
-        public static string[] ReadGenresName()
+        public static void SaveArchives(Dictionary<string, ObservableCollection<ScreenplayModel>> genresDictionary)
         {
-            List<string> genreNames = new List<string>();
+            string currentJsonFile = string.Empty, screenplaysInGenreJson = string.Empty;
 
-            genreNames.AddRange(new string[] { "Action", "Adventure", "Comedy", "Crime" });
-            genreNames.AddRange(new string[] { "Drama", "Family", "Fantasy", "Horror" });
-            genreNames.AddRange(new string[] { "Romance", "SciFi", "Thriller", "War" });
+            foreach (string genreName in genresDictionary.Keys)
+            {
+                currentJsonFile = FolderPaths.SCREENPLAYS + genreName + ".json";
+                screenplaysInGenreJson = JsonSerializer.Serialize(currentJsonFile);
 
-            return genreNames.ToArray();
-        }
-
-        public static ObservableCollection<ScreenplayModel> ReadScreenplaysInGenre(string genreName)
-        {
-            ObservableCollection<ScreenplayModel> screenplaysInGenre = new ObservableCollection<ScreenplayModel>();
-
-            if (genreName == "Horror")
-                screenplaysInGenre.Add(new ScreenplayModel("Saw", "bla.txt"));
-
-            return screenplaysInGenre;
+                File.WriteAllText(currentJsonFile, screenplaysInGenreJson);
+            }
         }
     }
 }

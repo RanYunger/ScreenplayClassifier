@@ -21,18 +21,9 @@ namespace ScreenplayClassifier.Utilities
         public static string VIDEOS = MEDIA + @"\Videos\";
         #endregion
 
-        #region Configuration
-        public static string GENRES = Environment.CurrentDirectory + @"\Genres\";
-        #endregion
-
         #region Storage
-        public static string SCREENPLAYS = Environment.CurrentDirectory + @"\Screenplays\";
-        #endregion
-
-        #region Authentication
-        public static string USERS = Environment.CurrentDirectory + @"\Users\";
-        public static string ADMINS = USERS + @"\Admins\";
-        public static string MEMBERS = USERS + @"\Members\";
+        public static string JSONS = Environment.CurrentDirectory + @"\Jsons\";
+        public static string SCREENPLAYS = JSONS + @"\Screenplays\";
         #endregion
     }
 }
