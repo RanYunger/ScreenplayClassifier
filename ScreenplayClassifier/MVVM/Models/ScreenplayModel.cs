@@ -128,12 +128,5 @@ namespace ScreenplayClassifier.MVVM.Models
         {
             Name = name;
         }
-        public ScreenplayModel(string name, string actualGenre, string actualSubGenre1, string actualSubGenre2)
-            : this(name)
-        {
-            ActualGenre = actualGenre;
-            ActualSubGenre1 = actualSubGenre1;
-            ActualSubGenre2 = actualSubGenre2;
-        }
     }
 }

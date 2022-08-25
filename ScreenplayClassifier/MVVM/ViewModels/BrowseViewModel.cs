@@ -120,11 +120,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     OpenFileDialog openFileDialog = new OpenFileDialog();
+                    List<ScreenplayModel> alreadyBrowsedScreenplays = new List<ScreenplayModel>();
                     string screenplayName = string.Empty;
 
                     openFileDialog.Title = "Browse screenplays to classify";
                     openFileDialog.DefaultExt = "txt";
-                    openFileDialog.Filter = "txt files (*.txt)|*.txt|*.*";
+                    openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
                     openFileDialog.Multiselect = true;
                     openFileDialog.InitialDirectory = Environment.CurrentDirectory;
                     openFileDialog.ShowDialog();

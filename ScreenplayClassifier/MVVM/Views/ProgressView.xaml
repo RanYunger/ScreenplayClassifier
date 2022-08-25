@@ -9,124 +9,18 @@
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <WrapPanel Grid.Row="0" Grid.ColumnSpan="2" Width="1260" HorizontalAlignment="Center">
-            <StackPanel Width="700">
-                <TextBlock Text="{Binding ClassificationsText}" FontSize="50" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Text="{Binding TotalDuration, StringFormat={}{0:mm':'ss}}" FontSize="25" Style="{StaticResource TextBlockStyle}"/>
-            </StackPanel>
-            <Button x:Name="StopButton" Command="{Binding ToggleStopCommand}" Height="80" Width="80" IsEnabled="{Binding CanStop}"
-                    ToolTip="Stop all classifications" Margin="480,10,0,10" Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <Image Source="{Binding StopImage}"/>
-                </Button.Content>
-            </Button>
-        </WrapPanel>
-        <ProgressBar x:Name="AllClassificationsProgressBar" Grid.Row="1" Grid.ColumnSpan="2" Value="{Binding ClassificationsProgress}"
-                     Height="30" Minimum="0" Maximum="100" Margin="10"/>
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding ElementName=AllClassificationsProgressBar, Path=Value, StringFormat={}{0:0}%}"
+        <ProgressBar x:Name="AllClassificationsProgressBar" Grid.Row="0" Value="{Binding ClassificationsProgress}"
+                     Height="30" Width="1100" Minimum="0" Maximum="100"/>
+        <TextBlock Grid.Row="0" Text="{Binding ElementName=AllClassificationsProgressBar, Path=Value, StringFormat={}{0:0}%}"
                    HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-        <StackPanel Grid.Row="2" Grid.RowSpan="3" Grid.Column="0">
-            <TextBlock Text="In Progress" FontSize="40" HorizontalAlignment="Center" Margin="0,10,0,10"
-                                   Style="{StaticResource TextBlockStyle}"/>
-            <DataGrid ItemsSource="{Binding ActiveClassifications}" SelectionMode="Single" SelectedIndex="{Binding SelectedClassification}"
-                      Height="200" FontSize="20" Margin="10,0,10,0" Style="{StaticResource DataGridStyle}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" IsReadOnly="True" Binding="{Binding Path=Screenplay.ID}" Width="50"
-                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Path=Screenplay.Name}" Width="340"
-                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <TextBlock Text="In Queue" FontSize="40" HorizontalAlignment="Center" Margin="0,10,0,10"
-                                   Style="{StaticResource TextBlockStyle}"/>
-            <DataGrid ItemsSource="{Binding InactiveClassifications}" Height="230" FontSize="20" IsReadOnly="True" Margin="10,0,10,0"
-                      Style="{StaticResource DataGridStyle}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Screenplay.ID}" Width="50"
-                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Screenplay.Name}" Width="340"
-                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
-        <WrapPanel Grid.Row="2" Grid.Column="1" Width="800" HorizontalAlignment="Center">
-            <WrapPanel.Style>
-                <Style TargetType="WrapPanel">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding CanStop}" Value="True">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding CanStop}" Value="False">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </WrapPanel.Style>
-            <TextBlock Text="{Binding SelectedDescription}" Width="300" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-            <Button Grid.Row="2" Grid.Column="1" Command="{Binding TogglePauseCommand}" Height="50" Width="50" IsEnabled="{Binding CanPause}"
-                    ToolTip="Pause classification" Margin="75,0,0,0" Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <Image x:Name="PauseImage" Source="{Binding PauseImage}"/>
-                </Button.Content>
-            </Button>
-            <TextBlock Text="{Binding SelectedDuration, StringFormat={}{0:mm':'ss}}" Margin="310,0,0,0" Style="{StaticResource TextBlockStyle}"/>
-        </WrapPanel>
-        <ProgressBar x:Name="ChosenClassificationProgressBar" Grid.Row="3" Grid.Column="1" Height="30" Width="800"
-                     Value="{Binding SelectedPercentage}" Minimum="0" Maximum="100">
-            <ProgressBar.Style>
-                <Style TargetType="ProgressBar">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding CanStop}" Value="True">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding CanStop}" Value="False">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ProgressBar.Style>
-        </ProgressBar>
-        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding ElementName=ChosenClassificationProgressBar, Path=Value, StringFormat={}{0:0}%}"
-                   HorizontalAlignment="Center">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="FontWeight" Value="Bold"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding CanStop}" Value="True">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding CanStop}" Value="False">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
-        <Image Grid.Row="4" Grid.Column="1" gif:ImageBehavior.AnimatedSource="{Binding SelectedGifImage}"
-               gif:ImageBehavior.RepeatBehavior="Forever">
-            <Image.Style>
-                <Style TargetType="Image">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding CanStop}" Value="True">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding CanStop}" Value="False">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Image.Style>
-        </Image>
+        <ProgressBar x:Name="CurrentClassificationProgressBar" Grid.Row="1" Value="{Binding ClassificationsProgress}"
+                     Height="30" Width="1100" Minimum="0" Maximum="100"/>
+        <TextBlock Grid.Row="1" Text="{Binding ElementName=CurrentClassificationProgressBar, Path=Value, StringFormat={}{0:0}%}"
+                   HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+        <Image Grid.Row="2" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Reading.gif" gif:ImageBehavior.RepeatBehavior="Forever"/>
     </Grid>
 </UserControl>

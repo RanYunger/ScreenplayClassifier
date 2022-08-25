@@ -8,19 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Jsons\Archives.json" />
+    <None Remove="Jsons\Archives\Adventure.json" />
+    <None Remove="Jsons\Archives\Comedy.json" />
+    <None Remove="Jsons\Archives\Crime.json" />
+    <None Remove="Jsons\Archives\Drama.json" />
+    <None Remove="Jsons\Archives\Family.json" />
+    <None Remove="Jsons\Archives\Fantasy.json" />
+    <None Remove="Jsons\Archives\Horror.json" />
+    <None Remove="Jsons\Archives\Romance.json" />
+    <None Remove="Jsons\Archives\SciFi.json" />
+    <None Remove="Jsons\Archives\Thriller.json" />
+    <None Remove="Jsons\Archives\War.json" />
     <None Remove="Jsons\Genres.json" />
-    <None Remove="Jsons\Screenplays\Action.json" />
-    <None Remove="Jsons\Screenplays\Adventure.json" />
-    <None Remove="Jsons\Screenplays\Comedy.json" />
-    <None Remove="Jsons\Screenplays\Crime.json" />
-    <None Remove="Jsons\Screenplays\Drama.json" />
-    <None Remove="Jsons\Screenplays\Family.json" />
-    <None Remove="Jsons\Screenplays\Fantasy.json" />
-    <None Remove="Jsons\Screenplays\Horror.json" />
-    <None Remove="Jsons\Screenplays\Romance.json" />
-    <None Remove="Jsons\Screenplays\SciFi.json" />
-    <None Remove="Jsons\Screenplays\Thriller.json" />
-    <None Remove="Jsons\Screenplays\War.json" />
     <None Remove="Jsons\Users.json" />
     <None Remove="Media\Audios\Genres\Action.m4a" />
     <None Remove="Media\Audios\Genres\Adventure.m4a" />
@@ -97,37 +97,37 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Jsons\Screenplays\Action.json">
+    <Content Include="Jsons\Archives\Romance.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Jsons\Screenplays\Adventure.json">
+    <Content Include="Jsons\Archives\War.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Jsons\Screenplays\Comedy.json">
+    <Content Include="Jsons\Archives\Thriller.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Jsons\Screenplays\Crime.json">
+    <Content Include="Jsons\Archives\SciFi.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Jsons\Screenplays\Drama.json">
+    <Content Include="Jsons\Archives\Horror.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Jsons\Screenplays\Family.json">
+    <Content Include="Jsons\Archives\Fantasy.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Jsons\Screenplays\Fantasy.json">
+    <Content Include="Jsons\Archives\Family.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Jsons\Screenplays\Romance.json">
+    <Content Include="Jsons\Archives\Crime.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Jsons\Screenplays\SciFi.json">
+    <Content Include="Jsons\Archives\Drama.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Jsons\Screenplays\Thriller.json">
+    <Content Include="Jsons\Archives\Comedy.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Jsons\Screenplays\War.json">
+    <Content Include="Jsons\Archives\Adventure.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Jsons\Users.json">
@@ -379,7 +379,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Jsons\Screenplays\Horror.json">
+    <Content Include="Jsons\Archives\Action.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

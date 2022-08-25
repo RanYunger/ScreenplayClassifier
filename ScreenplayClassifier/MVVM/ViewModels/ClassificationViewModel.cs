@@ -82,16 +82,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (browseComplete)
                 {
+                    ProgressViewModel.ProgressView.Visibility = Visibility.Visible;
                     ProgressViewModel.Set(BrowseViewModel.BrowsedScreenplays);
-
-                    ChangeTabVisibility("ProgressTabItem", Visibility.Visible, true);
                 }
                 else
                 {
                     BrowseViewModel.Reset();
                     ProgressViewModel.Reset();
-
-                    ChangeTabVisibility("BrowseTabItem", Visibility.Visible, true);
                 }
 
                 if (PropertyChanged != null)
@@ -105,24 +102,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 progerssComplete = value;
 
-                if (progerssComplete)
-                {
-                    ResultsViewModel.Set();
-                    FeedbackViewModel.Set(ResultsViewModel.ClassifiedScreenplays);
-
-                    ChangeTabVisibility("ResultsTabItem", Visibility.Visible, false);
-                    ChangeTabVisibility("FeedbackTabItem", Visibility.Visible, false);
-                }
-                else
-                {
-                    ProgressViewModel.Reset();
-                    ResultsViewModel.Reset();
-                    FeedbackViewModel.Reset();
-
-                    ChangeTabVisibility("ProgressTabItem", Visibility.Collapsed, false);
-                    ChangeTabVisibility("ResultsTabItem", Visibility.Collapsed, false);
-                    ChangeTabVisibility("FeedbackTabItem", Visibility.Collapsed, false);
-                }
+                //if (progerssComplete)
+                //{
+                //    ResultsViewModel.Set();
+                //    FeedbackViewModel.Set(ResultsViewModel.ClassifiedScreenplays);
+                //}
+                //else
+                //{
+                //    ProgressViewModel.Reset();
+                //    ResultsViewModel.Reset();
+                //    FeedbackViewModel.Reset();
+                //}
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ProgressComplete"));
@@ -135,11 +125,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 feedbackComplete = value;
 
-                if (!feedbackComplete)
-                {
-                    BrowseComplete = false;
-                    ProgressComplete = false;
-                }
+                //if (!feedbackComplete)
+                //{
+                //    BrowseComplete = false;
+                //    ProgressComplete = false;
+                //}
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("FeedbackComplete"));
@@ -157,8 +147,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             BrowseView browseView = null;
             ProgressView progressView = null;
-            ResultsView resultsView = null;
-            FeedbackView feedbackView = null;
+            //ResultsView resultsView = null;
+            //FeedbackView feedbackView = null;
 
             MainViewModel = mainViewModel;
             ClassificationView = classificationView;
@@ -171,22 +161,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ProgressViewModel = (ProgressViewModel)progressView.DataContext;
             ProgressViewModel.Init(this, progressView);
 
-            resultsView = (ResultsView)ClassificationView.FindName("ResultsView");
-            ResultsViewModel = (ResultsViewModel)resultsView.DataContext;
-            ResultsViewModel.Init(this, resultsView);
+            //resultsView = (ResultsView)ClassificationView.FindName("ResultsView");
+            //ResultsViewModel = (ResultsViewModel)resultsView.DataContext;
+            //ResultsViewModel.Init(this, resultsView);
 
-            feedbackView = (FeedbackView)ClassificationView.FindName("FeedbackView");
-            FeedbackViewModel = (FeedbackViewModel)feedbackView.DataContext;
-            FeedbackViewModel.Init(this, feedbackView);
-        }
-
-        private void ChangeTabVisibility(string tabName, Visibility visibility, bool focus)
-        {
-            TabControl tabControl = (TabControl)ClassificationView.FindName("TabControl");
-            TabItem tabItem = (TabItem)tabControl.FindName(tabName);
-
-            tabItem.IsSelected = focus;
-            tabItem.Visibility = visibility;
+            //feedbackView = (FeedbackView)ClassificationView.FindName("FeedbackView");
+            //FeedbackViewModel = (FeedbackViewModel)feedbackView.DataContext;
+            //FeedbackViewModel.Init(this, feedbackView);
         }
     }
 }

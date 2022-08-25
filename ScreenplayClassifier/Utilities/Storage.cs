@@ -29,7 +29,7 @@ namespace ScreenplayClassifier.Utilities
 
             foreach (string genreName in genreNames)
             {
-                screenplaysInGenreJson = File.ReadAllText(FolderPaths.SCREENPLAYS + genreName + ".json");
+                screenplaysInGenreJson = File.ReadAllText(FolderPaths.ARCHIVES + genreName + ".json");
                 screenplaysInGenre = JsonSerializer.Deserialize<List<ScreenplayModel>>(screenplaysInGenreJson);
                 genresDictionary[genreName] = new ObservableCollection<ScreenplayModel>(screenplaysInGenre);
             }
@@ -43,7 +43,7 @@ namespace ScreenplayClassifier.Utilities
 
             foreach (string genreName in genresDictionary.Keys)
             {
-                currentJsonFile = FolderPaths.SCREENPLAYS + genreName + ".json";
+                currentJsonFile = FolderPaths.ARCHIVES + genreName + ".json";
                 screenplaysInGenreJson = JsonSerializer.Serialize(currentJsonFile);
 
                 File.WriteAllText(currentJsonFile, screenplaysInGenreJson);

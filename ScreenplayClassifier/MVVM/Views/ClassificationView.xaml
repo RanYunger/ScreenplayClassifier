@@ -7,19 +7,11 @@
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <TabControl x:Name="TabControl" TabStripPlacement="Left">
-            <TabItem x:Name="BrowseTabItem" Header="Browse Screenplays" Style="{StaticResource TabItemStyle}">
-                <v:BrowseView x:Name="BrowseView"/>
-            </TabItem>
-            <TabItem x:Name="ProgressTabItem" Header="View Progress" Visibility="Collapsed" Style="{StaticResource TabItemStyle}">
-                <v:ProgressView x:Name="ProgressView"/>
-            </TabItem>
-            <TabItem x:Name="ResultsTabItem" Header="View Results" Visibility="Collapsed" Style="{StaticResource TabItemStyle}">
-                <v:ResultsView x:Name="ResultsView"/>
-            </TabItem>
-            <TabItem x:Name="FeedbackTabItem" Header="Give Feedbacks" Visibility="Collapsed" Style="{StaticResource TabItemStyle}">
-                <v:FeedbackView x:Name="FeedbackView"/>
-            </TabItem>
-        </TabControl>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <v:BrowseView x:Name="BrowseView" Grid.Column="0"/>
+        <v:ProgressView x:Name="ProgressView" Grid.Column="1" Visibility="Collapsed"/>
     </Grid>
 </UserControl>
