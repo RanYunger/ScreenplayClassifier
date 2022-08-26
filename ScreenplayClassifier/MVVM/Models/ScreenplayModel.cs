@@ -30,6 +30,7 @@ namespace ScreenplayClassifier.MVVM.Models
                     PropertyChanged(this, new PropertyChangedEventArgs("ID"));
             }
         }
+
         public string Name
         {
             get { return name; }
@@ -41,6 +42,45 @@ namespace ScreenplayClassifier.MVVM.Models
                     PropertyChanged(this, new PropertyChangedEventArgs("Name"));
             }
         }
+
+        public string[] PredictedGenres
+        {
+            get { return predictedGenres; }
+            set
+            {
+                predictedGenres = value;
+
+                if (predictedGenres != null)
+                {
+                    PredictedGenre = predictedGenres[0];
+                    PredictedSubGenre1 = predictedGenres[1];
+                    PredictedSubGenre2 = predictedGenres[2];
+                }
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("PredictedGenres"));
+            }
+        }
+
+        public string[] ActualGenres
+        {
+            get { return actualGenres; }
+            set
+            {
+                actualGenres = value;
+
+                if (actualGenres != null)
+                {
+                    ActualGenre = actualGenres[0];
+                    ActualSubGenre1 = actualGenres[1];
+                    ActualSubGenre2 = actualGenres[2];
+                }
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ActualGenres"));
+            }
+        }
+
         public string PredictedGenre
         {
             get { return predictedGenres[0]; }
@@ -113,20 +153,13 @@ namespace ScreenplayClassifier.MVVM.Models
         }
 
         // Constructors
-        public ScreenplayModel()
+        public ScreenplayModel(string name, string[] predictedGenres, string[] actualGenres)
         {
-            predictedGenres = new string[3];
-            actualGenres = new string[3];
-
             ID = IDGenerator++;
-
-            ActualGenre = ActualSubGenre1 = ActualSubGenre2 = "Unknown";
-            PredictedGenre = PredictedSubGenre1 = PredictedSubGenre2 = "Unknown";
-        }
-        public ScreenplayModel(string name)
-            : this()
-        {
             Name = name;
+
+            PredictedGenres = predictedGenres;
+            ActualGenres = actualGenres;
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using IronPython.Hosting;
-using Microsoft.Scripting.Hosting;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
@@ -30,9 +28,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Properties
         public MainViewModel MainViewModel { get; private set; }
         public ClassificationView ClassificationView { get; private set; }
-        public ProgressView ProgressView { get; private set; }
-        public GenresView PredictedGenresView { get; private set; }
-        public GenresView ActualGenresView { get; private set; }
+
+        public ProgressViewModel ProgressViewModel { get; private set; }
+        public GenresViewModel PredictedGenresViewModel { get; private set; }
+        public GenresViewModel ActualGenresViewModel { get; private set; }
 
         public ObservableCollection<string> BrowsedScreenplays
         {
@@ -126,7 +125,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 browseComplete = value;
 
                 if (browseComplete)
-                    ((ProgressViewModel)ProgressView.DataContext).SetView(BrowsedScreenplays);
+                    ProgressViewModel.SetView(browsedScreenplays);
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("BrowseComplete"));
@@ -139,6 +138,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             set
             {
                 progressComplete = value;
+                if (progressComplete)
+                    ProgressViewModel.ResetView();
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ProgressComplete"));
@@ -276,27 +277,21 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void Init(ClassificationView classificationView, MainViewModel mainViewModel)
         {
+            ProgressView progressView;
+            GenresView predictedGenresView, actualGenresView;
+
             MainViewModel = mainViewModel;
             ClassificationView = classificationView;
 
-            ProgressView = (ProgressView)ClassificationView.FindName("ProgressView");
-            ((ProgressViewModel)ProgressView.DataContext).Init(this, ProgressView);
+            progressView = (ProgressView)ClassificationView.FindName("ProgressView");
+            predictedGenresView = (GenresView)ClassificationView.FindName("PredictedGenresView");
+            actualGenresView = (GenresView)ClassificationView.FindName("ActualGenresView");
 
-            PredictedGenresView = (GenresView)ClassificationView.FindName("PredictedGenresView");
-            ActualGenresView = (GenresView)ClassificationView.FindName("ActualGenresView");
-        }
+            ProgressViewModel = (ProgressViewModel)progressView.DataContext;
+            ProgressViewModel.Init(this, progressView);
 
-        public void SetView()
-        {
-
-        }
-
-        public void ResetView()
-        {
-            BrowsedScreenplays.Clear();
-            CanBrowse = true;
-            CanClear = true;
-            CanChoose = true;
+            PredictedGenresViewModel = (GenresViewModel)predictedGenresView.DataContext;
+            ActualGenresViewModel = (GenresViewModel)actualGenresView.DataContext;
         }
 
         private bool CanSubmit()
@@ -312,36 +307,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
 
             return true;
-        }
-
-        public void ClassifyScreenplays(ObservableCollection<string> screenplaysToClassify)
-        {
-            ScriptEngine engine = Python.CreateEngine();
-            ScriptSource source = engine.CreateScriptSourceFromFile(FolderPaths.PYTHON + "Setup.py");
-            MemoryStream errorsMemoryStream = new MemoryStream(), resultsMemoryStream = new MemoryStream();
-            List<string> argv = new List<string>() { string.Empty };
-            string classificationResultsStr;
-
-            argv.AddRange(string.Join(" ", screenplaysToClassify).Split(" ", StringSplitOptions.RemoveEmptyEntries));
-
-            engine.GetSysModule().SetVariable("argv", argv);
-            engine.Runtime.IO.SetErrorOutput(errorsMemoryStream, Encoding.Default);
-            engine.Runtime.IO.SetOutput(resultsMemoryStream, Encoding.Default);
-
-            source.Execute(engine.CreateScope());
-
-            classificationResultsStr = Encoding.Default.GetString(resultsMemoryStream.ToArray());
-            ProcessResultsString(classificationResultsStr);
-        }
-
-        public void ProcessResultsString(string resultsStr)
-        {
-            string[] results = resultsStr.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (string result in results)
-                ClassifiedScreenplays.Add(new ClassificationModel(new ScreenplayModel(result)));
-
-            // TODO: COMPLETE (convert each result string into ClassificationModel to add to ClassifiedScreenplays)
         }
     }
 }

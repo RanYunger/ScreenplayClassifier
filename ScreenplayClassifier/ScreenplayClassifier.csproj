@@ -9,17 +9,6 @@
 
   <ItemGroup>
     <None Remove="Jsons\Archives.json" />
-    <None Remove="Jsons\Archives\Adventure.json" />
-    <None Remove="Jsons\Archives\Comedy.json" />
-    <None Remove="Jsons\Archives\Crime.json" />
-    <None Remove="Jsons\Archives\Drama.json" />
-    <None Remove="Jsons\Archives\Family.json" />
-    <None Remove="Jsons\Archives\Fantasy.json" />
-    <None Remove="Jsons\Archives\Horror.json" />
-    <None Remove="Jsons\Archives\Romance.json" />
-    <None Remove="Jsons\Archives\SciFi.json" />
-    <None Remove="Jsons\Archives\Thriller.json" />
-    <None Remove="Jsons\Archives\War.json" />
     <None Remove="Jsons\Genres.json" />
     <None Remove="Jsons\ScreenplaysInfo.json" />
     <None Remove="Jsons\Users.json" />
@@ -99,37 +88,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Jsons\Archives\Romance.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Jsons\Archives\War.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Jsons\Archives\Thriller.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Jsons\Archives\SciFi.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Jsons\Archives\Horror.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Jsons\Archives\Fantasy.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Jsons\Archives\Family.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Jsons\Archives\Crime.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Jsons\Archives\Drama.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Jsons\Archives\Comedy.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Jsons\Archives\Adventure.json">
+    <Content Include="Jsons\Archives.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Jsons\ScreenplaysInfo.json">
@@ -378,17 +337,12 @@
     <PackageReference Include="IronPython" Version="2.7.12" />
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Jsons\Genres.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Jsons\Archives\Action.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
