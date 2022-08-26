@@ -1,6 +1,9 @@
-﻿using Microsoft.Win32;
+﻿using IronPython.Hosting;
+using Microsoft.Scripting.Hosting;
+using Microsoft.Win32;
 using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
+using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,60 +19,102 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ClassificationViewModel : INotifyPropertyChanged
     {
         // Fields
-        private BrowseViewModel browseViewModel;
-        private ProgressViewModel progressViewModel;
-        private ResultsViewModel resultsViewModel;
-        private FeedbackViewModel feedbackViewModel;
-        private bool browseComplete, progerssComplete, feedbackComplete;
+        private ObservableCollection<string> browsedScreenplays;
+        private ObservableCollection<ClassificationModel> classifiedScreenplays;
+        private int selectedScreenplay;
+        private bool canBrowse, canClear, canChoose, canProceed;
+        private bool browseComplete, progressComplete, feedbackComplete;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public MainViewModel MainViewModel { get; private set; }
         public ClassificationView ClassificationView { get; private set; }
+        public ProgressView ProgressView { get; private set; }
+        public GenresView PredictedGenresView { get; private set; }
+        public GenresView ActualGenresView { get; private set; }
 
-        public BrowseViewModel BrowseViewModel
+        public ObservableCollection<string> BrowsedScreenplays
         {
-            get { return browseViewModel; }
+            get { return browsedScreenplays; }
             set
             {
-                browseViewModel = value;
+                browsedScreenplays = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("BrowseViewModel"));
-            }
-        }
-        public ProgressViewModel ProgressViewModel
-        {
-            get { return progressViewModel; }
-            set
-            {
-                progressViewModel = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ProgressViewModel"));
-            }
-        }
-        public ResultsViewModel ResultsViewModel
-        {
-            get { return resultsViewModel; }
-            set
-            {
-                resultsViewModel = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ResultsViewModel"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("BrowsedScreenplays"));
             }
         }
 
-        public FeedbackViewModel FeedbackViewModel
+        public ObservableCollection<ClassificationModel> ClassifiedScreenplays
         {
-            get { return feedbackViewModel; }
+            get { return classifiedScreenplays; }
             set
             {
-                feedbackViewModel = value;
+                classifiedScreenplays = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FeedbackViewModel"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("ClassifiedScreenplays"));
+            }
+        }
+
+        public int SelectedScreenplay
+        {
+            get { return selectedScreenplay; }
+            set
+            {
+                selectedScreenplay = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedScreenplay"));
+            }
+        }
+
+        public bool CanBrowse
+        {
+            get { return canBrowse; }
+            set
+            {
+                canBrowse = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanBrowse"));
+            }
+        }
+
+        public bool CanClear
+        {
+            get { return canClear; }
+            set
+            {
+                canClear = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanClear"));
+            }
+        }
+
+        public bool CanChoose
+        {
+            get { return canChoose; }
+            set
+            {
+                canChoose = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanChoose"));
+            }
+        }
+
+        public bool CanProceed
+        {
+            get { return canProceed; }
+            set
+            {
+                canProceed = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanProceed"));
             }
         }
 
@@ -81,43 +126,25 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 browseComplete = value;
 
                 if (browseComplete)
-                {
-                    ProgressViewModel.ProgressView.Visibility = Visibility.Visible;
-                    ProgressViewModel.Set(BrowseViewModel.BrowsedScreenplays);
-                }
-                else
-                {
-                    BrowseViewModel.Reset();
-                    ProgressViewModel.Reset();
-                }
+                    ((ProgressViewModel)ProgressView.DataContext).SetView(BrowsedScreenplays);
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("BrowseComplete"));
             }
         }
+
         public bool ProgressComplete
         {
-            get { return progerssComplete; }
+            get { return progressComplete; }
             set
             {
-                progerssComplete = value;
-
-                //if (progerssComplete)
-                //{
-                //    ResultsViewModel.Set();
-                //    FeedbackViewModel.Set(ResultsViewModel.ClassifiedScreenplays);
-                //}
-                //else
-                //{
-                //    ProgressViewModel.Reset();
-                //    ResultsViewModel.Reset();
-                //    FeedbackViewModel.Reset();
-                //}
+                progressComplete = value;
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ProgressComplete"));
             }
         }
+
         public bool FeedbackComplete
         {
             get { return feedbackComplete; }
@@ -125,49 +152,196 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 feedbackComplete = value;
 
-                //if (!feedbackComplete)
-                //{
-                //    BrowseComplete = false;
-                //    ProgressComplete = false;
-                //}
-
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("FeedbackComplete"));
             }
         }
 
         // Constructors
-        public ClassificationViewModel() { }
+        public ClassificationViewModel()
+        {
+            BrowsedScreenplays = new ObservableCollection<string>();
+            ClassifiedScreenplays = new ObservableCollection<ClassificationModel>();
+
+            SelectedScreenplay = -1;
+            CanBrowse = true;
+            CanClear = true;
+            CanChoose = false;
+            CanProceed = false;
+
+            BrowseComplete = false;
+            ProgressComplete = false;
+            FeedbackComplete = false;
+        }
 
         // Methods
         #region Commands
+        public Command CheckKeyCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    ListView browsedScreenplaysListView = (ListView)ClassificationView.FindName("BrowsedScreenplaysListView");
+
+                    // Validation
+                    if (!CanBrowse)
+                        return;
+
+                    if (Keyboard.IsKeyDown(Key.Back))
+                        for (int i = 0; i < browsedScreenplaysListView.Items.Count; i++)
+                            if (browsedScreenplaysListView.SelectedItems.Contains(browsedScreenplaysListView.Items[i]))
+                                BrowsedScreenplays.RemoveAt(i);
+
+                    CanChoose = BrowsedScreenplays.Count > 0;
+                    CanProceed = BrowsedScreenplays.Count > 0;
+                });
+            }
+        }
+        public Command BrowseScreenplaysCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    OpenFileDialog openFileDialog = new OpenFileDialog();
+                    List<ScreenplayModel> alreadyBrowsedScreenplays = new List<ScreenplayModel>();
+
+                    openFileDialog.Title = "Browse screenplays to classify";
+                    openFileDialog.DefaultExt = "txt";
+                    openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                    openFileDialog.Multiselect = true;
+                    openFileDialog.InitialDirectory = Environment.CurrentDirectory;
+                    openFileDialog.ShowDialog();
+
+                    for (int i = 0; i < openFileDialog.FileNames.Length; i++)
+                        BrowsedScreenplays.Add(Path.GetFileNameWithoutExtension(openFileDialog.FileNames[i]));
+
+                    CanChoose = BrowsedScreenplays.Count > 0;
+                    CanProceed = BrowsedScreenplays.Count > 0;
+                });
+            }
+        }
+        public Command ClearScreenplaysCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    BrowsedScreenplays.Clear();
+
+                    CanBrowse = true;
+                    CanChoose = false;
+                    CanProceed = false;
+                });
+            }
+        }
+        public Command ProceedToClassificationCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    CanBrowse = false;
+                    CanClear = false;
+                    CanChoose = false;
+                    CanProceed = false;
+                    BrowseComplete = true;
+                });
+            }
+        }
+
+        public Command SubmitFeedbackCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    MessageBoxResult startOver;
+
+                    if (!CanSubmit())
+                        MessageBoxHandler.Show("Complete feedback for all screenplays", "Error", 3, MessageBoxImage.Error);
+                    else
+                    {
+                        //MessageBoxHandler.Show("Feedback submitted successfuly", "Success", 3, MessageBoxImage.Information);
+
+                        startOver = MessageBox.Show("Would you like to start over?", "something",
+                            MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        FeedbackComplete = startOver == MessageBoxResult.No;
+                    }
+                });
+            }
+        }
         #endregion
 
         public void Init(ClassificationView classificationView, MainViewModel mainViewModel)
         {
-            BrowseView browseView = null;
-            ProgressView progressView = null;
-            //ResultsView resultsView = null;
-            //FeedbackView feedbackView = null;
-
             MainViewModel = mainViewModel;
             ClassificationView = classificationView;
 
-            browseView = (BrowseView)ClassificationView.FindName("BrowseView");
-            BrowseViewModel = (BrowseViewModel)browseView.DataContext;
-            BrowseViewModel.Init(this, browseView);
+            ProgressView = (ProgressView)ClassificationView.FindName("ProgressView");
+            ((ProgressViewModel)ProgressView.DataContext).Init(this, ProgressView);
 
-            progressView = (ProgressView)ClassificationView.FindName("ProgressView");
-            ProgressViewModel = (ProgressViewModel)progressView.DataContext;
-            ProgressViewModel.Init(this, progressView);
+            PredictedGenresView = (GenresView)ClassificationView.FindName("PredictedGenresView");
+            ActualGenresView = (GenresView)ClassificationView.FindName("ActualGenresView");
+        }
 
-            //resultsView = (ResultsView)ClassificationView.FindName("ResultsView");
-            //ResultsViewModel = (ResultsViewModel)resultsView.DataContext;
-            //ResultsViewModel.Init(this, resultsView);
+        public void SetView()
+        {
 
-            //feedbackView = (FeedbackView)ClassificationView.FindName("FeedbackView");
-            //FeedbackViewModel = (FeedbackViewModel)feedbackView.DataContext;
-            //FeedbackViewModel.Init(this, feedbackView);
+        }
+
+        public void ResetView()
+        {
+            BrowsedScreenplays.Clear();
+            CanBrowse = true;
+            CanClear = true;
+            CanChoose = true;
+        }
+
+        private bool CanSubmit()
+        {
+            ScreenplayModel currentScreenplay = null;
+
+            for (int i = 0; i < ClassifiedScreenplays.Count; i++)
+            {
+                currentScreenplay = ClassifiedScreenplays[i].Screenplay;
+                if ((currentScreenplay.ActualGenre == "Unknown") || (currentScreenplay.ActualSubGenre1 == "Unknown")
+                    || (currentScreenplay.ActualSubGenre2 == "Unknown"))
+                    return false;
+            }
+
+            return true;
+        }
+
+        public void ClassifyScreenplays(ObservableCollection<string> screenplaysToClassify)
+        {
+            ScriptEngine engine = Python.CreateEngine();
+            ScriptSource source = engine.CreateScriptSourceFromFile(FolderPaths.PYTHON + "Setup.py");
+            MemoryStream errorsMemoryStream = new MemoryStream(), resultsMemoryStream = new MemoryStream();
+            List<string> argv = new List<string>() { string.Empty };
+            string classificationResultsStr;
+
+            argv.AddRange(string.Join(" ", screenplaysToClassify).Split(" ", StringSplitOptions.RemoveEmptyEntries));
+
+            engine.GetSysModule().SetVariable("argv", argv);
+            engine.Runtime.IO.SetErrorOutput(errorsMemoryStream, Encoding.Default);
+            engine.Runtime.IO.SetOutput(resultsMemoryStream, Encoding.Default);
+
+            source.Execute(engine.CreateScope());
+
+            classificationResultsStr = Encoding.Default.GetString(resultsMemoryStream.ToArray());
+            ProcessResultsString(classificationResultsStr);
+        }
+
+        public void ProcessResultsString(string resultsStr)
+        {
+            string[] results = resultsStr.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string result in results)
+                ClassifiedScreenplays.Add(new ClassificationModel(new ScreenplayModel(result)));
+
+            // TODO: COMPLETE (convert each result string into ClassificationModel to add to ClassifiedScreenplays)
         }
     }
 }

@@ -9,18 +9,20 @@
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ProgressBar x:Name="AllClassificationsProgressBar" Grid.Row="0" Value="{Binding ClassificationsProgress}"
-                     Height="30" Width="1100" Minimum="0" Maximum="100"/>
-        <TextBlock Grid.Row="0" Text="{Binding ElementName=AllClassificationsProgressBar, Path=Value, StringFormat={}{0:0}%}"
+        <TextBlock Text="{Binding ClassificationsText}" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+        <ProgressBar x:Name="AllClassificationsProgressBar" Grid.Row="1" Value="{Binding ClassificationsProgress}"
+                     Height="30" Width="950" Minimum="0" Maximum="100"/>
+        <TextBlock Grid.Row="1" Text="{Binding ElementName=AllClassificationsProgressBar, Path=Value, StringFormat={}{0:0}%}"
                    HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-        <ProgressBar x:Name="CurrentClassificationProgressBar" Grid.Row="1" Value="{Binding ClassificationsProgress}"
-                     Height="30" Width="1100" Minimum="0" Maximum="100"/>
-        <TextBlock Grid.Row="1" Text="{Binding ElementName=CurrentClassificationProgressBar, Path=Value, StringFormat={}{0:0}%}"
+        <ProgressBar x:Name="CurrentClassificationProgressBar" Grid.Row="2" Value="{Binding ClassificationsProgress}"
+                     Height="30" Width="950" Minimum="0" Maximum="100"/>
+        <TextBlock Grid.Row="2" Text="{Binding ElementName=CurrentClassificationProgressBar, Path=Value, StringFormat={}{0:0}%}"
                    HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-        <Image Grid.Row="2" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Reading.gif" gif:ImageBehavior.RepeatBehavior="Forever"/>
+        <Image Grid.Row="3" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Reading.gif" gif:ImageBehavior.RepeatBehavior="Forever"/>
     </Grid>
 </UserControl>

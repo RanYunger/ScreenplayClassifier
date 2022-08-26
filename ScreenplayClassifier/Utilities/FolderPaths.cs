@@ -21,6 +21,10 @@ namespace ScreenplayClassifier.Utilities
         public static string VIDEOS = MEDIA + @"\Videos\";
         #endregion
 
+        #region Classifier
+        public static string PYTHON = Environment.CurrentDirectory + @"\Python\";
+        #endregion
+
         #region Storage
         public static string JSONS = Environment.CurrentDirectory + @"\Jsons\";
         public static string ARCHIVES = JSONS + @"\Archives\";

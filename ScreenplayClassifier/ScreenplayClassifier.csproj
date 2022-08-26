@@ -21,6 +21,7 @@
     <None Remove="Jsons\Archives\Thriller.json" />
     <None Remove="Jsons\Archives\War.json" />
     <None Remove="Jsons\Genres.json" />
+    <None Remove="Jsons\ScreenplaysInfo.json" />
     <None Remove="Jsons\Users.json" />
     <None Remove="Media\Audios\Genres\Action.m4a" />
     <None Remove="Media\Audios\Genres\Adventure.m4a" />
@@ -94,6 +95,7 @@
     <None Remove="Media\Videos\Choice.mp4" />
     <None Remove="Media\Videos\Countdown.mp4" />
     <None Remove="Media\Videos\You Shall Not Pass.mp4" />
+    <None Remove="Python\Setup.py" />
   </ItemGroup>
 
   <ItemGroup>
@@ -128,6 +130,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Jsons\Archives\Adventure.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Jsons\ScreenplaysInfo.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Jsons\Users.json">
@@ -340,6 +345,9 @@
     <Content Include="Media\Videos\You Shall Not Pass.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Python\Setup.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -367,6 +375,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="IronPython" Version="2.7.12" />
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
