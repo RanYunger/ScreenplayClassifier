@@ -131,7 +131,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    switch (affectedGenre)
+                    switch (AffectedGenre)
                     {
                         case "Genre":
                             {
@@ -140,7 +140,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                                 else
                                 {
                                     Screenplay.ActualGenre = SelectedGenre;
-                                    ((GenresViewModel)GenresView.DataContext).Init(Screenplay, "Actual", GenresView);
+                                    ((GenresViewModel)GenresView.DataContext).RefreshView(Screenplay, "Actual");
                                     GenreSelectionView.Close();
                                 }
                             }
@@ -152,7 +152,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                                 else
                                 {
                                     Screenplay.ActualSubGenre1 = SelectedGenre;
-                                    ((GenresViewModel)GenresView.DataContext).Init(Screenplay, "Actual", GenresView);
+                                    ((GenresViewModel)GenresView.DataContext).RefreshView(Screenplay, "Actual");
                                     GenreSelectionView.Close();
                                 }
                             }
@@ -164,14 +164,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                                 else
                                 {
                                     Screenplay.ActualSubGenre2 = SelectedGenre;
-                                    ((GenresViewModel)GenresView.DataContext).Init(Screenplay, "Actual", GenresView);
+                                    ((GenresViewModel)GenresView.DataContext).RefreshView(Screenplay, "Actual");
                                     GenreSelectionView.Close();
                                 }
                             }
                             break;
                     }
-
-
                 });
             }
         }

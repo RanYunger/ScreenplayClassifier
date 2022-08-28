@@ -96,7 +96,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    affectedGenre = "Genre";
+                    AffectedGenre = "Genre";
                     ShowGenreSelectionViewCommand.Execute(null);
                 });
             }
@@ -107,7 +107,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    affectedGenre = "SubGenre1";
+                    AffectedGenre = "SubGenre1";
                     ShowGenreSelectionViewCommand.Execute(null);
                 });
             }
@@ -134,7 +134,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     string genreType = string.Empty;
 
                     foreach (Window view in App.Current.Windows)
-                        if(view is GenreSelectionView)
+                        if (view is GenreSelectionView)
                         {
                             view.Focus();
                             return;
@@ -148,21 +148,32 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
-        public void Init(ScreenplayModel screenplay, string genresAffiliation, GenresView genresView)
+        public void Init(GenresView genresView)
+        {
+            GenresView = genresView;
+        }
+
+        public void RefreshView(ScreenplayModel screenplay, string genresAffiliation)
         {
             bool isActual = genresAffiliation == "Actual";
-            string genreImagePath = string.Format("{0}{1}.png", FolderPaths.GENREIMAGES,
-                isActual ? screenplay.ActualGenre : screenplay.PredictedGenre),
+            string genreImagePath = string.Format("{0}Unknown.png", FolderPaths.GENREIMAGES),
+                subGenre1ImagePath = string.Format("{0}Unknown.png", FolderPaths.GENREIMAGES),
+                subGenre2ImagePath = string.Format("{0}Unknown.png", FolderPaths.GENREIMAGES);
+
+            if (screenplay != null)
+            {
+                genreImagePath = string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, 
+                    isActual ? screenplay.ActualGenre : screenplay.PredictedGenre);
                 subGenre1ImagePath = string.Format("{0}{1}.png", FolderPaths.GENREIMAGES,
-                isActual ? screenplay.ActualSubGenre1 : screenplay.PredictedSubGenre1),
+                    isActual ? screenplay.ActualSubGenre1 : screenplay.PredictedSubGenre1);
                 subGenre2ImagePath = string.Format("{0}{1}.png", FolderPaths.GENREIMAGES,
-                isActual ? screenplay.ActualSubGenre2 : screenplay.PredictedSubGenre2);
+                    isActual ? screenplay.ActualSubGenre2 : screenplay.PredictedSubGenre2);
+            }
 
             Screenplay = screenplay;
             GenreImage = new BitmapImage(new Uri(genreImagePath));
             SubGenre1Image = new BitmapImage(new Uri(subGenre1ImagePath));
             SubGenre2Image = new BitmapImage(new Uri(subGenre2ImagePath));
-            GenresView = genresView;
         }
     }
 }

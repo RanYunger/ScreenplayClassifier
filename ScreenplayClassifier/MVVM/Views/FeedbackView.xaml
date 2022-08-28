@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="ScreenplayClassifier.MVVM.Views.FeedbackView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views">
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="Classification" FontSize="40" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <WrapPanel HorizontalAlignment="Center">
+                <StackPanel Margin="0,0,50,0">
+                    <TextBlock Text="Predicted Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    <v:GenresView x:Name="PredictedGenresView" IsEnabled="False"/>
+                </StackPanel>
+                <StackPanel Margin="50,0,0,0">
+                    <TextBlock Text="Actual Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    <v:GenresView x:Name="ActualGenresView"/>
+                </StackPanel>
+            </WrapPanel>
+            <Button Grid.Row="2" Grid.ColumnSpan="2" FontSize="20" Content="Submit" Command="{Binding SubmitFeedbackCommand}"
+                Margin="10" Style="{StaticResource ButtonStyle}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

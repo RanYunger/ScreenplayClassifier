@@ -21,8 +21,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private System.Timers.Timer durationTimer;
-
-        private ObservableCollection<ClassificationModel> classifiedScreenplays;
         private TimeSpan duration;
         private int classificationsRequired, classificationsComplete;
         private string classificationsText, durationText;
@@ -32,15 +30,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ClassificationViewModel ClassificationViewModel { get; private set; }
         public ProgressView ProgressView { get; private set; }
 
-        public ObservableCollection<ClassificationModel> ClassifiedScreenplays
+        public System.Timers.Timer DurationTimer
         {
-            get { return classifiedScreenplays; }
+            get { return durationTimer; }
             set
             {
-                classifiedScreenplays = value;
+                durationTimer = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassifiedScreenplays"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("DurationTimer"));
             }
         }
         public TimeSpan Duration
@@ -108,21 +106,21 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Constructors
         public ProgressViewModel()
         {
-            Duration = TimeSpan.Zero;
+            DurationTimer = new System.Timers.Timer();
+            DurationTimer.Interval = 1000;
+            DurationTimer.Elapsed += DurationTimer_Elapsed;
 
-            durationTimer = new System.Timers.Timer();
-            durationTimer.Interval = 1000;
-            durationTimer.Elapsed += DurationTimer_Elapsed;
+            RefreshView();
         }
 
         // Methods
         #region Commands
         private void DurationTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            Duration = Duration.Add(new TimeSpan(0, 0, 1));
+            Duration = Duration.Add(TimeSpan.FromSeconds(1));
 
             if (Duration.Seconds == 5)
-                ClassificationViewModel.ProgressComplete = true;
+                App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
         }
         #endregion
 
@@ -132,30 +130,32 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ProgressView = progressView;
         }
 
-        public void SetView(ObservableCollection<string> browsedScreenplays)
+        public void ShowView(ObservableCollection<string> browsedScreenplays)
         {
-            durationTimer.Start();
+            DurationTimer.Start();
 
             ClassificationsRequired = browsedScreenplays.Count;
             ClassificationsComplete = 0;
-            ClassifiedScreenplays = new ObservableCollection<ClassificationModel>();
 
             App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Visible);
 
-            ClassifiedScreenplays = ClassifyScreenplays(browsedScreenplays);
+            ClassificationViewModel.ClassifiedScreenplays = ClassifyScreenplays(browsedScreenplays);
         }
 
-        public void ResetView()
+        public void RefreshView()
         {
-            durationTimer.Stop();
+            DurationTimer.Stop();
+            Duration = TimeSpan.Zero;
 
             ClassificationsRequired = 0;
             ClassificationsComplete = 0;
-            ClassifiedScreenplays.Clear();
+        }
+
+        public void HideView()
+        {
+            RefreshView();
 
             App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Collapsed);
-
-            App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ClassifiedScreenplays = ClassifiedScreenplays);
         }
 
         public ObservableCollection<ClassificationModel> ClassifyScreenplays(ObservableCollection<string> screenplaysToClassify)
@@ -183,9 +183,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public ObservableCollection<ClassificationModel> ProcessResults(string[] resultStrings)
         {
+            string[] predictedGenres, actualGenres;
             ObservableCollection<ClassificationModel> classifications = new ObservableCollection<ClassificationModel>();
 
             // TODO: COMPLETE (convert each result string into ClassificationModel to add to ClassifiedScreenplays)
+            foreach (string result in resultStrings)
+            {
+                predictedGenres = new string[] { "Unknown", "Unknown", "Unknown" };
+                actualGenres = new string[] { "Unknown", "Unknown", "Unknown" };
+
+                classifications.Add(new ClassificationModel(new ScreenplayModel("Test", predictedGenres, actualGenres)));
+            }
 
             return classifications;
         }

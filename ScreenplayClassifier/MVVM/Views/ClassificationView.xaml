@@ -11,67 +11,8 @@
             <ColumnDefinition Width="500"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" HorizontalAlignment="Center" Visibility="Visible">
-            <TextBlock Text="Screenplays" HorizontalAlignment="Center" FontSize="50" Margin="0,10,0,10"
-                       Style="{StaticResource TextBlockStyle}"/>
-            <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,10">
-                <Button Command="{Binding BrowseScreenplaysCommand}" Height="100" Width="100" IsEnabled="{Binding CanBrowse}" ToolTip="Browse..."
-                        Style="{StaticResource ButtonStyle}">
-                    <Button.Content>
-                        <Image Source="/Media/Images/Browse.png"/>
-                    </Button.Content>
-                </Button>
-                <Button Command="{Binding ClearScreenplaysCommand}" Height="100" Width="100" IsEnabled="{Binding CanClear}" ToolTip="Clear"
-                        Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
-                    <Button.Content>
-                        <Image Source="/Media/Images/Clear.png"/>
-                    </Button.Content>
-                </Button>
-            </WrapPanel>
-            <ListView x:Name="BrowsedScreenplaysListView" Height="400" Width="450" FontSize="20" IsEnabled="{Binding CanChoose}"
-                      SelectedIndex="{Binding SelectedBrowsedScreenplay}" ItemsSource="{Binding BrowsedScreenplays}"
-                      Margin="10">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="KeyDown">
-                        <i:InvokeCommandAction Command="{Binding CheckKeyCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </ListView>
-            <Button Command="{Binding ProceedToClassificationCommand}" Height="110" Width="110" IsEnabled="{Binding CanProceed}"
-                    ToolTip="Proceed to classification" Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <Image Source="/Media/Images/PlayUnpressed.png"/>
-                </Button.Content>
-            </Button>
-        </StackPanel>
+        <v:BrowseView x:Name="BrowseView" Grid.Column="0"/>
         <v:ProgressView x:Name="ProgressView" Grid.Column="1" Visibility="Collapsed"/>
-        <StackPanel Grid.Column="1">
-            <StackPanel.Style>
-                <Style TargetType="StackPanel">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ProgressComplete}" Value="True">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ProgressComplete}" Value="False">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-            <TextBlock Text="Classification" FontSize="40" HorizontalAlignment="Center"
-                   Margin="0,10,0,10" Style="{StaticResource TextBlockStyle}"/>
-            <WrapPanel>
-                <StackPanel>
-                    <TextBlock Text="Predicted Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    <v:GenresView x:Name="PredictedGenresView" IsEnabled="False"/>
-                </StackPanel>
-                <StackPanel>
-                    <TextBlock Text="Actual Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    <v:GenresView x:Name="ActualGenresView"/>
-                </StackPanel>
-            </WrapPanel>
-            <Button Grid.Row="2" Grid.ColumnSpan="2" FontSize="20" Content="Submit" Command="{Binding SubmitFeedbackCommand}"
-                Margin="10" Style="{StaticResource ButtonStyle}"/>
-        </StackPanel>
+        <v:FeedbackView x:Name="FeedbackView" Grid.Column="1" Visibility="Collapsed"/>
     </Grid>
 </UserControl>
