@@ -27,6 +27,7 @@
     <None Remove="Media\Audios\Jim.m4a" />
     <None Remove="Media\Audios\Wilhelm Scream.m4a" />
     <None Remove="Media\Gifs\Gears.gif" />
+    <None Remove="Media\Gifs\Let Me See The Script.gif" />
     <None Remove="Media\Gifs\Reading.gif" />
     <None Remove="Media\Images\Add.png" />
     <None Remove="Media\Images\Admin.png" />
@@ -83,6 +84,7 @@
     <None Remove="Media\Videos\3 Much Later.mp4" />
     <None Remove="Media\Videos\Choice.mp4" />
     <None Remove="Media\Videos\Countdown.mp4" />
+    <None Remove="Media\Videos\It%27s Over. Go Home.mp4" />
     <None Remove="Media\Videos\You Shall Not Pass.mp4" />
     <None Remove="Python\Setup.py" />
   </ItemGroup>
@@ -137,6 +139,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Gifs\Gears.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Gifs\Let Me See The Script.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Gifs\Reading.gif">
@@ -343,6 +348,12 @@
 
   <ItemGroup>
     <Content Include="Jsons\Genres.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Media\Videos\It's Over. Go Home.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

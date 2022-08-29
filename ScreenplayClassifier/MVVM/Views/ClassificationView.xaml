@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              Style="{StaticResource UserControlStyle}">
     <Grid>
@@ -12,7 +13,36 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <v:BrowseView x:Name="BrowseView" Grid.Column="0"/>
+        <Image Grid.Column="1" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Let Me See The Script.gif"
+               gif:ImageBehavior.RepeatBehavior="Forever" Margin="50">
+            <Image.Style>
+                <Style TargetType="Image">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding BrowseComplete}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BrowseComplete}" Value="False">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
         <v:ProgressView x:Name="ProgressView" Grid.Column="1" Visibility="Collapsed"/>
         <v:FeedbackView x:Name="FeedbackView" Grid.Column="1" Visibility="Collapsed"/>
+        <MediaElement x:Name="MediaElement" Grid.ColumnSpan="2" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill">
+            <MediaElement.Style>
+                <Style TargetType="MediaElement">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ClassificationComplete}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ClassificationComplete}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </MediaElement.Style>
+        </MediaElement>
     </Grid>
 </UserControl>

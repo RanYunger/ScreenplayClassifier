@@ -1,7 +1,11 @@
-﻿using System;
+﻿using ScreenplayClassifier.Utilities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ScreenplayClassifier.MVVM.Models
 {
@@ -57,21 +61,12 @@ namespace ScreenplayClassifier.MVVM.Models
         }
 
         // Constructors
-        public ClassificationModel(ScreenplayModel screenplay)
+        public ClassificationModel(ScreenplayModel screenplay, Dictionary<string, List<int>> concordance, Dictionary<string, int> wordFrequencies)
         {
             Screenplay = screenplay;
             Duration = TimeSpan.Zero;
-            Concordance = new Dictionary<string, List<int>>();
-            WordFrequencies = new Dictionary<string, int>();
-        }
-        public ClassificationModel(ScreenplayModel screenplay, Dictionary<string, List<int>> concordance)
-            :this(screenplay)
-        {
             Concordance = concordance;
-
-            WordFrequencies = new Dictionary<string, int>();
-            foreach (string word in Concordance.Keys)
-                WordFrequencies[word] = Concordance[word].Count;
-        } 
+            WordFrequencies = wordFrequencies;
+        }
     }
 }

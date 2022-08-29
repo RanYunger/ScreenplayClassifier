@@ -184,6 +184,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ObservableCollection<ClassificationModel> ProcessResults(string[] resultStrings)
         {
             string[] predictedGenres, actualGenres;
+            Dictionary<string, List<int>> concordance;
+            Dictionary<string, int> wordFrequencies;
             ObservableCollection<ClassificationModel> classifications = new ObservableCollection<ClassificationModel>();
 
             // TODO: COMPLETE (convert each result string into ClassificationModel to add to ClassifiedScreenplays)
@@ -191,8 +193,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 predictedGenres = new string[] { "Unknown", "Unknown", "Unknown" };
                 actualGenres = new string[] { "Unknown", "Unknown", "Unknown" };
+                concordance = new Dictionary<string, List<int>>();
+                wordFrequencies = new Dictionary<string, int>();
 
-                classifications.Add(new ClassificationModel(new ScreenplayModel("Test", predictedGenres, actualGenres)));
+                classifications.Add(new ClassificationModel(new ScreenplayModel("Test", Environment.CurrentDirectory,
+                    predictedGenres, actualGenres), concordance, wordFrequencies));
             }
 
             return classifications;

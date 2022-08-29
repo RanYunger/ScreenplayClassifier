@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -207,6 +208,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             BrowseView = browseView;
         }
 
+        public void ShowView()
+        {
+            App.Current.Dispatcher.Invoke(() => BrowseView.Visibility = Visibility.Visible);
+        }
+
         public void RefreshView()
         {
             BrowsedScreenplays = new ObservableCollection<string>();
@@ -217,6 +223,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             CanProceed = false;
 
             PlayImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "PlayUnpressed.png"));
+        }
+
+        public void HideView()
+        {
+            App.Current.Dispatcher.Invoke(() => BrowseView.Visibility = Visibility.Collapsed);
         }
     }
 }

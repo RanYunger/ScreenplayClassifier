@@ -35,7 +35,7 @@
                     </i:Interaction.Triggers>
                 </TextBox>
                 <WrapPanel>
-                    <Button Height="40" Width="40" Command="{Binding HomeCommand}" ToolTip="Home window"
+                    <Button Height="40" Width="40" Command="{Binding HomeCommand}" ToolTip="Home"
                             Margin="0,15,5,0" Style="{StaticResource ButtonStyle}">
                         <Button.Content>
                             <Image Source="/Media/Images/Home.png"/>

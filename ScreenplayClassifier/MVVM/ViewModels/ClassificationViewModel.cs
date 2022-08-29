@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,7 +20,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Fields
         private ObservableCollection<ClassificationModel> classifiedScreenplays;
         private int selectedScreenplay;
-        private bool browseComplete, progressComplete, feedbackComplete;
+        private bool browseComplete, progressComplete, classificationComplete;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -93,26 +94,31 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public bool FeedbackComplete
+        public bool ClassificationComplete
         {
-            get { return feedbackComplete; }
+            get { return classificationComplete; }
             set
             {
-                feedbackComplete = value;
+                classificationComplete = value;
 
-                if (FeedbackComplete)
+                if (classificationComplete)
                 {
-                    BrowseComplete = false;
-                    ProgressComplete = false;
+                    BrowseViewModel.HideView();
+                    FeedbackViewModel.HideView();
+
+                    PlayVideoCommand.Execute(null);
                 }
                 else if (FeedbackViewModel != null)
                 {
+                    BrowseComplete = false;
+                    ProgressComplete = false;
+
                     FeedbackViewModel.HideView();
                     BrowseViewModel.RefreshView();
                 }
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FeedbackComplete"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("ClassificationComplete"));
             }
         }
 
@@ -123,11 +129,35 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             SelectedScreenplay = -1;
             BrowseComplete = false;
             ProgressComplete = false;
-            FeedbackComplete = false;
+            ClassificationComplete = false;
         }
 
         // Methods
         #region Commands
+        public Command PlayVideoCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    Timer videoTimer = new Timer(21500);
+                    MediaElement mediaElement = (MediaElement)ClassificationView.FindName("MediaElement");
+
+                    mediaElement.Source = new Uri(FolderPaths.VIDEOS + "It's Over. Go Home.mp4");
+                    mediaElement.Play();
+              
+                    videoTimer.Elapsed += (sender, e) => VideoTimer_Elapsed(sender, e, videoTimer, mediaElement);
+                    videoTimer.Start();
+                });
+            }
+        }
+
+        private void VideoTimer_Elapsed(object sender, ElapsedEventArgs e, Timer videoTimer, MediaElement mediaElement)
+        {
+            App.Current.Dispatcher.Invoke(() => videoTimer.Stop());
+            App.Current.Dispatcher.Invoke(() => mediaElement.Visibility = Visibility.Collapsed);
+            App.Current.Dispatcher.Invoke(() => ((UserToolbarViewModel)MainViewModel.UserToolbarView.DataContext).HomeCommand.Execute(null));
+        }
         #endregion
 
         public void Init(ClassificationView classificationView, MainViewModel mainViewModel)

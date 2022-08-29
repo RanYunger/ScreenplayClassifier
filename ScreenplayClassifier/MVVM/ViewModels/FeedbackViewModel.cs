@@ -56,7 +56,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                         startOver = MessageBox.Show("Would you like to start over?", "something",
                             MessageBoxButton.YesNo, MessageBoxImage.Question);
-                        ClassificationViewModel.FeedbackComplete = startOver == MessageBoxResult.No;
+                        ClassificationViewModel.ClassificationComplete = startOver == MessageBoxResult.No;
                     }
                 });
             }
