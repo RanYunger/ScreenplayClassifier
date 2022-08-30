@@ -82,7 +82,6 @@
     <None Remove="Media\Videos\2 Much Later.mp4" />
     <None Remove="Media\Videos\3 Hours Later.mp4" />
     <None Remove="Media\Videos\3 Much Later.mp4" />
-    <None Remove="Media\Videos\Choice.mp4" />
     <None Remove="Media\Videos\Countdown.mp4" />
     <None Remove="Media\Videos\It%27s Over. Go Home.mp4" />
     <None Remove="Media\Videos\You Shall Not Pass.mp4" />
@@ -298,9 +297,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Videos\3 Much Later.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Videos\Choice.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Videos\Countdown.mp4">

@@ -67,7 +67,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 browseComplete = value;
 
                 if (browseComplete)
-                    ProgressViewModel.ShowView(BrowseViewModel.BrowsedScreenplays);
+                    ProgressViewModel.ShowView(BrowseViewModel.BrowsedScreenplaysPaths);
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("BrowseComplete"));
@@ -100,6 +100,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             set
             {
                 classificationComplete = value;
+
+                if (ClassificationView != null)
+                    UpdateReportsView();
 
                 if (classificationComplete)
                 {
@@ -145,9 +148,24 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     mediaElement.Source = new Uri(FolderPaths.VIDEOS + "It's Over. Go Home.mp4");
                     mediaElement.Play();
-              
+
                     videoTimer.Elapsed += (sender, e) => VideoTimer_Elapsed(sender, e, videoTimer, mediaElement);
                     videoTimer.Start();
+                });
+            }
+        }
+
+        public Command StopVideoCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    MediaElement mediaElement = (MediaElement)ClassificationView.FindName("MediaElement");
+
+                    mediaElement.Stop();
+
+                    ClassificationComplete = false;
                 });
             }
         }
@@ -180,6 +198,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             feedbackView = (FeedbackView)ClassificationView.FindName("FeedbackView");
             FeedbackViewModel = (FeedbackViewModel)feedbackView.DataContext;
             FeedbackViewModel.Init(this, feedbackView);
+        }
+
+        private void UpdateReportsView()
+        {
+            ReportsViewModel reportsViewModel = (ReportsViewModel)MainViewModel.ReportsView.DataContext;
+
+            foreach (ClassificationModel classificationReport in ClassifiedScreenplays)
+                reportsViewModel.ClassificationReports.Add(classificationReport);
         }
     }
 }

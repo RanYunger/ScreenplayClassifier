@@ -13,23 +13,34 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <v:BrowseView x:Name="BrowseView" Grid.Column="0"/>
+        <v:ProgressView x:Name="ProgressView" Grid.Column="1" Visibility="Collapsed"/>
+        <v:FeedbackView x:Name="FeedbackView" Grid.Column="1" Visibility="Collapsed"/>
         <Image Grid.Column="1" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Let Me See The Script.gif"
                gif:ImageBehavior.RepeatBehavior="Forever" Margin="50">
             <Image.Style>
                 <Style TargetType="Image">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding BrowseComplete}" Value="True">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding BrowseComplete}" Value="False">
+                        <DataTrigger Binding="{Binding ElementName=BrowseView, Path=Visibility}" Value="Visible">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=ProgressView, Path=Visibility}" Value="Visible">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=FeedbackView, Path=Visibility}" Value="Visible">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=BrowseView, Path=Visibility}" Value="Collapsed"/>
+                                <Condition Binding="{Binding ElementName=ProgressView, Path=Visibility}" Value="Collapsed"/>
+                                <Condition Binding="{Binding ElementName=FeedbackView, Path=Visibility}" Value="Collapsed"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>
             </Image.Style>
         </Image>
-        <v:ProgressView x:Name="ProgressView" Grid.Column="1" Visibility="Collapsed"/>
-        <v:FeedbackView x:Name="FeedbackView" Grid.Column="1" Visibility="Collapsed"/>
         <MediaElement x:Name="MediaElement" Grid.ColumnSpan="2" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill">
             <MediaElement.Style>
                 <Style TargetType="MediaElement">

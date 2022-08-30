@@ -18,7 +18,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class BrowseViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ObservableCollection<string> browsedScreenplays;
+        private ObservableCollection<string> browsedScreenplaysNames, browsedScreenplaysPaths;
         private ImageSource playImage;
         private int selectedScreenplay;
         private bool canBrowse, canClear, canChoose, canProceed;
@@ -29,15 +29,27 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ClassificationViewModel ClassificationViewModel { get; private set; }
         public BrowseView BrowseView { get; private set; }
 
-        public ObservableCollection<string> BrowsedScreenplays
+        public ObservableCollection<string> BrowsedScreenplaysNames
         {
-            get { return browsedScreenplays; }
+            get { return browsedScreenplaysNames; }
             set
             {
-                browsedScreenplays = value;
+                browsedScreenplaysNames = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("BrowsedScreenplays"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("BrowsedScreenplaysNames"));
+            }
+        }
+
+        public ObservableCollection<string> BrowsedScreenplaysPaths
+        {
+            get { return browsedScreenplaysPaths; }
+            set
+            {
+                browsedScreenplaysPaths = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("BrowsedScreenplaysPaths"));
             }
         }
 
@@ -141,10 +153,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if ((Keyboard.IsKeyDown(Key.Back)) || (Keyboard.IsKeyDown(Key.Delete)))
                         for (int i = 0; i < browsedScreenplaysListView.Items.Count; i++)
                             if (browsedScreenplaysListView.SelectedItems.Contains(browsedScreenplaysListView.Items[i]))
-                                BrowsedScreenplays.RemoveAt(i);
+                                BrowsedScreenplaysNames.RemoveAt(i);
 
-                    CanChoose = BrowsedScreenplays.Count > 0;
-                    CanProceed = BrowsedScreenplays.Count > 0;
+                    CanChoose = BrowsedScreenplaysNames.Count > 0;
+                    CanProceed = BrowsedScreenplaysNames.Count > 0;
                 });
             }
         }
@@ -164,10 +176,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     openFileDialog.ShowDialog();
 
                     for (int i = 0; i < openFileDialog.FileNames.Length; i++)
-                        BrowsedScreenplays.Add(Path.GetFileNameWithoutExtension(openFileDialog.FileNames[i]));
+                    {
+                        BrowsedScreenplaysNames.Add(Path.GetFileNameWithoutExtension(openFileDialog.FileNames[i]));
+                        BrowsedScreenplaysPaths.Add(openFileDialog.FileNames[i]);
+                    }
 
-                    CanChoose = BrowsedScreenplays.Count > 0;
-                    CanProceed = BrowsedScreenplays.Count > 0;
+                    CanChoose = BrowsedScreenplaysNames.Count > 0;
+                    CanProceed = BrowsedScreenplaysNames.Count > 0;
                 });
             }
         }
@@ -177,7 +192,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    BrowsedScreenplays.Clear();
+                    BrowsedScreenplaysNames.Clear();
+                    browsedScreenplaysPaths.Clear();
 
                     CanBrowse = true;
                     CanChoose = false;
@@ -208,14 +224,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             BrowseView = browseView;
         }
 
-        public void ShowView()
-        {
-            App.Current.Dispatcher.Invoke(() => BrowseView.Visibility = Visibility.Visible);
-        }
-
         public void RefreshView()
         {
-            BrowsedScreenplays = new ObservableCollection<string>();
+            BrowsedScreenplaysNames = new ObservableCollection<string>();
+            BrowsedScreenplaysPaths = new ObservableCollection<string>();
             SelectedScreenplay = -1;
             CanBrowse = true;
             CanClear = true;
@@ -223,11 +235,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             CanProceed = false;
 
             PlayImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "PlayUnpressed.png"));
+
+            if (BrowseView != null)
+                App.Current.Dispatcher.Invoke(() => BrowseView.Visibility = Visibility.Visible);
         }
 
         public void HideView()
         {
-            App.Current.Dispatcher.Invoke(() => BrowseView.Visibility = Visibility.Collapsed);
+            if (BrowseView != null)
+                App.Current.Dispatcher.Invoke(() => BrowseView.Visibility = Visibility.Collapsed);
         }
     }
 }

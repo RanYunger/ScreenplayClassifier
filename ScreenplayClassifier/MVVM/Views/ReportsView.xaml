@@ -41,28 +41,24 @@
                     </Button>
                 </WrapPanel>
             </GroupBox>
-            <DataGrid ItemsSource="{Binding ClassificationReports}" Height="485" IsReadOnly="True" SelectionMode="Single" FontSize="20"
+            <DataGrid ItemsSource="{Binding ClassificationReports}" Height="485" IsReadOnly="True" SelectionMode="Single" FontSize="15"
                       Margin="10,0,10,0" Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Screenplay.Name}" Width="300"
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Screenplay.Name}" Width="200"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="Genre" Binding="{Binding Path=Screenplay.ClassifiedGenre}" Width="125"
+                    <DataGridTextColumn Header="Genre" Binding="{Binding Path=Screenplay.ActualGenre}" Width="125"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=Screenplay.ClassifiedSubGenre1}" Width="125"
+                    <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=Screenplay.ActualSubGenre1}" Width="125"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=Screenplay.ClassifiedSubGenre2}" Width="125"
+                    <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=Screenplay.ActualSubGenre2}" Width="125"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <!--<DataGridTemplateColumn Width="50">
+                    <DataGridTemplateColumn Width="125">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Command="{Binding OpenReportViewCommand}" Style="{StaticResource ButtonStyle}">
-                                    <Button.Content>
-                                        <Image Source="/Media/Images.Info.png" Height="50" Width="50"/>
-                                    </Button.Content>
-                                </Button>
+                                <Button Content="Details" Command="{Binding OpenReportViewCommand}" Style="{StaticResource ButtonStyle}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>-->
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

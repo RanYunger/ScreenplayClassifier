@@ -107,6 +107,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             foreach (UserControl view in views)
                 view.Visibility = view == viewToShow ? Visibility.Visible : Visibility.Collapsed;
 
+            if (ClassificationView.Visibility == Visibility.Collapsed)
+                ((ClassificationViewModel)ClassificationView.DataContext).StopVideoCommand.Execute(null);
+
             if (viewToShow == AboutView)
                 ((AboutViewModel)AboutView.DataContext).PlayVideoCommand.Execute(null);
         }

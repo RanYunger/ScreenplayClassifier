@@ -23,7 +23,5 @@
         <v:ArchivesView x:Name="ArchivesView" Grid.Row="1" Visibility="Collapsed"/>
         <v:ClassificationView x:Name="ClassificationView" Grid.Row="1" Visibility="Collapsed"/>
         <v:ReportsView x:Name="ReportsView" Grid.Row="1" Visibility="Collapsed"/>
-        <MediaElement x:Name="ChoiceMediaElement" Grid.RowSpan="2" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill"
-                      Visibility="Collapsed" />
     </Grid>
 </Window>

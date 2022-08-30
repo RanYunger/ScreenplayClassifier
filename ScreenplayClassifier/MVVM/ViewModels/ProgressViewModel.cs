@@ -1,5 +1,6 @@
 ﻿using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
+using Newtonsoft.Json;
 using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
@@ -164,8 +165,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ScriptSource source = engine.CreateScriptSourceFromFile(FolderPaths.PYTHON + "Setup.py");
             MemoryStream errorsMemoryStream = new MemoryStream(), resultsMemoryStream = new MemoryStream();
             List<string> argv = new List<string>() { string.Empty };
-            string classifierResultsStr = string.Empty;
-            string[] classificationStrings;
+            string classificationsJson = string.Empty;
 
             argv.AddRange(string.Join(" ", screenplaysToClassify).Split(" ", StringSplitOptions.RemoveEmptyEntries));
 
@@ -175,32 +175,34 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             source.Execute(engine.CreateScope());
 
-            classifierResultsStr = Encoding.Default.GetString(resultsMemoryStream.ToArray());
-            classificationStrings = classifierResultsStr.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+            classificationsJson = Encoding.Default.GetString(resultsMemoryStream.ToArray());
             
-            return ProcessResults(classificationStrings);
+            return Mockup(classificationsJson.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries));
+
+            // TODO: ENABLE (AFTER CLASSIFIER IS READY IN PYTHON + copied to the "Python" folder) 
+            //return new ObservableCollection<ClassificationModel>(JsonConvert.DeserializeObject<List<ClassificationModel>>(classificationsJson));
         }
 
-        public ObservableCollection<ClassificationModel> ProcessResults(string[] resultStrings)
+        private ObservableCollection<ClassificationModel> Mockup(string[] results)
         {
-            string[] predictedGenres, actualGenres;
+            ObservableCollection<ClassificationModel> x = new ObservableCollection<ClassificationModel>();
+            ScreenplayModel screenplay;
             Dictionary<string, List<int>> concordance;
-            Dictionary<string, int> wordFrequencies;
-            ObservableCollection<ClassificationModel> classifications = new ObservableCollection<ClassificationModel>();
+            Dictionary<string, int> wordAppearances;
+            string[] predictedGenres;
 
-            // TODO: COMPLETE (convert each result string into ClassificationModel to add to ClassifiedScreenplays)
-            foreach (string result in resultStrings)
+            foreach (string arg in results)
             {
-                predictedGenres = new string[] { "Unknown", "Unknown", "Unknown" };
-                actualGenres = new string[] { "Unknown", "Unknown", "Unknown" };
                 concordance = new Dictionary<string, List<int>>();
-                wordFrequencies = new Dictionary<string, int>();
+                wordAppearances = new Dictionary<string, int>();
 
-                classifications.Add(new ClassificationModel(new ScreenplayModel("Test", Environment.CurrentDirectory,
-                    predictedGenres, actualGenres), concordance, wordFrequencies));
+                predictedGenres = new string[] { "Unknown", "Unknown", "Unknown" };
+                screenplay = new ScreenplayModel(Path.GetFileNameWithoutExtension(arg), predictedGenres);
+
+                x.Add(new ClassificationModel(screenplay, concordance, wordAppearances));
             }
 
-            return classifications;
+            return x;
         }
     }
 }
