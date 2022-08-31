@@ -13,8 +13,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class FeedbackViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ObservableCollection<ClassificationModel> classifiedScreenplays;
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -22,18 +20,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public FeedbackView FeedbackView { get; private set; }
         public GenresViewModel PredictedGenresViewModel { get; private set; }
         public GenresViewModel ActualGenresViewModel { get; private set; }
-
-        public ObservableCollection<ClassificationModel> ClassifiedScreenplays
-        {
-            get { return classifiedScreenplays; }
-            set
-            {
-                classifiedScreenplays = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassifiedScreenplays"));
-            }
-        }
 
         // Constructors
         public FeedbackViewModel() { }
@@ -52,9 +38,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         MessageBoxHandler.Show("Complete feedback for all screenplays", "Error", 3, MessageBoxImage.Error);
                     else
                     {
-                        //MessageBoxHandler.Show("Feedback submitted successfuly", "Success", 3, MessageBoxImage.Information);
+                        UpdateReportsView();
 
-                        startOver = MessageBox.Show("Would you like to start over?", "something",
+                        startOver = MessageBox.Show("Would you like to start over?", "Classification Complete",
                             MessageBoxButton.YesNo, MessageBoxImage.Question);
                         ClassificationViewModel.ClassificationComplete = startOver == MessageBoxResult.No;
                     }
@@ -81,7 +67,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void ShowView()
         {
-            RefreshView(ClassificationViewModel.ClassifiedScreenplays[0].Screenplay);
             App.Current.Dispatcher.Invoke(() => FeedbackView.Visibility = Visibility.Visible);
         }
 
@@ -95,6 +80,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             App.Current.Dispatcher.Invoke(() => FeedbackView.Visibility = Visibility.Collapsed);
         }
+
         private bool CanSubmit()
         {
             ScreenplayModel currentScreenplay = null;
@@ -108,6 +94,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
 
             return true;
+        }
+
+        private void UpdateReportsView()
+        {
+            ReportsViewModel reportsViewModel = (ReportsViewModel)ClassificationViewModel.MainViewModel.ReportsView.DataContext;
+
+            foreach (ClassificationModel classificationReport in ClassificationViewModel.ClassifiedScreenplays)
+                reportsViewModel.ClassificationReports.Add(classificationReport);
         }
     }
 }

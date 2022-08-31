@@ -11,7 +11,8 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="Welcome to Screenplay Classifier" HorizontalAlignment="Center" FontSize="70" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Grid.Row="0" Text="Welcome to Screenplay Classifier" HorizontalAlignment="Center" FontSize="70"
+                       Style="{StaticResource TextBlockStyle}"/>
         <StackPanel x:Name="MenuStackPanel" Grid.Row="1" VerticalAlignment="Center">
             <WrapPanel HorizontalAlignment="Center">
                 <StackPanel ToolTip="View past classifications" Margin="0,0,50,0">

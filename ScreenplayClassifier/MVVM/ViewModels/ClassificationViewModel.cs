@@ -18,6 +18,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ClassificationViewModel : INotifyPropertyChanged
     {
         // Fields
+        private Timer videoTimer;
         private ObservableCollection<ClassificationModel> classifiedScreenplays;
         private int selectedScreenplay;
         private bool browseComplete, progressComplete, classificationComplete;
@@ -101,9 +102,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 classificationComplete = value;
 
-                if (ClassificationView != null)
-                    UpdateReportsView();
-
                 if (classificationComplete)
                 {
                     BrowseViewModel.HideView();
@@ -128,6 +126,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Constructors
         public ClassificationViewModel()
         {
+            videoTimer = new Timer(21500);
+            videoTimer.Elapsed += VideoTimer_Elapsed;
+
             ClassifiedScreenplays = new ObservableCollection<ClassificationModel>();
             SelectedScreenplay = -1;
             BrowseComplete = false;
@@ -143,19 +144,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    Timer videoTimer = new Timer(21500);
                     MediaElement mediaElement = (MediaElement)ClassificationView.FindName("MediaElement");
 
                     mediaElement.Source = new Uri(FolderPaths.VIDEOS + "It's Over. Go Home.mp4");
                     mediaElement.Play();
 
-                    videoTimer.Elapsed += (sender, e) => VideoTimer_Elapsed(sender, e, videoTimer, mediaElement);
                     videoTimer.Start();
                 });
             }
         }
 
-        public Command StopVideoCommand
+        public Command InterruptVideoCommand
         {
             get
             {
@@ -164,16 +163,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     MediaElement mediaElement = (MediaElement)ClassificationView.FindName("MediaElement");
 
                     mediaElement.Stop();
-
+                    videoTimer.Stop();
                     ClassificationComplete = false;
                 });
             }
         }
 
-        private void VideoTimer_Elapsed(object sender, ElapsedEventArgs e, Timer videoTimer, MediaElement mediaElement)
+        private void VideoTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            App.Current.Dispatcher.Invoke(() => videoTimer.Stop());
-            App.Current.Dispatcher.Invoke(() => mediaElement.Visibility = Visibility.Collapsed);
+            App.Current.Dispatcher.Invoke(() => ClassificationComplete = false);
             App.Current.Dispatcher.Invoke(() => ((UserToolbarViewModel)MainViewModel.UserToolbarView.DataContext).HomeCommand.Execute(null));
         }
         #endregion
@@ -198,14 +196,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             feedbackView = (FeedbackView)ClassificationView.FindName("FeedbackView");
             FeedbackViewModel = (FeedbackViewModel)feedbackView.DataContext;
             FeedbackViewModel.Init(this, feedbackView);
-        }
-
-        private void UpdateReportsView()
-        {
-            ReportsViewModel reportsViewModel = (ReportsViewModel)MainViewModel.ReportsView.DataContext;
-
-            foreach (ClassificationModel classificationReport in ClassifiedScreenplays)
-                reportsViewModel.ClassificationReports.Add(classificationReport);
         }
     }
 }

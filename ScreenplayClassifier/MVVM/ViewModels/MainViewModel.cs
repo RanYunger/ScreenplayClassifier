@@ -16,7 +16,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         // Fields
-        private MediaPlayer mediaPlayer;
         private Dictionary<string, ObservableCollection<ScreenplayModel>> genresDictionary;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -46,8 +45,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Constructors
         public MainViewModel()
         {
-            mediaPlayer = new MediaPlayer();
-
             GenresDictionary = Storage.LoadArchives();
 
             HomeView = new HomeView();
@@ -63,7 +60,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         #region Commands
         public Command CloseCommand
         {
-            get { return new Command(() => Storage.SaveArchives(GenresDictionary)); }
+            get
+            {
+                return new Command(() =>
+                {
+                    ((ClassificationViewModel)ClassificationView.DataContext).InterruptVideoCommand.Execute(null);
+
+                    Storage.SaveArchives(GenresDictionary);
+                });
+            }
         }
         #endregion
 
@@ -108,7 +113,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 view.Visibility = view == viewToShow ? Visibility.Visible : Visibility.Collapsed;
 
             if (ClassificationView.Visibility == Visibility.Collapsed)
-                ((ClassificationViewModel)ClassificationView.DataContext).StopVideoCommand.Execute(null);
+                ((ClassificationViewModel)ClassificationView.DataContext).InterruptVideoCommand.Execute(null);
 
             if (viewToShow == AboutView)
                 ((AboutViewModel)AboutView.DataContext).PlayVideoCommand.Execute(null);
