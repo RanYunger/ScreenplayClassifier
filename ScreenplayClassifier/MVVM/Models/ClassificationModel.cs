@@ -15,13 +15,25 @@ namespace ScreenplayClassifier.MVVM.Models
     public class ClassificationModel : INotifyPropertyChanged
     {
         // Fields
+        private UserModel owner;
         private ScreenplayModel screenplay;
-        private TimeSpan duration;
         private Dictionary<string, List<int>> concordance;
-        private Dictionary<string, int> wordFrequencies;
+        private Dictionary<string, int> wordAppearances;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
+        public UserModel Owner
+        {
+            get { return owner; }
+            set
+            {
+                owner = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("Owner"));
+            }
+        }
+
         public ScreenplayModel Screenplay
         {
             get { return screenplay; }
@@ -32,16 +44,7 @@ namespace ScreenplayClassifier.MVVM.Models
                     PropertyChanged(this, new PropertyChangedEventArgs("Screenplay"));
             }
         }
-        public TimeSpan Duration
-        {
-            get { return duration; }
-            set
-            {
-                duration = value;
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Duration"));
-            }
-        }
+
         public Dictionary<string, List<int>> Concordance
         {
             get { return concordance; }
@@ -52,61 +55,63 @@ namespace ScreenplayClassifier.MVVM.Models
                     PropertyChanged(this, new PropertyChangedEventArgs("Concordance"));
             }
         }
-        public Dictionary<string, int> WordFrequencies
+        public Dictionary<string, int> WordAppearances
         {
-            get { return wordFrequencies; }
+            get { return wordAppearances; }
             set
             {
-                wordFrequencies = value;
+                wordAppearances = value;
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("WordFrequencies"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("WordAppearances"));
             }
         }
 
         // Constructors
-        public ClassificationModel(ScreenplayModel screenplay, Dictionary<string, List<int>> concordance, Dictionary<string, int> wordFrequencies)
+        public ClassificationModel(UserModel owner, ScreenplayModel screenplay,
+            Dictionary<string, List<int>> concordance, Dictionary<string, int> wordAppearances)
         {
+            Owner = owner;
             Screenplay = screenplay;
-            Duration = TimeSpan.Zero;
             Concordance = concordance;
-            WordFrequencies = wordFrequencies;
+            WordAppearances = wordAppearances;
         }
 
         // Methods
         #region Commands
-        public Command ShowReportViewCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    ReportView reportView;
-                    ReportViewModel reportViewModel;
+        // THE COMMAND IS IN COMMENT BECAUSE JSON SEEM TO NOT BE ABLE TO PARSE COMMANDS ?
+        //public Command ShowReportViewCommand
+        //{
+        //    get
+        //    {
+        //        return new Command(() =>
+        //        {
+        //            ReportView reportView;
+        //            ReportViewModel reportViewModel;
 
-                    foreach (Window view in App.Current.Windows)
-                        if (view is ReportView)
-                        {
-                            reportViewModel = (ReportViewModel)view.DataContext;
+        //            foreach (Window view in App.Current.Windows)
+        //                if (view is ReportView)
+        //                {
+        //                    reportViewModel = (ReportViewModel)view.DataContext;
 
-                            if (reportViewModel.ClassificationReport.Equals(this))
-                            {
-                                view.Focus();
-                                return;
-                            }
-                            else
-                            {
-                                view.Close();
-                                break;
-                            }
-                        }
+        //                    if (reportViewModel.ClassificationReport.Equals(this))
+        //                    {
+        //                        view.Focus();
+        //                        return;
+        //                    }
+        //                    else
+        //                    {
+        //                        view.Close();
+        //                        break;
+        //                    }
+        //                }
 
-                    reportView = new ReportView();
-                    ((ReportViewModel)reportView.DataContext).Init(this, reportView);
+        //            reportView = new ReportView();
+        //            ((ReportViewModel)reportView.DataContext).Init(this, reportView);
 
-                    reportView.Show();
-                });
-            }
-        }
+        //            reportView.Show();
+        //        });
+        //    }
+        //}
         #endregion
     }
 }

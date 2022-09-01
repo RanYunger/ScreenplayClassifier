@@ -38,7 +38,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         MessageBoxHandler.Show("Complete feedback for all screenplays", "Error", 3, MessageBoxImage.Error);
                     else
                     {
-                        UpdateReportsView();
+                        UpdateOtherModules();
 
                         startOver = MessageBox.Show("Would you like to start over?", "Classification Complete",
                             MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -96,12 +96,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             return true;
         }
 
-        private void UpdateReportsView()
+        private void UpdateOtherModules()
         {
             ReportsViewModel reportsViewModel = (ReportsViewModel)ClassificationViewModel.MainViewModel.ReportsView.DataContext;
+            ArchivesViewModel archivesViewModel = (ArchivesViewModel)ClassificationViewModel.MainViewModel.ArchivesView.DataContext;
 
-            foreach (ClassificationModel classificationReport in ClassificationViewModel.ClassifiedScreenplays)
-                reportsViewModel.ClassificationReports.Add(classificationReport);
+            foreach (ClassificationModel report in ClassificationViewModel.ClassifiedScreenplays)
+            {
+                reportsViewModel.Reports.Add(report);
+                archivesViewModel.Archives[report.Screenplay.ActualGenre].Add(report.Screenplay);
+            }
         }
     }
 }

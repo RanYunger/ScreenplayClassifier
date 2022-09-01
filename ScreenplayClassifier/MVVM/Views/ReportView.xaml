@@ -19,8 +19,13 @@
         <StackPanel Grid.Row="1" Grid.Column="0">
             <TextBlock Text="Overview" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <WrapPanel Margin="10">
+                <TextBlock Text="Owner:" Style="{StaticResource TextBlockStyle}"/>
+                <TextBox Text="{Binding ClassificationReport.Owner.Username}" Width="300" Margin="20,0,0,0"
+                         Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+            </WrapPanel>
+            <WrapPanel Margin="10">
                 <TextBlock Text="Name:" Style="{StaticResource TextBlockStyle}"/>
-                <TextBox Text="{Binding ClassificationReport.Screenplay.Name}" Width="320" Margin="10,0,0,0"
+                <TextBox Text="{Binding ClassificationReport.Screenplay.Name}" Width="300" Margin="25,0,0,0"
                          Style="{StaticResource ReadOnlyTextBoxStyle}"/>
             </WrapPanel>
         </StackPanel>

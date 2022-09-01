@@ -27,7 +27,6 @@ namespace ScreenplayClassifier.Utilities
 
         #region Storage
         public static string JSONS = Environment.CurrentDirectory + @"\Jsons\";
-        public static string ARCHIVES = JSONS + @"\Archives\";
         #endregion
     }
 }

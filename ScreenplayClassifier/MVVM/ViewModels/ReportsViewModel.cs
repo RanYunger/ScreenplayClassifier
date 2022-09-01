@@ -1,5 +1,6 @@
 ﻿using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
+using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,19 +12,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     class ReportsViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ObservableCollection<ClassificationModel> classificationReports;
+        private ObservableCollection<ClassificationModel> reports;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public MainViewModel MainViewModel { get; private set; }
         public ReportsView ReportsView { get; private set; }
 
-        public ObservableCollection<ClassificationModel> ClassificationReports
+        public ObservableCollection<ClassificationModel> Reports
         {
-            get { return classificationReports; }
+            get { return reports; }
             set
             {
-                classificationReports = value;
+                reports = value;
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ClassificationReports"));
@@ -31,10 +32,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Constructors
-        public ReportsViewModel()
-        {
-            ClassificationReports = new ObservableCollection<ClassificationModel>();
-        }
+        public ReportsViewModel() { }
 
         // Methods
         #region Commands
@@ -62,6 +60,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             MainViewModel = mainViewModel;
             ReportsView = reportsView;
+            Reports = Storage.LoadReports();
         }
     }
 }

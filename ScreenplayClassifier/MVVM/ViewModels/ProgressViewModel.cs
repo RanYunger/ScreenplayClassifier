@@ -186,6 +186,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private ObservableCollection<ClassificationModel> Mockup(string[] results)
         {
             ObservableCollection<ClassificationModel> x = new ObservableCollection<ClassificationModel>();
+            UserModel owner = ClassificationViewModel.MainViewModel.UserToolbarViewModel.User;
             ScreenplayModel screenplay;
             Dictionary<string, List<int>> concordance;
             Dictionary<string, int> wordAppearances;
@@ -199,7 +200,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 predictedGenres = new string[] { "Unknown", "Unknown", "Unknown" };
                 screenplay = new ScreenplayModel(Path.GetFileNameWithoutExtension(arg), predictedGenres);
 
-                x.Add(new ClassificationModel(screenplay, concordance, wordAppearances));
+                x.Add(new ClassificationModel(owner, screenplay, concordance, wordAppearances));
             }
 
             return x;

@@ -25,31 +25,52 @@ namespace ScreenplayClassifier.Utilities
             return JsonConvert.DeserializeObject<List<string>>(genresJson);
         }
 
+        public static ObservableCollection<ClassificationModel> LoadReports()
+        {
+            string reports = File.ReadAllText(FolderPaths.JSONS + "Reports.json");
+
+            return new ObservableCollection<ClassificationModel>(JsonConvert.DeserializeObject<List<ClassificationModel>>(reports));
+        }
+
+        public static void SaveReports(ObservableCollection<ClassificationModel> reports)
+        {
+            string reportsJsonFile = FolderPaths.JSONS + "Reports.json";
+            string reportsJson = string.Empty, reportJson = string.Empty;
+
+            foreach (ClassificationModel report in reports)
+            {
+                reportJson = JsonConvert.SerializeObject(report);
+                reportJson = reportJson.Substring(1, reportJson.Length - 2); // Trim "[", "]" from json
+                reportsJson += reportJson;
+            }
+
+            File.WriteAllText(reportsJsonFile, "[" + reportsJson + "]");
+        }
+
         public static Dictionary<string, ObservableCollection<ScreenplayModel>> LoadArchives()
         {
             string archivesJson = File.ReadAllText(FolderPaths.JSONS + "Archives.json");
             List<ScreenplayModel> genreScreenplays, allScreenplays = JsonConvert.DeserializeObject<List<ScreenplayModel>>(archivesJson);
             List<string> genreNames = LoadGenres();
-            Dictionary<string, ObservableCollection<ScreenplayModel>> genresDictionary
-                = new Dictionary<string, ObservableCollection<ScreenplayModel>>();
+            Dictionary<string, ObservableCollection<ScreenplayModel>> archives = new Dictionary<string, ObservableCollection<ScreenplayModel>>();
 
             foreach (string genreName in genreNames)
             {
                 genreScreenplays = allScreenplays.FindAll(screenplay => screenplay.ActualGenre == genreName);
-                genresDictionary[genreName] = new ObservableCollection<ScreenplayModel>(genreScreenplays);
+                archives[genreName] = new ObservableCollection<ScreenplayModel>(genreScreenplays);
             }
 
-            return genresDictionary;
+            return archives;
         }
 
-        public static void SaveArchives(Dictionary<string, ObservableCollection<ScreenplayModel>> genresDictionary)
+        public static void SaveArchives(Dictionary<string, ObservableCollection<ScreenplayModel>> archives)
         {
-            string archivesJsonFile = FolderPaths.ARCHIVES + "Archives.json";
+            string archivesJsonFile = FolderPaths.JSONS + "Archives.json";
             string archivesJson = string.Empty, screenplaysInGenreJson = string.Empty;
 
-            foreach (string genreName in genresDictionary.Keys)
+            foreach (string genreName in archives.Keys)
             {
-                screenplaysInGenreJson = JsonConvert.SerializeObject(genresDictionary[genreName]);
+                screenplaysInGenreJson = JsonConvert.SerializeObject(archives[genreName]);
                 screenplaysInGenreJson = screenplaysInGenreJson.Substring(1, screenplaysInGenreJson.Length - 2); // Trim "[", "]" from json
                 archivesJson += screenplaysInGenreJson;
             }

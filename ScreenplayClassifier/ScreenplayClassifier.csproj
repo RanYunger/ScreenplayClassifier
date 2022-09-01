@@ -10,7 +10,7 @@
   <ItemGroup>
     <None Remove="Jsons\Archives.json" />
     <None Remove="Jsons\Genres.json" />
-    <None Remove="Jsons\ScreenplaysInfo.json" />
+    <None Remove="Jsons\Reports.json" />
     <None Remove="Jsons\Users.json" />
     <None Remove="Media\Audios\Genres\Action.m4a" />
     <None Remove="Media\Audios\Genres\Adventure.m4a" />
@@ -89,10 +89,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Jsons\Archives.json">
+    <Content Include="Jsons\Reports.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Jsons\ScreenplaysInfo.json">
+    <Content Include="Jsons\Archives.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Jsons\Users.json">

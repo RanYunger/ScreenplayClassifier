@@ -41,8 +41,8 @@
                     </Button>
                 </WrapPanel>
             </GroupBox>
-            <DataGrid ItemsSource="{Binding ClassificationReports}" Height="485" IsReadOnly="True" SelectionMode="Single"
-                      Margin="10,0,10,0" Style="{StaticResource DataGridStyle}">
+            <DataGrid ItemsSource="{Binding Reports}" Height="485" IsReadOnly="True" SelectionMode="Single" Margin="10,0,10,0"
+                      Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path=Screenplay.Name}" Width="175"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>

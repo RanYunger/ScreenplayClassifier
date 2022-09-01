@@ -172,7 +172,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void VideoTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             App.Current.Dispatcher.Invoke(() => ClassificationComplete = false);
-            App.Current.Dispatcher.Invoke(() => ((UserToolbarViewModel)MainViewModel.UserToolbarView.DataContext).HomeCommand.Execute(null));
+            App.Current.Dispatcher.Invoke(() => MainViewModel.UserToolbarViewModel.HomeCommand.Execute(null));
         }
         #endregion
 

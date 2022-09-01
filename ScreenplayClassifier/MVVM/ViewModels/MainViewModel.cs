@@ -16,12 +16,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         // Fields
-        private Dictionary<string, ObservableCollection<ScreenplayModel>> genresDictionary;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public MainView MainView { get; private set; }
-        public UserToolbarView UserToolbarView { get; private set; }
+        public UserToolbarViewModel UserToolbarViewModel { get; private set; }
 
         public HomeView HomeView { get; private set; }
         public SettingsView SettingsView { get; private set; }
@@ -30,23 +29,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ClassificationView ClassificationView { get; private set; }
         public ReportsView ReportsView { get; private set; }
 
-        public Dictionary<string, ObservableCollection<ScreenplayModel>> GenresDictionary
-        {
-            get { return genresDictionary; }
-            set
-            {
-                genresDictionary = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GenresDictionary"));
-            }
-        }
-
         // Constructors
         public MainViewModel()
-        {
-            GenresDictionary = Storage.LoadArchives();
-
+        { 
             HomeView = new HomeView();
             SettingsView = new SettingsView();
             AboutView = new AboutView();
@@ -66,7 +51,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     ((ClassificationViewModel)ClassificationView.DataContext).InterruptVideoCommand.Execute(null);
 
-                    Storage.SaveArchives(GenresDictionary);
+                    Storage.SaveArchives(((ArchivesViewModel)ArchivesView.DataContext).Archives);
+                    Storage.SaveReports(((ReportsViewModel)ReportsView.DataContext).Reports);
                 });
             }
         }
@@ -74,6 +60,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void Init(UserModel user)
         {
+            UserToolbarView userToolbarView;
+
             foreach (Window view in App.Current.Windows)
                 if (view is MainView)
                 {
@@ -81,8 +69,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     break;
                 }
 
-            UserToolbarView = (UserToolbarView)MainView.FindName("UserToolbarView");
-            ((UserToolbarViewModel)UserToolbarView.DataContext).Init(user, this);
+            userToolbarView = (UserToolbarView)MainView.FindName("UserToolbarView");
+            UserToolbarViewModel = (UserToolbarViewModel)userToolbarView.DataContext;
+            UserToolbarViewModel.Init(user, this);
 
             HomeView = (HomeView)MainView.FindName("HomeView");
             SettingsView = (SettingsView)MainView.FindName("SettingsView");
@@ -94,7 +83,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ((HomeViewModel)HomeView.DataContext).Init(HomeView, this);
             ((SettingsViewModel)SettingsView.DataContext).Init(SettingsView, this);
             ((AboutViewModel)AboutView.DataContext).Init(AboutView, this);
-            ((ArchivesViewModel)ArchivesView.DataContext).Init(ArchivesView, this, GenresDictionary);
+            ((ArchivesViewModel)ArchivesView.DataContext).Init(ArchivesView, this);
             ((ClassificationViewModel)ClassificationView.DataContext).Init(ClassificationView, this);
             ((ReportsViewModel)ReportsView.DataContext).Init(ReportsView, this);
         }
