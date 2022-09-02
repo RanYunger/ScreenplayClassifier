@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -78,40 +79,40 @@ namespace ScreenplayClassifier.MVVM.Models
 
         // Methods
         #region Commands
-        // THE COMMAND IS IN COMMENT BECAUSE JSON SEEM TO NOT BE ABLE TO PARSE COMMANDS ?
-        //public Command ShowReportViewCommand
-        //{
-        //    get
-        //    {
-        //        return new Command(() =>
-        //        {
-        //            ReportView reportView;
-        //            ReportViewModel reportViewModel;
+        [IgnoreDataMember]
+        public Command ShowReportViewCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    ReportView reportView;
+                    ReportViewModel reportViewModel;
 
-        //            foreach (Window view in App.Current.Windows)
-        //                if (view is ReportView)
-        //                {
-        //                    reportViewModel = (ReportViewModel)view.DataContext;
+                    foreach (Window view in App.Current.Windows)
+                        if (view is ReportView)
+                        {
+                            reportViewModel = (ReportViewModel)view.DataContext;
 
-        //                    if (reportViewModel.ClassificationReport.Equals(this))
-        //                    {
-        //                        view.Focus();
-        //                        return;
-        //                    }
-        //                    else
-        //                    {
-        //                        view.Close();
-        //                        break;
-        //                    }
-        //                }
+                            if (reportViewModel.ClassificationReport.Equals(this))
+                            {
+                                view.Focus();
+                                return;
+                            }
+                            else
+                            {
+                                view.Close();
+                                break;
+                            }
+                        }
 
-        //            reportView = new ReportView();
-        //            ((ReportViewModel)reportView.DataContext).Init(this, reportView);
+                    reportView = new ReportView();
+                    ((ReportViewModel)reportView.DataContext).Init(this, reportView);
 
-        //            reportView.Show();
-        //        });
-        //    }
-        //}
+                    reportView.Show();
+                });
+            }
+        }
         #endregion
     }
 }

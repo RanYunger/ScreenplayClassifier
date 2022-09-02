@@ -12,7 +12,8 @@ namespace ScreenplayClassifier.MVVM.Models
 
         private int screenplayID;
         private string name;
-        private string[] predictedGenres, actualGenres;
+        private string predictedGenre, predictedSubGenre1, predictedSubGenre2;
+        private string actualGenre, actualSubGenre1, actualSubGenre2;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -40,50 +41,12 @@ namespace ScreenplayClassifier.MVVM.Models
             }
         }
 
-        public string[] PredictedGenres
-        {
-            get { return predictedGenres; }
-            set
-            {
-                predictedGenres = value;
-
-                if (predictedGenres != null)
-                {
-                    PredictedGenre = predictedGenres[0];
-                    PredictedSubGenre1 = predictedGenres[1];
-                    PredictedSubGenre2 = predictedGenres[2];
-                }
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("PredictedGenres"));
-            }
-        }
-
-        public string[] ActualGenres
-        {
-            get { return actualGenres; }
-            set
-            {
-                actualGenres = value;
-
-                if (actualGenres != null)
-                {
-                    ActualGenre = actualGenres[0];
-                    ActualSubGenre1 = actualGenres[1];
-                    ActualSubGenre2 = actualGenres[2];
-                }
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ActualGenres"));
-            }
-        }
-
         public string PredictedGenre
         {
-            get { return predictedGenres[0]; }
+            get { return predictedGenre; }
             set
             {
-                predictedGenres[0] = value;
+                predictedGenre = value;
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("PredictedGenre"));
@@ -92,10 +55,10 @@ namespace ScreenplayClassifier.MVVM.Models
 
         public string PredictedSubGenre1
         {
-            get { return predictedGenres[1]; }
+            get { return predictedSubGenre1; }
             set
             {
-                predictedGenres[1] = value;
+                predictedSubGenre1 = value;
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("PredictedSubGenre1"));
@@ -104,21 +67,22 @@ namespace ScreenplayClassifier.MVVM.Models
 
         public string PredictedSubGenre2
         {
-            get { return predictedGenres[2]; }
+            get { return predictedSubGenre2; }
             set
             {
-                predictedGenres[2] = value;
+                predictedSubGenre2 = value;
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("PredictedSubGenre2"));
             }
         }
+
         public string ActualGenre
         {
-            get { return actualGenres[0]; }
+            get { return actualGenre; }
             set
             {
-                actualGenres[0] = value;
+                actualGenre = value;
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ActualGenre"));
@@ -127,10 +91,10 @@ namespace ScreenplayClassifier.MVVM.Models
 
         public string ActualSubGenre1
         {
-            get { return actualGenres[1]; }
+            get { return actualSubGenre1; }
             set
             {
-                actualGenres[1] = value;
+                actualSubGenre1 = value;
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ActualSubGenre1"));
@@ -139,10 +103,10 @@ namespace ScreenplayClassifier.MVVM.Models
 
         public string ActualSubGenre2
         {
-            get { return actualGenres[2]; }
+            get { return actualSubGenre2; }
             set
             {
-                actualGenres[2] = value;
+                actualSubGenre2 = value;
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ActualSubGenre2"));
@@ -150,13 +114,18 @@ namespace ScreenplayClassifier.MVVM.Models
         }
 
         // Constructors
-        public ScreenplayModel(string name, string[] predictedGenres)
+        public ScreenplayModel(string name, string predictedGenre, string predictedSubGenre1, string predictedSubGenre2)
         {
             ID = IDGenerator++;
             Name = name;
 
-            PredictedGenres = predictedGenres;
-            ActualGenres = new string[] { "Unknown", "Unknown", "Unknown" };
+            PredictedGenre = predictedGenre;
+            PredictedSubGenre1 = predictedSubGenre1;
+            PredictedSubGenre2 = predictedSubGenre2;
+
+            ActualGenre = "Unknown";
+            ActualSubGenre1 = "Unknown";
+            ActualSubGenre2 = "Unknown";
         }
     }
 }

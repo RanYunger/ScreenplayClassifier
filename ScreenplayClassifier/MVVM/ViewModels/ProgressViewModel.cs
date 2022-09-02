@@ -190,15 +190,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ScreenplayModel screenplay;
             Dictionary<string, List<int>> concordance;
             Dictionary<string, int> wordAppearances;
-            string[] predictedGenres;
 
             foreach (string arg in results)
             {
                 concordance = new Dictionary<string, List<int>>();
                 wordAppearances = new Dictionary<string, int>();
 
-                predictedGenres = new string[] { "Unknown", "Unknown", "Unknown" };
-                screenplay = new ScreenplayModel(Path.GetFileNameWithoutExtension(arg), predictedGenres);
+                screenplay = new ScreenplayModel(Path.GetFileNameWithoutExtension(arg), "Unknown", "Unknown", "Unknown");
 
                 x.Add(new ClassificationModel(owner, screenplay, concordance, wordAppearances));
             }

@@ -34,48 +34,19 @@ namespace ScreenplayClassifier.Utilities
 
         public static void SaveReports(ObservableCollection<ClassificationModel> reports)
         {
-            string reportsJsonFile = FolderPaths.JSONS + "Reports.json";
-            string reportsJson = string.Empty, reportJson = string.Empty;
-
-            foreach (ClassificationModel report in reports)
-            {
-                reportJson = JsonConvert.SerializeObject(report);
-                reportJson = reportJson.Substring(1, reportJson.Length - 2); // Trim "[", "]" from json
-                reportsJson += reportJson;
-            }
-
-            File.WriteAllText(reportsJsonFile, "[" + reportsJson + "]");
+            File.WriteAllText(FolderPaths.JSONS + "Reports.json", JsonConvert.SerializeObject(reports, Formatting.Indented));
         }
 
-        public static Dictionary<string, ObservableCollection<ScreenplayModel>> LoadArchives()
+        public static List<ScreenplayModel> LoadArchives()
         {
             string archivesJson = File.ReadAllText(FolderPaths.JSONS + "Archives.json");
-            List<ScreenplayModel> genreScreenplays, allScreenplays = JsonConvert.DeserializeObject<List<ScreenplayModel>>(archivesJson);
-            List<string> genreNames = LoadGenres();
-            Dictionary<string, ObservableCollection<ScreenplayModel>> archives = new Dictionary<string, ObservableCollection<ScreenplayModel>>();
 
-            foreach (string genreName in genreNames)
-            {
-                genreScreenplays = allScreenplays.FindAll(screenplay => screenplay.ActualGenre == genreName);
-                archives[genreName] = new ObservableCollection<ScreenplayModel>(genreScreenplays);
-            }
-
-            return archives;
+            return JsonConvert.DeserializeObject<List<ScreenplayModel>>(archivesJson);
         }
 
-        public static void SaveArchives(Dictionary<string, ObservableCollection<ScreenplayModel>> archives)
+        public static void SaveArchives(List<ScreenplayModel> screenplays)
         {
-            string archivesJsonFile = FolderPaths.JSONS + "Archives.json";
-            string archivesJson = string.Empty, screenplaysInGenreJson = string.Empty;
-
-            foreach (string genreName in archives.Keys)
-            {
-                screenplaysInGenreJson = JsonConvert.SerializeObject(archives[genreName]);
-                screenplaysInGenreJson = screenplaysInGenreJson.Substring(1, screenplaysInGenreJson.Length - 2); // Trim "[", "]" from json
-                archivesJson += screenplaysInGenreJson;
-            }
-
-            File.WriteAllText(archivesJsonFile, "[" + archivesJson + "]");
+            File.WriteAllText(FolderPaths.JSONS + "Archives.json", JsonConvert.SerializeObject(screenplays, Formatting.Indented));
         }
     }
 }

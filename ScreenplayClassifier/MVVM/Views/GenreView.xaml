@@ -27,9 +27,9 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="260"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=PredictedSubGenre1}" Width="150"
+                    <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=ActualSubGenre1}" Width="150"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=PredictedSubGenre2}" Width="150"
+                    <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=ActualSubGenre2}" Width="150"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>

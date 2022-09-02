@@ -51,7 +51,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     ((ClassificationViewModel)ClassificationView.DataContext).InterruptVideoCommand.Execute(null);
 
-                    Storage.SaveArchives(((ArchivesViewModel)ArchivesView.DataContext).Archives);
+                    Storage.SaveArchives(((ArchivesViewModel)ArchivesView.DataContext).Screenplays);
                     Storage.SaveReports(((ReportsViewModel)ReportsView.DataContext).Reports);
                 });
             }

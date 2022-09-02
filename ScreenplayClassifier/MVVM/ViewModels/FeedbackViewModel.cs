@@ -67,6 +67,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void ShowView()
         {
+            ScreenplayModel screenplay = ClassificationViewModel.ClassifiedScreenplays[ClassificationViewModel.SelectedScreenplay].Screenplay;
+
+            RefreshView(screenplay);
             App.Current.Dispatcher.Invoke(() => FeedbackView.Visibility = Visibility.Visible);
         }
 
@@ -104,8 +107,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             foreach (ClassificationModel report in ClassificationViewModel.ClassifiedScreenplays)
             {
                 reportsViewModel.Reports.Add(report);
-                archivesViewModel.Archives[report.Screenplay.ActualGenre].Add(report.Screenplay);
+                archivesViewModel.Screenplays.Add(report.Screenplay);
             }
+
+            archivesViewModel.Screenplays = archivesViewModel.Screenplays; // Triggers PropertyChanged event
         }
     }
 }
