@@ -6,12 +6,6 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              Style="{StaticResource UserControlStyle}">
-    <!--TODO: FIX (COMMAND NOT CALLED)-->
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="KeyDown">
-            <i:InvokeCommandAction Command="{Binding CheckKeyCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -19,19 +13,45 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Welcome to Screenplay Classifier" HorizontalAlignment="Center" FontSize="70"
                        Style="{StaticResource TextBlockStyle}"/>
-        <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Source="{Binding LeftImage}" Height="300" Width="300" Margin="50,-50,50,50"/>
-            <StackPanel ToolTip="{Binding ModuleTooltip}" Margin="50">
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <WrapPanel>
+            <Image Source="{Binding LeftArrowImage}" Height="100" Width="100" Cursor="Hand" Margin="25,0,0,0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
-                        <i:InvokeCommandAction Command="{Binding ShowModuleViewCommand}"/>
+                        <i:InvokeCommandAction Command="{Binding PressLeftArrowCommand}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseUp">
+                        <i:InvokeCommandAction Command="{Binding UnpressLeftArrowCommand}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <Image Source="{Binding CenterImage}" Height="400" Width="400" Cursor="Hand" Margin="50,0,50,0"/>
-                <TextBlock Text="{Binding CenterModule}" HorizontalAlignment="Center" FontSize="80" Cursor="Hand"
-                           Style="{StaticResource TextBlockStyle}"/>
-            </StackPanel>
-            <Image Source="{Binding RightImage}" Height="300" Width="300" Margin="50,-50,50,50"/>
+            </Image>
+            <Canvas x:Name="LeftTransitionContainer" Height="300" Width="300" Margin="25">
+                <Image Source="/Media/Images/Archives.png" Height="300" Width="300"/>
+            </Canvas>
+            <Canvas x:Name="CenterTransitionContainer" Height="400" Width="400" Margin="25">
+                    <Image Source="/Media/Images/Classification.png" Height="400" Width="400" Cursor="Hand" ToolTip="{Binding ModuleTooltip}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDown">
+                                <i:InvokeCommandAction Command="{Binding ShowModuleViewCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Image>
+                </Canvas>
+            <Canvas x:Name="RightTransitionContainer" Height="300" Width="300" Margin="25">
+                <Image Source="/Media/Images/Reports.png" Height="300" Width="300"/>
+            </Canvas>
+            <Image Source="{Binding RightArrowImage}" Height="100" Width="100" Cursor="Hand" Margin="0,0,25,0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding PressRightArrowCommand}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseUp">
+                        <i:InvokeCommandAction Command="{Binding UnpressRightArrowCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Image>
         </WrapPanel>
+            <TextBlock Text="{Binding ModuleName}" HorizontalAlignment="Center" FontSize="60" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

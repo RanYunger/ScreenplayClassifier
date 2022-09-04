@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -18,96 +19,55 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class HomeViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ImageSource leftImage, centerImage, rightImage;
-        private string leftModule, centerModule, rightModule, moduleTooltip;
+        private ImageSource leftArrowImage, rightArrowImage;
+        private readonly Duration animationDuration;
+        private string moduleName, moduleTooltip;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public MainViewModel MainViewModel { get; private set; }
         public HomeView HomeView { get; private set; }
 
-        public ImageSource LeftImage
+        public ImageSource LeftArrowImage
         {
-            get { return leftImage; }
+            get { return leftArrowImage; }
             set
             {
-                leftImage = value;
+                leftArrowImage = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("LeftImage"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("LeftArrowImage"));
             }
         }
 
-        public ImageSource CenterImage
+        public ImageSource RightArrowImage
         {
-            get { return centerImage; }
+            get { return rightArrowImage; }
             set
             {
-                centerImage = value;
+                rightArrowImage = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CenterImage"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("RightArrowImage"));
             }
         }
 
-        public ImageSource RightImage
+        public string ModuleName
         {
-            get { return rightImage; }
+            get { return moduleName; }
             set
             {
-                rightImage = value;
+                moduleName = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("RightImage"));
-            }
-        }
-
-        public string LeftModule
-        {
-            get { return leftModule; }
-            set
-            {
-                leftModule = value;
-
-                LeftImage = new BitmapImage(new Uri(FolderPaths.IMAGES + leftModule + "Disabled.png"));
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("LeftModule"));
-            }
-        }
-
-        public string CenterModule
-        {
-            get { return centerModule; }
-            set
-            {
-                centerModule = value;
-
-                switch (centerModule)
+                switch (ModuleName)
                 {
-                    case "Archives": ModuleTooltip = "View classifications categorized by genre"; break;
+                    case "Archives": ModuleTooltip = "View screenplays categorized by genre"; break;
                     case "Classification": ModuleTooltip = "Classify screenplays to genres"; break;
                     case "Reports": ModuleTooltip = "View classification reports"; break;
                 }
 
-                CenterImage = new BitmapImage(new Uri(FolderPaths.IMAGES + centerModule + "Enabled.png"));
-
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CenterModule"));
-            }
-        }
-
-        public string RightModule
-        {
-            get { return rightModule; }
-            set
-            {
-                rightModule = value;
-
-                RightImage = new BitmapImage(new Uri(FolderPaths.IMAGES + rightModule + "Disabled.png"));
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("RightModule"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("ModuleName"));
             }
         }
 
@@ -124,34 +84,49 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Constructors
-        public HomeViewModel() { }
+        public HomeViewModel()
+        {
+            animationDuration = new Duration(TimeSpan.FromSeconds(0.3));
+
+            ModuleName = "Classification";
+        }
 
         // Methods
-        #region Commands   
-        public Command CheckKeyCommand
+        #region Commands  
+        public Command PressLeftArrowCommand
         {
             get
             {
                 return new Command(() =>
                 {
-                    string temp = string.Empty;
+                    RotateLeft();
 
-                    if (Keyboard.IsKeyDown(Key.Left))
-                    {
-                        temp = LeftModule;
-                        LeftModule = CenterModule;
-                        CenterModule = RightModule;
-                        RightModule = temp;
-                    }
-                    else if (Keyboard.IsKeyDown(Key.Right))
-                    {
-                        temp = RightModule;
-                        RightModule = CenterModule;
-                        CenterModule = LeftModule;
-                        LeftModule = temp;
-                    }
+                    LeftArrowImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "LeftArrowPressed.png"));
                 });
             }
+        }
+
+        public Command UnpressLeftArrowCommand
+        {
+            get { return new Command(() => LeftArrowImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "LeftArrowUnpressed.png"))); }
+        }
+
+        public Command PressRightArrowCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    RotateRight();
+
+                    RightArrowImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "RightArrowPressed.png"));
+                });
+            }
+        }
+
+        public Command UnpressRightArrowCommand
+        {
+            get { return new Command(() => RightArrowImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "RightArrowUnpressed.png"))); }
         }
 
         public Command ShowModuleViewCommand
@@ -160,7 +135,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    switch (CenterModule)
+                    switch (ModuleName)
                     {
                         case "Archives": MainViewModel.ShowView(MainViewModel.ArchivesView); break;
                         case "Classification": MainViewModel.ShowView(MainViewModel.ClassificationView); break;
@@ -176,9 +151,42 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             MainViewModel = mainViewModel;
             HomeView = homeView;
 
-            LeftModule = "Archives";
-            CenterModule = "Classification";
-            RightModule = "Reports";
+            LeftArrowImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "LeftArrowUnpressed.png"));
+            RightArrowImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "RightArrowUnpressed.png"));
+        }
+
+        private DoubleAnimation CreateDoubleAnimation(double from, double to, EventHandler completedEventHandler)
+        {
+            DoubleAnimation doubleAnimation = new DoubleAnimation(from, to, animationDuration);
+
+            if (completedEventHandler != null)
+                doubleAnimation.Completed += completedEventHandler;
+
+            return doubleAnimation;
+        }
+
+        private void RotateLeft()
+        {
+            // TODO: COMPLETE ANIMATIONS
+
+            switch (ModuleName)
+            {
+                case "Archives": ModuleName = "Reports"; break;
+                case "Classification": ModuleName = "Archives"; break;
+                case "Reports": ModuleName = "Classification"; break;
+            }
+        }
+
+        private void RotateRight()
+        {
+            // TODO: COMPLETE ANIMATIONS
+
+            switch (ModuleName)
+            {
+                case "Archives": ModuleName = "Classification"; break;
+                case "Classification": ModuleName = "Reports"; break;
+                case "Reports": ModuleName = "Archives"; break;
+            }
         }
     }
 }

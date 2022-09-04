@@ -31,14 +31,12 @@
     <None Remove="Media\Gifs\Reading.gif" />
     <None Remove="Media\Images\Add.png" />
     <None Remove="Media\Images\Admin.png" />
-    <None Remove="Media\Images\ArchivesDisabled.png" />
-    <None Remove="Media\Images\ArchivesEnabled.png" />
+    <None Remove="Media\Images\Archives.png" />
     <None Remove="Media\Images\AudioOff.png" />
     <None Remove="Media\Images\AudioOn.png" />
     <None Remove="Media\Images\Browse.png" />
     <None Remove="Media\Images\Cinema.png" />
-    <None Remove="Media\Images\ClassificationDisabled.png" />
-    <None Remove="Media\Images\ClassificationEnabled.png" />
+    <None Remove="Media\Images\Classification.png" />
     <None Remove="Media\Images\Clear.png" />
     <None Remove="Media\Images\Command Shell.png" />
     <None Remove="Media\Images\EmptyFolder.png" />
@@ -61,6 +59,8 @@
     <None Remove="Media\Images\Home.png" />
     <None Remove="Media\Images\Icon.ico" />
     <None Remove="Media\Images\Info.png" />
+    <None Remove="Media\Images\LeftArrowPressed.png" />
+    <None Remove="Media\Images\LeftArrowUnpressed.png" />
     <None Remove="Media\Images\Member.png" />
     <None Remove="Media\Images\Password.png" />
     <None Remove="Media\Images\PausePressed.png" />
@@ -68,8 +68,9 @@
     <None Remove="Media\Images\PlayPressed.png" />
     <None Remove="Media\Images\PlayUnpressed.png" />
     <None Remove="Media\Images\Remove.png" />
-    <None Remove="Media\Images\ReportsDisabled.png" />
-    <None Remove="Media\Images\ReportsEnabled.png" />
+    <None Remove="Media\Images\Reports.png" />
+    <None Remove="Media\Images\RightArrowPressed.png" />
+    <None Remove="Media\Images\RightArrowUnpressed.png" />
     <None Remove="Media\Images\Screenplay.png" />
     <None Remove="Media\Images\Settings.png" />
     <None Remove="Media\Images\Signout.png" />
@@ -154,9 +155,6 @@
     <Content Include="Media\Images\Admin.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\ArchivesDisabled.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\Images\AudioOff.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -169,10 +167,7 @@
     <Content Include="Media\Images\Cinema.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\ClassificationEnabled.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\ClassificationDisabled.png">
+    <Content Include="Media\Images\Classification.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Clear.png">
@@ -220,7 +215,7 @@
     <Content Include="Media\Images\Genres\Thriller.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\ArchivesEnabled.png">
+    <Content Include="Media\Images\Archives.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Genres\Unknown.png">
@@ -233,6 +228,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Info.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\LeftArrowPressed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\LeftArrowUnpressed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Member.png">
@@ -259,10 +260,13 @@
     <Content Include="Media\Images\Remove.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\ReportsEnabled.png">
+    <Content Include="Media\Images\Reports.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\ReportsDisabled.png">
+    <Content Include="Media\Images\RightArrowPressed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\RightArrowUnpressed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Screenplay.png">
