@@ -1,18 +1,12 @@
-﻿using ScreenplayClassifier.MVVM.Models;
-using ScreenplayClassifier.MVVM.Views;
+﻿using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
@@ -93,7 +87,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands  
-        public Command PressLeftArrowCommand
+        public Command PressLeftCommand
         {
             get
             {
@@ -106,12 +100,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public Command UnpressLeftArrowCommand
+        public Command UnpressLeftCommand
         {
             get { return new Command(() => LeftArrowImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "LeftArrowUnpressed.png"))); }
         }
 
-        public Command PressRightArrowCommand
+        public Command PressRightCommand
         {
             get
             {
@@ -124,25 +118,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public Command UnpressRightArrowCommand
+        public Command UnpressRightCommand
         {
             get { return new Command(() => RightArrowImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "RightArrowUnpressed.png"))); }
-        }
-
-        public Command ShowModuleViewCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    switch (ModuleName)
-                    {
-                        case "Archives": MainViewModel.ShowView(MainViewModel.ArchivesView); break;
-                        case "Classification": MainViewModel.ShowView(MainViewModel.ClassificationView); break;
-                        case "Reports": MainViewModel.ShowView(MainViewModel.ReportsView); break;
-                    }
-                });
-            }
         }
         #endregion
 
@@ -155,38 +133,108 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             RightArrowImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "RightArrowUnpressed.png"));
         }
 
-        private DoubleAnimation CreateDoubleAnimation(double from, double to, EventHandler completedEventHandler)
+        private void SlideLeftAnimation(Image leftImage, Image centerImage, Image rightImage)
         {
-            DoubleAnimation doubleAnimation = new DoubleAnimation(from, to, animationDuration);
+            // TODO: COMPLETE (SHIFT TO NEW LOCATIONS: LEFT CENTER RIGHT --> RIGHT LEFT CENTER)
 
-            if (completedEventHandler != null)
-                doubleAnimation.Completed += completedEventHandler;
+            DoubleAnimation enlargeAnimation = new DoubleAnimation(300, 400, animationDuration),
+                reduceAnimation = new DoubleAnimation(400, 300, animationDuration);
 
-            return doubleAnimation;
+            leftImage.BeginAnimation(Image.HeightProperty, enlargeAnimation, HandoffBehavior.Compose);
+            leftImage.BeginAnimation(Image.WidthProperty, enlargeAnimation, HandoffBehavior.Compose);
+
+            centerImage.BeginAnimation(Image.HeightProperty, reduceAnimation, HandoffBehavior.Compose);
+            centerImage.BeginAnimation(Image.WidthProperty, reduceAnimation, HandoffBehavior.Compose);
+        }
+
+        private void SlideRightAnimation(Image leftImage, Image centerImage, Image rightImage)
+        {
+            // TODO: COMPLETE (SHIFT TO NEW LOCATIONS: LEFT CENTER RIGHT --> CENTER RIGHT LEFT)
+
+            DoubleAnimation enlargeAnimation = new DoubleAnimation(300, 400, animationDuration),
+                reduceAnimation = new DoubleAnimation(400, 300, animationDuration);
+
+            rightImage.BeginAnimation(Image.HeightProperty, enlargeAnimation, HandoffBehavior.Compose);
+            rightImage.BeginAnimation(Image.WidthProperty, enlargeAnimation, HandoffBehavior.Compose);
+
+            centerImage.BeginAnimation(Image.HeightProperty, reduceAnimation, HandoffBehavior.Compose);
+            centerImage.BeginAnimation(Image.WidthProperty, reduceAnimation, HandoffBehavior.Compose);
         }
 
         private void RotateLeft()
         {
-            // TODO: COMPLETE ANIMATIONS
+            Image leftImage = null, centerImage = null, rightImage = null;
 
             switch (ModuleName)
             {
-                case "Archives": ModuleName = "Reports"; break;
-                case "Classification": ModuleName = "Archives"; break;
-                case "Reports": ModuleName = "Classification"; break;
+                case "Archives":
+                    {
+                        leftImage = (Image)HomeView.FindName("ReportsImage");
+                        centerImage = (Image)HomeView.FindName("ArchivesImage");
+                        rightImage = (Image)HomeView.FindName("ClassificationImage");
+
+                        ModuleName = "Reports";
+                    }
+                    break;
+                case "Classification":
+                    {
+                        leftImage = (Image)HomeView.FindName("ArchivesImage");
+                        centerImage = (Image)HomeView.FindName("ClassificationImage");
+                        rightImage = (Image)HomeView.FindName("ReportsImage");
+
+                        ModuleName = "Archives";
+                    }
+                    break;
+                case "Reports":
+                    {
+                        leftImage = (Image)HomeView.FindName("ClassificationImage");
+                        centerImage = (Image)HomeView.FindName("ReportsImage");
+                        rightImage = (Image)HomeView.FindName("ArchivesImage");
+
+                        ModuleName = "Classification";
+                    }
+                    break;
             }
+
+            SlideLeftAnimation(leftImage, centerImage, rightImage);
         }
 
         private void RotateRight()
         {
-            // TODO: COMPLETE ANIMATIONS
+            Image leftImage = null, centerImage = null, rightImage = null;
 
             switch (ModuleName)
             {
-                case "Archives": ModuleName = "Classification"; break;
-                case "Classification": ModuleName = "Reports"; break;
-                case "Reports": ModuleName = "Archives"; break;
+                case "Archives":
+                    {
+                        leftImage = (Image)HomeView.FindName("ReportsImage");
+                        centerImage = (Image)HomeView.FindName("ArchivesImage");
+                        rightImage = (Image)HomeView.FindName("ClassificationImage");
+
+                        ModuleName = "Classification";
+                    }
+                    break;
+                case "Classification":
+                    {
+                        leftImage = (Image)HomeView.FindName("ArchivesImage");
+                        centerImage = (Image)HomeView.FindName("ClassificationImage");
+                        rightImage = (Image)HomeView.FindName("ReportsImage");
+
+                        ModuleName = "Reports";
+                    }
+                    break;
+                case "Reports":
+                    {
+                        leftImage = (Image)HomeView.FindName("ClassificationImage");
+                        centerImage = (Image)HomeView.FindName("ReportsImage");
+                        rightImage = (Image)HomeView.FindName("ArchivesImage");
+
+                        ModuleName = "Archives";
+                    }
+                    break;
             }
+
+            SlideRightAnimation(leftImage, centerImage, rightImage);
         }
     }
 }
