@@ -6,13 +6,22 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Windows.Data;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
     class ReportsViewModel : INotifyPropertyChanged
     {
         // Fields
+        private List<string> allGenres;
+        private Predicate<object> nameFilter;
+        private Predicate<object> genreFilter;
+        private Predicate<object> subGenre1Filter;
+        private Predicate<object> subGenre2Filter;
+
         private ObservableCollection<ClassificationModel> reports;
+        private ObservableCollection<string> genreOptions, subGenre1Options, subGenre2Options;
+        private string namePattern, filteredGenre, filteredSubGenre1, filteredSubGenre2;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -31,6 +40,136 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public ObservableCollection<string> GenreOptions
+        {
+            get { return genreOptions; }
+            set
+            {
+                genreOptions = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("GenreOptions"));
+            }
+        }
+
+        public ObservableCollection<string> SubGenre1Options
+        {
+            get { return subGenre1Options; }
+            set
+            {
+                subGenre1Options = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre1Options"));
+            }
+        }
+
+        public ObservableCollection<string> SubGenre2Options
+        {
+            get { return subGenre2Options; }
+            set
+            {
+                subGenre2Options = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre2Options"));
+            }
+        }
+
+        public string NamePattern
+        {
+            get { return namePattern; }
+            set
+            {
+                namePattern = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("NamePattern"));
+            }
+        }
+
+        public string FilteredGenre
+        {
+            get { return filteredGenre; }
+            set
+            {
+                filteredGenre = value;
+
+                if (filteredGenre != null)
+                {
+                    SubGenre1Options = new ObservableCollection<string>(allGenres);
+                    SubGenre2Options = new ObservableCollection<string>(allGenres);
+
+                    SubGenre1Options.Remove(filteredGenre);
+                    SubGenre1Options.Remove(FilteredSubGenre2);
+                    SubGenre1Options = SubGenre1Options;
+
+                    SubGenre2Options.Remove(filteredGenre);
+                    SubGenre2Options.Remove(FilteredSubGenre1);
+                    SubGenre2Options = SubGenre2Options;
+                }
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredGenre"));
+            }
+        }
+
+        public string FilteredSubGenre1
+        {
+            get { return filteredSubGenre1; }
+            set
+            {
+                ObservableCollection<string> filteredOptions = new ObservableCollection<string>(allGenres);
+
+                filteredSubGenre1 = value;
+
+                if (filteredSubGenre1 != null)
+                {
+                    GenreOptions = new ObservableCollection<string>(allGenres);
+                    SubGenre2Options = new ObservableCollection<string>(allGenres);
+
+                    GenreOptions.Remove(filteredSubGenre1);
+                    GenreOptions.Remove(FilteredSubGenre2);
+                    GenreOptions = GenreOptions;
+
+                    SubGenre2Options.Remove(filteredSubGenre1);
+                    SubGenre2Options.Remove(FilteredGenre);
+                    SubGenre2Options = SubGenre2Options;
+                }
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre1"));
+            }
+        }
+
+        public string FilteredSubGenre2
+        {
+            get { return filteredSubGenre2; }
+            set
+            {
+                ObservableCollection<string> filteredOptions = new ObservableCollection<string>(allGenres);
+
+                filteredSubGenre2 = value;
+
+                if (filteredSubGenre2 != null)
+                {
+                    GenreOptions = new ObservableCollection<string>(allGenres);
+                    SubGenre1Options = new ObservableCollection<string>(allGenres);
+
+                    GenreOptions.Remove(filteredSubGenre2);
+                    GenreOptions.Remove(FilteredSubGenre1);
+                    GenreOptions = GenreOptions;
+
+                    SubGenre1Options.Remove(filteredSubGenre2);
+                    SubGenre1Options.Remove(FilteredGenre);
+                    SubGenre1Options = SubGenre1Options;
+                }
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre2"));
+            }
+        }
+
         // Constructors
         public ReportsViewModel() { }
 
@@ -42,6 +181,34 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
+                    ICollectionView reportsCollectionView = CollectionViewSource.GetDefaultView(Reports);
+
+                    nameFilter = (o) =>
+                    {
+                        return string.IsNullOrEmpty(NamePattern) ? true
+                            : ((ClassificationModel)o).Screenplay.Name.Contains(NamePattern);
+                    };
+                    genreFilter = (o) =>
+                    {
+                        return string.IsNullOrEmpty(FilteredGenre) ? true
+                            : ((ClassificationModel)o).Screenplay.ActualGenre == FilteredGenre;
+                    };
+                    subGenre1Filter = (o) =>
+                    {
+                        return string.IsNullOrEmpty(FilteredSubGenre1) ? true
+                            : ((ClassificationModel)o).Screenplay.ActualSubGenre1 == FilteredSubGenre1;
+                    };
+                    subGenre2Filter = (o) =>
+                    {
+                        return string.IsNullOrEmpty(FilteredSubGenre2) ? true
+                            : ((ClassificationModel)o).Screenplay.ActualSubGenre2 == FilteredSubGenre2;
+                    };
+
+                    reportsCollectionView.Filter = (o) =>
+                    {
+                        return nameFilter.Invoke(o) && genreFilter.Invoke(o) && subGenre1Filter.Invoke(o) && subGenre2Filter.Invoke(o);
+                    };
+                    reportsCollectionView.Refresh();
                 });
             }
         }
@@ -51,6 +218,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
+                    GenreOptions = new ObservableCollection<string>(allGenres);
+                    SubGenre1Options = new ObservableCollection<string>(allGenres);
+                    SubGenre2Options = new ObservableCollection<string>(allGenres);
+
+                    NamePattern = null;
+                    FilteredGenre = null;
+                    FilteredSubGenre1 = null;
+                    FilteredSubGenre2 = null;
+
+                    FilterReportsCommand.Execute(null);
                 });
             }
         }
@@ -58,6 +235,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void Init(ReportsView reportsView, MainViewModel mainViewModel)
         {
+            allGenres = Storage.LoadGenres();
+
             MainViewModel = mainViewModel;
             ReportsView = reportsView;
             Reports = Storage.LoadReports();

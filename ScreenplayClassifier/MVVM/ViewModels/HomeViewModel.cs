@@ -2,6 +2,7 @@
 using ScreenplayClassifier.Utilities;
 using System;
 using System.ComponentModel;
+using System.Numerics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,8 +15,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private ImageSource leftArrowImage, rightArrowImage;
-        private readonly Duration animationDuration;
-        private string moduleName, moduleTooltip;
+        private Thickness leftMargin, centerMargin, rightMargin;
+        private Duration animationDuration;
+        private string moduleName;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -53,27 +55,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 moduleName = value;
 
-                switch (ModuleName)
-                {
-                    case "Archives": ModuleTooltip = "View screenplays categorized by genre"; break;
-                    case "Classification": ModuleTooltip = "Classify screenplays to genres"; break;
-                    case "Reports": ModuleTooltip = "View classification reports"; break;
-                }
-
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ModuleName"));
-            }
-        }
-
-        public string ModuleTooltip
-        {
-            get { return moduleTooltip; }
-            set
-            {
-                moduleTooltip = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ModuleTooltip"));
             }
         }
 
@@ -81,12 +64,51 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public HomeViewModel()
         {
             animationDuration = new Duration(TimeSpan.FromSeconds(0.3));
+            leftMargin = new Thickness(50, 50, 50, 50);
+            centerMargin = new Thickness(400, 0, 0, 0);
+            rightMargin = new Thickness(850, 50, 50, 50);
 
             ModuleName = "Classification";
         }
 
         // Methods
         #region Commands  
+        public Command ShowArchivesViewCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    if (ModuleName == "Archives")
+                        MainViewModel.ShowView(MainViewModel.ArchivesView);
+                });
+            }
+        }
+
+        public Command ShowClassificationViewCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    if (ModuleName == "Classification")
+                        MainViewModel.ShowView(MainViewModel.ClassificationView);
+                });
+            }
+        }
+
+        public Command ShowReportsViewCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    if (ModuleName == "Reports")
+                        MainViewModel.ShowView(MainViewModel.ReportsView);
+                });
+            }
+        }
+
         public Command PressLeftCommand
         {
             get
@@ -133,10 +155,30 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             RightArrowImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "RightArrowUnpressed.png"));
         }
 
-        private void SlideLeftAnimation(Image leftImage, Image centerImage, Image rightImage)
+        private void LeftAnimation(Image leftImage, Image centerImage, Image rightImage)
         {
-            // TODO: COMPLETE (SHIFT TO NEW LOCATIONS: LEFT CENTER RIGHT --> RIGHT LEFT CENTER)
+            // Updates Z indices of all images for the illusion of circularity
+            Canvas.SetZIndex(rightImage, 1);
+            Canvas.SetZIndex(centerImage, 2);
+            Canvas.SetZIndex(leftImage, 3);
 
+            LeftSlideAnimation(leftImage, centerImage, rightImage);
+            LeftResizeAnimation(leftImage, centerImage, rightImage);
+        }
+
+        private void LeftSlideAnimation(Image leftImage, Image centerImage, Image rightImage)
+        {
+            ThicknessAnimation leftToCenterAnimation = new ThicknessAnimation(leftMargin, centerMargin, animationDuration),
+                centerToRightAnimation = new ThicknessAnimation(centerMargin, rightMargin, animationDuration),
+                rightToLeftAnimation = new ThicknessAnimation(rightMargin, leftMargin, animationDuration);
+
+            leftImage.BeginAnimation(Border.MarginProperty, leftToCenterAnimation);
+            centerImage.BeginAnimation(Border.MarginProperty, centerToRightAnimation);
+            rightImage.BeginAnimation(Border.MarginProperty, rightToLeftAnimation);
+        }
+
+        private void LeftResizeAnimation(Image leftImage, Image centerImage, Image rightImage)
+        {
             DoubleAnimation enlargeAnimation = new DoubleAnimation(300, 400, animationDuration),
                 reduceAnimation = new DoubleAnimation(400, 300, animationDuration);
 
@@ -147,10 +189,30 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             centerImage.BeginAnimation(Image.WidthProperty, reduceAnimation, HandoffBehavior.Compose);
         }
 
-        private void SlideRightAnimation(Image leftImage, Image centerImage, Image rightImage)
+        private void RightAnimation(Image leftImage, Image centerImage, Image rightImage)
         {
-            // TODO: COMPLETE (SHIFT TO NEW LOCATIONS: LEFT CENTER RIGHT --> CENTER RIGHT LEFT)
+            // Updates Z indices of all images for the illusion of circularity
+            Canvas.SetZIndex(leftImage, 1);
+            Canvas.SetZIndex(centerImage, 2);
+            Canvas.SetZIndex(rightImage, 3);
 
+            RightSlideAnimation(leftImage, centerImage, rightImage);
+            RightResizeAnimation(leftImage, centerImage, rightImage);
+        }
+
+        private void RightSlideAnimation(Image leftImage, Image centerImage, Image rightImage)
+        {
+            ThicknessAnimation leftToRightAnimation = new ThicknessAnimation(leftMargin, rightMargin, animationDuration),
+                centerToLeftAnimation = new ThicknessAnimation(centerMargin, leftMargin, animationDuration),
+                rightToCenterAnimation = new ThicknessAnimation(rightMargin, centerMargin, animationDuration);
+
+            leftImage.BeginAnimation(Border.MarginProperty, leftToRightAnimation);
+            centerImage.BeginAnimation(Border.MarginProperty, centerToLeftAnimation);
+            rightImage.BeginAnimation(Border.MarginProperty, rightToCenterAnimation);
+        }
+
+        private void RightResizeAnimation(Image leftImage, Image centerImage, Image rightImage)
+        {
             DoubleAnimation enlargeAnimation = new DoubleAnimation(300, 400, animationDuration),
                 reduceAnimation = new DoubleAnimation(400, 300, animationDuration);
 
@@ -173,6 +235,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         centerImage = (Image)HomeView.FindName("ArchivesImage");
                         rightImage = (Image)HomeView.FindName("ClassificationImage");
 
+                        LeftAnimation(leftImage, centerImage, rightImage);
+
                         ModuleName = "Reports";
                     }
                     break;
@@ -181,6 +245,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         leftImage = (Image)HomeView.FindName("ArchivesImage");
                         centerImage = (Image)HomeView.FindName("ClassificationImage");
                         rightImage = (Image)HomeView.FindName("ReportsImage");
+
+                        LeftAnimation(leftImage, centerImage, rightImage);
 
                         ModuleName = "Archives";
                     }
@@ -191,12 +257,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         centerImage = (Image)HomeView.FindName("ReportsImage");
                         rightImage = (Image)HomeView.FindName("ArchivesImage");
 
+                        LeftAnimation(leftImage, centerImage, rightImage);
+
                         ModuleName = "Classification";
                     }
                     break;
             }
-
-            SlideLeftAnimation(leftImage, centerImage, rightImage);
         }
 
         private void RotateRight()
@@ -211,6 +277,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         centerImage = (Image)HomeView.FindName("ArchivesImage");
                         rightImage = (Image)HomeView.FindName("ClassificationImage");
 
+                        RightAnimation(leftImage, centerImage, rightImage);
+
                         ModuleName = "Classification";
                     }
                     break;
@@ -219,6 +287,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         leftImage = (Image)HomeView.FindName("ArchivesImage");
                         centerImage = (Image)HomeView.FindName("ClassificationImage");
                         rightImage = (Image)HomeView.FindName("ReportsImage");
+
+                        RightAnimation(leftImage, centerImage, rightImage);
 
                         ModuleName = "Reports";
                     }
@@ -229,12 +299,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         centerImage = (Image)HomeView.FindName("ReportsImage");
                         rightImage = (Image)HomeView.FindName("ArchivesImage");
 
+                        RightAnimation(leftImage, centerImage, rightImage);
+
                         ModuleName = "Archives";
                     }
                     break;
             }
-
-            SlideRightAnimation(leftImage, centerImage, rightImage);
         }
     }
 }

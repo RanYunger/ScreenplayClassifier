@@ -7,6 +7,11 @@
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              Style="{StaticResource UserControlStyle}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ClearFilterCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -20,20 +25,34 @@
         <StackPanel Grid.Row="1" Grid.Column="0">
             <GroupBox Header="Filter" Margin="10" Style="{StaticResource GroupBoxStyle}">
                 <WrapPanel HorizontalAlignment="Center">
-                    <DataGrid Margin="10" Style="{StaticResource DataGridStyle}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Category" Width="150" IsReadOnly="True"
-                                                HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                            <DataGridTextColumn Header="Value" Width="150" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <StackPanel>
+                        <WrapPanel Margin="5">
+                            <TextBlock Text="Name contains:" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBox Width="200" Text="{Binding NamePattern}" Margin="10,0,0,0" Style="{StaticResource BaseTextBoxStyle}"/>
+                        </WrapPanel>
+                        <WrapPanel Margin="5">
+                            <TextBlock Text="Genre is:" Style="{StaticResource TextBlockStyle}"/>
+                            <ComboBox Width="200" Margin="55,0,0,0" ItemsSource="{Binding GenreOptions}" SelectedItem="{Binding FilteredGenre}"
+                                      Style="{StaticResource ComboBoxStyle}"/>
+                        </WrapPanel>
+                        <WrapPanel Margin="5">
+                            <TextBlock Text="SubGenre 1 is:" Style="{StaticResource TextBlockStyle}"/>
+                            <ComboBox Width="200" Margin="18,0,0,0" ItemsSource="{Binding SubGenre1Options}"
+                                      SelectedItem="{Binding FilteredSubGenre1}" Style="{StaticResource ComboBoxStyle}"/>
+                        </WrapPanel>
+                        <WrapPanel Margin='5'>
+                            <TextBlock Text="SubGenre 2 is:" Style="{StaticResource TextBlockStyle}"/>
+                            <ComboBox Width="200" Margin="18,0,0,0" ItemsSource="{Binding SubGenre2Options}"
+                                      SelectedItem="{Binding FilteredSubGenre2}" Style="{StaticResource ComboBoxStyle}"/>
+                        </WrapPanel>
+                    </StackPanel>
                     <Button Command="{Binding FilterReportsCommand}" Height="80" Width="80" IsEnabled="{Binding CanClear}"
                             ToolTip="Filter reports" Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
                         <Button.Content>
                             <Image Source="/Media/Images/Filter.png"/>
                         </Button.Content>
                     </Button>
-                    <Button Command="{Binding ClearFilterCommand}" Height="80" Width="80" IsEnabled="{Binding CanClear}" ToolTip="Clear filter"
+                    <Button Command="{Binding ClearFilterCommand}" Height="80" Width="80" ToolTip="Clear filter"
                         Margin="10" Style="{StaticResource ButtonStyle}">
                         <Button.Content>
                             <Image Source="/Media/Images/Clear.png"/>
