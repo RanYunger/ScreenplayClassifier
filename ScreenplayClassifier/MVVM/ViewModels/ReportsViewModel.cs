@@ -1,4 +1,7 @@
-﻿using ScreenplayClassifier.MVVM.Models;
+﻿using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
+using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
 using System;
@@ -21,6 +24,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         private ObservableCollection<ClassificationModel> reports;
         private ObservableCollection<string> genreOptions, subGenre1Options, subGenre2Options;
+        private SeriesCollection genreSeries, subGenre1Series, subGenre2Series;
         private string namePattern, filteredGenre, filteredSubGenre1, filteredSubGenre2;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -73,6 +77,42 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("SubGenre2Options"));
+            }
+        }
+
+        public SeriesCollection GenreSeries
+        {
+            get { return genreSeries; }
+            set
+            {
+                genreSeries = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("GenreSeries"));
+            }
+        }
+
+        public SeriesCollection SubGenre1Series
+        {
+            get { return subGenre1Series; }
+            set
+            {
+                subGenre1Series = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre1Series"));
+            }
+        }
+
+        public SeriesCollection SubGenre2Series
+        {
+            get { return subGenre2Series; }
+            set
+            {
+                subGenre2Series = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre2Series"));
             }
         }
 
@@ -209,6 +249,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         return nameFilter.Invoke(o) && genreFilter.Invoke(o) && subGenre1Filter.Invoke(o) && subGenre2Filter.Invoke(o);
                     };
                     reportsCollectionView.Refresh();
+
+                    RefreshPieCharts(reportsCollectionView);
                 });
             }
         }
@@ -240,6 +282,68 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             MainViewModel = mainViewModel;
             ReportsView = reportsView;
             Reports = Storage.LoadReports();
+        }
+
+        private void RefreshPieCharts(ICollectionView reportsCollectionView)
+        {
+            int genreCount, subGenre1Count, subGenre2Count;
+
+            GenreSeries = new SeriesCollection();
+            SubGenre1Series = new SeriesCollection();
+            SubGenre2Series = new SeriesCollection();
+
+            foreach (string genreName in allGenres)
+            {
+                genreCount = CountRecordsByGenre(reportsCollectionView, genreName, "Genre");
+                if (genreCount > 0)
+                    GenreSeries.Add(new PieSeries()
+                    {
+                        Title = genreName,
+                        Values = new ChartValues<ObservableValue> { new ObservableValue(genreCount) },
+                        DataLabels = true
+                    });
+
+                subGenre1Count = CountRecordsByGenre(reportsCollectionView, genreName, "SubGenre1");
+                if (subGenre1Count > 0)
+                    SubGenre1Series.Add(new PieSeries()
+                    {
+                        Title = genreName,
+                        Values = new ChartValues<ObservableValue> { new ObservableValue(subGenre1Count) },
+                        DataLabels = true
+                    });
+
+                subGenre2Count = CountRecordsByGenre(reportsCollectionView, genreName, "SubGenre2");
+                if (subGenre2Count > 0)
+                    SubGenre2Series.Add(new PieSeries()
+                    {
+                        Title = genreName,
+                        Values = new ChartValues<ObservableValue> { new ObservableValue(subGenre2Count) },
+                        DataLabels = true
+                    });
+            }
+        }
+
+        private int CountRecordsByGenre(ICollectionView reportsCollectionView, string genreName, string genreType)
+        {
+            ClassificationModel currentReport;
+            int count = 0;
+
+            reportsCollectionView.MoveCurrentToFirst();
+
+            do
+            {
+                currentReport = (ClassificationModel)reportsCollectionView.CurrentItem;
+                if (currentReport != null)
+                    switch (genreType)
+                    {
+                        case "Genre": count += Convert.ToInt32(currentReport.Screenplay.ActualGenre == genreName); break;
+                        case "SubGenre1": count += Convert.ToInt32(currentReport.Screenplay.ActualSubGenre1 == genreName); break;
+                        case "SubGenre2": count += Convert.ToInt32(currentReport.Screenplay.ActualSubGenre2 == genreName); break;
+                    }
+            }
+            while (reportsCollectionView.MoveCurrentToNext());
+
+            return count;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ScreenplayClassifier.MVVM.Models
         public enum UserRole { GUEST, MEMBER, ADMIN };
 
         // Fields
-        private string? username, password;
+        private string username, password;
         private UserRole role;
         public event PropertyChangedEventHandler PropertyChanged;
 

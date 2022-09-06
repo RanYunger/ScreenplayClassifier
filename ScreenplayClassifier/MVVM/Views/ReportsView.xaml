@@ -82,14 +82,39 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="Statistics" FontSize="40" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-        <WrapPanel Grid.Row="1" Grid.Column="1">
-            <!--<lvc:CartesianChart Height="485" Width="485" Margin="0,0,20,0">
-
-            </lvc:CartesianChart>-->
-            <lvc:PieChart Height="485" Width="485" Margin="20,0,0,0">
-
-            </lvc:PieChart>
-        </WrapPanel>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="Statistics" FontSize="40" HorizontalAlignment="Center"
+                   Style="{StaticResource TextBlockStyle}"/>
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center">
+            <WrapPanel>
+                <StackPanel>
+                    <TextBlock Text="Genre" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    <lvc:PieChart Height="250" Width="250" LegendLocation="Bottom" Series="{Binding GenreSeries}"
+                      Hoverable="True" Margin="20">
+                        <lvc:PieChart.ChartLegend>
+                            <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="10"/>
+                        </lvc:PieChart.ChartLegend>
+                    </lvc:PieChart>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="SubGenre 1" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    <lvc:PieChart Height="250" Width="250" LegendLocation="Bottom" Series="{Binding SubGenre1Series}"
+                      Hoverable="True" Margin="20">
+                        <lvc:PieChart.ChartLegend>
+                            <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="10"/>
+                        </lvc:PieChart.ChartLegend>
+                    </lvc:PieChart>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="SubGenre 2" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    <lvc:PieChart Height="250" Width="250" LegendLocation="Bottom" Series="{Binding SubGenre2Series}"
+                      Hoverable="True" Margin="20">
+                        <lvc:PieChart.ChartLegend>
+                            <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="10"/>
+                        </lvc:PieChart.ChartLegend>
+                    </lvc:PieChart>
+                </StackPanel>
+            </WrapPanel>
+            <!--TODO: ADD ANOTHER CHART HERE-->
+        </StackPanel>
     </Grid>
 </UserControl>
