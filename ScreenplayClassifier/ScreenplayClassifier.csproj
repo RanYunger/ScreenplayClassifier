@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Jsons\Archives.json" />
     <None Remove="Jsons\Genres.json" />
     <None Remove="Jsons\Reports.json" />
     <None Remove="Jsons\Users.json" />
@@ -94,9 +93,6 @@
 
   <ItemGroup>
     <Content Include="Jsons\Reports.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Jsons\Archives.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Jsons\Users.json">

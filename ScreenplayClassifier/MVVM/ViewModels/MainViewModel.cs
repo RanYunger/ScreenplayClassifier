@@ -25,9 +25,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public HomeView HomeView { get; private set; }
         public SettingsView SettingsView { get; private set; }
         public AboutView AboutView { get; private set; }
+        public ReportsView ReportsView { get; private set; }
         public ArchivesView ArchivesView { get; private set; }
         public ClassificationView ClassificationView { get; private set; }
-        public ReportsView ReportsView { get; private set; }
 
         // Constructors
         public MainViewModel()
@@ -36,9 +36,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             SettingsView = new SettingsView();
             AboutView = new AboutView();
 
+            ReportsView = new ReportsView();
             ArchivesView = new ArchivesView();
             ClassificationView = new ClassificationView();
-            ReportsView = new ReportsView();
         }
 
         // Methods
@@ -51,8 +51,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     ((ClassificationViewModel)ClassificationView.DataContext).InterruptVideoCommand.Execute(null);
 
-                    Storage.SaveArchives(((ArchivesViewModel)ArchivesView.DataContext).Screenplays);
-                    Storage.SaveReports(((ReportsViewModel)ReportsView.DataContext).Reports);
+                    foreach (Window view in App.Current.Windows)
+                        if ((view is GenreSelectionView) || (view is GenreView) || (view is ReportView))
+                            view.Close();
+
+                    if (UserToolbarViewModel.User.Role != UserModel.UserRole.GUEST)
+                        Storage.SaveReports(((ReportsViewModel)ReportsView.DataContext).Reports);
                 });
             }
         }
@@ -76,16 +80,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             HomeView = (HomeView)MainView.FindName("HomeView");
             SettingsView = (SettingsView)MainView.FindName("SettingsView");
             AboutView = (AboutView)MainView.FindName("AboutView");
+            ReportsView = (ReportsView)MainView.FindName("ReportsView");
             ArchivesView = (ArchivesView)MainView.FindName("ArchivesView");
             ClassificationView = (ClassificationView)MainView.FindName("ClassificationView");
-            ReportsView = (ReportsView)MainView.FindName("ReportsView");
 
             ((HomeViewModel)HomeView.DataContext).Init(HomeView, this);
             ((SettingsViewModel)SettingsView.DataContext).Init(SettingsView, this);
             ((AboutViewModel)AboutView.DataContext).Init(AboutView, this);
+            ((ReportsViewModel)ReportsView.DataContext).Init(ReportsView, this);
             ((ArchivesViewModel)ArchivesView.DataContext).Init(ArchivesView, this);
             ((ClassificationViewModel)ClassificationView.DataContext).Init(ClassificationView, this);
-            ((ReportsViewModel)ReportsView.DataContext).Init(ReportsView, this);
         }
 
         public void ShowView(UserControl viewToShow)

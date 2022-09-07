@@ -27,26 +27,14 @@ namespace ScreenplayClassifier.Utilities
 
         public static ObservableCollection<ClassificationModel> LoadReports()
         {
-            string reports = File.ReadAllText(FolderPaths.JSONS + "Reports.json");
+            string reportsJson = File.ReadAllText(FolderPaths.JSONS + "Reports.json");
 
-            return new ObservableCollection<ClassificationModel>(JsonConvert.DeserializeObject<List<ClassificationModel>>(reports));
+            return new ObservableCollection<ClassificationModel>(JsonConvert.DeserializeObject<List<ClassificationModel>>(reportsJson));
         }
 
         public static void SaveReports(ObservableCollection<ClassificationModel> reports)
         {
             File.WriteAllText(FolderPaths.JSONS + "Reports.json", JsonConvert.SerializeObject(reports, Formatting.Indented));
-        }
-
-        public static List<ScreenplayModel> LoadArchives()
-        {
-            string archivesJson = File.ReadAllText(FolderPaths.JSONS + "Archives.json");
-
-            return JsonConvert.DeserializeObject<List<ScreenplayModel>>(archivesJson);
-        }
-
-        public static void SaveArchives(List<ScreenplayModel> screenplays)
-        {
-            File.WriteAllText(FolderPaths.JSONS + "Archives.json", JsonConvert.SerializeObject(screenplays, Formatting.Indented));
         }
     }
 }

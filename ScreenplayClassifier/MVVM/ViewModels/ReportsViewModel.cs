@@ -246,7 +246,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     reportsCollectionView.Filter = (o) =>
                     {
-                        return nameFilter.Invoke(o) && genreFilter.Invoke(o) && subGenre1Filter.Invoke(o) && subGenre2Filter.Invoke(o);
+                        return (nameFilter.Invoke(o)) && (genreFilter.Invoke(o)) && (subGenre1Filter.Invoke(o)) && (subGenre2Filter.Invoke(o));
                     };
                     reportsCollectionView.Refresh();
 
@@ -281,7 +281,27 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             MainViewModel = mainViewModel;
             ReportsView = reportsView;
-            Reports = Storage.LoadReports();
+
+            InitReports();
+        }
+
+        private void InitReports()
+        {
+            UserModel user = MainViewModel.UserToolbarViewModel.User;
+            List<ClassificationModel> memberReports;
+
+            if (user.Role == UserModel.UserRole.GUEST)
+                Reports = new ObservableCollection<ClassificationModel>();
+            else
+            {
+                Reports = Storage.LoadReports();
+
+                if (user.Role == UserModel.UserRole.MEMBER)
+                {
+                    memberReports = new List<ClassificationModel>(Reports).FindAll(report => report.Owner.Username == user.Username);
+                    Reports = new ObservableCollection<ClassificationModel>(memberReports);
+                }
+            }
         }
 
         private void RefreshPieCharts(ICollectionView reportsCollectionView)

@@ -6,6 +6,7 @@
       "Password": "RY12696"
     },
     "Screenplay": {
+      "ID": 1,
       "Name": "Lord of the Rings: Fellowship of the Ring",
       "PredictedGenre": "Unknown",
       "PredictedSubGenre1": "Unknown",
@@ -24,6 +25,7 @@
       "Password": "RY12696"
     },
     "Screenplay": {
+      "ID": 2,
       "Name": "Lord of the Rings: The Two Towers",
       "PredictedGenre": "Unknown",
       "PredictedSubGenre1": "Unknown",
@@ -37,11 +39,12 @@
   },
   {
     "Owner": {
-      "Username": "RanYunger",
-      "Role": 2,
-      "Password": "RY12696"
+      "Username": "ShyOhevZion",
+      "Role": 1,
+      "Password": "SHZ101098"
     },
     "Screenplay": {
+      "ID": 3,
       "Name": "Lord of the Rings: The Return of the King",
       "PredictedGenre": "Unknown",
       "PredictedSubGenre1": "Unknown",
@@ -60,6 +63,7 @@
       "Password": "RY12696"
     },
     "Screenplay": {
+      "ID": 4,
       "Name": "Saw",
       "PredictedGenre": "Unknown",
       "PredictedSubGenre1": "Unknown",

@@ -73,9 +73,25 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             Archives = new Dictionary<string, ObservableCollection<ScreenplayModel>>();
             Genres = Storage.LoadGenres();
-            Screenplays = Storage.LoadArchives();
+
+            InitScreenplays();
 
             RefreshFolderViews();
+        }
+
+        private void InitScreenplays()
+        {
+            UserModel user = MainViewModel.UserToolbarViewModel.User;
+            ObservableCollection<ClassificationModel> reports = ((ReportsViewModel)MainViewModel.ReportsView.DataContext).Reports;
+
+            Screenplays = new List<ScreenplayModel>();
+            if (user.Role != UserModel.UserRole.GUEST)
+            {
+                foreach (ClassificationModel report in reports)
+                    Screenplays.Add(report.Screenplay);
+
+                Screenplays = Screenplays;
+            }
         }
 
         public void RefreshArchives()

@@ -88,7 +88,7 @@
             <WrapPanel>
                 <StackPanel>
                     <TextBlock Text="Genre" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    <lvc:PieChart Height="250" Width="250" LegendLocation="Bottom" Series="{Binding GenreSeries}"
+                    <lvc:PieChart x:Name="GenrePieChart" Height="250" Width="250" LegendLocation="Bottom" Series="{Binding GenreSeries}"
                       Hoverable="True" Margin="20">
                         <lvc:PieChart.ChartLegend>
                             <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="10"/>
@@ -98,7 +98,7 @@
                 <StackPanel>
                     <TextBlock Text="SubGenre 1" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                     <lvc:PieChart Height="250" Width="250" LegendLocation="Bottom" Series="{Binding SubGenre1Series}"
-                      Hoverable="True" Margin="20">
+                                  SeriesColors="{Binding ElementName=GenrePieChart, Path=SeriesColors}" Hoverable="True" Margin="20">
                         <lvc:PieChart.ChartLegend>
                             <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="10"/>
                         </lvc:PieChart.ChartLegend>
@@ -107,7 +107,7 @@
                 <StackPanel>
                     <TextBlock Text="SubGenre 2" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                     <lvc:PieChart Height="250" Width="250" LegendLocation="Bottom" Series="{Binding SubGenre2Series}"
-                      Hoverable="True" Margin="20">
+                                  SeriesColors="{Binding ElementName=GenrePieChart, Path=SeriesColors}" Hoverable="True" Margin="20">
                         <lvc:PieChart.ChartLegend>
                             <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="10"/>
                         </lvc:PieChart.ChartLegend>
