@@ -109,7 +109,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void Init(string genreName, ObservableCollection<ScreenplayModel> screenplayClassifiers)
         {
-            mediaPlayer.Open(new Uri(string.Format("{0}{1}.m4a", FolderPaths.GENREAUDIOS, genreName)));
+            mediaPlayer.Open(new Uri(string.Format("{0}{1}.mp3", FolderPaths.GENREAUDIOS, genreName)));
             mediaPlayer.Play();
 
             GenreImage = new BitmapImage(new Uri(string.Format(@"{0}{1}.png", FolderPaths.GENREIMAGES, genreName)));

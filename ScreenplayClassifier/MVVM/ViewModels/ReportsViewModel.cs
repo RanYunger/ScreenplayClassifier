@@ -24,7 +24,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         private ObservableCollection<ClassificationModel> reports;
         private ObservableCollection<string> genreOptions, subGenre1Options, subGenre2Options;
-        private SeriesCollection genreSeries, subGenre1Series, subGenre2Series;
+        private SeriesCollection genreSeries, subGenre1Series, subGenre2Series, ownerSeries;
+        private Func<double, string> labelFormatter;
+        private string[] ownerLabels;
         private string namePattern, filteredGenre, filteredSubGenre1, filteredSubGenre2;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -113,6 +115,42 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("SubGenre2Series"));
+            }
+        }
+
+        public SeriesCollection OwnerSeries
+        {
+            get { return ownerSeries; }
+            set
+            {
+                ownerSeries = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerSeries"));
+            }
+        }
+
+        public Func<double, string> LabelFormatter
+        {
+            get { return labelFormatter; }
+            set
+            {
+                labelFormatter = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("LabelFormatter"));
+            }
+        }
+
+        public string[] OwnerLabels
+        {
+            get { return ownerLabels; }
+            set
+            {
+                ownerLabels = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerLabels"));
             }
         }
 
@@ -251,6 +289,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     reportsCollectionView.Refresh();
 
                     RefreshPieCharts(reportsCollectionView);
+                    RefreshBarChart(reportsCollectionView);
                 });
             }
         }
@@ -343,6 +382,28 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        private void RefreshBarChart(ICollectionView reportsCollectionView)
+        {
+            ObservableCollection<UserModel> authenticatedUsers = Storage.LoadUsers();
+            int ownerCount;
+
+            OwnerSeries = new SeriesCollection();
+            LabelFormatter = value => value.ToString("N");
+            OwnerLabels = new string[] { };
+
+            foreach (UserModel owner in authenticatedUsers)
+            {
+                ownerCount = CountRecordsByOwner(reportsCollectionView, owner);
+
+                if (ownerCount > 0)
+                    OwnerSeries.Add(new ColumnSeries()
+                    {
+                        Title = owner.Username,
+                        Values = new ChartValues<double> { ownerCount }
+                    });
+            }
+        }
+
         private int CountRecordsByGenre(ICollectionView reportsCollectionView, string genreName, string genreType)
         {
             ClassificationModel currentReport;
@@ -360,6 +421,24 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         case "SubGenre1": count += Convert.ToInt32(currentReport.Screenplay.ActualSubGenre1 == genreName); break;
                         case "SubGenre2": count += Convert.ToInt32(currentReport.Screenplay.ActualSubGenre2 == genreName); break;
                     }
+            }
+            while (reportsCollectionView.MoveCurrentToNext());
+
+            return count;
+        }
+
+        private int CountRecordsByOwner(ICollectionView reportsCollectionView, UserModel owner)
+        {
+            ClassificationModel currentReport;
+            int count = 0;
+
+            reportsCollectionView.MoveCurrentToFirst();
+
+            do
+            {
+                currentReport = (ClassificationModel)reportsCollectionView.CurrentItem;
+                if (currentReport != null)
+                    count += Convert.ToInt32(currentReport.Owner.Username == owner.Username);
             }
             while (reportsCollectionView.MoveCurrentToNext());
 

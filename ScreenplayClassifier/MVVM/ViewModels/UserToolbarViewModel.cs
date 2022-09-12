@@ -71,7 +71,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     if (User.Role == UserModel.UserRole.GUEST)
                     {
-                        mediaPlayer.Open(new Uri(FolderPaths.AUDIOS + "Jim.m4a"));
+                        mediaPlayer.Open(new Uri(FolderPaths.AUDIOS + "Jim.mp3"));
                         mediaPlayer.Play();
                     }
                 });

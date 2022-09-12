@@ -114,7 +114,29 @@
                     </lvc:PieChart>
                 </StackPanel>
             </WrapPanel>
-            <!--TODO: ADD ANOTHER CHART HERE-->
+            <lvc:CartesianChart Series="{Binding OwnerSeries}" Height="300" LegendLocation="Left">
+                <lvc:CartesianChart.Style>
+                    <Style TargetType="lvc:CartesianChart">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=MainViewModel.UserToolbarViewModel.User.Role}" Value="Guest">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=MainViewModel.UserToolbarViewModel.User.Role}" Value="Member">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=MainViewModel.UserToolbarViewModel.User.Role}" Value="Admin">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </lvc:CartesianChart.Style>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Owners" Labels="{Binding OwnerLabels}"/>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Records" LabelFormatter="{Binding LabelFormatter}"/>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
         </StackPanel>
     </Grid>
 </UserControl>
