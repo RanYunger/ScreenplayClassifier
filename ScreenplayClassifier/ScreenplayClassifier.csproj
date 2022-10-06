@@ -38,6 +38,7 @@
     <None Remove="Media\Images\Classification.png" />
     <None Remove="Media\Images\Clear.png" />
     <None Remove="Media\Images\Command Shell.png" />
+    <None Remove="Media\Images\Dial.png" />
     <None Remove="Media\Images\EmptyFolder.png" />
     <None Remove="Media\Images\Error.png" />
     <None Remove="Media\Images\Filter.png" />
@@ -366,6 +367,12 @@
   <ItemGroup>
     <Content Include="Media\Images\Movie.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Media\Images\Dial.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

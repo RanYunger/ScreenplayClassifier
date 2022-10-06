@@ -9,23 +9,21 @@
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0" VerticalAlignment="Center">
-            <TextBlock Text="{Binding ClassificationsText}" FontSize="20" Margin="20,0,0,0" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="{Binding DurationText}" FontSize="20" Margin="785,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding ClassificationsText}" FontSize="30" Margin="20,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding DurationText}" FontSize="30" Margin="680,0,0,0" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
-        <ProgressBar x:Name="AllClassificationsProgressBar" Grid.Row="1" Value="{Binding ClassificationsProgress}"
-                     Height="30" Width="1000" Minimum="0" Maximum="100"/>
-        <TextBlock Grid.Row="1" Text="{Binding ElementName=AllClassificationsProgressBar, Path=Value, StringFormat={}{0:0}%}"
-                   HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-        <ProgressBar x:Name="CurrentClassificationProgressBar" Grid.Row="2" Value="{Binding ClassificationsProgress}"
-                     Height="30" Width="1000" Minimum="0" Maximum="100"/>
-        <TextBlock Grid.Row="2" Text="{Binding ElementName=CurrentClassificationProgressBar, Path=Value, StringFormat={}{0:0}%}"
-                   HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-        <Image Grid.Row="3" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Reading.gif" gif:ImageBehavior.RepeatBehavior="Forever"/>
+        <Grid Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Image Source="/Media/Images/Dial.png" Height="600" Width="600" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Ellipse Height="390" Width="390" Stroke="#4D4D4D" StrokeThickness="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <v:CircularProgressBarView x:Name="CircularProgressBar" Margin="125,400,0,0"/>
+            <TextBlock Text="0" Height="100" Width="100" FontSize="50" Foreground="#FEF200" TextAlignment="Center"
+                       Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="P E R C E N T" Height="20" Width="210" FontSize="15" TextAlignment="Center" Margin="0,60,0,0"
+                       Style="{StaticResource TextBlockStyle}"/>
+        </Grid>
     </Grid>
 </UserControl>
