@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
-        Title="Screenplay Classifier" Height="800" Width="800" ResizeMode="NoResize" Style="{StaticResource WindowStyle}">
+        Title="Screenplay Classifier" Height="800" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Style="{StaticResource WindowStyle}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>

@@ -16,14 +16,14 @@
             <TextBlock Text="{Binding ClassificationsText}" FontSize="30" Margin="20,0,0,0" Style="{StaticResource TextBlockStyle}"/>
             <TextBlock Text="{Binding DurationText}" FontSize="30" Margin="680,0,0,0" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
-        <Grid Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Image Source="/Media/Images/Dial.png" Height="600" Width="600" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Ellipse Height="390" Width="390" Stroke="#4D4D4D" StrokeThickness="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <v:CircularProgressBarView x:Name="CircularProgressBar" Margin="125,400,0,0"/>
-            <TextBlock Text="0" Height="100" Width="100" FontSize="50" Foreground="#FEF200" TextAlignment="Center"
-                       Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="P E R C E N T" Height="20" Width="210" FontSize="15" TextAlignment="Center" Margin="0,60,0,0"
-                       Style="{StaticResource TextBlockStyle}"/>
+        <Grid Grid.Row="1">
+            <Ellipse Height="600" Width="600" Stroke="Gray" StrokeThickness="20"/>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="{Binding Path=CircularProgressBarViewModel.Percent}" FontSize="40" TextAlignment="Center"
+                           Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock Text="P E R C E N T" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+            </StackPanel>
         </Grid>
+        <v:CircularProgressBarView x:Name="CircularProgressBarView" Grid.Row="1" Visibility="Visible"/>
     </Grid>
 </UserControl>

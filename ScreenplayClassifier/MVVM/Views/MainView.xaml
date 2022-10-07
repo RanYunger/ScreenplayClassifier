@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"         
-        Title="Screenplay Classifier" ResizeMode="CanMinimize" WindowState="Maximized" Style="{StaticResource WindowStyle}">
+        Title="Screenplay Classifier" ResizeMode="CanMinimize" WindowState="Maximized" WindowStartupLocation="CenterScreen"
+        Style="{StaticResource WindowStyle}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
             <i:InvokeCommandAction Command="{Binding CloseCommand}"/>

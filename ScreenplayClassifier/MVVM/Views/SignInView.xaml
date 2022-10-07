@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
-        Title="Screenplay Classifier" Height="600" Width="400" ResizeMode="NoResize" Style="{StaticResource WindowStyle}">
+        Title="Screenplay Classifier" Height="600" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Style="{StaticResource WindowStyle}">
     <Grid>
         <StackPanel HorizontalAlignment="Stretch">
             <TextBlock FontSize="40" Text="Sign In" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>

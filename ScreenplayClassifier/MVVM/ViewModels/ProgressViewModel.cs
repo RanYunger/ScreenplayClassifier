@@ -29,6 +29,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
+        public CircularProgressBarViewModel CircularProgressBarViewModel { get; private set; }
         public ProgressView ProgressView { get; private set; }
 
         public System.Timers.Timer DurationTimer
@@ -119,16 +120,24 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void DurationTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Duration = Duration.Add(TimeSpan.FromSeconds(1));
+            CircularProgressBarViewModel.Percent += 20; // MOCKUP
 
-            if (Duration.Seconds == 5)
+            if (CircularProgressBarViewModel.Percent == 100)
                 App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
         }
         #endregion
 
         public void Init(ClassificationViewModel classificationViewModel, ProgressView progressView)
         {
+            CircularProgressBarView circularProgressBarView;
+
             ClassificationViewModel = classificationViewModel;
             ProgressView = progressView;
+
+            circularProgressBarView = (CircularProgressBarView)progressView.FindName("CircularProgressBarView");
+            CircularProgressBarViewModel = (CircularProgressBarViewModel)circularProgressBarView.DataContext;
+
+            CircularProgressBarViewModel.Init(circularProgressBarView);
         }
 
         public void ShowView(ObservableCollection<string> browsedScreenplays)
@@ -176,7 +185,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             source.Execute(engine.CreateScope());
 
             classificationsJson = Encoding.Default.GetString(resultsMemoryStream.ToArray());
-            
+
             return Mockup(classificationsJson.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries));
 
             // TODO: ENABLE (AFTER CLASSIFIER IS READY IN PYTHON + copied to the "Python" folder) 
