@@ -8,8 +8,8 @@
         <Storyboard x:Key="ProgressBarAnimation" TargetName="Arc">
             <PointAnimationUsingPath Storyboard.TargetProperty="Point" Duration="0:0:20">
                 <PointAnimationUsingPath.PathGeometry>
-                    <PathGeometry Figures="M 0 -600 A 600 600 0 0 1 0 600
-                                                    A 600 600 0 0 1 0 -600"/>
+                    <PathGeometry Figures="M 0 -300 A 300 300 0 0 1 0 300
+                                                    A 300 300 0 0 1 0 -300"/>
                 </PointAnimationUsingPath.PathGeometry>
             </PointAnimationUsingPath>
             <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsLargeArc" Duration="0:0:20">
@@ -19,18 +19,18 @@
         </Storyboard>
     </UserControl.Resources>
     <Grid>
-        <Path x:Name="ProgressPath" Fill="Transparent" Stroke="Yellow" StrokeThickness="20" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat"
-              StrokeLineJoin="Round">
+        <Path x:Name="ProgressPath" Fill="Transparent" Stroke="LimeGreen" StrokeThickness="20" StrokeStartLineCap="Flat"
+              StrokeEndLineCap="Flat" StrokeLineJoin="Round">
             <Path.Data>
                 <PathGeometry>
-                    <PathFigure StartPoint="0 -600" IsClosed="False">
-                        <LineSegment Point="0 -600"/>
-                        <ArcSegment x:Name="Arc" Size="100 100" IsLargeArc="True" SweepDirection="Clockwise"/>
+                    <PathFigure StartPoint="0 -300" IsClosed="False">
+                        <LineSegment Point="0 -300"/>
+                        <ArcSegment x:Name="Arc" Size="300 300" IsLargeArc="True" SweepDirection="Clockwise"/>
                     </PathFigure>
                 </PathGeometry>
             </Path.Data>
             <Path.Effect>
-                <DropShadowEffect BlurRadius="20" ShadowDepth="2" Direction="-90" Color="Yellow"/>
+                <DropShadowEffect BlurRadius="20" ShadowDepth="2" Direction="-90" Color="LimeGreen"/>
             </Path.Effect>
         </Path>
     </Grid>

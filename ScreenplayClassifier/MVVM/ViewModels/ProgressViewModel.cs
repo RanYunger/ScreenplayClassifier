@@ -14,6 +14,7 @@ using System.Threading;
 using System.Timers;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
@@ -23,13 +24,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Fields
         private System.Timers.Timer durationTimer;
         private TimeSpan duration;
-        private int classificationsRequired, classificationsComplete;
+        private int classificationsRequired, classificationsComplete, percent;
         private string classificationsText, durationText;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
-        public CircularProgressBarViewModel CircularProgressBarViewModel { get; private set; }
+        public CircularProgressBarView CircularProgressBarView { get; private set; }
         public ProgressView ProgressView { get; private set; }
 
         public System.Timers.Timer DurationTimer
@@ -81,6 +82,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public int Percent
+        {
+            get { return percent; }
+            set
+            {
+                percent = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("Percent"));
+            }
+        }
+
         public string ClassificationsText
         {
             get { return classificationsText; }
@@ -120,32 +133,29 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void DurationTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Duration = Duration.Add(TimeSpan.FromSeconds(1));
-            CircularProgressBarViewModel.Percent += 20; // MOCKUP
+            Percent += 5;
 
-            if (CircularProgressBarViewModel.Percent == 100)
+            if (Percent > 100)
                 App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
         }
         #endregion
 
         public void Init(ClassificationViewModel classificationViewModel, ProgressView progressView)
         {
-            CircularProgressBarView circularProgressBarView;
-
             ClassificationViewModel = classificationViewModel;
             ProgressView = progressView;
-
-            circularProgressBarView = (CircularProgressBarView)progressView.FindName("CircularProgressBarView");
-            CircularProgressBarViewModel = (CircularProgressBarViewModel)circularProgressBarView.DataContext;
-
-            CircularProgressBarViewModel.Init(circularProgressBarView);
+            CircularProgressBarView = (CircularProgressBarView)progressView.FindName("CircularProgressBarView");
         }
 
         public void ShowView(ObservableCollection<string> browsedScreenplays)
         {
             DurationTimer.Start();
+            CircularProgressBarView.Visibility = Visibility.Visible;
+            ((Storyboard)CircularProgressBarView.Resources["ProgressBarAnimation"]).Begin();
 
             ClassificationsRequired = browsedScreenplays.Count;
             ClassificationsComplete = 0;
+            Percent = 0;
 
             App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Visible);
 
@@ -174,6 +184,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ScriptSource source = engine.CreateScriptSourceFromFile(FolderPaths.PYTHON + "Setup.py");
             MemoryStream errorsMemoryStream = new MemoryStream(), resultsMemoryStream = new MemoryStream();
             List<string> argv = new List<string>() { string.Empty };
+            //int progressPercent;
             string classificationsJson = string.Empty;
 
             argv.AddRange(string.Join(" ", screenplaysToClassify).Split(" ", StringSplitOptions.RemoveEmptyEntries));
@@ -183,6 +194,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             engine.Runtime.IO.SetOutput(resultsMemoryStream, Encoding.Default);
 
             source.Execute(engine.CreateScope());
+
+            // TODO: ENABLE (Python classifier needs to print the progress percent)
+            //do
+            //{
+            //    progressPercent = resultsMemoryStream.ReadByte();
+            //    if ((progressPercent >= 0) && (progressPercent <= 100))
+            //        CircularProgressBarViewModel.Percent += progressPercent;
+            //}
+            //while (progressPercent < 100);
 
             classificationsJson = Encoding.Default.GetString(resultsMemoryStream.ToArray());
 

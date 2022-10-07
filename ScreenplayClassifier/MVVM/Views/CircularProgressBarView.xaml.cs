@@ -22,7 +22,6 @@ namespace ScreenplayClassifier.MVVM.Views
         public CircularProgressBarView()
         {
             InitializeComponent();
-            DataContext = new CircularProgressBarViewModel();
         }
     }
 }
