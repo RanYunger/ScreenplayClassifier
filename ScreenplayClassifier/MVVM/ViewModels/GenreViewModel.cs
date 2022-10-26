@@ -13,13 +13,26 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class GenreViewModel : INotifyPropertyChanged
     {
         // Fields
+        private string genre;
         private bool audioOn;
-        private ImageSource audioImage, genreImage;
+        private ImageSource audioImage, genreGif;
         private MediaPlayer mediaPlayer;
         private ObservableCollection<ScreenplayModel> screenplaysInGenre;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
+        public string Genre
+        {
+            get { return genre; }
+            set
+            {
+                genre = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("Genre"));
+            }
+        }
+
         public bool AudioOn
         {
             get { return audioOn; }
@@ -44,15 +57,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public ImageSource GenreImage
+        public ImageSource GenreGif
         {
-            get { return genreImage; }
+            get { return genreGif; }
             set
             {
-                genreImage = value;
+                genreGif = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GenreImage"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("GenreGif"));
             }
         }
 
@@ -109,12 +122,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void Init(string genreName, ObservableCollection<ScreenplayModel> screenplayClassifiers)
         {
-            mediaPlayer.Open(new Uri(string.Format("{0}{1}.mp3", FolderPaths.GENREAUDIOS, genreName)));
-            mediaPlayer.Play();
-
-            GenreImage = new BitmapImage(new Uri(string.Format(@"{0}{1}.png", FolderPaths.GENREIMAGES, genreName)));
+            Genre = genreName;
+            GenreGif = new BitmapImage(new Uri(string.Format(@"{0}{1}.gif", FolderPaths.GENREGIFS, genreName)));
 
             ScreenplaysInGenre = screenplayClassifiers;
+
+            mediaPlayer.Open(new Uri(string.Format("{0}{1}.mp3", FolderPaths.GENREAUDIOS, Genre)));
+            mediaPlayer.Play();
         }
     }
 }

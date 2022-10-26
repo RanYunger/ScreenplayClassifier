@@ -14,7 +14,5 @@
         <StackPanel Grid.Column="0">
             <TextBlock Text="Settings" FontSize="50" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
         </StackPanel>
-        <Image Grid.Column="1" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Gears.gif"
-               gif:ImageBehavior.RepeatBehavior="Forever" Margin="50"/>
     </Grid>
 </UserControl>

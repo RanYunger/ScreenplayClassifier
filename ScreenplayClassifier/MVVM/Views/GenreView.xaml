@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
         Title="Screenplay Classifier" Height="800" Width="600" ResizeMode="NoResize" Style="{StaticResource WindowStyle}">
     <i:Interaction.Triggers>
@@ -20,8 +21,12 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Image>
-            <TextBlock Text="Screenplays In Genre" FontSize="20" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <Image Source="{Binding GenreImage}" Height="300" Width="300" Margin="0,0,0,20"/>
+            <WrapPanel HorizontalAlignment="Center" Margin="10">
+                <TextBlock Text="Screenplays in Genre: " FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock Text="{Binding Genre}" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+            </WrapPanel>
+            <Image gif:ImageBehavior.AnimatedSource="{Binding GenreGif}" gif:ImageBehavior.RepeatBehavior="Forever" Height="300" Width="500"
+                   Margin="0,0,0,20"/>
             <DataGrid ItemsSource="{Binding ScreenplaysInGenre}" Height="325" IsReadOnly="True" FontSize="20" Margin="10,0,10,0"
                       Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
