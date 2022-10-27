@@ -16,8 +16,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class FolderViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ImageSource folderImage, genreImage;
-        private string genre, screenplaysCountText;
+        private ImageSource folderImage, genreGif;
+        private string genre;
         private ObservableCollection<ScreenplayModel> screenplaysInGenre;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,15 +36,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public ImageSource GenreImage
+        public ImageSource GenreGif
         {
-            get { return genreImage; }
+            get { return genreGif; }
             set
             {
-                genreImage = value;
+                genreGif = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GenreImage"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("GenreGif"));
             }
         }
 
@@ -57,18 +57,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("Genre"));
-            }
-        }
-
-        public string ScreenplaysCountText
-        {
-            get { return screenplaysCountText; }
-            set
-            {
-                screenplaysCountText = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ScreenplaysCountText"));
             }
         }
 
@@ -123,12 +111,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             string folderImageFilePath = string.Format("{0}{1}", FolderPaths.IMAGES, screenplaysInGenre.Count > 0
                 ? "FullFolder.png" : "EmptyFolder.png"),
-                genreImageFilePath = string.Format(@"{0}{1}.png", FolderPaths.GENREIMAGES, Genre = genreName);
+                genreImageFilePath = string.Format(@"{0}{1}.gif", FolderPaths.GENREGIFS, Genre = genreName);
 
             FolderImage = new BitmapImage(new Uri(folderImageFilePath));
-            GenreImage = new BitmapImage(new Uri(genreImageFilePath));
-            ScreenplaysCountText = string.Format("{0} {1}", screenplaysInGenre.Count, screenplaysInGenre.Count == 1
-                ? "Screenplay" : "Screenplays");
+            GenreGif = new BitmapImage(new Uri(genreImageFilePath));
 
             ScreenplaysInGenre = screenplaysInGenre;
         }

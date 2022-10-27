@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views">
     <i:Interaction.Triggers>
@@ -12,36 +13,25 @@
     </i:Interaction.Triggers>
     <Grid>
         <Image x:Name="FolderImage" Source="{Binding FolderImage}" Cursor="Hand"/>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand">
-            <StackPanel.Triggers>
+        <TextBlock Text="{Binding Genre}" FontSize="40" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+        <Image x:Name="GenreGif" gif:ImageBehavior.AnimatedSource="{Binding GenreGif}" gif:ImageBehavior.RepeatBehavior="Forever"
+                   Height="200" Width="200" Cursor="Hand" Margin="0,20,0,10">
+            <Image.Triggers>
                 <EventTrigger RoutedEvent="MouseEnter">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="GenreImage"
-                                                 Storyboard.TargetProperty="Height" To="110"/>
-                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="GenreImage"
-                                                 Storyboard.TargetProperty="Width" To="110"/>
-                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ItemsTextBlock"
-                                                     Storyboard.TargetProperty="FontSize" To="25"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="GenreGif" Storyboard.TargetProperty="Opacity" To="0"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
                 <EventTrigger RoutedEvent="MouseLeave">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="GenreImage"
-                                                 Storyboard.TargetProperty="Height" To="90"/>
-                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="GenreImage"
-                                                 Storyboard.TargetProperty="Width" To="90"/>
-                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="ItemsTextBlock"
-                                                     Storyboard.TargetProperty="FontSize" To="20"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="GenreGif" Storyboard.TargetProperty="Opacity" To="1"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
-            </StackPanel.Triggers>
-            <Image x:Name="GenreImage" Source="{Binding GenreImage}" Height="90" Width="90" Cursor="Hand" Margin="0,20,0,10"/>
-            <TextBlock x:Name="ItemsTextBlock" Text="{Binding ScreenplaysCountText}" HorizontalAlignment="Center" FontSize="20" Cursor="Hand"
-                       Style="{StaticResource TextBlockStyle}"/>
-        </StackPanel>
+            </Image.Triggers>
+        </Image>
     </Grid>
 </UserControl>

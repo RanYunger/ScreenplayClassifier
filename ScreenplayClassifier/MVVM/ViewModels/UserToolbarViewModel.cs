@@ -53,14 +53,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
-        public Command SettingsCommand
-        {
-            get { return new Command(() => MainViewModel.ShowView(MainViewModel.SettingsView)); }
-        }
+
         public Command AboutCommand
         {
             get { return new Command(() => MainViewModel.ShowView(MainViewModel.AboutView)); }
         }
+
         public Command SpeakNameCommand
         {
             get
