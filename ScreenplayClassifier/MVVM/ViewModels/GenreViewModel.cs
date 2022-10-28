@@ -13,7 +13,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class GenreViewModel : INotifyPropertyChanged
     {
         // Fields
-        private string genre;
+        private string genre, screenplaysCountText;
         private bool audioOn;
         private ImageSource audioImage, genreGif;
         private MediaPlayer mediaPlayer;
@@ -30,6 +30,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("Genre"));
+            }
+        }
+
+        public string ScreenplaysCountText
+        {
+            get { return screenplaysCountText; }
+            set
+            {
+                screenplaysCountText = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ScreenplaysCountText"));
             }
         }
 
@@ -126,6 +138,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             GenreGif = new BitmapImage(new Uri(string.Format(@"{0}{1}.gif", FolderPaths.GENREGIFS, genreName)));
 
             ScreenplaysInGenre = screenplayClassifiers;
+            ScreenplaysCountText = string.Format("{0} Screenplay{1}",
+                ScreenplaysInGenre.Count, ScreenplaysInGenre.Count != 1 ? "s" : string.Empty);
 
             mediaPlayer.Open(new Uri(string.Format("{0}{1}.mp3", FolderPaths.GENREAUDIOS, Genre)));
             mediaPlayer.Play();
