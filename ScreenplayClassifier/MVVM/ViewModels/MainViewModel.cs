@@ -23,6 +23,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public UserToolbarViewModel UserToolbarViewModel { get; private set; }
 
         public HomeView HomeView { get; private set; }
+        public SettingsView SettingsView { get; private set; }
         public AboutView AboutView { get; private set; }
         public ReportsView ReportsView { get; private set; }
         public ArchivesView ArchivesView { get; private set; }
@@ -30,8 +31,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Constructors
         public MainViewModel()
-        { 
+        {
             HomeView = new HomeView();
+            SettingsView = new SettingsView();
             AboutView = new AboutView();
 
             ReportsView = new ReportsView();
@@ -47,20 +49,23 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
+                    if (UserToolbarViewModel.User.Role != UserModel.UserRole.GUEST)
+                    {
+                        Storage.SaveReports(((ReportsViewModel)ReportsView.DataContext).Reports);
+                        Storage.SaveUsers(((SettingsViewModel)SettingsView.DataContext).AuthenticatedUsers);
+                    }
+
                     ((ClassificationViewModel)ClassificationView.DataContext).InterruptVideoCommand.Execute(null);
 
                     foreach (Window view in App.Current.Windows)
                         if ((view is GenreSelectionView) || (view is GenreView) || (view is ReportView))
                             view.Close();
-
-                    if (UserToolbarViewModel.User.Role != UserModel.UserRole.GUEST)
-                        Storage.SaveReports(((ReportsViewModel)ReportsView.DataContext).Reports);
                 });
             }
         }
         #endregion
 
-        public void Init(UserModel user)
+        public void Init(UserModel user, ObservableCollection<UserModel> authenticatedUsers)
         {
             UserToolbarView userToolbarView;
 
@@ -76,12 +81,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             UserToolbarViewModel.Init(user, this);
 
             HomeView = (HomeView)MainView.FindName("HomeView");
+            SettingsView = (SettingsView)MainView.FindName("SettingsView");
             AboutView = (AboutView)MainView.FindName("AboutView");
             ReportsView = (ReportsView)MainView.FindName("ReportsView");
             ArchivesView = (ArchivesView)MainView.FindName("ArchivesView");
             ClassificationView = (ClassificationView)MainView.FindName("ClassificationView");
 
             ((HomeViewModel)HomeView.DataContext).Init(HomeView, this);
+            ((SettingsViewModel)SettingsView.DataContext).Init(SettingsView, this, authenticatedUsers);
             ((AboutViewModel)AboutView.DataContext).Init(AboutView, this);
             ((ReportsViewModel)ReportsView.DataContext).Init(ReportsView, this);
             ((ArchivesViewModel)ArchivesView.DataContext).Init(ArchivesView, this);
@@ -90,7 +97,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void ShowView(UserControl viewToShow)
         {
-            UserControl[] views = { HomeView, AboutView, ArchivesView, ClassificationView, ReportsView };
+            UserControl[] views = { HomeView, SettingsView, AboutView, ArchivesView, ClassificationView, ReportsView };
 
             if (viewToShow.Visibility == Visibility.Visible)
             {

@@ -32,6 +32,11 @@ namespace ScreenplayClassifier.Utilities
             return new ObservableCollection<ClassificationModel>(JsonConvert.DeserializeObject<List<ClassificationModel>>(reportsJson));
         }
 
+        public static void SaveUsers(ObservableCollection<UserModel> users)
+        {
+            File.WriteAllText(FolderPaths.JSONS + "Users.json", JsonConvert.SerializeObject(users, Formatting.Indented));
+        }
+
         public static void SaveReports(ObservableCollection<ClassificationModel> reports)
         {
             File.WriteAllText(FolderPaths.JSONS + "Reports.json", JsonConvert.SerializeObject(reports, Formatting.Indented));

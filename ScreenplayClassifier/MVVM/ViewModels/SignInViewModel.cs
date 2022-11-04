@@ -123,7 +123,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     UserModel identifiedUser = null;
 
                     usernameErrorWrapPanel.Visibility = Visibility.Hidden;
-                    if (UsernameInput.Trim() == string.Empty)
+                    if (string.IsNullOrEmpty(UsernameInput))
                     {
                         UsernameError = "Enter username";
                         usernameErrorWrapPanel.Visibility = Visibility.Visible;
@@ -135,7 +135,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     }
 
                     passwordErrorWrapPanel.Visibility = Visibility.Hidden;
-                    if (passwordBox.Password.Trim() == string.Empty)
+                    if (string.IsNullOrEmpty(passwordBox.Password))
                     {
                         PasswordError = "Enter password";
                         passwordErrorWrapPanel.Visibility = Visibility.Visible;
@@ -150,7 +150,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if (identifiedUser != null)
                     {
                         App.Current.MainWindow = new MainView();
-                        ((MainViewModel)App.Current.MainWindow.DataContext).Init(identifiedUser);
+                        ((MainViewModel)App.Current.MainWindow.DataContext).Init(identifiedUser, AuthenticatedUsers);
                         App.Current.MainWindow.Show();
 
                         SignInView.Close();
@@ -172,7 +172,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     App.Current.MainWindow = new MainView();
 
-                    ((MainViewModel)App.Current.MainWindow.DataContext).Init(new UserModel());
+                    ((MainViewModel)App.Current.MainWindow.DataContext).Init(new UserModel(), AuthenticatedUsers);
                     App.Current.MainWindow.Show();
 
                     SignInView.Close();

@@ -41,6 +41,32 @@
                             <Image Source="/Media/Images/Home.png"/>
                         </Button.Content>
                     </Button>
+                    <Button Height="40" Width="40" Command="{Binding SettingsCommand}" ToolTip="Settings"
+                            Margin="5,15,5,0">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Width" Value="100"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding User.Role}" Value="Guest">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding User.Role}" Value="Member">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding User.Role}" Value="Admin">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Content>
+                            <Image Source="/Media/Images/Gears.png"/>
+                        </Button.Content>
+                    </Button>
                     <Button Height="40" Width="40" Command="{Binding SignoutCommand}" ToolTip="Sign out"
                             Margin="5,15,5,0" Style="{StaticResource ButtonStyle}">
                         <Button.Content>

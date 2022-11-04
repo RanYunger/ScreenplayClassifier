@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="ScreenplayClassifier.MVVM.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
+             Style="{StaticResource UserControlStyle}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Users" FontSize="40" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+        <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding AuthenticatedUsers}" Margin="10" Style="{StaticResource DataGridStyle}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Path=Username}" Width="200"
+                                    HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                <DataGridTemplateColumn Header="Role" Width="100" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox>
+                                <ComboBox.Style>
+                                    <Style TargetType="ComboBox">
+                                        <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="Width" Value="100"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Role}" Value="Admin">
+                                                <Setter Property="SelectedIndex" Value="0"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=Role}" Value="Member">
+                                                <Setter Property="SelectedIndex" Value="1"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ComboBox.Style>
+                                <ComboBox.Items>
+                                    <ComboBoxItem Content="Admin"/>
+                                    <ComboBoxItem Content="Member"/>
+                                    <ComboBoxItem Content="Guest"/>
+                                </ComboBox.Items>
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

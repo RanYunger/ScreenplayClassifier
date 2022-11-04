@@ -40,6 +40,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get { return new Command(() => MainViewModel.ShowView(MainViewModel.HomeView)); }
         }
+
+        public Command SettingsCommand
+        {
+            get { return new Command(() => MainViewModel.ShowView(MainViewModel.SettingsView)); }
+        }
+
         public Command SignoutCommand
         {
             get
