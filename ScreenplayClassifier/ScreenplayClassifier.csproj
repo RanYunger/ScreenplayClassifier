@@ -25,6 +25,8 @@
     <None Remove="Media\Audios\Genres\War.mp3" />
     <None Remove="Media\Audios\Jim.mp3" />
     <None Remove="Media\Audios\Wilhelm Scream.mp3" />
+    <None Remove="Media\Gifs\Archives.gif" />
+    <None Remove="Media\Gifs\Classification.gif" />
     <None Remove="Media\Gifs\Genres\Action.gif" />
     <None Remove="Media\Gifs\Genres\Adventure.gif" />
     <None Remove="Media\Gifs\Genres\Comedy.gif" />
@@ -38,14 +40,13 @@
     <None Remove="Media\Gifs\Genres\Thriller.gif" />
     <None Remove="Media\Gifs\Genres\War.gif" />
     <None Remove="Media\Gifs\Let Me See The Script.gif" />
+    <None Remove="Media\Gifs\Reports.gif" />
     <None Remove="Media\Images\Add.png" />
     <None Remove="Media\Images\Admin.png" />
-    <None Remove="Media\Images\Archives.png" />
     <None Remove="Media\Images\AudioOff.png" />
     <None Remove="Media\Images\AudioOn.png" />
     <None Remove="Media\Images\Browse.png" />
     <None Remove="Media\Images\Cinema.png" />
-    <None Remove="Media\Images\Classification.png" />
     <None Remove="Media\Images\Clear.png" />
     <None Remove="Media\Images\Command Shell.png" />
     <None Remove="Media\Images\EmptyFolder.png" />
@@ -79,7 +80,6 @@
     <None Remove="Media\Images\PlayPressed.png" />
     <None Remove="Media\Images\PlayUnpressed.png" />
     <None Remove="Media\Images\Remove.png" />
-    <None Remove="Media\Images\Reports.png" />
     <None Remove="Media\Images\RightArrowPressed.png" />
     <None Remove="Media\Images\RightArrowUnpressed.png" />
     <None Remove="Media\Images\Screenplay.png" />
@@ -141,6 +141,12 @@
     <Content Include="Media\Audios\Jim.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Gifs\Archives.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Gifs\Classification.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Gifs\Genres\Action.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -177,13 +183,13 @@
     <Content Include="Media\Gifs\Genres\War.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Gifs\Reports.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\Add.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Admin.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\Archives.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\AudioOff.png">
@@ -196,9 +202,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Cinema.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\Classification.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Clear.png">
@@ -286,9 +289,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Remove.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\Reports.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\RightArrowPressed.png">

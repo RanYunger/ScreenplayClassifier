@@ -18,91 +18,307 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Image Grid.Row="0" Grid.Column="0" Source="/Media/Images/Genres/Action.png" Cursor="Hand" Margin="10">
+        <Image Grid.Row="0" Grid.Column="0" Height="100" Width="100" Source="/Media/Images/Genres/Action.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectActionGenreCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="120"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="120"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="100"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="100"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
         </Image>
-        <Image Grid.Row="0" Grid.Column="1" Source="/Media/Images/Genres/Adventure.png" Cursor="Hand" Margin="10">
+        <Image Grid.Row="0" Grid.Column="1" Height="100" Width="100" Source="/Media/Images/Genres/Adventure.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectAdventureGenreCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="120"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="120"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="100"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="100"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
         </Image>
-        <Image Grid.Row="0" Grid.Column="2" Source="/Media/Images/Genres/Comedy.png" Cursor="Hand" Margin="10">
+        <Image Grid.Row="0" Grid.Column="2" Height="100" Width="100" Source="/Media/Images/Genres/Comedy.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectComedyGenreCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="120"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="120"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="100"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="100"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
         </Image>
-        <Image Grid.Row="0" Grid.Column="3" Source="/Media/Images/Genres/Crime.png" Cursor="Hand" Margin="10">
+        <Image Grid.Row="0" Grid.Column="3" Height="100" Width="100" Source="/Media/Images/Genres/Crime.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectCrimeGenreCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="120"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="120"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="100"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="100"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
         </Image>
 
-        <Image Grid.Row="1" Grid.Column="0" Source="/Media/Images/Genres/Drama.png" Cursor="Hand" Margin="10">
+        <Image Grid.Row="1" Grid.Column="0" Height="100" Width="100" Source="/Media/Images/Genres/Drama.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectDramaGenreCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="120"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="120"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="100"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="100"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
         </Image>
-        <Image Grid.Row="1" Grid.Column="1" Source="/Media/Images/Genres/Family.png" Cursor="Hand" Margin="10">
+        <Image Grid.Row="1" Grid.Column="1" Height="100" Width="100" Source="/Media/Images/Genres/Family.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectFamilyGenreCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="120"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="120"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="100"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="100"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
         </Image>
-        <Image Grid.Row="1" Grid.Column="2" Source="/Media/Images/Genres/Fantasy.png" Cursor="Hand" Margin="10">
+        <Image Grid.Row="1" Grid.Column="2" Height="100" Width="100" Source="/Media/Images/Genres/Fantasy.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectFantasyGenreCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="120"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="120"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="100"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="100"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
         </Image>
-        <Image Grid.Row="1" Grid.Column="3" Source="/Media/Images/Genres/Horror.png" Cursor="Hand" Margin="10">
+        <Image Grid.Row="1" Grid.Column="3" Height="100" Width="100" Source="/Media/Images/Genres/Horror.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectHorrorGenreCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="120"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="120"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="100"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="100"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
         </Image>
 
-        <Image Grid.Row="2" Grid.Column="0" Source="/Media/Images/Genres/Romance.png" Cursor="Hand" Margin="10">
+        <Image Grid.Row="2" Grid.Column="0" Height="100" Width="100" Source="/Media/Images/Genres/Romance.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectRomanceGenreCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="120"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="120"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="100"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="100"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
         </Image>
-        <Image Grid.Row="2" Grid.Column="1" Source="/Media/Images/Genres/SciFi.png" Cursor="Hand" Margin="10">
+        <Image Grid.Row="2" Grid.Column="1" Height="100" Width="100" Source="/Media/Images/Genres/SciFi.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectSciFiGenreCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="120"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="120"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="100"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="100"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
         </Image>
-        <Image Grid.Row="2" Grid.Column="2" Source="/Media/Images/Genres/Thriller.png" Cursor="Hand" Margin="10">
+        <Image Grid.Row="2" Grid.Column="2" Height="100" Width="100" Source="/Media/Images/Genres/Thriller.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectThrillerGenreCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="120"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="120"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="100"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="100"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
         </Image>
-        <Image Grid.Row="2" Grid.Column="3" Source="/Media/Images/Genres/War.png" Cursor="Hand" Margin="10">
+        <Image Grid.Row="2" Grid.Column="3" Height="100" Width="100" Source="/Media/Images/Genres/War.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectWarGenreCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="120"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="120"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="100"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="100"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
         </Image>
     </Grid>
 </Window>

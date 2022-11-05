@@ -202,7 +202,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 return new Command(() =>
                 {
-                    Timer videoTimer = new Timer(5800);
+                    Timer videoTimer = new Timer(6000);
 
                     UsernameInput = string.Empty;
                     passwordBox.Clear();

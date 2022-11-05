@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              Style="{StaticResource UserControlStyle}">
     <Grid>
@@ -26,7 +27,8 @@
                     </i:Interaction.Triggers>
                 </Image>
                 <Canvas Height="400" Width="1200">
-                    <Image x:Name="ArchivesImage" Source="/Media/Images/Archives.png" Height="300" Width="300" Margin="50,50,50,50">
+                    <Image x:Name="ArchivesGif" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Archives.gif"
+                           gif:ImageBehavior.RepeatBehavior="Forever" Height="300" Width="300" Margin="50">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDown">
                                 <i:InvokeCommandAction Command="{Binding ShowArchivesViewCommand}"/>
@@ -37,21 +39,19 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ModuleName}" Value="Archives">
                                         <Setter Property="Cursor" Value="Hand"/>
-                                        <Setter Property="ToolTip" Value="View screenplays categorized by genre"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding ModuleName}" Value="Classification">
                                         <Setter Property="Cursor" Value="Arrow"/>
-                                        <Setter Property="ToolTip" Value="{x:Null}"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding ModuleName}" Value="Reports">
                                         <Setter Property="Cursor" Value="Arrow"/>
-                                        <Setter Property="ToolTip" Value="{x:Null}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Image.Style>
                     </Image>
-                    <Image x:Name="ClassificationImage" Source="/Media/Images/Classification.png" Height="400" Width="400" Margin="400,0,0,0">
+                    <Image x:Name="ClassificationGif" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Classification.gif"
+                           gif:ImageBehavior.RepeatBehavior="Forever" Height="400" Width="400" Margin="400,0,0,0">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDown">
                                 <i:InvokeCommandAction Command="{Binding ShowClassificationViewCommand}"/>
@@ -62,21 +62,19 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ModuleName}" Value="Archives">
                                         <Setter Property="Cursor" Value="Arrow"/>
-                                        <Setter Property="ToolTip" Value="{x:Null}"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding ModuleName}" Value="Classification">
                                         <Setter Property="Cursor" Value="Hand"/>
-                                        <Setter Property="ToolTip" Value="Classify screenplays to genres"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding ModuleName}" Value="Reports">
                                         <Setter Property="Cursor" Value="Arrow"/>
-                                        <Setter Property="ToolTip" Value="{x:Null}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Image.Style>
                     </Image>
-                    <Image x:Name="ReportsImage" Source="/Media/Images/Reports.png" Height="300" Width="300" Margin="850,50,50,50">
+                    <Image x:Name="ReportsGif" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Reports.gif"
+                           gif:ImageBehavior.RepeatBehavior="Forever" Height="300" Width="300" Margin="850,50,50,50">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDown">
                                 <i:InvokeCommandAction Command="{Binding ShowReportsViewCommand}"/>
@@ -87,15 +85,12 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ModuleName}" Value="Archives">
                                         <Setter Property="Cursor" Value="Arrow"/>
-                                        <Setter Property="ToolTip" Value="{x:Null}"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding ModuleName}" Value="Classification">
                                         <Setter Property="Cursor" Value="Arrow"/>
-                                        <Setter Property="ToolTip" Value="{x:Null}"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding ModuleName}" Value="Reports">
                                         <Setter Property="Cursor" Value="Hand"/>
-                                        <Setter Property="ToolTip" Value="View classification reports"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -113,7 +108,8 @@
                     </i:Interaction.Triggers>
                 </Image>
             </WrapPanel>
-            <TextBlock Text="{Binding ModuleName}" HorizontalAlignment="Center" FontSize="60" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding ModuleName}" HorizontalAlignment="Center" FontSize="60" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding ModuleDescription}" HorizontalAlignment="Center" FontSize="30" Margin="10" Style="{StaticResource TextBlockStyle}"/>
         </StackPanel>
     </Grid>
 </UserControl>
