@@ -15,10 +15,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 {
     public class SignInViewModel : INotifyPropertyChanged
     {
-        // Constants
-        public string usernamePattern = "([A-Z]{1}[a-z]+){2,3}"; // E.G. RanYunger, ShyOhevZion
-        public string passwordPattern = "[A-Z]{2,3}[0-9]{5,6}"; // E.G. RY120696, SHZ101098
-
         // Fields
         private ObservableCollection<UserModel> authenticatedUsers;
         private string usernameInput, usernameError, passwordError;
@@ -119,7 +115,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 return new Command(() =>
                 {
-                    Regex usernameRegex = new Regex(usernamePattern), passwordRegex = new Regex(passwordPattern);
+                    Regex usernameRegex = new Regex(Storage.USERNAMEPATTERN), passwordRegex = new Regex(Storage.PASSWORDPATTERN);
                     UserModel identifiedUser = null;
 
                     usernameErrorWrapPanel.Visibility = Visibility.Hidden;

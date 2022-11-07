@@ -55,7 +55,7 @@
                                         <Setter Property="Visibility" Value="Collapsed"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding User.Role}" Value="Member">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Setter Property="Visibility" Value="Visible"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding User.Role}" Value="Admin">
                                         <Setter Property="Visibility" Value="Visible"/>

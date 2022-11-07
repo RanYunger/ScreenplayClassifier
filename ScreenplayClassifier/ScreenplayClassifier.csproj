@@ -70,6 +70,7 @@
     <None Remove="Media\Images\Home.png" />
     <None Remove="Media\Images\Icon.ico" />
     <None Remove="Media\Images\Info.png" />
+    <None Remove="Media\Images\Invisible.png" />
     <None Remove="Media\Images\LeftArrowPressed.png" />
     <None Remove="Media\Images\LeftArrowUnpressed.png" />
     <None Remove="Media\Images\Member.png" />
@@ -83,12 +84,14 @@
     <None Remove="Media\Images\RightArrowPressed.png" />
     <None Remove="Media\Images\RightArrowUnpressed.png" />
     <None Remove="Media\Images\Screenplay.png" />
+    <None Remove="Media\Images\Search.png" />
     <None Remove="Media\Images\Settings.png" />
     <None Remove="Media\Images\Signout.png" />
     <None Remove="Media\Images\StopPressed.png" />
     <None Remove="Media\Images\StopUnpressed.png" />
     <None Remove="Media\Images\User.png" />
     <None Remove="Media\Images\Username.png" />
+    <None Remove="Media\Images\Visible.png" />
     <None Remove="Media\Videos\Countdown.mp4" />
     <None Remove="Media\Videos\It%27s Over. Go Home.mp4" />
     <None Remove="Media\Videos\You Shall Not Pass.mp4" />
@@ -300,6 +303,9 @@
     <Content Include="Media\Images\Screenplay.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\Search.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\Settings.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -318,7 +324,13 @@
     <Content Include="Media\Images\Username.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\Visible.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Videos\Countdown.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Videos\It's Over. Go Home.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Videos\You Shall Not Pass.mp4">
@@ -368,12 +380,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Media\Videos\It's Over. Go Home.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Media\Images\Movie.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -387,6 +393,12 @@
 
   <ItemGroup>
     <Content Include="Media\Images\Gears.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Media\Images\Invisible.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

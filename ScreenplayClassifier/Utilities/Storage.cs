@@ -10,6 +10,10 @@ namespace ScreenplayClassifier.Utilities
 {
     public static class Storage
     {
+        // Constants
+        public static string USERNAMEPATTERN = "([A-Z]{1}[a-z]+){2,3}"; // E.G. RanYunger, ShyOhevZion
+        public static string PASSWORDPATTERN = "[A-Z]{2,3}[0-9]{5,6}"; // E.G. RY120696, SHZ101098
+
         // Methods
         public static ObservableCollection<UserModel> LoadUsers()
         {
