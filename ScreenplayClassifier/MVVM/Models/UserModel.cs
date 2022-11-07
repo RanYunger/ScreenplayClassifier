@@ -1,7 +1,10 @@
-﻿using System;
+﻿using ScreenplayClassifier.Utilities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 using System.Text;
+using System.Windows;
 
 namespace ScreenplayClassifier.MVVM.Models
 {
@@ -63,5 +66,23 @@ namespace ScreenplayClassifier.MVVM.Models
             Role = role;
             Password = password;
         }
+
+        // Methods
+        #region Commands
+        [IgnoreDataMember]
+        public Command ChangeRoleCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    Role = Role == UserModel.UserRole.ADMIN ? UserModel.UserRole.MEMBER : UserModel.UserRole.ADMIN; ;
+
+                    MessageBoxHandler.Show(string.Format("{0} has been {1} to {2}", Username,
+                        Role == UserModel.UserRole.ADMIN ? "promoted" : "demoted", Role), "Success", 3, MessageBoxImage.Information);
+                });
+            }
+        }
+        #endregion
     }
 }

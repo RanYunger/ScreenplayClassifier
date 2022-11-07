@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -17,14 +18,43 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class SettingsViewModel : INotifyPropertyChanged
     {
         // Fields
-        private bool isOldPasswordVisible, isNewPasswordVisible;
-        private string oldPassword, newPassword, confirmedPassword;
+        private Predicate<object> usernameFilter;
+
         private ObservableCollection<UserModel> authenticatedUsers;
+        private int selectedUser;
+        private bool isOldPasswordVisible, isNewPasswordVisible, canAdd, canRemove;
+        private string oldPassword, newPassword, confirmedPassword;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public MainViewModel MainViewModel { get; private set; }
         public SettingsView SettingsView { get; private set; }
+
+        public ObservableCollection<UserModel> AuthenticatedUsers
+        {
+            get { return authenticatedUsers; }
+            set
+            {
+                authenticatedUsers = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("AuthenticatedUsers"));
+            }
+        }
+
+        public int SelectedUser
+        {
+            get { return selectedUser; }
+            set
+            {
+                selectedUser = value;
+                CanRemove = selectedUser != -1;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedUser"));
+            }
+        }
 
         public bool IsOldPasswordVisible
         {
@@ -47,6 +77,30 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("IsNewPasswordVisible"));
+            }
+        }
+
+        public bool CanAdd
+        {
+            get { return canAdd; }
+            set
+            {
+                canAdd = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanAdd"));
+            }
+        }
+
+        public bool CanRemove
+        {
+            get { return canRemove; }
+            set
+            {
+                canRemove = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanRemove"));
             }
         }
 
@@ -83,18 +137,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ConfirmedPassword"));
-            }
-        }
-
-        public ObservableCollection<UserModel> AuthenticatedUsers
-        {
-            get { return authenticatedUsers; }
-            set
-            {
-                authenticatedUsers = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("AuthenticatedUsers"));
             }
         }
 
@@ -168,6 +210,65 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
+
+        public Command SearchCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    TextBox usernameInputTextBox = (TextBox)SettingsView.FindName("UsernameInputTextBox");
+                    ICollectionView usersCollectionView = CollectionViewSource.GetDefaultView(AuthenticatedUsers);
+                    string usernameInput = usernameInputTextBox.Text;
+
+                    usernameFilter = (o) => { return string.IsNullOrEmpty(usernameInput) ? true : ((UserModel)o).Username.Contains(usernameInput); };
+
+                    usersCollectionView.Filter = (o) => { return usernameFilter.Invoke(o); };
+                    usersCollectionView.Refresh();
+
+                    CanAdd = true;
+                    foreach (UserModel user in AuthenticatedUsers)
+                    {
+                        if (user.Username.Equals(usernameInput))
+                        {
+                            CanAdd = false;
+                            break;
+                        }
+                    }
+                });
+            }
+        }
+
+        public Command AddMemberCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    TextBox usernameInputTextBox = (TextBox)SettingsView.FindName("UsernameInputTextBox");
+                    string usernameInput = usernameInputTextBox.Text;
+
+                    AuthenticatedUsers.Add(new UserModel(usernameInput, UserModel.UserRole.MEMBER, "ABC123"));
+
+                    MessageBoxHandler.Show(usernameInput + " added successfuly", "Success", 3, MessageBoxImage.Information);
+                });
+            }
+        }
+
+        public Command RemoveMemberCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    MessageBoxResult confirmResult = MessageBox.Show("Are you sure you want to remove this member?", "Warning",
+                        MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                    if (confirmResult == MessageBoxResult.Yes)
+                        AuthenticatedUsers.RemoveAt(SelectedUser);
+                });
+            }
+        }
         #endregion
 
         public void Init(SettingsView settingsView, MainViewModel mainViewModel, ObservableCollection<UserModel> authenticatedUsers)
@@ -189,6 +290,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             confirmPasswordBox = (PasswordBox)SettingsView.FindName("ConfirmPasswordBox");
             confirmPasswordBox.Password = ConfirmedPassword = string.Empty;
+
+            CanAdd = false;
+            CanRemove = false;
         }
     }
 }
