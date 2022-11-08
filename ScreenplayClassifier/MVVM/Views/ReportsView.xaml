@@ -23,7 +23,13 @@
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Reports" FontSize="40" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
         <StackPanel Grid.Row="1" Grid.Column="0">
-            <GroupBox Header="Filter" Margin="10" Style="{StaticResource GroupBoxStyle}">
+            <GroupBox Margin="10" Style="{StaticResource GroupBoxStyle}">
+                <GroupBox.Header>
+                    <WrapPanel>
+                        <Image Source="/Media/Images/Filter.png" Height="30" Width="30"/>
+                        <TextBlock Text="Filter" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    </WrapPanel>
+                </GroupBox.Header>
                 <WrapPanel HorizontalAlignment="Center">
                     <StackPanel>
                         <WrapPanel Margin="5">

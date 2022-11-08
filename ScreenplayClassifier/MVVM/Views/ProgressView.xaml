@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             xmlns:rpb="http://XamlRadialProgressBar/DotNet"
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              Style="{StaticResource UserControlStyle}">
     <Grid>
@@ -16,6 +17,12 @@
             <TextBlock Text="{Binding ClassificationsText}" FontSize="30" Margin="20,0,0,0" Style="{StaticResource TextBlockStyle}"/>
             <TextBlock Text="{Binding DurationText}" FontSize="30" Margin="680,0,0,0" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
-        <v:CircularProgressBarView x:Name="CircularProgressBarView" Grid.Row="1"/>
+        <rpb:RadialProgressBar x:Name="RadialProgressBar" Grid.Row="1" Value="{Binding Percent}" Height="650" Width="650" ArcWidth="25" 
+                               Foreground="LimeGreen" InnerBackgroundBrush="{StaticResource MainColumnHeaderBackground}"/>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="{Binding ElementName=RadialProgressBar, Path=Value}" FontSize="50" HorizontalAlignment="Center"
+                       Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="P E R C E N T" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

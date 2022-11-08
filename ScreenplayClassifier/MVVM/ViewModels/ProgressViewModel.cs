@@ -30,7 +30,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
-        public CircularProgressBarViewModel CircularProgressBarViewModel { get; private set; }
         public ProgressView ProgressView { get; private set; }
 
         public System.Timers.Timer DurationTimer
@@ -82,6 +81,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public int Percent
+        {
+            get { return percent; }
+            set
+            {
+                percent = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("Percent"));
+            }
+        }
+
         public string ClassificationsText
         {
             get { return classificationsText; }
@@ -121,32 +132,26 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void DurationTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Duration = Duration.Add(TimeSpan.FromSeconds(1));
-            CircularProgressBarViewModel.Percent += 5;
+            Percent += 5;
 
-            if (CircularProgressBarViewModel.Percent > 100)
+            if (Percent > 100)
                 App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
         }
         #endregion
 
         public void Init(ClassificationViewModel classificationViewModel, ProgressView progressView)
         {
-            CircularProgressBarView circularProgressBarView = (CircularProgressBarView)progressView.FindName("CircularProgressBarView");
-
             ClassificationViewModel = classificationViewModel;
             ProgressView = progressView;
-            CircularProgressBarViewModel = (CircularProgressBarViewModel)circularProgressBarView.DataContext;
-
-            CircularProgressBarViewModel.Init(circularProgressBarView);
         }
 
         public void ShowView(ObservableCollection<string> browsedScreenplays)
         {
             DurationTimer.Start();
-            CircularProgressBarViewModel.CircularProgressBarView.Visibility = Visibility.Visible;
 
             ClassificationsRequired = browsedScreenplays.Count;
             ClassificationsComplete = 0;
-            CircularProgressBarViewModel.ShowView(ClassificationsRequired);
+            Percent = 0;
 
             App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Visible);
 
