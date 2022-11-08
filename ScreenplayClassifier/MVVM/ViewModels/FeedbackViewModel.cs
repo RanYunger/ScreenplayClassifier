@@ -75,8 +75,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void RefreshView(ScreenplayModel selectedScreenplay)
         {
-            PredictedGenresViewModel.RefreshView(selectedScreenplay, "Predicted");
-            ActualGenresViewModel.RefreshView(selectedScreenplay, "Actual");
+            try
+            {
+                PredictedGenresViewModel.RefreshView(selectedScreenplay, "Predicted");
+                ActualGenresViewModel.RefreshView(selectedScreenplay, "Actual");
+            }
+            catch { }
         }
 
         public void HideView()

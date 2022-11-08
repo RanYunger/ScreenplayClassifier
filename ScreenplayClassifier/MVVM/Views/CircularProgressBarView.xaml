@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views">
+             xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
+             Height="300" Width="300">
     <UserControl.Resources>
         <Storyboard x:Key="ProgressBarAnimation" TargetName="Arc">
             <PointAnimationUsingPath Storyboard.TargetProperty="Point" Duration="0:0:20">
@@ -19,7 +20,11 @@
         </Storyboard>
     </UserControl.Resources>
     <Grid>
-        <Path x:Name="ProgressPath" Fill="Transparent" Stroke="LimeGreen" StrokeThickness="20" StrokeStartLineCap="Flat"
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="{Binding Percent}" FontSize="40" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="P E R C E N T" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
+        <!--<Path x:Name="ProgressPath" Fill="Transparent" Stroke="LimeGreen" StrokeThickness="20" StrokeStartLineCap="Flat"
               StrokeEndLineCap="Flat" StrokeLineJoin="Round">
             <Path.Data>
                 <PathGeometry>
@@ -32,6 +37,6 @@
             <Path.Effect>
                 <DropShadowEffect BlurRadius="20" ShadowDepth="2" Direction="-90" Color="LimeGreen"/>
             </Path.Effect>
-        </Path>
+        </Path>-->
     </Grid>
 </UserControl>

@@ -30,7 +30,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
-        public CircularProgressBarView CircularProgressBarView { get; private set; }
+        public CircularProgressBarViewModel CircularProgressBarViewModel { get; private set; }
         public ProgressView ProgressView { get; private set; }
 
         public System.Timers.Timer DurationTimer
@@ -82,18 +82,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public int Percent
-        {
-            get { return percent; }
-            set
-            {
-                percent = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Percent"));
-            }
-        }
-
         public string ClassificationsText
         {
             get { return classificationsText; }
@@ -133,29 +121,32 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void DurationTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Duration = Duration.Add(TimeSpan.FromSeconds(1));
-            Percent += 5;
+            CircularProgressBarViewModel.Percent += 5;
 
-            if (Percent > 100)
+            if (CircularProgressBarViewModel.Percent > 100)
                 App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
         }
         #endregion
 
         public void Init(ClassificationViewModel classificationViewModel, ProgressView progressView)
         {
+            CircularProgressBarView circularProgressBarView = (CircularProgressBarView)progressView.FindName("CircularProgressBarView");
+
             ClassificationViewModel = classificationViewModel;
             ProgressView = progressView;
-            CircularProgressBarView = (CircularProgressBarView)progressView.FindName("CircularProgressBarView");
+            CircularProgressBarViewModel = (CircularProgressBarViewModel)circularProgressBarView.DataContext;
+
+            CircularProgressBarViewModel.Init(circularProgressBarView);
         }
 
         public void ShowView(ObservableCollection<string> browsedScreenplays)
         {
             DurationTimer.Start();
-            CircularProgressBarView.Visibility = Visibility.Visible;
-            ((Storyboard)CircularProgressBarView.Resources["ProgressBarAnimation"]).Begin();
+            CircularProgressBarViewModel.CircularProgressBarView.Visibility = Visibility.Visible;
 
             ClassificationsRequired = browsedScreenplays.Count;
             ClassificationsComplete = 0;
-            Percent = 0;
+            CircularProgressBarViewModel.ShowView(ClassificationsRequired);
 
             App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Visible);
 
@@ -181,10 +172,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ObservableCollection<ClassificationModel> ClassifyScreenplays(ObservableCollection<string> screenplaysToClassify)
         {
             ScriptEngine engine = Python.CreateEngine();
-            ScriptSource source = engine.CreateScriptSourceFromFile(FolderPaths.PYTHON + "Setup.py");
+            ScriptSource source = engine.CreateScriptSourceFromFile(FolderPaths.CLASSIFIER + "Setup.py");
             MemoryStream errorsMemoryStream = new MemoryStream(), resultsMemoryStream = new MemoryStream();
             List<string> argv = new List<string>() { string.Empty };
-            //int progressPercent;
             string classificationsJson = string.Empty;
 
             argv.AddRange(string.Join(" ", screenplaysToClassify).Split(" ", StringSplitOptions.RemoveEmptyEntries));
@@ -195,24 +185,25 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             source.Execute(engine.CreateScope());
 
-            // TODO: ENABLE (Python classifier needs to print the progress percent)
+            // TODO: ENABLE (AFTER CLASSIFIER IS READY IN PYTHON)
             //do
             //{
-            //    progressPercent = resultsMemoryStream.ReadByte();
-            //    if ((progressPercent >= 0) && (progressPercent <= 100))
-            //        CircularProgressBarViewModel.Percent += progressPercent;
+            //    ClassificationsComplete = (int)resultsMemoryStream.ReadByte();
+            //    CircularProgressBarViewModel.Percent = (100 * ClassificationsComplete) / ClassificationsRequired;
             //}
-            //while (progressPercent < 100);
+            //while (CircularProgressBarViewModel.Percent < 100);
 
             classificationsJson = Encoding.Default.GetString(resultsMemoryStream.ToArray());
 
-            return Mockup(classificationsJson.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries));
+            // TODO: REMOVE (AFTER CLASSIFIER IS READY IN PYTHON) 
+            return Mockup(screenplaysToClassify);
 
-            // TODO: ENABLE (AFTER CLASSIFIER IS READY IN PYTHON + copied to the "Python" folder) 
+            // TODO: ENABLE (AFTER CLASSIFIER IS READY IN PYTHON) 
             //return new ObservableCollection<ClassificationModel>(JsonConvert.DeserializeObject<List<ClassificationModel>>(classificationsJson));
         }
 
-        private ObservableCollection<ClassificationModel> Mockup(string[] results)
+        // TODO: REMOVE (AFTER CLASSIFIER IS READY IN PYTHON) 
+        private ObservableCollection<ClassificationModel> Mockup(ObservableCollection<string> screenplaysToClassify)
         {
             ObservableCollection<ClassificationModel> x = new ObservableCollection<ClassificationModel>();
             UserModel owner = ClassificationViewModel.MainViewModel.UserToolbarViewModel.User;
@@ -221,12 +212,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             Dictionary<string, int> wordAppearances;
             int id = 1;
 
-            foreach (string arg in results)
+            foreach (string screenplayName in screenplaysToClassify)
             {
                 concordance = new Dictionary<string, List<int>>();
                 wordAppearances = new Dictionary<string, int>();
 
-                screenplay = new ScreenplayModel(id++, Path.GetFileNameWithoutExtension(arg), "Unknown", "Unknown", "Unknown");
+                screenplay = new ScreenplayModel(id++, Path.GetFileNameWithoutExtension(screenplayName), "Unknown", "Unknown", "Unknown");
 
                 x.Add(new ClassificationModel(owner, screenplay, concordance, wordAppearances));
             }

@@ -23,10 +23,10 @@ namespace ScreenplayClassifier.Utilities
         #endregion
 
         #region Classifier
-        public static string PYTHON = Environment.CurrentDirectory + @"\Python\";
+        public static string CLASSIFIER = Environment.CurrentDirectory + @"\Classifier\";
         #endregion
 
-        #region Storage
+        #region Json
         public static string JSONS = Environment.CurrentDirectory + @"\Jsons\";
         #endregion
     }
