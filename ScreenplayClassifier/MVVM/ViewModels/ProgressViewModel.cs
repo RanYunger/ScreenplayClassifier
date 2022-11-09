@@ -215,14 +215,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ScreenplayModel screenplay;
             Dictionary<string, List<int>> concordance;
             Dictionary<string, int> wordAppearances;
-            int id = 1;
 
             foreach (string screenplayName in screenplaysToClassify)
             {
                 concordance = new Dictionary<string, List<int>>();
                 wordAppearances = new Dictionary<string, int>();
 
-                screenplay = new ScreenplayModel(id++, Path.GetFileNameWithoutExtension(screenplayName), "Unknown", "Unknown", "Unknown");
+                screenplay = new ScreenplayModel(Path.GetFileNameWithoutExtension(screenplayName), "Unknown", "Unknown", "Unknown");
 
                 x.Add(new ClassificationModel(owner, screenplay, concordance, wordAppearances));
             }

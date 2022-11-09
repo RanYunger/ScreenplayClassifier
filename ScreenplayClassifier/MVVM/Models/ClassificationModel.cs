@@ -15,7 +15,11 @@ namespace ScreenplayClassifier.MVVM.Models
 {
     public class ClassificationModel : INotifyPropertyChanged
     {
+        // Constants
+        private static int IDGenerator = 1;
+
         // Fields
+        private int classificationID;
         private UserModel owner;
         private ScreenplayModel screenplay;
         private Dictionary<string, List<int>> concordance;
@@ -23,6 +27,18 @@ namespace ScreenplayClassifier.MVVM.Models
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
+        public int ID
+        {
+            get { return classificationID; }
+            set
+            {
+                classificationID = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ID"));
+            }
+        }
+
         public UserModel Owner
         {
             get { return owner; }
@@ -71,6 +87,7 @@ namespace ScreenplayClassifier.MVVM.Models
         public ClassificationModel(UserModel owner, ScreenplayModel screenplay,
             Dictionary<string, List<int>> concordance, Dictionary<string, int> wordAppearances)
         {
+            ID = IDGenerator++;
             Owner = owner;
             Screenplay = screenplay;
             Concordance = concordance;

@@ -76,7 +76,7 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 return new Command(() =>
                 {
-                    Role = Role == UserModel.UserRole.ADMIN ? UserModel.UserRole.MEMBER : UserModel.UserRole.ADMIN; ;
+                    Role = Role == UserModel.UserRole.ADMIN ? UserModel.UserRole.MEMBER : UserModel.UserRole.ADMIN;
 
                     MessageBoxHandler.Show(string.Format("{0} has been {1} to {2}", Username,
                         Role == UserModel.UserRole.ADMIN ? "promoted" : "demoted", Role), "Success", 3, MessageBoxImage.Information);

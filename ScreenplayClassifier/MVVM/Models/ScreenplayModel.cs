@@ -7,6 +7,9 @@ namespace ScreenplayClassifier.MVVM.Models
 {
     public class ScreenplayModel : INotifyPropertyChanged
     {
+        // Constants
+        private static int IDGenerator = 1;
+
         // Fields
         private int screenplayID;
         private string name;
@@ -112,9 +115,9 @@ namespace ScreenplayClassifier.MVVM.Models
         }
 
         // Constructors
-        public ScreenplayModel(int screenplayID, string name, string predictedGenre, string predictedSubGenre1, string predictedSubGenre2)
+        public ScreenplayModel(string name, string predictedGenre, string predictedSubGenre1, string predictedSubGenre2)
         {
-            ID = screenplayID;
+            ID = IDGenerator++;
             Name = name;
 
             PredictedGenre = predictedGenre;
