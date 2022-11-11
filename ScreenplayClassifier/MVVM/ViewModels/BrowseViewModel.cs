@@ -181,7 +181,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         BrowsedScreenplaysPaths.Add(openFileDialog.FileNames[i]);
                     }
 
-                    SelectedScreenplay = browsedScreenplaysNames.Count == 1 ? 0 : SelectedScreenplay;
+                    SelectedScreenplay = browsedScreenplaysNames.Count > 0 ? 0 : SelectedScreenplay;
                     CanChoose = BrowsedScreenplaysNames.Count > 0;
                     CanProceed = BrowsedScreenplaysNames.Count > 0;
                 });

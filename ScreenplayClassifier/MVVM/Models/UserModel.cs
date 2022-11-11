@@ -76,10 +76,17 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 return new Command(() =>
                 {
-                    Role = Role == UserModel.UserRole.ADMIN ? UserModel.UserRole.MEMBER : UserModel.UserRole.ADMIN;
+                    string roleAction = Role == UserRole.ADMIN ? "demote" : "promote";
+                    UserRole newRole = Role == UserRole.ADMIN ? UserRole.MEMBER : UserRole.ADMIN;
+                    MessageBoxResult confirmResult = MessageBox.Show(string.Format("Are you sure you want to {0} {1}?", roleAction, Username),
+                        "Confirm Role Change", MessageBoxButton.YesNo);
 
-                    MessageBoxHandler.Show(string.Format("{0} has been {1} to {2}", Username,
-                        Role == UserModel.UserRole.ADMIN ? "promoted" : "demoted", Role), "Success", 3, MessageBoxImage.Information);
+                    if (confirmResult == MessageBoxResult.Yes)
+                    {
+                        Role = newRole;
+                        MessageBoxHandler.Show(string.Format("{0} has been {1}d to {2}", Username, roleAction, Role), "Success", 3,
+                            MessageBoxImage.Information);
+                    }
                 });
             }
         }

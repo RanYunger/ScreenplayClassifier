@@ -198,6 +198,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         return;
                     }
 
+                    if (OldPassword.Equals(NewPassword))
+                    {
+                        MessageBoxHandler.Show("This is your current password", "Error", 3, MessageBoxImage.Error);
+                        return;
+                    }
+
                     ConfirmedPassword = confirmPasswordBox.Password;
                     if (!string.Equals(NewPassword, ConfirmedPassword))
                     {
@@ -261,8 +267,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    MessageBoxResult confirmResult = MessageBox.Show("Are you sure you want to remove this member?", "Warning",
-                        MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    MessageBoxResult confirmResult = MessageBox.Show(string.Format("Are you sure you want to remove {0}?",
+                        AuthenticatedUsers[SelectedUser].Username, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning));
 
                     if (confirmResult == MessageBoxResult.Yes)
                         AuthenticatedUsers.RemoveAt(SelectedUser);
