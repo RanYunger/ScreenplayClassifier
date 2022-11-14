@@ -40,11 +40,14 @@
     <None Remove="Media\Gifs\Genres\Thriller.gif" />
     <None Remove="Media\Gifs\Genres\War.gif" />
     <None Remove="Media\Gifs\Let Me See The Script.gif" />
+    <None Remove="Media\Gifs\Percent.gif" />
+    <None Remove="Media\Gifs\Reel.gif" />
     <None Remove="Media\Gifs\Reports.gif" />
     <None Remove="Media\Images\Add.png" />
     <None Remove="Media\Images\Admin.png" />
     <None Remove="Media\Images\AudioOff.png" />
     <None Remove="Media\Images\AudioOn.png" />
+    <None Remove="Media\Images\Back.png" />
     <None Remove="Media\Images\Browse.png" />
     <None Remove="Media\Images\Cinema.png" />
     <None Remove="Media\Images\Clear.png" />
@@ -201,6 +204,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\AudioOn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Back.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Browse.png">
@@ -393,6 +399,15 @@
 
   <ItemGroup>
     <Content Include="Media\Images\Invisible.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Media\Gifs\Percent.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Gifs\Reel.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

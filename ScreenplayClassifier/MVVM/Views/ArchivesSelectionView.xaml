@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="ScreenplayClassifier.MVVM.Views.ArchivesSelectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
+             Style="{StaticResource UserControlStyle}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="View Archives by" FontSize="60" HorizontalAlignment="Center"
+                   Style="{StaticResource TextBlockStyle}"/>
+        <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Cursor="Hand">
+            <Image Height="400" Width="400" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Percent.gif" gif:ImageBehavior.RepeatBehavior="Forever"
+                   Margin="10">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding ShowArchivesByPercentCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Image.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="450"/>
+                                <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="450"/>
+                                <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="PercentTextBlock" Storyboard.TargetProperty="FontSize"
+                                                 To="70"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="400"/>
+                                <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="400"/>
+                                <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="PercentTextBlock" Storyboard.TargetProperty="FontSize"
+                                                 To="50"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Image.Triggers>
+            </Image>
+            <TextBlock x:Name="PercentTextBlock" Text="Percent" FontSize="50" HorizontalAlignment="Center"
+                       Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Cursor="Hand">
+            <Image Height="400" Width="400" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Reel.gif" gif:ImageBehavior.RepeatBehavior="Forever"
+                   Margin="10">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding ShowArchivesByGenreCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Image.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="450"/>
+                                <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="450"/>
+                                <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="GenreTextBlock" Storyboard.TargetProperty="FontSize"
+                                                 To="70"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="400"/>
+                                <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="400"/>
+                                <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="GenreTextBlock" Storyboard.TargetProperty="FontSize"
+                                                 To="50"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Image.Triggers>
+            </Image>
+            <TextBlock x:Name="GenreTextBlock" Text="Genre" FontSize="50" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -43,7 +43,20 @@ namespace ScreenplayClassifier.Utilities
 
         public static void SaveReports(ObservableCollection<ClassificationModel> reports)
         {
-            File.WriteAllText(FolderPaths.JSONS + "Reports.json", JsonConvert.SerializeObject(reports, Formatting.Indented));
+            List<ClassificationModel> allReports = new List<ClassificationModel>(LoadReports());
+            ClassificationModel duplicateReport = null;
+
+            // Removes duplicates
+            for (int i = 0; i < reports.Count; i++)
+            {
+                duplicateReport = allReports.Find(r => r.ID == reports[i].ID);
+                if (duplicateReport != null)
+                    reports.RemoveAt(i);
+                else
+                    allReports.Add(reports[i]);
+            }
+
+            File.WriteAllText(FolderPaths.JSONS + "Reports.json", JsonConvert.SerializeObject(allReports, Formatting.Indented));
         }
     }
 }
