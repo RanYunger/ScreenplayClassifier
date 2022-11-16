@@ -130,6 +130,12 @@
         <Setter Property="Margin" Value="10,0"/>
     </Style>
 
+    <!--RadioButton Style-->
+    <Style x:Key="SliderStyle" TargetType="Slider">
+        <Setter Property="Minimum" Value="0"/>
+        <Setter Property="IsSnapToTickEnabled" Value="True"/>
+    </Style>
+
     <!--TabItem Style-->
     <Style x:Key="TabItemStyle" TargetType="TabItem">
         <Setter Property="Background" Value="{StaticResource UserControlBackground}"/>

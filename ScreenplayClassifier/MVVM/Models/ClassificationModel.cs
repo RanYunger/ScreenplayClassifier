@@ -57,6 +57,7 @@ namespace ScreenplayClassifier.MVVM.Models
             set
             {
                 screenplay = value;
+
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("Screenplay"));
             }
@@ -68,16 +69,19 @@ namespace ScreenplayClassifier.MVVM.Models
             set
             {
                 concordance = value;
+
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("Concordance"));
             }
         }
+
         public Dictionary<string, int> WordAppearances
         {
             get { return wordAppearances; }
             set
             {
                 wordAppearances = value;
+
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("WordAppearances"));
             }

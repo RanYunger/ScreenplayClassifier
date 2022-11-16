@@ -160,6 +160,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
+
         public Command BrowseScreenplaysCommand
         {
             get
@@ -187,6 +188,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
+
         public Command ClearScreenplaysCommand
         {
             get
@@ -202,6 +204,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
+
         public Command ProceedToClassificationCommand
         {
             get

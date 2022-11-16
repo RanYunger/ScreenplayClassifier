@@ -101,6 +101,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
+
         public Command SelectSubGenre1Command
         {
             get
@@ -112,6 +113,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
+
         public Command SelectSubGenre2Command
         {
             get

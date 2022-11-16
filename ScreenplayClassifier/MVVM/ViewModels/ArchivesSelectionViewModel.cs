@@ -24,6 +24,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get { return new Command(() => ArchivesViewModel.ShowView(ArchivesViewModel.ArchivesByPercentView)); }
         }
+
         public Command ShowArchivesByGenreCommand
         {
             get { return new Command(() => ArchivesViewModel.ShowView(ArchivesViewModel.ArchivesByGenreView)); }

@@ -43,6 +43,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     PropertyChanged(this, new PropertyChangedEventArgs("DurationTimer"));
             }
         }
+
         public TimeSpan Duration
         {
             get { return duration; }
@@ -200,7 +201,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             classificationsJson = Encoding.Default.GetString(resultsMemoryStream.ToArray());
 
-            // TODO: REMOVE (AFTER CLASSIFIER IS READY IN PYTHON) 
+            // TODO: REMOVE (AFTER CLASSIFIER IS READY IN PYTHON)
             return Mockup(screenplaysToClassify);
 
             // TODO: ENABLE (AFTER CLASSIFIER IS READY IN PYTHON) 
@@ -215,13 +216,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ScreenplayModel screenplay;
             Dictionary<string, List<int>> concordance;
             Dictionary<string, int> wordAppearances;
+            Dictionary<string, float> matchingPercentages = new Dictionary<string, float>();
+
+            matchingPercentages["Action"] = 40.2f;
+            matchingPercentages["Adventure"] = 50.8f;
+            matchingPercentages["Crime"] = 9.0f;
 
             foreach (string screenplayName in screenplaysToClassify)
             {
                 concordance = new Dictionary<string, List<int>>();
                 wordAppearances = new Dictionary<string, int>();
 
-                screenplay = new ScreenplayModel(Path.GetFileNameWithoutExtension(screenplayName), "Unknown", "Unknown", "Unknown");
+                screenplay = new ScreenplayModel(Path.GetFileNameWithoutExtension(screenplayName), matchingPercentages);
 
                 x.Add(new ClassificationModel(owner, screenplay, concordance, wordAppearances));
             }

@@ -293,6 +293,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
+
         public Command ClearFilterCommand
         {
             get

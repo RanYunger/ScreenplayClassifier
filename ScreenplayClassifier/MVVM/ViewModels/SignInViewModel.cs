@@ -175,6 +175,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
+
         public Command OpenCommandShellCommand
         {
 
@@ -187,6 +188,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
+
         public Command KickUserCommand
         {
             get

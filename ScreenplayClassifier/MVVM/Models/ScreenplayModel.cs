@@ -15,6 +15,7 @@ namespace ScreenplayClassifier.MVVM.Models
         private string name;
         private string predictedGenre, predictedSubGenre1, predictedSubGenre2;
         private string actualGenre, actualSubGenre1, actualSubGenre2;
+        private Dictionary<string, float> matchingPercentages;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -114,15 +115,31 @@ namespace ScreenplayClassifier.MVVM.Models
             }
         }
 
-        // Constructors
-        public ScreenplayModel(string name, string predictedGenre, string predictedSubGenre1, string predictedSubGenre2)
+        public Dictionary<string, float> MatchingPercentages
         {
+            get { return matchingPercentages; }
+            set
+            {
+                matchingPercentages = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("MatchingPercentages"));
+            }
+        }
+
+        // Constructors
+        public ScreenplayModel(string name, Dictionary<string, float> matchingPercentages)
+        {
+            List<string> predictedGenres = new List<string>(matchingPercentages.Keys);
+
             ID = IDGenerator++;
             Name = name;
 
-            PredictedGenre = predictedGenre;
-            PredictedSubGenre1 = predictedSubGenre1;
-            PredictedSubGenre2 = predictedSubGenre2;
+            MatchingPercentages = matchingPercentages;
+
+            PredictedGenre = predictedGenres[0];
+            PredictedSubGenre1 = predictedGenres[1];
+            PredictedSubGenre2 = predictedGenres[2];
 
             ActualGenre = "Unknown";
             ActualSubGenre1 = "Unknown";

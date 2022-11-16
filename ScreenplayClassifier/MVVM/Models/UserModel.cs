@@ -30,6 +30,7 @@ namespace ScreenplayClassifier.MVVM.Models
                     PropertyChanged(this, new PropertyChangedEventArgs("Username"));
             }
         }
+
         public UserRole Role
         {
             get { return role; }
@@ -41,6 +42,7 @@ namespace ScreenplayClassifier.MVVM.Models
                     PropertyChanged(this, new PropertyChangedEventArgs("Role"));
             }
         }
+
         public string Password
         {
             get { return password; }
@@ -60,6 +62,7 @@ namespace ScreenplayClassifier.MVVM.Models
             Role = UserRole.GUEST;
             Password = string.Empty;
         }
+
         public UserModel(string username, UserRole role, string password)
         {
             Username = username;
