@@ -45,6 +45,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 screenplays = value;
 
                 ((ArchivesByGenreViewModel)ArchivesByGenreView.DataContext).RefreshArchives(Genres, screenplays);
+                ((ArchivesByPercentViewModel)ArchivesByPercentView.DataContext).RefreshArchives(screenplays);
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("Screenplays"));
@@ -86,7 +87,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 foreach (ClassificationModel report in reports)
                     Screenplays.Add(report.Screenplay);
 
-                Screenplays = Screenplays;
+                Screenplays = Screenplays; // Triggers PropertyChanged event
             }
         }
 

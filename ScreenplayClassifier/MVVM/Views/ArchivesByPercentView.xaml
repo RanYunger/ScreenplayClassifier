@@ -7,6 +7,11 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              Style="{StaticResource UserControlStyle}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ClearFilterCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -14,7 +19,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="900"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="2">
@@ -25,7 +30,7 @@
             </Button>
             <TextBlock Text="Archives by Percent" Grid.ColumnSpan="4" FontSize="60" Margin="350,10,0,0" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
-        <GroupBox Grid.Row="1" Margin="10" Style="{StaticResource GroupBoxStyle}">
+        <GroupBox Grid.Row="1" Grid.ColumnSpan="2" Margin="10" Style="{StaticResource GroupBoxStyle}">
             <GroupBox.Header>
                 <WrapPanel>
                     <Image Source="/Media/Images/Filter.png" Height="30" Width="30"/>
@@ -38,12 +43,14 @@
                         <TextBlock Text="Genre is:" Style="{StaticResource TextBlockStyle}"/>
                         <ComboBox Width="100" ItemsSource="{Binding GenreOptions}" SelectedItem="{Binding FilteredGenre}" Margin="45,10,0,10"
                                   Style="{StaticResource ComboBoxStyle}"/>
-                        <TextBlock Text="Percentage:" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+                        <TextBlock Text="Matching Percentage:" Margin="10" Style="{StaticResource TextBlockStyle}"/>
                         <Slider x:Name="GenrePercentageSlider" Width="200" Maximum="100" TickFrequency="10" Margin="2,10,0,10"
                                 Style="{StaticResource SliderStyle}"/>
                         <TextBox Text="{Binding ElementName=GenrePercentageSlider, Path=Value}" Width="50" TextAlignment="Center"
                                  Margin="10,10,0,10" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                        <TextBlock Text="-" Margin="5" Style="{StaticResource TextBlockStyle}"/>
+                        <TextBlock Text="Proximity:" Margin="5" Style="{StaticResource TextBlockStyle}"/>
+                        <Slider x:Name="GenreSDSlider" Width="200" Maximum="10" TickFrequency="1" Margin="2,10,0,10"
+                                Style="{StaticResource SliderStyle}"/>
                         <TextBox Text="{Binding ElementName=GenreSDSlider, Path=Value}" Width="50" TextAlignment="Center" Margin="0,10,0,10"
                                  Style="{StaticResource ReadOnlyTextBoxStyle}"/>
                     </WrapPanel>
@@ -51,12 +58,14 @@
                         <TextBlock Text="SubGenre 1 is:" Style="{StaticResource TextBlockStyle}"/>
                         <ComboBox Width="100" ItemsSource="{Binding SubGenre1Options}"
                                       SelectedItem="{Binding FilteredSubGenre1}" Margin="10" Style="{StaticResource ComboBoxStyle}"/>
-                        <TextBlock Text="Percentage:" Margin="0,10,0,10" Style="{StaticResource TextBlockStyle}"/>
+                        <TextBlock Text="Matching Percentage:" Margin="0,10,0,10" Style="{StaticResource TextBlockStyle}"/>
                         <Slider x:Name="SubGenre1PercentageSlider" Width="200" Maximum="100" TickFrequency="10" Margin="10"
                                 Style="{StaticResource SliderStyle}"/>
                         <TextBox Text="{Binding ElementName=SubGenre1PercentageSlider, Path=Value}" Width="50" TextAlignment="Center"
                                  Margin="0,10,0,10" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                        <TextBlock Text="-" Margin="5" Style="{StaticResource TextBlockStyle}"/>
+                        <TextBlock Text="Proximity:" Margin="5" Style="{StaticResource TextBlockStyle}"/>
+                        <Slider x:Name="SubGenre1SDSlider" Width="200" Maximum="10" TickFrequency="1" Margin="2,10,0,10"
+                                Style="{StaticResource SliderStyle}"/>
                         <TextBox Text="{Binding ElementName=SubGenre1SDSlider, Path=Value}" Width="50" TextAlignment="Center"
                                  Margin="0,10,0,10" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
                     </WrapPanel>
@@ -64,23 +73,25 @@
                         <TextBlock Text="SubGenre 2 is:" Style="{StaticResource TextBlockStyle}"/>
                         <ComboBox Width="100" ItemsSource="{Binding SubGenre2Options}" SelectedItem="{Binding FilteredSubGenre2}"
                                   Margin="10" Style="{StaticResource ComboBoxStyle}"/>
-                        <TextBlock Text="Percentage:" Margin="0,10,0,10" Style="{StaticResource TextBlockStyle}"/>
+                        <TextBlock Text="Matching Percentage:" Margin="0,10,0,10" Style="{StaticResource TextBlockStyle}"/>
                         <Slider x:Name="SubGenre2PercentageSlider" Width="200" Maximum="100" TickFrequency="10" Margin="10"
                                 Style="{StaticResource SliderStyle}"/>
                         <TextBox Text="{Binding ElementName=SubGenre2PercentageSlider, Path=Value}" Width="50" TextAlignment="Center"
                                  Margin="0,10,0,10" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                        <TextBlock Text="-" Margin="5" Style="{StaticResource TextBlockStyle}"/>
+                        <TextBlock Text="Proximity:" Margin="5" Style="{StaticResource TextBlockStyle}"/>
+                        <Slider x:Name="SubGenre2SDSlider" Width="200" Maximum="10" TickFrequency="1" Margin="2,10,0,10"
+                                Style="{StaticResource SliderStyle}"/>
                         <TextBox Text="{Binding ElementName=SubGenre2SDSlider, Path=Value}" Width="50" TextAlignment="Center" Margin="0,10,0,10"
                                  Style="{StaticResource ReadOnlyTextBoxStyle}"/>
                     </WrapPanel>
                 </StackPanel>
-                <Button Command="{Binding FilterReportsCommand}" Height="100" Width="100" IsEnabled="{Binding CanClear}"
+                <Button Command="{Binding FilterReportsCommand}" Height="130" Width="130" IsEnabled="{Binding CanClear}"
                             ToolTip="Filter archives" Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
                     <Button.Content>
                         <Image Source="/Media/Images/Filter.png"/>
                     </Button.Content>
                 </Button>
-                <Button Command="{Binding ClearFilterCommand}" Height="100" Width="100" ToolTip="Clear filter"
+                <Button Command="{Binding ClearFilterCommand}" Height="130" Width="130" ToolTip="Clear filter"
                         Margin="10" Style="{StaticResource ButtonStyle}">
                     <Button.Content>
                         <Image Source="/Media/Images/Clear.png"/>
@@ -88,5 +99,18 @@
                 </Button>
             </WrapPanel>
         </GroupBox>
+        <DataGrid Grid.Row="2" Grid.Column="0" ItemsSource="{Binding Archives}" SelectedItem="{Binding SelectedScreenplay}"
+                  Height="405" IsReadOnly="True" Margin="10,0,10,0" Style="{StaticResource DataGridStyle}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="290"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                <DataGridTextColumn Header="Genre" Binding="{Binding Path=ActualGenre}" Width="150"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=ActualSubGenre1}" Width="150"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=ActualSubGenre2}" Width="150"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

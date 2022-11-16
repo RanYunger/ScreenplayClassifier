@@ -54,10 +54,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             set
             {
                 moduleName = value;
-                
-                switch(moduleName)
+
+                switch (moduleName)
                 {
-                    case "Archives": ModuleDescription = "View screenplays categorized by genre"; break;
+                    case "Archives": ModuleDescription = "View categorized screenplays"; break;
                     case "Classification": ModuleDescription = "Classify screenplays to genres"; break;
                     case "Reports": ModuleDescription = "View classification reports"; break;
                 }

@@ -8,9 +8,20 @@
     "Screenplay": {
       "ID": 1,
       "Name": "Lord of the Rings: Fellowship of the Ring",
-      "PredictedGenre": "Unknown",
-      "PredictedSubGenre1": "Unknown",
-      "PredictedSubGenre2": "Unknown",
+      "MatchingPercentages": {
+        "Action": 20.0,
+        "Adventure": 10.0,
+        "Comedy": 10.6,
+        "Crime": 19.0,
+        "Drama": 30.4,
+        "Family": 0.0,
+        "Fantasy": 0.0,
+        "Horror": 5.0,
+        "Romance": 2.4,
+        "Sci-Fi": 2.6,
+        "Thriller": 0.0,
+        "War": 0.0
+      },
       "ActualGenre": "Fantasy",
       "ActualSubGenre1": "Adventure",
       "ActualSubGenre2": "Action"
@@ -27,9 +38,20 @@
     "Screenplay": {
       "ID": 2,
       "Name": "Lord of the Rings: The Two Towers",
-      "PredictedGenre": "Unknown",
-      "PredictedSubGenre1": "Unknown",
-      "PredictedSubGenre2": "Unknown",
+      "MatchingPercentages": {
+        "Action": 20.0,
+        "Adventure": 10.0,
+        "Comedy": 10.6,
+        "Crime": 19.0,
+        "Drama": 30.4,
+        "Family": 0.0,
+        "Fantasy": 0.0,
+        "Horror": 5.0,
+        "Romance": 2.4,
+        "Sci-Fi": 2.6,
+        "Thriller": 0.0,
+        "War": 0.0
+      },
       "ActualGenre": "Fantasy",
       "ActualSubGenre1": "Adventure",
       "ActualSubGenre2": "War"
@@ -46,9 +68,20 @@
     "Screenplay": {
       "ID": 3,
       "Name": "Lord of the Rings: The Return of the King",
-      "PredictedGenre": "Unknown",
-      "PredictedSubGenre1": "Unknown",
-      "PredictedSubGenre2": "Unknown",
+      "MatchingPercentages": {
+        "Action": 20.0,
+        "Adventure": 10.0,
+        "Comedy": 10.6,
+        "Crime": 19.0,
+        "Drama": 30.4,
+        "Family": 0.0,
+        "Fantasy": 0.0,
+        "Horror": 5.0,
+        "Romance": 2.4,
+        "Sci-Fi": 2.6,
+        "Thriller": 0.0,
+        "War": 0.0
+      },
       "ActualGenre": "Fantasy",
       "ActualSubGenre1": "Adventure",
       "ActualSubGenre2": "War"
@@ -65,9 +98,20 @@
     "Screenplay": {
       "ID": 4,
       "Name": "Saw",
-      "PredictedGenre": "Unknown",
-      "PredictedSubGenre1": "Unknown",
-      "PredictedSubGenre2": "Unknown",
+      "MatchingPercentages": {
+        "Action": 20.0,
+        "Adventure": 10.0,
+        "Comedy": 10.6,
+        "Crime": 19.0,
+        "Drama": 30.4,
+        "Family": 0.0,
+        "Fantasy": 0.0,
+        "Horror": 5.0,
+        "Romance": 2.4,
+        "Sci-Fi": 2.6,
+        "Thriller": 0.0,
+        "War": 0.0
+      },
       "ActualGenre": "Horror",
       "ActualSubGenre1": "Crime",
       "ActualSubGenre2": "Thriller"
