@@ -60,6 +60,7 @@
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Width" Value="100"/>
+        <Setter Property="Cursor" Value="Hand"/>
     </Style>
     
     <!--DataGrid Style-->
@@ -134,6 +135,7 @@
     <Style x:Key="SliderStyle" TargetType="Slider">
         <Setter Property="Minimum" Value="0"/>
         <Setter Property="IsSnapToTickEnabled" Value="True"/>
+        <Setter Property="Cursor" Value="Hand"/>
     </Style>
 
     <!--TabItem Style-->
