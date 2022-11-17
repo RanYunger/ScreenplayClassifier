@@ -371,6 +371,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dirkster.NumericUpDownLib" Version="3.2.0" />
     <PackageReference Include="IronPython" Version="2.7.12" />
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />

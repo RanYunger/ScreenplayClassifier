@@ -1,6 +1,7 @@
 ﻿using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
+using NumericUpDownLib;
 using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
@@ -23,8 +24,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private Predicate<object> subGenre2Filter, subGenre2PercentageFilter;
 
         private string filteredGenre, filteredSubGenre1, filteredSubGenre2;
-        private float filteredGenrePercentage, filteredSubGenre1Percentage, filteredSubGenre2Percentage;
-        private float filteredGenreProximity, filteredSubGenre1Proximity, filteredSubGenre2Proximity;
+        private int filteredGenreMinPercentage, filteredSubGenre1MinPercentage, filteredSubGenre2MinPercentage;
+        private int filteredGenreMaxPercentage, filteredSubGenre1MaxPercentage, filteredSubGenre2MaxPercentage;
         private ScreenplayModel selectedScreenplay;
         private ObservableCollection<ScreenplayModel> archives;
         private ObservableCollection<string> genreOptions, subGenre1Options, subGenre2Options;
@@ -117,75 +118,75 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public float FilteredGenrePercentage
+        public int FilteredGenreMinPercentage
         {
-            get { return filteredGenrePercentage; }
+            get { return filteredGenreMinPercentage; }
             set
             {
-                filteredGenrePercentage = value;
+                filteredGenreMinPercentage = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredGenrePercentage"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredGenreMinPercentage"));
             }
         }
 
-        public float FilteredSubGenre1Percentage
+        public int FilteredSubGenre1MinPercentage
         {
-            get { return filteredSubGenre1Percentage; }
+            get { return filteredSubGenre1MinPercentage; }
             set
             {
-                filteredSubGenre1Percentage = value;
+                filteredSubGenre1MinPercentage = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre1Percentage"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre1MinPercentage"));
             }
         }
 
-        public float FilteredSubGenre2Percentage
+        public int FilteredSubGenre2MinPercentage
         {
-            get { return filteredSubGenre2Percentage; }
+            get { return filteredSubGenre2MinPercentage; }
             set
             {
-                filteredSubGenre2Percentage = value;
+                filteredSubGenre2MinPercentage = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre2Percentage"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre2MinPercentage"));
             }
         }
 
-        public float FilteredGenreProximity
+        public int FilteredGenreMaxPercentage
         {
-            get { return filteredGenreProximity; }
+            get { return filteredGenreMaxPercentage; }
             set
             {
-                filteredGenreProximity = value;
+                filteredGenreMaxPercentage = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredGenreProximity"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredGenreMaxPercentage"));
             }
         }
 
-        public float FilteredSubGenre1Proximity
+        public int FilteredSubGenre1MaxPercentage
         {
-            get { return filteredSubGenre1Proximity; }
+            get { return filteredSubGenre1MaxPercentage; }
             set
             {
-                filteredSubGenre1Proximity = value;
+                filteredSubGenre1MaxPercentage = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre1Proximity"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre1MaxPercentage"));
             }
         }
 
-        public float FilteredSubGenre2Proximity
+        public int FilteredSubGenre2MaxPercentage
         {
-            get { return filteredSubGenre2Proximity; }
+            get { return filteredSubGenre2MaxPercentage; }
             set
             {
-                filteredSubGenre2Proximity = value;
+                filteredSubGenre2MaxPercentage = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre2Proximity"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre2MaxPercentage"));
             }
         }
 
@@ -259,13 +260,58 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return new Command(() => ArchivesViewModel.ShowView(ArchivesViewModel.ArchivesSelectionView)); }
         }
 
-        public Command FilterReportsCommand
+        public Command ChangeFilteredGenrePercentageRangeCommand
         {
             get
             {
                 return new Command(() =>
                 {
-                    ICollectionView screenplaysCollectionView = CollectionViewSource.GetDefaultView(Archives);
+                    NumericUpDown minPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredGenreMinPercentageNumericUpDown"),
+                        maxPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredGenreMaxPercentageNumericUpDown");
+
+                    FilteredGenreMinPercentage = minPercentageNumericUpDown.Value;
+                    FilteredGenreMaxPercentage = maxPercentageNumericUpDown.Value;
+                });
+            }
+        }
+
+        public Command ChangeFilteredSubGenre1PercentageRangeCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    NumericUpDown minPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre1MinPercentageNumericUpDown"),
+                        maxPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre1MaxPercentageNumericUpDown");
+
+                    FilteredSubGenre1MinPercentage = minPercentageNumericUpDown.Value;
+                    FilteredSubGenre1MaxPercentage = maxPercentageNumericUpDown.Value;
+                });
+            }
+        }
+
+        public Command ChangeFilteredSubGenre2PercentageRangeCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    NumericUpDown minPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre2MinPercentageNumericUpDown"),
+                        maxPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre2MaxPercentageNumericUpDown");
+
+                    FilteredSubGenre2MinPercentage = minPercentageNumericUpDown.Value;
+                    FilteredSubGenre2MaxPercentage = maxPercentageNumericUpDown.Value;
+                });
+            }
+        }
+
+        public Command FilterArchivesCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    ICollectionView archivesCollectionView = CollectionViewSource.GetDefaultView(Archives);
 
                     genreFilter = (o) =>
                     {
@@ -284,36 +330,33 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     {
                         ScreenplayModel screenplay = (ScreenplayModel)o;
                         float genrePercentage = screenplay.MatchingPercentages[screenplay.ActualGenre];
-                        bool lowerBoundaryCondition = genrePercentage >= (FilteredGenrePercentage - FilteredGenreProximity),
-                            upperBoundaryCondition = genrePercentage <= (FilteredGenrePercentage + FilteredGenreProximity);
 
-                        return string.IsNullOrEmpty(FilteredGenre) ? true : (lowerBoundaryCondition) && (upperBoundaryCondition);
+                        return string.IsNullOrEmpty(FilteredGenre) ? true
+                            : (genrePercentage >= FilteredGenreMinPercentage) && (genrePercentage <= FilteredGenreMaxPercentage);
                     };
                     subGenre1PercentageFilter = (o) =>
                     {
                         ScreenplayModel screenplay = (ScreenplayModel)o;
                         float subGenre1Percentage = screenplay.MatchingPercentages[screenplay.ActualSubGenre1];
-                        bool lowerBoundaryCondition = subGenre1Percentage >= (FilteredSubGenre1Percentage - FilteredSubGenre1Proximity),
-                            upperBoundaryCondition = subGenre1Percentage <= (FilteredSubGenre1Percentage + FilteredSubGenre1Proximity);
 
-                        return string.IsNullOrEmpty(FilteredSubGenre1) ? true : (lowerBoundaryCondition) && (upperBoundaryCondition);
+                        return string.IsNullOrEmpty(FilteredSubGenre1) ? true
+                            : (subGenre1Percentage >= FilteredSubGenre1MinPercentage) && (subGenre1Percentage <= FilteredSubGenre1MaxPercentage);
                     };
                     subGenre2PercentageFilter = (o) =>
                     {
                         ScreenplayModel screenplay = (ScreenplayModel)o;
-                        float subGenre1Percentage = screenplay.MatchingPercentages[screenplay.ActualSubGenre2];
-                        bool lowerBoundaryCondition = subGenre1Percentage >= (FilteredSubGenre2Percentage - FilteredSubGenre2Proximity),
-                            upperBoundaryCondition = subGenre1Percentage <= (FilteredSubGenre2Percentage + FilteredSubGenre2Proximity);
+                        float subGenre2Percentage = screenplay.MatchingPercentages[screenplay.ActualSubGenre2];
 
-                        return string.IsNullOrEmpty(FilteredSubGenre2) ? true : (lowerBoundaryCondition) && (upperBoundaryCondition);
+                        return string.IsNullOrEmpty(FilteredSubGenre2) ? true
+                            : (subGenre2Percentage >= FilteredSubGenre2MinPercentage) && (subGenre2Percentage <= FilteredSubGenre2MaxPercentage);
                     };
 
-                    screenplaysCollectionView.Filter = (o) =>
+                    archivesCollectionView.Filter = (o) =>
                     {
                         return (genreFilter.Invoke(o)) && (subGenre1Filter.Invoke(o)) && (subGenre2Filter.Invoke(o)) &&
                             (genrePercentageFilter.Invoke(o)) && (subGenre1PercentageFilter.Invoke(o)) && (subGenre2PercentageFilter.Invoke(o));
                     };
-                    screenplaysCollectionView.Refresh();
+                    archivesCollectionView.Refresh();
 
                     //RefreshPieCharts(screenplaysCollectionView);
                 });
@@ -334,15 +377,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     FilteredSubGenre1 = null;
                     FilteredSubGenre2 = null;
 
-                    FilteredGenrePercentage = 50f;
-                    FilteredSubGenre1Percentage = 50f;
-                    FilteredSubGenre2Percentage = 50f;
+                    FilteredGenreMinPercentage = 0;
+                    FilteredSubGenre1MinPercentage = 0;
+                    FilteredSubGenre2MinPercentage = 0;
 
-                    FilteredGenreProximity = 1f;
-                    FilteredSubGenre1Proximity = 1f;
-                    FilteredSubGenre2Proximity = 1f;
+                    FilteredGenreMaxPercentage = 100;
+                    FilteredSubGenre1MaxPercentage = 100;
+                    FilteredSubGenre2MaxPercentage = 100;
 
-                    FilterReportsCommand.Execute(null);
+                    FilterArchivesCommand.Execute(null);
                 });
             }
         }
