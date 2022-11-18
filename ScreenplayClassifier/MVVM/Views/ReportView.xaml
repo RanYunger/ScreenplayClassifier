@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         Title="Screenplay Classifier" Height="800" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Style="{StaticResource WindowStyle}">
     <Grid>
@@ -29,9 +30,15 @@
                 <TextBox Text="{Binding ClassificationReport.Screenplay.Name}" Width="300" Margin="25,0,0,0"
                          Style="{StaticResource ReadOnlyTextBoxStyle}"/>
             </WrapPanel>
+            <TextBlock Text="Genre Predictions" FontSize="20" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+            <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="350" Width="350" Hoverable="True" Margin="20">
+                <lvc:PieChart.ChartLegend>
+                    <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="10"/>
+                </lvc:PieChart.ChartLegend>
+            </lvc:PieChart>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <TextBlock Text="Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Actual Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <v:GenresView x:Name="GenresView" IsEnabled="False"/>
         </StackPanel>
     </Grid>

@@ -1,5 +1,9 @@
-﻿using ScreenplayClassifier.MVVM.Models;
+﻿using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
+using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
+using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +15,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private ClassificationModel classificationReport;
+        private SeriesCollection percentageSeries;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -26,6 +31,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ClassificationReport"));
+            }
+        }
+
+        public SeriesCollection PercentageSeries
+        {
+            get { return percentageSeries; }
+            set
+            {
+                percentageSeries = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("PercentageSeries"));
             }
         }
 
@@ -48,6 +65,28 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             GenresViewModel.Init(genresView);
 
             GenresViewModel.RefreshView(ClassificationReport.Screenplay, "Actual");
+
+            RefreshPieChart();
+        }
+
+        private void RefreshPieChart()
+        {
+            List<string> allGenres = JSON.LoadGenres();
+            float genrePercentage;
+
+            PercentageSeries = new SeriesCollection();
+
+            foreach (string genreName in allGenres)
+            {
+                genrePercentage = ClassificationReport.Screenplay.MatchingPercentages[genreName];
+                if (genrePercentage > 0)
+                    PercentageSeries.Add(new PieSeries()
+                    {
+                        Title = genreName,
+                        Values = new ChartValues<ObservableValue> { new ObservableValue(genrePercentage) },
+                        DataLabels = false
+                    });
+            }
         }
     }
 }

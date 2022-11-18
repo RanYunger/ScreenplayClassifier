@@ -8,7 +8,7 @@ using System.Text;
 
 namespace ScreenplayClassifier.Utilities
 {
-    public static class Storage
+    public static class JSON
     {
         // Constants
         public static string USERNAMEPATTERN = "([A-Z]{1}[a-z]+){2,3}"; // E.G. RanYunger, ShyOhevZion

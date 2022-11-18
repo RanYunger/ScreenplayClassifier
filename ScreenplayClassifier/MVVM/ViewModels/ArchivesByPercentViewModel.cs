@@ -29,7 +29,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private ScreenplayModel selectedScreenplay;
         private ObservableCollection<ScreenplayModel> archives;
         private ObservableCollection<string> genreOptions, subGenre1Options, subGenre2Options;
-        private SeriesCollection selectedScreenplayGenresSeries;
+        private SeriesCollection percentageSeries;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -197,6 +197,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 selectedScreenplay = value;
 
+                RefreshPieChart();
+
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("SelectedScreenplay"));
             }
@@ -247,6 +249,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("SubGenre2Options"));
+            }
+        }
+
+        public SeriesCollection PercentageSeries
+        {
+            get { return percentageSeries; }
+            set
+            {
+                percentageSeries = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("PercentageSeries"));
             }
         }
 
@@ -358,7 +372,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     };
                     archivesCollectionView.Refresh();
 
-                    //RefreshPieCharts(screenplaysCollectionView);
+                    RefreshPieChart();
                 });
             }
         }
@@ -369,6 +383,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
+                    NumericUpDown genreMinPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredGenreMinPercentageNumericUpDown"),
+                        genreMaxPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredGenreMaxPercentageNumericUpDown"),
+                        subGenre1MinPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre1MinPercentageNumericUpDown"),
+                        subGenre1MaxPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre1MaxPercentageNumericUpDown"),
+                        subGenre2MinPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre2MinPercentageNumericUpDown"),
+                        subGenre2MaxPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre2MaxPercentageNumericUpDown");
+
                     GenreOptions = new ObservableCollection<string>(allGenres);
                     SubGenre1Options = new ObservableCollection<string>(allGenres);
                     SubGenre2Options = new ObservableCollection<string>(allGenres);
@@ -377,13 +398,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     FilteredSubGenre1 = null;
                     FilteredSubGenre2 = null;
 
-                    FilteredGenreMinPercentage = 0;
-                    FilteredSubGenre1MinPercentage = 0;
-                    FilteredSubGenre2MinPercentage = 0;
+                    SelectedScreenplay = null;
 
-                    FilteredGenreMaxPercentage = 100;
-                    FilteredSubGenre1MaxPercentage = 100;
-                    FilteredSubGenre2MaxPercentage = 100;
+                    genreMinPercentageNumericUpDown.Value = FilteredGenreMinPercentage = 0;
+                    genreMaxPercentageNumericUpDown.Value = FilteredGenreMaxPercentage = 100;
+
+                    subGenre1MinPercentageNumericUpDown.Value = FilteredSubGenre1MinPercentage = 0;
+                    subGenre1MaxPercentageNumericUpDown.Value = FilteredSubGenre1MaxPercentage = 100;
+
+                    subGenre2MinPercentageNumericUpDown.Value = FilteredSubGenre2MinPercentage = 0;
+                    subGenre2MaxPercentageNumericUpDown.Value = FilteredSubGenre2MaxPercentage = 100;
 
                     FilterArchivesCommand.Execute(null);
                 });
@@ -393,7 +417,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void Init(ArchivesByPercentView archivesByPercentView, ArchivesViewModel archivesViewModel)
         {
-            allGenres = Storage.LoadGenres();
+            allGenres = JSON.LoadGenres();
 
             ArchivesViewModel = archivesViewModel;
             ArchivesByPercentView = archivesByPercentView;
@@ -404,29 +428,29 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             Archives = new ObservableCollection<ScreenplayModel>();
 
             foreach (ScreenplayModel screenplay in refreshedArchives)
-            {
                 if (!Archives.Contains(screenplay))
                     Archives.Add(screenplay);
-            }
 
             Archives = Archives; // Triggers PropertyChanged event
         }
 
-        private void RefreshPieCharts(ICollectionView reportsCollectionView)
+        private void RefreshPieChart()
         {
-            float genreCount;
+            float genrePercentage;
 
-            selectedScreenplayGenresSeries = new SeriesCollection();
+            PercentageSeries = new SeriesCollection();
+            if (SelectedScreenplay == null)
+                return;
 
             foreach (string genreName in allGenres)
             {
-                genreCount = SelectedScreenplay.MatchingPercentages[genreName];
-                if (genreCount > 0)
-                    selectedScreenplayGenresSeries.Add(new PieSeries()
+                genrePercentage = SelectedScreenplay.MatchingPercentages[genreName];
+                if (genrePercentage > 0)
+                    PercentageSeries.Add(new PieSeries()
                     {
                         Title = genreName,
-                        Values = new ChartValues<ObservableValue> { new ObservableValue(genreCount) },
-                        DataLabels = true
+                        Values = new ChartValues<ObservableValue> { new ObservableValue() },
+                        DataLabels = false
                     });
             }
         }

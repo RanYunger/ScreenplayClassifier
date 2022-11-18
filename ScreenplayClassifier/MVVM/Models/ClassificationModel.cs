@@ -22,8 +22,6 @@ namespace ScreenplayClassifier.MVVM.Models
         private int classificationID;
         private UserModel owner;
         private ScreenplayModel screenplay;
-        private Dictionary<string, List<int>> concordance;
-        private Dictionary<string, int> wordAppearances;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -63,30 +61,6 @@ namespace ScreenplayClassifier.MVVM.Models
             }
         }
 
-        public Dictionary<string, List<int>> Concordance
-        {
-            get { return concordance; }
-            set
-            {
-                concordance = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Concordance"));
-            }
-        }
-
-        public Dictionary<string, int> WordAppearances
-        {
-            get { return wordAppearances; }
-            set
-            {
-                wordAppearances = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("WordAppearances"));
-            }
-        }
-
         // Constructors
         public ClassificationModel(UserModel owner, ScreenplayModel screenplay,
             Dictionary<string, List<int>> concordance, Dictionary<string, int> wordAppearances)
@@ -94,8 +68,6 @@ namespace ScreenplayClassifier.MVVM.Models
             ID = IDGenerator++;
             Owner = owner;
             Screenplay = screenplay;
-            Concordance = concordance;
-            WordAppearances = wordAppearances;
         }
 
         // Methods

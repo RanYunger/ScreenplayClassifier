@@ -317,7 +317,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void Init(ReportsView reportsView, MainViewModel mainViewModel)
         {
-            allGenres = Storage.LoadGenres();
+            allGenres = JSON.LoadGenres();
 
             MainViewModel = mainViewModel;
             ReportsView = reportsView;
@@ -334,7 +334,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 Reports = new ObservableCollection<ClassificationModel>();
             else
             {
-                Reports = Storage.LoadReports();
+                Reports = JSON.LoadReports();
 
                 if (user.Role == UserModel.UserRole.MEMBER)
                 {
@@ -385,7 +385,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         private void RefreshBarChart(ICollectionView reportsCollectionView)
         {
-            ObservableCollection<UserModel> authenticatedUsers = Storage.LoadUsers();
+            ObservableCollection<UserModel> authenticatedUsers = JSON.LoadUsers();
             int ownerCount;
 
             OwnerSeries = new SeriesCollection();

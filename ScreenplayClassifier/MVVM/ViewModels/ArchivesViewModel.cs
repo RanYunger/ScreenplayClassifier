@@ -69,7 +69,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ((ArchivesByGenreViewModel)ArchivesByGenreView.DataContext).Init(ArchivesByGenreView, this);
             ((ArchivesByPercentViewModel)ArchivesByPercentView.DataContext).Init(ArchivesByPercentView, this);
 
-            Genres = Storage.LoadGenres();
+            Genres = JSON.LoadGenres();
             InitScreenplays();
 
             ((ArchivesByGenreViewModel)ArchivesByGenreView.DataContext).RefreshArchives(Genres, Screenplays);

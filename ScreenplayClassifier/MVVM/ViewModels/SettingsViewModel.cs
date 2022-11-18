@@ -17,6 +17,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 {
     public class SettingsViewModel : INotifyPropertyChanged
     {
+        // TODO: FIX (password change + user changes don't seem to be written to file)
+
         // Fields
         private Predicate<object> usernameFilter;
 
@@ -182,7 +184,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    Regex passwordRegex = new Regex(Storage.PASSWORDPATTERN);
+                    Regex passwordRegex = new Regex(JSON.PASSWORDPATTERN);
                     PasswordBox confirmPasswordBox = (PasswordBox)SettingsView.FindName("ConfirmPasswordBox");
 
                     // Validations

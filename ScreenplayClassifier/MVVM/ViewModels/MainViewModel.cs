@@ -51,8 +51,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     if (UserToolbarViewModel.User.Role != UserModel.UserRole.GUEST)
                     {
-                        Storage.SaveReports(((ReportsViewModel)ReportsView.DataContext).Reports);
-                        Storage.SaveUsers(((SettingsViewModel)SettingsView.DataContext).AuthenticatedUsers);
+                        JSON.SaveReports(((ReportsViewModel)ReportsView.DataContext).Reports);
+                        JSON.SaveUsers(((SettingsViewModel)SettingsView.DataContext).AuthenticatedUsers);
                     }
 
                     ((ClassificationViewModel)ClassificationView.DataContext).InterruptVideoCommand.Execute(null);

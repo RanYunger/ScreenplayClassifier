@@ -18,16 +18,14 @@
         "Fantasy": 0.0,
         "Horror": 5.0,
         "Romance": 2.4,
-        "Sci-Fi": 2.6,
+        "SciFi": 2.6,
         "Thriller": 0.0,
         "War": 0.0
       },
       "ActualGenre": "Fantasy",
       "ActualSubGenre1": "Adventure",
       "ActualSubGenre2": "Action"
-    },
-    "Concordance": {},
-    "WordAppearances": {}
+    }
   },
   {
     "Owner": {
@@ -39,8 +37,8 @@
       "ID": 2,
       "Name": "Lord of the Rings: The Two Towers",
       "MatchingPercentages": {
-        "Action": 20.0,
-        "Adventure": 10.0,
+        "Action": 25.0,
+        "Adventure": 15.0,
         "Comedy": 10.6,
         "Crime": 19.0,
         "Drama": 30.4,
@@ -48,16 +46,14 @@
         "Fantasy": 0.0,
         "Horror": 5.0,
         "Romance": 2.4,
-        "Sci-Fi": 2.6,
+        "SciFi": 2.6,
         "Thriller": 0.0,
         "War": 0.0
       },
       "ActualGenre": "Fantasy",
       "ActualSubGenre1": "Adventure",
       "ActualSubGenre2": "War"
-    },
-    "Concordance": {},
-    "WordAppearances": {}
+    }
   },
   {
     "Owner": {
@@ -69,8 +65,8 @@
       "ID": 3,
       "Name": "Lord of the Rings: The Return of the King",
       "MatchingPercentages": {
-        "Action": 20.0,
-        "Adventure": 10.0,
+        "Action": 0.0,
+        "Adventure": 30.0,
         "Comedy": 10.6,
         "Crime": 19.0,
         "Drama": 30.4,
@@ -78,16 +74,14 @@
         "Fantasy": 0.0,
         "Horror": 5.0,
         "Romance": 2.4,
-        "Sci-Fi": 2.6,
+        "SciFi": 2.6,
         "Thriller": 0.0,
         "War": 0.0
       },
       "ActualGenre": "Fantasy",
       "ActualSubGenre1": "Adventure",
       "ActualSubGenre2": "War"
-    },
-    "Concordance": {},
-    "WordAppearances": {}
+    }
   },
   {
     "Owner": {
@@ -108,15 +102,13 @@
         "Fantasy": 0.0,
         "Horror": 5.0,
         "Romance": 2.4,
-        "Sci-Fi": 2.6,
+        "SciFi": 2.6,
         "Thriller": 0.0,
         "War": 0.0
       },
       "ActualGenre": "Horror",
       "ActualSubGenre1": "Crime",
       "ActualSubGenre2": "Thriller"
-    },
-    "Concordance": {},
-    "WordAppearances": {}
+    }
   }
 ]

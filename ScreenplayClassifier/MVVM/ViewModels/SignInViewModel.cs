@@ -115,7 +115,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 return new Command(() =>
                 {
-                    Regex usernameRegex = new Regex(Storage.USERNAMEPATTERN), passwordRegex = new Regex(Storage.PASSWORDPATTERN);
+                    Regex usernameRegex = new Regex(JSON.USERNAMEPATTERN), passwordRegex = new Regex(JSON.PASSWORDPATTERN);
                     UserModel identifiedUser = null;
 
                     usernameErrorWrapPanel.Visibility = Visibility.Hidden;
@@ -229,7 +229,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     break;
                 }
 
-            AuthenticatedUsers = Storage.LoadUsers();
+            AuthenticatedUsers = JSON.LoadUsers();
             UsernameInput = UsernameError = PasswordError = string.Empty;
 
             CanSignin = true;
