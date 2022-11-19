@@ -14,7 +14,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ArchivesViewModel : INotifyPropertyChanged
     {
         // Fields
-        private List<string> genres;
+        private ObservableCollection<string> genres;
         private List<ScreenplayModel> screenplays;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,7 +25,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ArchivesByGenreView ArchivesByGenreView { get; private set; }
         public ArchivesByPercentView ArchivesByPercentView { get; private set; }
 
-        public List<string> Genres
+        public ObservableCollection<string> Genres
         {
             get { return genres; }
             set

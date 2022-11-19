@@ -71,12 +71,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         private void RefreshPieChart()
         {
-            List<string> allGenres = JSON.LoadGenres();
             float genrePercentage;
 
             PercentageSeries = new SeriesCollection();
 
-            foreach (string genreName in allGenres)
+            foreach (string genreName in JSON.loadedGenres)
             {
                 genrePercentage = ClassificationReport.Screenplay.MatchingPercentages[genreName];
                 if (genrePercentage > 0)

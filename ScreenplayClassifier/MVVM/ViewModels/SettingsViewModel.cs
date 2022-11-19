@@ -184,6 +184,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     Regex passwordRegex = new Regex(JSON.PASSWORDPATTERN);
                     PasswordBox confirmPasswordBox = (PasswordBox)SettingsView.FindName("ConfirmPasswordBox");
+                    int userOffset = AuthenticatedUsers.IndexOf(MainViewModel.UserToolbarViewModel.User);
 
                     // Validations
                     if (string.IsNullOrEmpty(NewPassword))
@@ -211,7 +212,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         return;
                     }
 
-                    MainViewModel.UserToolbarViewModel.User.Password = NewPassword;
+                    AuthenticatedUsers[userOffset].Password = NewPassword;
+                    AuthenticatedUsers[userOffset].PasswordChanged = true;
+
                     MessageBoxHandler.Show("Password changed successfuly", "Success", 3, MessageBoxImage.Information);
                 });
             }
@@ -272,6 +275,25 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     if (confirmResult == MessageBoxResult.Yes)
                         AuthenticatedUsers.RemoveAt(SelectedUser);
+                });
+            }
+        }
+
+        public Command UpdateUsersCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    // Triggers all necessary PropertyChanged events
+                    foreach (UserModel authenticatedUser in AuthenticatedUsers)
+                        if ((authenticatedUser.RoleChanged) || (authenticatedUser.PasswordChanged))
+                        {
+                            authenticatedUser.Role = authenticatedUser.Role;
+                            authenticatedUser.Password = authenticatedUser.Password;
+                        }
+
+                    AuthenticatedUsers = AuthenticatedUsers;
                 });
             }
         }

@@ -16,33 +16,43 @@ namespace ScreenplayClassifier.Utilities
 
         // Fields
         public static ObservableCollection<UserModel> loadedUsers;
+        public static ObservableCollection<string> loadedGenres;
         public static ObservableCollection<ClassificationModel> loadedReports;
 
         // Methods
         public static ObservableCollection<UserModel> LoadUsers()
         {
             string usersJson = File.ReadAllText(FolderPaths.JSONS + "Users.json");
+            List<UserModel> deserializedUsers = JsonConvert.DeserializeObject<List<UserModel>>(usersJson);
 
-            return new ObservableCollection<UserModel>(JsonConvert.DeserializeObject<List<UserModel>>(usersJson));
+            loadedUsers = new ObservableCollection<UserModel>(deserializedUsers);
+
+            return loadedUsers;
         }
 
-        public static List<string> LoadGenres()
+        public static ObservableCollection<string> LoadGenres()
         {
             string genresJson = File.ReadAllText(FolderPaths.JSONS + "Genres.json");
+            List<string> deserializedGenres = JsonConvert.DeserializeObject<List<string>>(genresJson);
 
-            return JsonConvert.DeserializeObject<List<string>>(genresJson);
+            loadedGenres = new ObservableCollection<string>(deserializedGenres);
+
+            return loadedGenres;
         }
 
         public static ObservableCollection<ClassificationModel> LoadReports()
         {
             string reportsJson = File.ReadAllText(FolderPaths.JSONS + "Reports.json");
+            List<ClassificationModel> deserializedReports = JsonConvert.DeserializeObject<List<ClassificationModel>>(reportsJson);
 
-            return new ObservableCollection<ClassificationModel>(JsonConvert.DeserializeObject<List<ClassificationModel>>(reportsJson));
+            loadedReports = new ObservableCollection<ClassificationModel>(deserializedReports);
+
+            return loadedReports;
         }
 
         public static void SaveUsers(ObservableCollection<UserModel> users)
         {
-            // TODO: FIX (no changes seem to be saved)
+            // TODO: FIX (no change seems to be saved)
             File.WriteAllText(FolderPaths.JSONS + "Users.json", JsonConvert.SerializeObject(users, Formatting.Indented));
         }
 

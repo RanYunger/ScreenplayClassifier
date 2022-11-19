@@ -18,7 +18,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ArchivesByPercentViewModel : INotifyPropertyChanged
     {
         // Fields
-        private List<string> allGenres;
         private Predicate<object> genreFilter, genrePercentageFilter;
         private Predicate<object> subGenre1Filter, subGenre1PercentageFilter;
         private Predicate<object> subGenre2Filter, subGenre2PercentageFilter;
@@ -45,8 +44,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (filteredGenre != null)
                 {
-                    SubGenre1Options = new ObservableCollection<string>(allGenres);
-                    SubGenre2Options = new ObservableCollection<string>(allGenres);
+                    SubGenre1Options = JSON.loadedGenres;
+                    SubGenre2Options = JSON.loadedGenres;
 
                     SubGenre1Options.Remove(filteredGenre);
                     SubGenre1Options.Remove(FilteredSubGenre2);
@@ -67,14 +66,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return filteredSubGenre1; }
             set
             {
-                ObservableCollection<string> filteredOptions = new ObservableCollection<string>(allGenres);
-
                 filteredSubGenre1 = value;
 
                 if (filteredSubGenre1 != null)
                 {
-                    GenreOptions = new ObservableCollection<string>(allGenres);
-                    SubGenre2Options = new ObservableCollection<string>(allGenres);
+                    GenreOptions = JSON.loadedGenres;
+                    SubGenre2Options = JSON.loadedGenres;
 
                     GenreOptions.Remove(filteredSubGenre1);
                     GenreOptions.Remove(FilteredSubGenre2);
@@ -95,14 +92,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return filteredSubGenre2; }
             set
             {
-                ObservableCollection<string> filteredOptions = new ObservableCollection<string>(allGenres);
-
                 filteredSubGenre2 = value;
 
                 if (filteredSubGenre2 != null)
                 {
-                    GenreOptions = new ObservableCollection<string>(allGenres);
-                    SubGenre1Options = new ObservableCollection<string>(allGenres);
+                    GenreOptions = JSON.loadedGenres;
+                    SubGenre1Options = JSON.loadedGenres;
 
                     GenreOptions.Remove(filteredSubGenre2);
                     GenreOptions.Remove(FilteredSubGenre1);
@@ -390,9 +385,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         subGenre2MinPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre2MinPercentageNumericUpDown"),
                         subGenre2MaxPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre2MaxPercentageNumericUpDown");
 
-                    GenreOptions = new ObservableCollection<string>(allGenres);
-                    SubGenre1Options = new ObservableCollection<string>(allGenres);
-                    SubGenre2Options = new ObservableCollection<string>(allGenres);
+                    GenreOptions = JSON.loadedGenres;
+                    SubGenre1Options = JSON.loadedGenres;
+                    SubGenre2Options = JSON.loadedGenres;
 
                     FilteredGenre = null;
                     FilteredSubGenre1 = null;
@@ -417,8 +412,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void Init(ArchivesByPercentView archivesByPercentView, ArchivesViewModel archivesViewModel)
         {
-            allGenres = JSON.LoadGenres();
-
             ArchivesViewModel = archivesViewModel;
             ArchivesByPercentView = archivesByPercentView;
         }
@@ -442,14 +435,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             if (SelectedScreenplay == null)
                 return;
 
-            foreach (string genreName in allGenres)
+            foreach (string genreName in JSON.loadedGenres)
             {
                 genrePercentage = SelectedScreenplay.MatchingPercentages[genreName];
                 if (genrePercentage > 0)
                     PercentageSeries.Add(new PieSeries()
                     {
                         Title = genreName,
-                        Values = new ChartValues<ObservableValue> { new ObservableValue() },
+                        Values = new ChartValues<ObservableValue> { new ObservableValue(genrePercentage) },
                         DataLabels = false
                     });
             }

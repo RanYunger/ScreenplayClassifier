@@ -49,13 +49,20 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
+                    SettingsViewModel settingsViewModel = (SettingsViewModel)SettingsView.DataContext;
+                    ClassificationViewModel classificationViewModel = (ClassificationViewModel)ClassificationView.DataContext;
+                    ReportsViewModel reportsViewModel = (ReportsViewModel)ReportsView.DataContext;
+
                     if (UserToolbarViewModel.User.Role != UserModel.UserRole.GUEST)
                     {
-                        JSON.SaveReports(((ReportsViewModel)ReportsView.DataContext).Reports);
-                        JSON.SaveUsers(((SettingsViewModel)SettingsView.DataContext).AuthenticatedUsers);
+                        JSON.SaveReports(reportsViewModel.Reports);
+
+                        // TODO: FIX
+                        settingsViewModel.UpdateUsersCommand.Execute(null);
+                        JSON.SaveUsers(settingsViewModel.AuthenticatedUsers);
                     }
 
-                    ((ClassificationViewModel)ClassificationView.DataContext).InterruptVideoCommand.Execute(null);
+                    classificationViewModel.InterruptVideoCommand.Execute(null);
 
                     foreach (Window view in App.Current.Windows)
                         if ((view is GenreSelectionView) || (view is GenreView) || (view is ReportView))
@@ -110,6 +117,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             if (ClassificationView.Visibility == Visibility.Collapsed)
                 ((ClassificationViewModel)ClassificationView.DataContext).InterruptVideoCommand.Execute(null);
+
+            if (ReportsView.Visibility == Visibility.Collapsed)
+                ((ReportsViewModel)ReportsView.DataContext).ClearFilterCommand.Execute(null);
 
             if (viewToShow == AboutView)
                 ((AboutViewModel)AboutView.DataContext).PlayVideoCommand.Execute(null);

@@ -16,7 +16,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     class ReportsViewModel : INotifyPropertyChanged
     {
         // Fields
-        private List<string> allGenres;
         private Predicate<object> nameFilter;
         private Predicate<object> genreFilter;
         private Predicate<object> subGenre1Filter;
@@ -175,8 +174,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (filteredGenre != null)
                 {
-                    SubGenre1Options = new ObservableCollection<string>(allGenres);
-                    SubGenre2Options = new ObservableCollection<string>(allGenres);
+                    SubGenre1Options = new ObservableCollection<string>(JSON.loadedGenres);
+                    SubGenre2Options = new ObservableCollection<string>(JSON.loadedGenres);
 
                     SubGenre1Options.Remove(filteredGenre);
                     SubGenre1Options.Remove(FilteredSubGenre2);
@@ -197,14 +196,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return filteredSubGenre1; }
             set
             {
-                ObservableCollection<string> filteredOptions = new ObservableCollection<string>(allGenres);
+                ObservableCollection<string> filteredOptions = new ObservableCollection<string>(JSON.loadedGenres);
 
                 filteredSubGenre1 = value;
 
                 if (filteredSubGenre1 != null)
                 {
-                    GenreOptions = new ObservableCollection<string>(allGenres);
-                    SubGenre2Options = new ObservableCollection<string>(allGenres);
+                    GenreOptions = new ObservableCollection<string>(JSON.loadedGenres);
+                    SubGenre2Options = new ObservableCollection<string>(JSON.loadedGenres);
 
                     GenreOptions.Remove(filteredSubGenre1);
                     GenreOptions.Remove(FilteredSubGenre2);
@@ -225,14 +224,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return filteredSubGenre2; }
             set
             {
-                ObservableCollection<string> filteredOptions = new ObservableCollection<string>(allGenres);
+                ObservableCollection<string> filteredOptions = new ObservableCollection<string>(JSON.loadedGenres);
 
                 filteredSubGenre2 = value;
 
                 if (filteredSubGenre2 != null)
                 {
-                    GenreOptions = new ObservableCollection<string>(allGenres);
-                    SubGenre1Options = new ObservableCollection<string>(allGenres);
+                    GenreOptions = new ObservableCollection<string>(JSON.loadedGenres);
+                    SubGenre1Options = new ObservableCollection<string>(JSON.loadedGenres);
 
                     GenreOptions.Remove(filteredSubGenre2);
                     GenreOptions.Remove(FilteredSubGenre1);
@@ -300,9 +299,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    GenreOptions = new ObservableCollection<string>(allGenres);
-                    SubGenre1Options = new ObservableCollection<string>(allGenres);
-                    SubGenre2Options = new ObservableCollection<string>(allGenres);
+                    GenreOptions = JSON.loadedGenres;
+                    SubGenre1Options = JSON.loadedGenres;
+                    SubGenre2Options = JSON.loadedGenres;
 
                     NamePattern = null;
                     FilteredGenre = null;
@@ -317,8 +316,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void Init(ReportsView reportsView, MainViewModel mainViewModel)
         {
-            allGenres = JSON.LoadGenres();
-
             MainViewModel = mainViewModel;
             ReportsView = reportsView;
 
@@ -334,7 +331,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 Reports = new ObservableCollection<ClassificationModel>();
             else
             {
-                Reports = JSON.loadedReports = JSON.LoadReports();
+                Reports = JSON.LoadReports();
 
                 if (user.Role == UserModel.UserRole.MEMBER)
                 {
@@ -352,7 +349,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             SubGenre1Series = new SeriesCollection();
             SubGenre2Series = new SeriesCollection();
 
-            foreach (string genreName in allGenres)
+            foreach (string genreName in JSON.loadedGenres)
             {
                 genreCount = CountRecordsByGenre(reportsCollectionView, genreName, "Genre");
                 if (genreCount > 0)
@@ -385,14 +382,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         private void RefreshBarChart(ICollectionView reportsCollectionView)
         {
-            ObservableCollection<UserModel> authenticatedUsers = JSON.LoadUsers();
             int ownerCount;
 
             OwnerSeries = new SeriesCollection();
             LabelFormatter = value => value.ToString("N");
             OwnerLabels = new string[] { };
 
-            foreach (UserModel owner in authenticatedUsers)
+            foreach (UserModel owner in JSON.loadedUsers)
             {
                 ownerCount = CountRecordsByOwner(reportsCollectionView, owner);
 

@@ -50,7 +50,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             Archives = new Dictionary<string, ObservableCollection<ScreenplayModel>>();
         }
 
-        public void RefreshArchives(List<string> genres, List<ScreenplayModel> screenplays)
+        public void RefreshArchives(ObservableCollection<string> genres, List<ScreenplayModel> screenplays)
         {
             List<ScreenplayModel> genreScreenplays;
 

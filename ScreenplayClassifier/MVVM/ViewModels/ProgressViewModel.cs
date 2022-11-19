@@ -223,7 +223,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             matchingPercentages["Comedy"] = 10;
             matchingPercentages["Crime"] = 10;
             matchingPercentages["Drama"] = 10;
-            matchingPercentages["Familiy"] = 10;
+            matchingPercentages["Family"] = 10;
             matchingPercentages["Fantasy"] = 10;
             matchingPercentages["Horror"] = 10;
             matchingPercentages["Romance"] = 2.5f;
