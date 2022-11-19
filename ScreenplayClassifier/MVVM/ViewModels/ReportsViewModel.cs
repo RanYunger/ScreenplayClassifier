@@ -334,11 +334,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 Reports = new ObservableCollection<ClassificationModel>();
             else
             {
-                Reports = JSON.LoadReports();
+                Reports = JSON.loadedReports = JSON.LoadReports();
 
                 if (user.Role == UserModel.UserRole.MEMBER)
                 {
-                    memberReports = new List<ClassificationModel>(Reports).FindAll(report => report.Owner.Username == user.Username);
+                    memberReports = new List<ClassificationModel>(Reports).FindAll(report => report.Owner.Username.Equals(user.Username));
                     Reports = new ObservableCollection<ClassificationModel>(memberReports);
                 }
             }

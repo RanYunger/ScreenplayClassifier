@@ -229,7 +229,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     break;
                 }
 
-            AuthenticatedUsers = JSON.LoadUsers();
+            AuthenticatedUsers = JSON.loadedUsers = JSON.LoadUsers();
             UsernameInput = UsernameError = PasswordError = string.Empty;
 
             CanSignin = true;

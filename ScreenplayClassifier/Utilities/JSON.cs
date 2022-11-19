@@ -14,6 +14,10 @@ namespace ScreenplayClassifier.Utilities
         public static string USERNAMEPATTERN = "([A-Z]{1}[a-z]+){2,3}"; // E.G. RanYunger, ShyOhevZion
         public static string PASSWORDPATTERN = "[A-Z]{2,3}[0-9]{5,6}"; // E.G. RY120696, SHZ101098
 
+        // Fields
+        public static ObservableCollection<UserModel> loadedUsers;
+        public static ObservableCollection<ClassificationModel> loadedReports;
+
         // Methods
         public static ObservableCollection<UserModel> LoadUsers()
         {
@@ -38,25 +42,18 @@ namespace ScreenplayClassifier.Utilities
 
         public static void SaveUsers(ObservableCollection<UserModel> users)
         {
+            // TODO: FIX (no changes seem to be saved)
             File.WriteAllText(FolderPaths.JSONS + "Users.json", JsonConvert.SerializeObject(users, Formatting.Indented));
         }
 
         public static void SaveReports(ObservableCollection<ClassificationModel> reports)
         {
-            List<ClassificationModel> allReports = new List<ClassificationModel>(LoadReports());
-            ClassificationModel duplicateReport = null;
+            // Prevents duplications
+            foreach (ClassificationModel addedReport in reports)
+                if (!loadedReports.Contains(addedReport))
+                    loadedReports.Add(addedReport);
 
-            // Removes duplicates
-            for (int i = 0; i < reports.Count; i++)
-            {
-                duplicateReport = allReports.Find(r => r.ID == reports[i].ID);
-                if (duplicateReport != null)
-                    reports.RemoveAt(i);
-                else
-                    allReports.Add(reports[i]);
-            }
-
-            File.WriteAllText(FolderPaths.JSONS + "Reports.json", JsonConvert.SerializeObject(allReports, Formatting.Indented));
+            File.WriteAllText(FolderPaths.JSONS + "Reports.json", JsonConvert.SerializeObject(loadedReports, Formatting.Indented));
         }
     }
 }

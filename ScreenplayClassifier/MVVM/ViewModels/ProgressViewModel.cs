@@ -218,9 +218,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             Dictionary<string, int> wordAppearances;
             Dictionary<string, float> matchingPercentages = new Dictionary<string, float>();
 
-            matchingPercentages["Action"] = 40.2f;
-            matchingPercentages["Adventure"] = 50.8f;
-            matchingPercentages["Crime"] = 9.0f;
+            matchingPercentages["Action"] = 20;
+            matchingPercentages["Adventure"] = 10;
+            matchingPercentages["Comedy"] = 10;
+            matchingPercentages["Crime"] = 10;
+            matchingPercentages["Drama"] = 10;
+            matchingPercentages["Familiy"] = 10;
+            matchingPercentages["Fantasy"] = 10;
+            matchingPercentages["Horror"] = 10;
+            matchingPercentages["Romance"] = 2.5f;
+            matchingPercentages["SciFi"] = 2.5f;
+            matchingPercentages["Thriller"] = 2.5f;
+            matchingPercentages["War"] = 2.5f;
 
             foreach (string screenplayName in screenplaysToClassify)
             {
