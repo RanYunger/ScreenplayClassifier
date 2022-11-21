@@ -56,9 +56,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if (UserToolbarViewModel.User.Role != UserModel.UserRole.GUEST)
                     {
                         JSON.SaveReports(reportsViewModel.Reports);
-
-                        // TODO: FIX
-                        settingsViewModel.UpdateUsersCommand.Execute(null);
                         JSON.SaveUsers(settingsViewModel.AuthenticatedUsers);
                     }
 

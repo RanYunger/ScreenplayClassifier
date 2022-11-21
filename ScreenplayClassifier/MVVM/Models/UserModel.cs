@@ -16,7 +16,6 @@ namespace ScreenplayClassifier.MVVM.Models
         // Fields
         private string username, password;
         private UserRole role;
-        private bool roleChanged, passwordChanged;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -56,39 +55,12 @@ namespace ScreenplayClassifier.MVVM.Models
             }
         }
 
-        public bool RoleChanged
-        {
-            get { return roleChanged; }
-            set
-            {
-                roleChanged = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("RoleChanged"));
-            }
-        }
-
-        public bool PasswordChanged
-        {
-            get { return passwordChanged; }
-            set
-            {
-                passwordChanged = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("PasswordChanged"));
-            }
-        }
-
         // Constructors
         public UserModel()
         {
             Username = "Jim";
             Role = UserRole.GUEST;
             Password = string.Empty;
-
-            RoleChanged = false;
-            PasswordChanged = false;
         }
 
         public UserModel(string username, UserRole role, string password)
@@ -96,9 +68,6 @@ namespace ScreenplayClassifier.MVVM.Models
             Username = username;
             Role = role;
             Password = password;
-
-            RoleChanged = false;
-            PasswordChanged = false;
         }
 
         // Methods
@@ -117,8 +86,6 @@ namespace ScreenplayClassifier.MVVM.Models
 
                     if (confirmResult == MessageBoxResult.Yes)
                     {
-                        RoleChanged = true;
-
                         Role = newRole;
                         MessageBoxHandler.Show(string.Format("{0} has been {1}d to {2}", Username, roleAction, Role), "Success", 3,
                             MessageBoxImage.Information);

@@ -142,14 +142,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         passwordErrorWrapPanel.Visibility = Visibility.Visible;
                     }
 
-                    identifiedUser = FindUser(UsernameInput.Trim(), passwordBox.Password.Trim());
+                    identifiedUser = FindUser(UsernameInput.Trim());
                     if (identifiedUser != null)
                     {
-                        App.Current.MainWindow = new MainView();
-                        ((MainViewModel)App.Current.MainWindow.DataContext).Init(identifiedUser, AuthenticatedUsers);
-                        App.Current.MainWindow.Show();
+                        if (!identifiedUser.Password.Equals(passwordBox.Password.Trim()))
+                        {
+                            PasswordError = "Wrong password";
+                            passwordErrorWrapPanel.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            App.Current.MainWindow = new MainView();
+                            ((MainViewModel)App.Current.MainWindow.DataContext).Init(identifiedUser, AuthenticatedUsers);
+                            App.Current.MainWindow.Show();
 
-                        SignInView.Close();
+                            SignInView.Close();
+                        }
                     }
                     else if (++AttemptsCount == 3)
                     {
@@ -229,16 +237,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     break;
                 }
 
-            AuthenticatedUsers = JSON.LoadUsers();
-            UsernameInput = UsernameError = PasswordError = string.Empty;
+            AuthenticatedUsers = JSON.LoadedUsers == null ? JSON.LoadUsers() : JSON.LoadedUsers;
+            UsernameInput = string.Empty;
+            UsernameError = string.Empty;
+            PasswordError = string.Empty;
 
             CanSignin = true;
         }
 
-        public UserModel FindUser(string username, string password)
+        public UserModel FindUser(string username)
         {
             foreach (UserModel user in AuthenticatedUsers)
-                if (user.Username.Equals(username) && user.Password.Equals(password))
+                if (user.Username.Equals(username))
                     return user;
 
             return null;

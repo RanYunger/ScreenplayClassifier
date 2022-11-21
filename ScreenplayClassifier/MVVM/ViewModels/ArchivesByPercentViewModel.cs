@@ -44,8 +44,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (filteredGenre != null)
                 {
-                    SubGenre1Options = JSON.loadedGenres;
-                    SubGenre2Options = JSON.loadedGenres;
+                    SubGenre1Options = JSON.LoadedGenres;
+                    SubGenre2Options = JSON.LoadedGenres;
 
                     SubGenre1Options.Remove(filteredGenre);
                     SubGenre1Options.Remove(FilteredSubGenre2);
@@ -70,8 +70,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (filteredSubGenre1 != null)
                 {
-                    GenreOptions = JSON.loadedGenres;
-                    SubGenre2Options = JSON.loadedGenres;
+                    GenreOptions = JSON.LoadedGenres;
+                    SubGenre2Options = JSON.LoadedGenres;
 
                     GenreOptions.Remove(filteredSubGenre1);
                     GenreOptions.Remove(FilteredSubGenre2);
@@ -96,8 +96,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (filteredSubGenre2 != null)
                 {
-                    GenreOptions = JSON.loadedGenres;
-                    SubGenre1Options = JSON.loadedGenres;
+                    GenreOptions = JSON.LoadedGenres;
+                    SubGenre1Options = JSON.LoadedGenres;
 
                     GenreOptions.Remove(filteredSubGenre2);
                     GenreOptions.Remove(FilteredSubGenre1);
@@ -385,9 +385,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         subGenre2MinPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre2MinPercentageNumericUpDown"),
                         subGenre2MaxPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre2MaxPercentageNumericUpDown");
 
-                    GenreOptions = JSON.loadedGenres;
-                    SubGenre1Options = JSON.loadedGenres;
-                    SubGenre2Options = JSON.loadedGenres;
+                    GenreOptions = JSON.LoadedGenres;
+                    SubGenre1Options = JSON.LoadedGenres;
+                    SubGenre2Options = JSON.LoadedGenres;
 
                     FilteredGenre = null;
                     FilteredSubGenre1 = null;
@@ -435,7 +435,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             if (SelectedScreenplay == null)
                 return;
 
-            foreach (string genreName in JSON.loadedGenres)
+            foreach (string genreName in JSON.LoadedGenres)
             {
                 genrePercentage = SelectedScreenplay.MatchingPercentages[genreName];
                 if (genrePercentage > 0)

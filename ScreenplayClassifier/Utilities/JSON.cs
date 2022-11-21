@@ -15,9 +15,9 @@ namespace ScreenplayClassifier.Utilities
         public static string PASSWORDPATTERN = "[A-Z]{2,3}[0-9]{5,6}"; // E.G. RY120696, SHZ101098
 
         // Fields
-        public static ObservableCollection<UserModel> loadedUsers;
-        public static ObservableCollection<string> loadedGenres;
-        public static ObservableCollection<ClassificationModel> loadedReports;
+        public static ObservableCollection<UserModel> LoadedUsers;
+        public static ObservableCollection<string> LoadedGenres;
+        public static ObservableCollection<ClassificationModel> LoadedReports;
 
         // Methods
         public static ObservableCollection<UserModel> LoadUsers()
@@ -25,9 +25,9 @@ namespace ScreenplayClassifier.Utilities
             string usersJson = File.ReadAllText(FolderPaths.JSONS + "Users.json");
             List<UserModel> deserializedUsers = JsonConvert.DeserializeObject<List<UserModel>>(usersJson);
 
-            loadedUsers = new ObservableCollection<UserModel>(deserializedUsers);
+            LoadedUsers = new ObservableCollection<UserModel>(deserializedUsers);
 
-            return loadedUsers;
+            return LoadedUsers;
         }
 
         public static ObservableCollection<string> LoadGenres()
@@ -35,9 +35,9 @@ namespace ScreenplayClassifier.Utilities
             string genresJson = File.ReadAllText(FolderPaths.JSONS + "Genres.json");
             List<string> deserializedGenres = JsonConvert.DeserializeObject<List<string>>(genresJson);
 
-            loadedGenres = new ObservableCollection<string>(deserializedGenres);
+            LoadedGenres = new ObservableCollection<string>(deserializedGenres);
 
-            return loadedGenres;
+            return LoadedGenres;
         }
 
         public static ObservableCollection<ClassificationModel> LoadReports()
@@ -45,25 +45,26 @@ namespace ScreenplayClassifier.Utilities
             string reportsJson = File.ReadAllText(FolderPaths.JSONS + "Reports.json");
             List<ClassificationModel> deserializedReports = JsonConvert.DeserializeObject<List<ClassificationModel>>(reportsJson);
 
-            loadedReports = new ObservableCollection<ClassificationModel>(deserializedReports);
+            LoadedReports = new ObservableCollection<ClassificationModel>(deserializedReports);
 
-            return loadedReports;
+            return LoadedReports;
         }
 
         public static void SaveUsers(ObservableCollection<UserModel> users)
         {
-            // TODO: FIX (no change seems to be saved)
-            File.WriteAllText(FolderPaths.JSONS + "Users.json", JsonConvert.SerializeObject(users, Formatting.Indented));
+            LoadedUsers = users; // For signing out (reloading the file is unnecessary)
+
+            File.WriteAllText(FolderPaths.JSONS + "Users.json", JsonConvert.SerializeObject(LoadedUsers, Formatting.Indented));
         }
 
         public static void SaveReports(ObservableCollection<ClassificationModel> reports)
         {
             // Prevents duplications
             foreach (ClassificationModel addedReport in reports)
-                if (!loadedReports.Contains(addedReport))
-                    loadedReports.Add(addedReport);
+                if (!LoadedReports.Contains(addedReport))
+                    LoadedReports.Add(addedReport);
 
-            File.WriteAllText(FolderPaths.JSONS + "Reports.json", JsonConvert.SerializeObject(loadedReports, Formatting.Indented));
+            File.WriteAllText(FolderPaths.JSONS + "Reports.json", JsonConvert.SerializeObject(LoadedReports, Formatting.Indented));
         }
     }
 }

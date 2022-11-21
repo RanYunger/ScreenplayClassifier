@@ -152,9 +152,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     PasswordBox oldPasswordBox = (PasswordBox)SettingsView.FindName("OldPasswordBox");
+                    TextBox oldPasswordTextBox = (TextBox)SettingsView.FindName("OldPasswordTextBox");
 
                     IsOldPasswordVisible = !IsOldPasswordVisible;
-                    oldPasswordBox.Visibility = IsOldPasswordVisible ? Visibility.Collapsed : Visibility.Visible;
+
+                    if (IsOldPasswordVisible)
+                    {
+                        oldPasswordTextBox.Text = oldPasswordBox.Password;
+                        oldPasswordTextBox.Visibility = Visibility.Visible;
+                        oldPasswordBox.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        oldPasswordBox.Password = oldPasswordTextBox.Text;
+                        oldPasswordTextBox.Visibility = Visibility.Collapsed;
+                        oldPasswordBox.Visibility = Visibility.Visible;
+                    }
                 });
             }
         }
@@ -168,10 +181,20 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     PasswordBox newPasswordBox = (PasswordBox)SettingsView.FindName("NewPasswordBox");
                     TextBox newPasswordTextBox = (TextBox)SettingsView.FindName("NewPasswordTextBox");
 
-                    newPasswordBox.Password = NewPassword = IsNewPasswordVisible ? newPasswordTextBox.Text : newPasswordBox.Password;
-
                     IsNewPasswordVisible = !IsNewPasswordVisible;
-                    newPasswordBox.Visibility = IsNewPasswordVisible ? Visibility.Collapsed : Visibility.Visible;
+
+                    if (IsNewPasswordVisible)
+                    {
+                        newPasswordTextBox.Text = newPasswordBox.Password;
+                        newPasswordTextBox.Visibility = Visibility.Visible;
+                        newPasswordBox.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        newPasswordBox.Password = newPasswordTextBox.Text;
+                        newPasswordTextBox.Visibility = Visibility.Collapsed;
+                        newPasswordBox.Visibility = Visibility.Visible;
+                    }
                 });
             }
         }
@@ -183,8 +206,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     Regex passwordRegex = new Regex(JSON.PASSWORDPATTERN);
-                    PasswordBox confirmPasswordBox = (PasswordBox)SettingsView.FindName("ConfirmPasswordBox");
+                    TextBox oldPasswordTextBox = (TextBox)SettingsView.FindName("OldPasswordTextBox"),
+                        newPasswordTextBox = (TextBox)SettingsView.FindName("NewPasswordTextBox");
+                    PasswordBox oldPasswordBox = (PasswordBox)SettingsView.FindName("OldPasswordBox"),
+                        newPasswordBox = (PasswordBox)SettingsView.FindName("NewPasswordBox"),
+                        confirmPasswordBox = (PasswordBox)SettingsView.FindName("ConfirmPasswordBox");
                     int userOffset = AuthenticatedUsers.IndexOf(MainViewModel.UserToolbarViewModel.User);
+
+                    OldPassword = IsOldPasswordVisible ? oldPasswordTextBox.Text.Trim() : oldPasswordBox.Password.Trim();
+                    NewPassword = IsNewPasswordVisible ? newPasswordTextBox.Text.Trim() : newPasswordBox.Password.Trim();
 
                     // Validations
                     if (string.IsNullOrEmpty(NewPassword))
@@ -205,15 +235,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         return;
                     }
 
-                    ConfirmedPassword = confirmPasswordBox.Password;
-                    if (!string.Equals(NewPassword, ConfirmedPassword))
+                    ConfirmedPassword = confirmPasswordBox.Password.Trim();
+                    if (!ConfirmedPassword.Equals(NewPassword))
                     {
                         MessageBoxHandler.Show("New password must be confirmed", "Error", 3, MessageBoxImage.Error);
                         return;
                     }
 
-                    AuthenticatedUsers[userOffset].Password = NewPassword;
-                    AuthenticatedUsers[userOffset].PasswordChanged = true;
+                    AuthenticatedUsers[userOffset].Password = oldPasswordBox.Password = oldPasswordTextBox.Text = NewPassword;
+
+                    newPasswordBox.Clear();
+                    newPasswordTextBox.Clear();
+                    confirmPasswordBox.Clear();
 
                     MessageBoxHandler.Show("Password changed successfuly", "Success", 3, MessageBoxImage.Information);
                 });
@@ -271,29 +304,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     MessageBoxResult confirmResult = MessageBox.Show(string.Format("Are you sure you want to remove {0}?",
-                        AuthenticatedUsers[SelectedUser].Username, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning));
+                        AuthenticatedUsers[SelectedUser].Username), "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
                     if (confirmResult == MessageBoxResult.Yes)
                         AuthenticatedUsers.RemoveAt(SelectedUser);
-                });
-            }
-        }
-
-        public Command UpdateUsersCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    // Triggers all necessary PropertyChanged events
-                    foreach (UserModel authenticatedUser in AuthenticatedUsers)
-                        if ((authenticatedUser.RoleChanged) || (authenticatedUser.PasswordChanged))
-                        {
-                            authenticatedUser.Role = authenticatedUser.Role;
-                            authenticatedUser.Password = authenticatedUser.Password;
-                        }
-
-                    AuthenticatedUsers = AuthenticatedUsers;
                 });
             }
         }
@@ -311,13 +325,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             IsNewPasswordVisible = false;
 
             oldPasswordBox = (PasswordBox)SettingsView.FindName("OldPasswordBox");
-            oldPasswordBox.Password = OldPassword = MainViewModel.UserToolbarViewModel.User.Password;
+            oldPasswordBox.Password = MainViewModel.UserToolbarViewModel.User.Password;
 
             newPasswordBox = (PasswordBox)SettingsView.FindName("NewPasswordBox");
-            newPasswordBox.Password = NewPassword = string.Empty;
+            newPasswordBox.Clear();
 
             confirmPasswordBox = (PasswordBox)SettingsView.FindName("ConfirmPasswordBox");
-            confirmPasswordBox.Password = ConfirmedPassword = string.Empty;
+            confirmPasswordBox.Clear();
 
             CanAdd = false;
             CanRemove = false;

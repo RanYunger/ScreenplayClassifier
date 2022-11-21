@@ -33,8 +33,7 @@
                         <TextBlock Text="Old Password:" Style="{StaticResource TextBlockStyle}"/>
                         <PasswordBox x:Name="OldPasswordBox" Width="150" MaxLength="9" IsEnabled="False" Margin="30,0,0,0"
                                      Style="{StaticResource PasswordBoxStyle}"/>
-                        <TextBox x:Name="OldPasswordTextBox" Text="{Binding MainViewModel.UserToolbarViewModel.User.Password}"
-                                 Width="150" Margin="30,0,0,0">
+                        <TextBox x:Name="OldPasswordTextBox" Width="150" Margin="30,0,0,0">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Setter Property="FontWeight" Value="Bold"/>
@@ -78,7 +77,7 @@
                         <TextBlock Text="New Password:" Style="{StaticResource TextBlockStyle}"/>
                         <PasswordBox x:Name="NewPasswordBox" Width="150" MaxLength="9" Margin="20,0,0,0"
                                      Style="{StaticResource PasswordBoxStyle}"/>
-                        <TextBox x:Name="NewPasswordTextBox" Text="{Binding NewPassword}" Width="150" Margin="20,0,0,0">
+                        <TextBox x:Name="NewPasswordTextBox" Width="150" Margin="20,0,0,0">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Setter Property="FontWeight" Value="Bold"/>
