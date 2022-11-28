@@ -62,8 +62,7 @@ namespace ScreenplayClassifier.MVVM.Models
         }
 
         // Constructors
-        public ClassificationModel(UserModel owner, ScreenplayModel screenplay,
-            Dictionary<string, List<int>> concordance, Dictionary<string, int> wordAppearances)
+        public ClassificationModel(UserModel owner, ScreenplayModel screenplay)
         {
             ID = IDGenerator++;
             Owner = owner;

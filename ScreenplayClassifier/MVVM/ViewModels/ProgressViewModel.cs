@@ -175,48 +175,37 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public ObservableCollection<ClassificationModel> ClassifyScreenplays(ObservableCollection<string> screenplaysToClassify)
         {
-            ProcessStartInfo processStartInfo = new ProcessStartInfo();
+            int progressOutput;
             string scriptPath = FolderPaths.CLASSIFIER + "Setup.py", scriptArgs = string.Join(" ", screenplaysToClassify);
             string outputLine = string.Empty, classificationsJson = string.Empty;
-            int progressOutput;
-
-            processStartInfo.FileName = @"C:\Users\Admin\AppData\Local\Programs\Python\Python39\python.exe";
-            processStartInfo.Arguments = string.Format("\"{0}\" \"{1}\"", scriptPath, scriptArgs);
-            processStartInfo.UseShellExecute = false;
-            processStartInfo.RedirectStandardOutput = true;
-            processStartInfo.CreateNoWindow = true;
+            ProcessStartInfo processStartInfo = new ProcessStartInfo()
+            {
+                FileName = @"C:\Users\Admin\AppData\Local\Programs\Python\Python39\python.exe",
+                Arguments = string.Format("\"{0}\" \"{1}\"", scriptPath, scriptArgs),
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                CreateNoWindow = true
+            };
 
             using (Process process = Process.Start(processStartInfo))
             {
                 using (StreamReader reader = process.StandardOutput)
                 {
-                    try
+                    while (Percent < 100)
                     {
+                        // TODO: FIX (reads nothing?)
                         outputLine = reader.ReadLine();
-                        while (outputLine != "END")
+                        if ((!string.IsNullOrEmpty(outputLine)) && (int.TryParse(outputLine, out progressOutput)))
                         {
-                            if (int.TryParse(outputLine, out progressOutput))
-                            {
-                                ClassificationsComplete = progressOutput;
-                                Percent = (ClassificationsComplete / classificationsRequired) * 100;
-
-                                if (Percent >= 100)
-                                    break;
-                            }
-
-                            outputLine = reader.ReadLine();
+                            ClassificationsComplete = progressOutput;
+                            Percent = (ClassificationsComplete * 100) / classificationsRequired;
                         }
-
-                        classificationsJson = reader.ReadToEnd();
                     }
-                    catch { }
+
+                    classificationsJson = reader.ReadToEnd();
                 }
             }
 
-            // TODO: REMOVE (AFTER CLASSIFIER IS READY IN PYTHON)
-            //return Mockup(screenplaysToClassify);
-
-            // TODO: ENABLE (AFTER CLASSIFIER IS READY IN PYTHON) 
             return new ObservableCollection<ClassificationModel>(JsonConvert.DeserializeObject<List<ClassificationModel>>(classificationsJson));
         }
 
@@ -226,8 +215,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ObservableCollection<ClassificationModel> x = new ObservableCollection<ClassificationModel>();
             UserModel owner = ClassificationViewModel.MainViewModel.UserToolbarViewModel.User;
             ScreenplayModel screenplay;
-            Dictionary<string, List<int>> concordance;
-            Dictionary<string, int> wordAppearances;
             Dictionary<string, float> matchingPercentages = new Dictionary<string, float>();
 
             matchingPercentages["Action"] = 20;
@@ -245,12 +232,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             foreach (string screenplayName in screenplaysToClassify)
             {
-                concordance = new Dictionary<string, List<int>>();
-                wordAppearances = new Dictionary<string, int>();
-
                 screenplay = new ScreenplayModel(Path.GetFileNameWithoutExtension(screenplayName), matchingPercentages);
 
-                x.Add(new ClassificationModel(owner, screenplay, concordance, wordAppearances));
+                x.Add(new ClassificationModel(owner, screenplay));
             }
 
             return x;
