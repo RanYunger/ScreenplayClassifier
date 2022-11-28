@@ -351,12 +351,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System.Windows.Interactivity">
-      <HintPath>..\..\RanProject - Sample\ShkediaSupervisor\Supervisor\DLLs\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Media\Audios\Wilhelm Scream.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -376,7 +370,6 @@
 
   <ItemGroup>
     <PackageReference Include="Dirkster.NumericUpDownLib" Version="3.2.0" />
-    <PackageReference Include="IronPython" Version="2.7.12" />
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -415,6 +408,12 @@
     <Content Include="Media\Gifs\Reel.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\..\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

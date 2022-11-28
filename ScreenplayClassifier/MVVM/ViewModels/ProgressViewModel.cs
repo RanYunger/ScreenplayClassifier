@@ -1,6 +1,4 @@
-﻿using IronPython.Hosting;
-using Microsoft.Scripting.Hosting;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
@@ -8,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -133,7 +132,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void DurationTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Duration = Duration.Add(TimeSpan.FromSeconds(1));
-            Percent += 5;
 
             if (Percent > 100)
                 App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
@@ -177,35 +175,49 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public ObservableCollection<ClassificationModel> ClassifyScreenplays(ObservableCollection<string> screenplaysToClassify)
         {
-            ScriptEngine engine = Python.CreateEngine();
-            ScriptSource source = engine.CreateScriptSourceFromFile(FolderPaths.CLASSIFIER + "Setup.py");
-            MemoryStream errorsMemoryStream = new MemoryStream(), resultsMemoryStream = new MemoryStream();
-            List<string> argv = new List<string>() { string.Empty };
-            string classificationsJson = string.Empty;
+            ProcessStartInfo processStartInfo = new ProcessStartInfo();
+            string scriptPath = FolderPaths.CLASSIFIER + "Setup.py", scriptArgs = string.Join(" ", screenplaysToClassify);
+            string outputLine = string.Empty, classificationsJson = string.Empty;
+            int progressOutput;
 
-            argv.AddRange(string.Join(" ", screenplaysToClassify).Split(" ", StringSplitOptions.RemoveEmptyEntries));
+            processStartInfo.FileName = @"C:\Users\Admin\AppData\Local\Programs\Python\Python39\python.exe";
+            processStartInfo.Arguments = string.Format("\"{0}\" \"{1}\"", scriptPath, scriptArgs);
+            processStartInfo.UseShellExecute = false;
+            processStartInfo.RedirectStandardOutput = true;
+            processStartInfo.CreateNoWindow = true;
 
-            engine.GetSysModule().SetVariable("argv", argv);
-            engine.Runtime.IO.SetErrorOutput(errorsMemoryStream, Encoding.Default);
-            engine.Runtime.IO.SetOutput(resultsMemoryStream, Encoding.Default);
+            using (Process process = Process.Start(processStartInfo))
+            {
+                using (StreamReader reader = process.StandardOutput)
+                {
+                    try
+                    {
+                        outputLine = reader.ReadLine();
+                        while (outputLine != "END")
+                        {
+                            if (int.TryParse(outputLine, out progressOutput))
+                            {
+                                ClassificationsComplete = progressOutput;
+                                Percent = (ClassificationsComplete / classificationsRequired) * 100;
 
-            source.Execute(engine.CreateScope());
+                                if (Percent >= 100)
+                                    break;
+                            }
 
-            // TODO: ENABLE (AFTER CLASSIFIER IS READY IN PYTHON)
-            //do
-            //{
-            //    ClassificationsComplete = (int)resultsMemoryStream.ReadByte();
-            //    CircularProgressBarViewModel.Percent = (100 * ClassificationsComplete) / ClassificationsRequired;
-            //}
-            //while (CircularProgressBarViewModel.Percent < 100);
+                            outputLine = reader.ReadLine();
+                        }
 
-            classificationsJson = Encoding.Default.GetString(resultsMemoryStream.ToArray());
+                        classificationsJson = reader.ReadToEnd();
+                    }
+                    catch { }
+                }
+            }
 
             // TODO: REMOVE (AFTER CLASSIFIER IS READY IN PYTHON)
-            return Mockup(screenplaysToClassify);
+            //return Mockup(screenplaysToClassify);
 
             // TODO: ENABLE (AFTER CLASSIFIER IS READY IN PYTHON) 
-            //return new ObservableCollection<ClassificationModel>(JsonConvert.DeserializeObject<List<ClassificationModel>>(classificationsJson));
+            return new ObservableCollection<ClassificationModel>(JsonConvert.DeserializeObject<List<ClassificationModel>>(classificationsJson));
         }
 
         // TODO: REMOVE (AFTER CLASSIFIER IS READY IN PYTHON) 
