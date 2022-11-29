@@ -133,7 +133,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             Duration = Duration.Add(TimeSpan.FromSeconds(1));
 
-            if (Percent > 100)
+            if (Percent >= 100)
                 App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
         }
         #endregion
@@ -154,6 +154,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Visible);
 
+            // TODO: FIX (prevent it from blocking the GUI)
             ClassificationViewModel.ClassifiedScreenplays = ClassifyScreenplays(browsedScreenplays);
         }
 
@@ -173,7 +174,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Collapsed);
         }
 
-        public ObservableCollection<ClassificationModel> ClassifyScreenplays(ObservableCollection<string> screenplaysToClassify)
+        private ObservableCollection<ClassificationModel> ClassifyScreenplays(ObservableCollection<string> screenplaysToClassify)
         {
             int progressOutput;
             string scriptPath = FolderPaths.CLASSIFIER + "Setup.py", scriptArgs = string.Join(" ", screenplaysToClassify);
@@ -187,57 +188,32 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 CreateNoWindow = true
             };
 
-            using (Process process = Process.Start(processStartInfo))
+            new Thread(() =>
             {
-                using (StreamReader reader = process.StandardOutput)
+                using (Process process = Process.Start(processStartInfo))
                 {
-                    while (Percent < 100)
+                    using (StreamReader reader = process.StandardOutput)
                     {
-                        // TODO: FIX (reads nothing?)
-                        outputLine = reader.ReadLine();
-                        if ((!string.IsNullOrEmpty(outputLine)) && (int.TryParse(outputLine, out progressOutput)))
+                        while (Percent < 100)
                         {
-                            ClassificationsComplete = progressOutput;
-                            Percent = (ClassificationsComplete * 100) / classificationsRequired;
-                        }
-                    }
+                            outputLine = reader.ReadLine();
+                            if ((!string.IsNullOrEmpty(outputLine)) && (int.TryParse(outputLine, out progressOutput)))
+                            {
+                                ClassificationsComplete = progressOutput;
+                                Percent = (ClassificationsComplete * 100) / classificationsRequired;
+                            }
 
-                    classificationsJson = reader.ReadToEnd();
+                            Thread.Sleep(500);
+                        }
+
+                        classificationsJson = reader.ReadToEnd();
+                    }
                 }
-            }
+            }).Start();
+
+            while (string.IsNullOrEmpty(classificationsJson)) ;
 
             return new ObservableCollection<ClassificationModel>(JsonConvert.DeserializeObject<List<ClassificationModel>>(classificationsJson));
-        }
-
-        // TODO: REMOVE (AFTER CLASSIFIER IS READY IN PYTHON) 
-        private ObservableCollection<ClassificationModel> Mockup(ObservableCollection<string> screenplaysToClassify)
-        {
-            ObservableCollection<ClassificationModel> x = new ObservableCollection<ClassificationModel>();
-            UserModel owner = ClassificationViewModel.MainViewModel.UserToolbarViewModel.User;
-            ScreenplayModel screenplay;
-            Dictionary<string, float> matchingPercentages = new Dictionary<string, float>();
-
-            matchingPercentages["Action"] = 20;
-            matchingPercentages["Adventure"] = 10;
-            matchingPercentages["Comedy"] = 10;
-            matchingPercentages["Crime"] = 10;
-            matchingPercentages["Drama"] = 10;
-            matchingPercentages["Family"] = 10;
-            matchingPercentages["Fantasy"] = 10;
-            matchingPercentages["Horror"] = 10;
-            matchingPercentages["Romance"] = 2.5f;
-            matchingPercentages["SciFi"] = 2.5f;
-            matchingPercentages["Thriller"] = 2.5f;
-            matchingPercentages["War"] = 2.5f;
-
-            foreach (string screenplayName in screenplaysToClassify)
-            {
-                screenplay = new ScreenplayModel(Path.GetFileNameWithoutExtension(screenplayName), matchingPercentages);
-
-                x.Add(new ClassificationModel(owner, screenplay));
-            }
-
-            return x;
         }
     }
 }
