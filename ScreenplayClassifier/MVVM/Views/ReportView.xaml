@@ -26,8 +26,8 @@
                          Style="{StaticResource ReadOnlyTextBoxStyle}"/>
             </WrapPanel>
             <WrapPanel Margin="10">
-                <TextBlock Text="Name:" Style="{StaticResource TextBlockStyle}"/>
-                <TextBox Text="{Binding ClassificationReport.Screenplay.Name}" Width="300" Margin="25,0,0,0"
+                <TextBlock Text="Title:" Style="{StaticResource TextBlockStyle}"/>
+                <TextBox Text="{Binding ClassificationReport.Screenplay.Title}" Width="300" Margin="35,0,0,0"
                          Style="{StaticResource ReadOnlyTextBoxStyle}"/>
             </WrapPanel>
             <TextBlock Text="Genre Predictions" FontSize="20" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>

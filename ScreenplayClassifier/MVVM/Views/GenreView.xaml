@@ -28,7 +28,7 @@
             <DataGrid ItemsSource="{Binding ScreenplaysInGenre}" Height="265" IsReadOnly="True" Margin="10,0,10,0"
                       Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="260"
+                    <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="260"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                     <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=ActualSubGenre1}" Width="150"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>

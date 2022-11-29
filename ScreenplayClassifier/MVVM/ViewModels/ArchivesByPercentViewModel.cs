@@ -338,7 +338,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     genrePercentageFilter = (o) =>
                     {
                         ScreenplayModel screenplay = (ScreenplayModel)o;
-                        float genrePercentage = screenplay.MatchingPercentages[screenplay.ActualGenre];
+                        float genrePercentage = screenplay.GenrePercentages[screenplay.ActualGenre];
 
                         return string.IsNullOrEmpty(FilteredGenre) ? true
                             : (genrePercentage >= FilteredGenreMinPercentage) && (genrePercentage <= FilteredGenreMaxPercentage);
@@ -346,7 +346,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     subGenre1PercentageFilter = (o) =>
                     {
                         ScreenplayModel screenplay = (ScreenplayModel)o;
-                        float subGenre1Percentage = screenplay.MatchingPercentages[screenplay.ActualSubGenre1];
+                        float subGenre1Percentage = screenplay.GenrePercentages[screenplay.ActualSubGenre1];
 
                         return string.IsNullOrEmpty(FilteredSubGenre1) ? true
                             : (subGenre1Percentage >= FilteredSubGenre1MinPercentage) && (subGenre1Percentage <= FilteredSubGenre1MaxPercentage);
@@ -354,7 +354,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     subGenre2PercentageFilter = (o) =>
                     {
                         ScreenplayModel screenplay = (ScreenplayModel)o;
-                        float subGenre2Percentage = screenplay.MatchingPercentages[screenplay.ActualSubGenre2];
+                        float subGenre2Percentage = screenplay.GenrePercentages[screenplay.ActualSubGenre2];
 
                         return string.IsNullOrEmpty(FilteredSubGenre2) ? true
                             : (subGenre2Percentage >= FilteredSubGenre2MinPercentage) && (subGenre2Percentage <= FilteredSubGenre2MaxPercentage);
@@ -437,7 +437,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             foreach (string genreName in JSON.LoadedGenres)
             {
-                genrePercentage = SelectedScreenplay.MatchingPercentages[genreName];
+                genrePercentage = SelectedScreenplay.GenrePercentages[genreName];
                 if (genrePercentage > 0)
                     PercentageSeries.Add(new PieSeries()
                     {

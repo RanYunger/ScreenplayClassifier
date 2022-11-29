@@ -77,7 +77,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             foreach (string genreName in JSON.LoadedGenres)
             {
-                genrePercentage = ClassificationReport.Screenplay.MatchingPercentages[genreName];
+                genrePercentage = ClassificationReport.Screenplay.GenrePercentages[genreName];
                 if (genrePercentage > 0)
                     PercentageSeries.Add(new PieSeries()
                     {

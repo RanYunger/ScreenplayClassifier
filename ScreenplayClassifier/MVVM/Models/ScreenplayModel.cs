@@ -12,10 +12,10 @@ namespace ScreenplayClassifier.MVVM.Models
 
         // Fields
         private int screenplayID;
-        private string name;
+        private string title;
         private string predictedGenre, predictedSubGenre1, predictedSubGenre2;
         private string actualGenre, actualSubGenre1, actualSubGenre2;
-        private Dictionary<string, float> matchingPercentages;
+        private Dictionary<string, float> genrePercentages;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -31,15 +31,15 @@ namespace ScreenplayClassifier.MVVM.Models
             }
         }
 
-        public string Name
+        public string Title
         {
-            get { return name; }
+            get { return title; }
             set
             {
-                name = value;
+                title = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Name"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("Title"));
             }
         }
 
@@ -115,27 +115,27 @@ namespace ScreenplayClassifier.MVVM.Models
             }
         }
 
-        public Dictionary<string, float> MatchingPercentages
+        public Dictionary<string, float> GenrePercentages
         {
-            get { return matchingPercentages; }
+            get { return genrePercentages; }
             set
             {
-                matchingPercentages = value;
+                genrePercentages = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("MatchingPercentages"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("GenrePercentages"));
             }
         }
 
         // Constructors
-        public ScreenplayModel(string name, Dictionary<string, float> matchingPercentages)
+        public ScreenplayModel(string title, Dictionary<string, float> genrePercentages)
         {
-            List<string> predictedGenres = new List<string>(matchingPercentages.Keys);
+            List<string> predictedGenres = new List<string>(genrePercentages.Keys);
 
             ID = IDGenerator++;
-            Name = name;
+            Title = title;
 
-            MatchingPercentages = matchingPercentages;
+            GenrePercentages = genrePercentages;
 
             PredictedGenre = predictedGenres[0];
             PredictedSubGenre1 = predictedGenres[1];

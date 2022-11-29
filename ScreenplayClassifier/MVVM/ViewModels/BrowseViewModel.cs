@@ -18,7 +18,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class BrowseViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ObservableCollection<string> browsedScreenplaysNames, browsedScreenplaysPaths;
+        private ObservableCollection<string> browsedScreenplaysTitles, browsedScreenplaysPaths;
         private ImageSource playImage;
         private int selectedScreenplay;
         private bool canBrowse, canClear, canChoose, canProceed;
@@ -29,15 +29,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ClassificationViewModel ClassificationViewModel { get; private set; }
         public BrowseView BrowseView { get; private set; }
 
-        public ObservableCollection<string> BrowsedScreenplaysNames
+        public ObservableCollection<string> BrowsedScreenplaysTitles
         {
-            get { return browsedScreenplaysNames; }
+            get { return browsedScreenplaysTitles; }
             set
             {
-                browsedScreenplaysNames = value;
+                browsedScreenplaysTitles = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("BrowsedScreenplaysNames"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("BrowsedScreenplaysTitles"));
             }
         }
 
@@ -153,10 +153,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if ((Keyboard.IsKeyDown(Key.Back)) || (Keyboard.IsKeyDown(Key.Delete)))
                         for (int i = 0; i < browsedScreenplaysListView.Items.Count; i++)
                             if (browsedScreenplaysListView.SelectedItems.Contains(browsedScreenplaysListView.Items[i]))
-                                BrowsedScreenplaysNames.RemoveAt(i);
+                            {
+                                BrowsedScreenplaysTitles.RemoveAt(i);
+                                browsedScreenplaysPaths.RemoveAt(i);
+                            }
 
-                    CanChoose = BrowsedScreenplaysNames.Count > 0;
-                    CanProceed = BrowsedScreenplaysNames.Count > 0;
+                    SelectedScreenplay = browsedScreenplaysTitles.Count > 0 ? 0 : SelectedScreenplay;
+                    CanChoose = BrowsedScreenplaysTitles.Count > 0;
+                    CanProceed = BrowsedScreenplaysTitles.Count > 0;
                 });
             }
         }
@@ -168,6 +172,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     OpenFileDialog openFileDialog = new OpenFileDialog();
+                    string screenplayPath = string.Empty;
 
                     openFileDialog.Title = "Browse screenplays to classify";
                     openFileDialog.DefaultExt = "txt";
@@ -178,13 +183,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     for (int i = 0; i < openFileDialog.FileNames.Length; i++)
                     {
-                        BrowsedScreenplaysNames.Add(Path.GetFileNameWithoutExtension(openFileDialog.FileNames[i]));
-                        BrowsedScreenplaysPaths.Add(openFileDialog.FileNames[i]);
+                        BrowsedScreenplaysTitles.Add(Path.GetFileNameWithoutExtension(openFileDialog.FileNames[i]));
+                        screenplayPath = string.Format("\"{0}\"", openFileDialog.FileNames[i]); // for passing paths as arguments
+                        BrowsedScreenplaysPaths.Add(screenplayPath);
                     }
 
-                    SelectedScreenplay = browsedScreenplaysNames.Count > 0 ? 0 : SelectedScreenplay;
-                    CanChoose = BrowsedScreenplaysNames.Count > 0;
-                    CanProceed = BrowsedScreenplaysNames.Count > 0;
+                    SelectedScreenplay = browsedScreenplaysTitles.Count > 0 ? 0 : SelectedScreenplay;
+                    CanChoose = BrowsedScreenplaysTitles.Count > 0;
+                    CanProceed = BrowsedScreenplaysTitles.Count > 0;
                 });
             }
         }
@@ -195,9 +201,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    BrowsedScreenplaysNames.Clear();
+                    BrowsedScreenplaysTitles.Clear();
                     browsedScreenplaysPaths.Clear();
 
+                    SelectedScreenplay = -1;
                     CanBrowse = true;
                     CanChoose = false;
                     CanProceed = false;
@@ -230,7 +237,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public void RefreshView()
         {
-            BrowsedScreenplaysNames = new ObservableCollection<string>();
+            BrowsedScreenplaysTitles = new ObservableCollection<string>();
             BrowsedScreenplaysPaths = new ObservableCollection<string>();
             SelectedScreenplay = -1;
             CanBrowse = true;

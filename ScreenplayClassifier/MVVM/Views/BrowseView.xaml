@@ -25,7 +25,7 @@
                 </Button>
             </WrapPanel>
             <ListView x:Name="BrowsedScreenplaysListView" Height="400" Width="450" FontSize="20" IsEnabled="{Binding CanChoose}"
-                      SelectedIndex="{Binding SelectedScreenplay}" ItemsSource="{Binding BrowsedScreenplaysNames}" Margin="10">
+                      SelectedIndex="{Binding SelectedScreenplay}" ItemsSource="{Binding BrowsedScreenplaysTitles}" Margin="10">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="KeyDown">
                         <i:InvokeCommandAction Command="{Binding CheckKeyCommand}"/>

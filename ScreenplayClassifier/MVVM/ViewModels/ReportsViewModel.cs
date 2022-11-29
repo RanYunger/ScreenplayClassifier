@@ -16,7 +16,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     class ReportsViewModel : INotifyPropertyChanged
     {
         // Fields
-        private Predicate<object> nameFilter;
+        private Predicate<object> titleFilter;
         private Predicate<object> genreFilter;
         private Predicate<object> subGenre1Filter;
         private Predicate<object> subGenre2Filter;
@@ -26,7 +26,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private SeriesCollection genreSeries, subGenre1Series, subGenre2Series, ownerSeries;
         private Func<double, string> labelFormatter;
         private string[] ownerLabels;
-        private string namePattern, filteredGenre, filteredSubGenre1, filteredSubGenre2;
+        private string titlePattern, filteredGenre, filteredSubGenre1, filteredSubGenre2;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -153,15 +153,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public string NamePattern
+        public string TitlePattern
         {
-            get { return namePattern; }
+            get { return titlePattern; }
             set
             {
-                namePattern = value;
+                titlePattern = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("NamePattern"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("TitlePattern"));
             }
         }
 
@@ -260,10 +260,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     ICollectionView reportsCollectionView = CollectionViewSource.GetDefaultView(Reports);
 
-                    nameFilter = (o) =>
+                    titleFilter = (o) =>
                     {
-                        return string.IsNullOrEmpty(NamePattern) ? true
-                            : ((ClassificationModel)o).Screenplay.Name.Contains(NamePattern);
+                        return string.IsNullOrEmpty(TitlePattern) ? true
+                            : ((ClassificationModel)o).Screenplay.Title.Contains(TitlePattern);
                     };
                     genreFilter = (o) =>
                     {
@@ -283,7 +283,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     reportsCollectionView.Filter = (o) =>
                     {
-                        return (nameFilter.Invoke(o)) && (genreFilter.Invoke(o)) && (subGenre1Filter.Invoke(o)) && (subGenre2Filter.Invoke(o));
+                        return (titleFilter.Invoke(o)) && (genreFilter.Invoke(o)) && (subGenre1Filter.Invoke(o)) && (subGenre2Filter.Invoke(o));
                     };
                     reportsCollectionView.Refresh();
 
@@ -303,7 +303,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     SubGenre1Options = JSON.LoadedGenres;
                     SubGenre2Options = JSON.LoadedGenres;
 
-                    NamePattern = null;
+                    TitlePattern = null;
                     FilteredGenre = null;
                     FilteredSubGenre1 = null;
                     FilteredSubGenre2 = null;

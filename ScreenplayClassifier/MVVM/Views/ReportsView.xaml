@@ -33,8 +33,8 @@
                 <WrapPanel HorizontalAlignment="Center">
                     <StackPanel>
                         <WrapPanel Margin="5">
-                            <TextBlock Text="Name contains:" Style="{StaticResource TextBlockStyle}"/>
-                            <TextBox Width="200" Text="{Binding NamePattern}" Margin="10,0,0,0" Style="{StaticResource BaseTextBoxStyle}"/>
+                            <TextBlock Text="Title contains:" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBox Width="200" Text="{Binding TitlePattern}" Margin="20,0,0,0" Style="{StaticResource BaseTextBoxStyle}"/>
                         </WrapPanel>
                         <WrapPanel Margin="5">
                             <TextBlock Text="Genre is:" Style="{StaticResource TextBlockStyle}"/>
@@ -69,7 +69,7 @@
             <DataGrid ItemsSource="{Binding Reports}" Height="485" IsReadOnly="True" SelectionMode="Single" Margin="10,0,10,0"
                       Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Screenplay.Name}" Width="175"
+                    <DataGridTextColumn Header="Title" Binding="{Binding Path=Screenplay.Title}" Width="175"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                     <DataGridTextColumn Header="Genre" Binding="{Binding Path=Screenplay.ActualGenre}" Width="100"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>

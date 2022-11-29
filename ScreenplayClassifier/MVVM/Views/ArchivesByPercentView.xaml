@@ -135,7 +135,7 @@
         <DataGrid Grid.Row="2" Grid.Column="0" ItemsSource="{Binding Archives}" SelectedItem="{Binding SelectedScreenplay}"
                   Height="405" IsReadOnly="True" Margin="10,0,10,0" Style="{StaticResource DataGridStyle}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="290"
+                <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="290"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                 <DataGridTextColumn Header="Genre" Binding="{Binding Path=ActualGenre}" Width="150"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>

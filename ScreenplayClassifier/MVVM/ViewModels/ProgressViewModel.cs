@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Media;
@@ -25,6 +26,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private TimeSpan duration;
         private int classificationsRequired, classificationsComplete, percent;
         private string classificationsText, durationText;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -132,9 +134,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void DurationTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Duration = Duration.Add(TimeSpan.FromSeconds(1));
-
-            if (Percent >= 100)
-                App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
         }
         #endregion
 
@@ -154,8 +153,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Visible);
 
-            // TODO: FIX (prevent it from blocking the GUI)
-            ClassificationViewModel.ClassifiedScreenplays = ClassifyScreenplays(browsedScreenplays);
+            new Thread(() => ClassificationThread(browsedScreenplays)).Start();
         }
 
         public void RefreshView()
@@ -174,46 +172,50 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Collapsed);
         }
 
-        private ObservableCollection<ClassificationModel> ClassifyScreenplays(ObservableCollection<string> screenplaysToClassify)
+        private void ClassificationThread(ObservableCollection<string> screenplaysToClassify)
         {
             int progressOutput;
             string scriptPath = FolderPaths.CLASSIFIER + "Setup.py", scriptArgs = string.Join(" ", screenplaysToClassify);
-            string outputLine = string.Empty, classificationsJson = string.Empty;
+            string outputLine = string.Empty, screenplaysJson = string.Empty;
+            UserModel owner = ClassificationViewModel.MainViewModel.UserToolbarViewModel.User;
+            List<ClassificationModel> classifications = new List<ClassificationModel>();
+            List<ScreenplayModel> deserializedScreenplays;
             ProcessStartInfo processStartInfo = new ProcessStartInfo()
             {
                 FileName = @"C:\Users\Admin\AppData\Local\Programs\Python\Python39\python.exe",
-                Arguments = string.Format("\"{0}\" \"{1}\"", scriptPath, scriptArgs),
+                Arguments = string.Format("\"{0}\" {1}", scriptPath, scriptArgs),
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 CreateNoWindow = true
             };
 
-            new Thread(() =>
+            using (Process process = Process.Start(processStartInfo))
             {
-                using (Process process = Process.Start(processStartInfo))
+                using (StreamReader reader = process.StandardOutput)
                 {
-                    using (StreamReader reader = process.StandardOutput)
+                    while (Percent < 100)
                     {
-                        while (Percent < 100)
+                        outputLine = reader.ReadLine();
+                        if ((!string.IsNullOrEmpty(outputLine)) && (int.TryParse(outputLine, out progressOutput)))
                         {
-                            outputLine = reader.ReadLine();
-                            if ((!string.IsNullOrEmpty(outputLine)) && (int.TryParse(outputLine, out progressOutput)))
-                            {
-                                ClassificationsComplete = progressOutput;
-                                Percent = (ClassificationsComplete * 100) / classificationsRequired;
-                            }
-
-                            Thread.Sleep(500);
+                            ClassificationsComplete = progressOutput;
+                            Percent = (ClassificationsComplete * 100) / classificationsRequired;
                         }
 
-                        classificationsJson = reader.ReadToEnd();
+                        Thread.Sleep(500);
                     }
+
+                    screenplaysJson = reader.ReadToEnd();
                 }
-            }).Start();
+            }
 
-            while (string.IsNullOrEmpty(classificationsJson)) ;
+            // Generates classification report for each screenplay
+            deserializedScreenplays = JsonConvert.DeserializeObject<List<ScreenplayModel>>(screenplaysJson);
+            foreach (ScreenplayModel screenplay in deserializedScreenplays)
+                classifications.Add(new ClassificationModel(owner, screenplay));
 
-            return new ObservableCollection<ClassificationModel>(JsonConvert.DeserializeObject<List<ClassificationModel>>(classificationsJson));
+            ClassificationViewModel.ClassifiedScreenplays = new ObservableCollection<ClassificationModel>(classifications);
+            App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
         }
     }
 }
