@@ -15,38 +15,35 @@ namespace ScreenplayClassifier.Utilities
         public static string PASSWORDPATTERN = "[A-Z]{2,3}[0-9]{5,6}"; // E.G. RY120696, SHZ101098
 
         // Fields
-        public static ObservableCollection<UserModel> LoadedUsers;
-        public static ObservableCollection<string> LoadedGenres;
-        public static ObservableCollection<ClassificationModel> LoadedReports;
+        public static List<UserModel> LoadedUsers;
+        public static List<string> LoadedGenres;
+        public static List<ClassificationModel> LoadedReports;
 
         // Methods
         public static void LoadUsers()
         {
             string usersJson = File.ReadAllText(FolderPaths.JSONS + "Users.json");
-            List<UserModel> deserializedUsers = JsonConvert.DeserializeObject<List<UserModel>>(usersJson);
 
-            LoadedUsers = new ObservableCollection<UserModel>(deserializedUsers);
+            LoadedUsers = JsonConvert.DeserializeObject<List<UserModel>>(usersJson);
         }
 
         public static void LoadGenres()
         {
             string genresJson = File.ReadAllText(FolderPaths.JSONS + "Genres.json");
-            List<string> deserializedGenres = JsonConvert.DeserializeObject<List<string>>(genresJson);
 
-            LoadedGenres = new ObservableCollection<string>(deserializedGenres);
+            LoadedGenres = JsonConvert.DeserializeObject<List<string>>(genresJson);
         }
 
         public static void LoadReports()
         {
             string reportsJson = File.ReadAllText(FolderPaths.JSONS + "Reports.json");
-            List<ClassificationModel> deserializedReports = JsonConvert.DeserializeObject<List<ClassificationModel>>(reportsJson);
 
-            LoadedReports = new ObservableCollection<ClassificationModel>(deserializedReports);
+            LoadedReports = JsonConvert.DeserializeObject<List<ClassificationModel>>(reportsJson);
         }
 
         public static void SaveUsers(ObservableCollection<UserModel> users)
         {
-            LoadedUsers = users; // For signing out (reloading the file is unnecessary)
+            LoadedUsers = new List<UserModel>(users); // For signing out (reloading the file is unnecessary)
 
             File.WriteAllText(FolderPaths.JSONS + "Users.json", JsonConvert.SerializeObject(LoadedUsers, Formatting.Indented));
         }

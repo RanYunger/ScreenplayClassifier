@@ -78,7 +78,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void InitGenres()
         {
             JSON.LoadGenres();
-            Genres = JSON.LoadedGenres;
+            Genres = new ObservableCollection<string>(JSON.LoadedGenres);
         }
 
         private void InitScreenplays()

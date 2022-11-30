@@ -34,31 +34,31 @@
                     <StackPanel>
                         <WrapPanel Margin="5">
                             <TextBlock Text="Title contains:" Style="{StaticResource TextBlockStyle}"/>
-                            <TextBox Width="200" Text="{Binding TitlePattern}" Margin="20,0,0,0" Style="{StaticResource BaseTextBoxStyle}"/>
+                            <TextBox Width="100" Text="{Binding TitlePattern}" Margin="20,0,0,0" Style="{StaticResource BaseTextBoxStyle}"/>
                         </WrapPanel>
                         <WrapPanel Margin="5">
                             <TextBlock Text="Genre is:" Style="{StaticResource TextBlockStyle}"/>
-                            <ComboBox Width="200" Margin="55,0,0,0" ItemsSource="{Binding GenreOptions}" SelectedItem="{Binding FilteredGenre}"
+                            <ComboBox Width="100" Margin="55,0,0,0" ItemsSource="{Binding GenreOptions}" SelectedValue="{Binding FilteredGenre}"
                                       Style="{StaticResource ComboBoxStyle}"/>
                         </WrapPanel>
                         <WrapPanel Margin="5">
                             <TextBlock Text="SubGenre 1 is:" Style="{StaticResource TextBlockStyle}"/>
-                            <ComboBox Width="200" Margin="18,0,0,0" ItemsSource="{Binding SubGenre1Options}"
-                                      SelectedItem="{Binding FilteredSubGenre1}" Style="{StaticResource ComboBoxStyle}"/>
+                            <ComboBox Width="100" Margin="18,0,0,0" ItemsSource="{Binding SubGenre1Options}"
+                                      SelectedValue="{Binding FilteredSubGenre1}" Style="{StaticResource ComboBoxStyle}"/>
                         </WrapPanel>
-                        <WrapPanel Margin='5'>
+                        <WrapPanel Margin="5">
                             <TextBlock Text="SubGenre 2 is:" Style="{StaticResource TextBlockStyle}"/>
-                            <ComboBox Width="200" Margin="18,0,0,0" ItemsSource="{Binding SubGenre2Options}"
-                                      SelectedItem="{Binding FilteredSubGenre2}" Style="{StaticResource ComboBoxStyle}"/>
+                            <ComboBox Width="100" Margin="18,0,0,0" ItemsSource="{Binding SubGenre2Options}"
+                                      SelectedValue="{Binding FilteredSubGenre2}" Style="{StaticResource ComboBoxStyle}"/>
                         </WrapPanel>
                     </StackPanel>
-                    <Button Command="{Binding FilterReportsCommand}" Height="80" Width="80" IsEnabled="{Binding CanClear}"
+                    <Button Command="{Binding FilterReportsCommand}" Height="120" Width="120" IsEnabled="{Binding CanClear}"
                             ToolTip="Filter reports" Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
                         <Button.Content>
                             <Image Source="/Media/Images/Filter.png"/>
                         </Button.Content>
                     </Button>
-                    <Button Command="{Binding ClearFilterCommand}" Height="80" Width="80" ToolTip="Clear filter"
+                    <Button Command="{Binding ClearFilterCommand}" Height="120" Width="120" ToolTip="Clear filter"
                         Margin="10" Style="{StaticResource ButtonStyle}">
                         <Button.Content>
                             <Image Source="/Media/Images/Clear.png"/>
@@ -69,7 +69,9 @@
             <DataGrid ItemsSource="{Binding Reports}" Height="485" IsReadOnly="True" SelectionMode="Single" Margin="10,0,10,0"
                       Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Title" Binding="{Binding Path=Screenplay.Title}" Width="175"
+                    <DataGridTextColumn Header="Title" Binding="{Binding Path=Screenplay.Title}" Width="100"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                    <DataGridTextColumn Header="Owner" Binding="{Binding Path=Owner.Username}" Width="100"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                     <DataGridTextColumn Header="Genre" Binding="{Binding Path=Screenplay.ActualGenre}" Width="100"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
@@ -77,10 +79,10 @@
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                     <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=Screenplay.ActualSubGenre2}" Width="100"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTemplateColumn Width="100" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
+                    <DataGridTemplateColumn Width="70" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Details" Command="{Binding ShowReportViewCommand}" ToolTip="View Classification Report"
+                                <Button Content="Details" Command="{Binding ShowReportViewCommand}" Width="65" ToolTip="View Classification Report"
                                         Style="{StaticResource ButtonStyle}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

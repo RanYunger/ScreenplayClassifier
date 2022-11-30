@@ -239,7 +239,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             if (JSON.LoadedUsers == null)
                 JSON.LoadUsers();
-            AuthenticatedUsers = JSON.LoadedUsers;
+            AuthenticatedUsers = new ObservableCollection<UserModel>(JSON.LoadedUsers);
 
             UsernameInput = string.Empty;
             UsernameError = string.Empty;

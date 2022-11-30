@@ -299,9 +299,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    GenreOptions = JSON.LoadedGenres;
-                    SubGenre1Options = JSON.LoadedGenres;
-                    SubGenre2Options = JSON.LoadedGenres;
+                    GenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
+                    SubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
+                    SubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
 
                     TitlePattern = null;
                     FilteredGenre = null;
@@ -332,7 +332,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             else
             {
                 JSON.LoadReports();
-                Reports = JSON.LoadedReports;
+                Reports = new ObservableCollection<ClassificationModel>(JSON.LoadedReports);
 
                 if (user.Role == UserModel.UserRole.MEMBER)
                 {

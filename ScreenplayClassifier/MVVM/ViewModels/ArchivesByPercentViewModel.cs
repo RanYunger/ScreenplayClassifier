@@ -40,22 +40,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return filteredGenre; }
             set
             {
-                // TODO: FIX (selection isn't shown)
                 filteredGenre = value;
 
-                if (filteredGenre != null)
-                {
-                    SubGenre1Options = JSON.LoadedGenres;
-                    SubGenre2Options = JSON.LoadedGenres;
+                SubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
+                SubGenre1Options.Remove(filteredGenre);
+                SubGenre1Options.Remove(FilteredSubGenre2);
 
-                    SubGenre1Options.Remove(filteredGenre);
-                    SubGenre1Options.Remove(FilteredSubGenre2);
-                    SubGenre1Options = SubGenre1Options;
-
-                    SubGenre2Options.Remove(filteredGenre);
-                    SubGenre2Options.Remove(FilteredSubGenre1);
-                    SubGenre2Options = SubGenre2Options;
-                }
+                SubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
+                SubGenre2Options.Remove(filteredGenre);
+                SubGenre2Options.Remove(FilteredSubGenre1);
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("FilteredGenre"));
@@ -67,22 +60,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return filteredSubGenre1; }
             set
             {
-                // TODO: FIX (selection isn't shown)
                 filteredSubGenre1 = value;
 
-                if (filteredSubGenre1 != null)
-                {
-                    GenreOptions = JSON.LoadedGenres;
-                    SubGenre2Options = JSON.LoadedGenres;
+                GenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
+                GenreOptions.Remove(filteredSubGenre1);
+                GenreOptions.Remove(FilteredSubGenre2);
 
-                    GenreOptions.Remove(filteredSubGenre1);
-                    GenreOptions.Remove(FilteredSubGenre2);
-                    GenreOptions = GenreOptions;
-
-                    SubGenre2Options.Remove(filteredSubGenre1);
-                    SubGenre2Options.Remove(FilteredGenre);
-                    SubGenre2Options = SubGenre2Options;
-                }
+                SubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
+                SubGenre2Options.Remove(filteredSubGenre1);
+                SubGenre2Options.Remove(FilteredGenre);
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre1"));
@@ -94,22 +80,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return filteredSubGenre2; }
             set
             {
-                // TODO: FIX (selection isn't shown)
                 filteredSubGenre2 = value;
 
-                if (filteredSubGenre2 != null)
-                {
-                    GenreOptions = JSON.LoadedGenres;
-                    SubGenre1Options = JSON.LoadedGenres;
+                GenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
+                GenreOptions.Remove(filteredSubGenre2);
+                GenreOptions.Remove(FilteredSubGenre1);
 
-                    GenreOptions.Remove(filteredSubGenre2);
-                    GenreOptions.Remove(FilteredSubGenre1);
-                    GenreOptions = GenreOptions;
-
-                    SubGenre1Options.Remove(filteredSubGenre2);
-                    SubGenre1Options.Remove(FilteredGenre);
-                    SubGenre1Options = SubGenre1Options;
-                }
+                SubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
+                SubGenre1Options.Remove(filteredSubGenre2);
+                SubGenre1Options.Remove(FilteredGenre);
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre2"));
@@ -381,7 +360,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    // TODO: FIX (doesn't clear options)
                     NumericUpDown genreMinPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredGenreMinPercentageNumericUpDown"),
                         genreMaxPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredGenreMaxPercentageNumericUpDown"),
                         subGenre1MinPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre1MinPercentageNumericUpDown"),
@@ -389,9 +367,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         subGenre2MinPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre2MinPercentageNumericUpDown"),
                         subGenre2MaxPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre2MaxPercentageNumericUpDown");
 
-                    GenreOptions = JSON.LoadedGenres;
-                    SubGenre1Options = JSON.LoadedGenres;
-                    SubGenre2Options = JSON.LoadedGenres;
+                    GenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
+                    SubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
+                    SubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
 
                     FilteredGenre = null;
                     FilteredSubGenre1 = null;
