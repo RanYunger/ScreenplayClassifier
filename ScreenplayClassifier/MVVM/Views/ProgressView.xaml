@@ -3,10 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:gif="http://wpfanimatedgif.codeplex.com"
-             xmlns:rpb="http://XamlRadialProgressBar/DotNet"
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:rpb="http://XamlRadialProgressBar/DotNet"
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.RowDefinitions>
@@ -19,7 +18,38 @@
         </WrapPanel>
         <rpb:RadialProgressBar x:Name="RadialProgressBar" Grid.Row="1" Value="{Binding Percent}" Height="650" Width="650" ArcWidth="25" 
                                Foreground="LimeGreen" InnerBackgroundBrush="{StaticResource MainColumnHeaderBackground}"/>
+        <TextBlock x:Name="StatusTextBlock" Grid.Row="1" Text="{Binding StatusText}" FontSize="50" HorizontalAlignment="Center">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding StatusText}" Value="Reading...">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding StatusText}" Value="Classifying...">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding StatusText}" Value="Done!">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=StatusTextBlock, Path=Visibility}" Value="Visible">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=StatusTextBlock, Path=Visibility}" Value="Collapsed">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
             <TextBlock Text="{Binding ElementName=RadialProgressBar, Path=Value}" FontSize="50" HorizontalAlignment="Center"
                        Style="{StaticResource TextBlockStyle}"/>
             <TextBlock Text="P E R C E N T" FontSize="30" Style="{StaticResource TextBlockStyle}"/>

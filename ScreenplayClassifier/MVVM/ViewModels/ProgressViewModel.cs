@@ -25,7 +25,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private System.Timers.Timer durationTimer;
         private TimeSpan duration;
         private int classificationsRequired, classificationsComplete, percent;
-        private string classificationsText, durationText;
+        private string classificationsText, statusText, durationText;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -107,6 +107,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public string StatusText
+        {
+            get { return statusText; }
+            set
+            {
+                statusText = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("StatusText"));
+            }
+        }
+
         public string DurationText
         {
             get { return durationText; }
@@ -163,6 +175,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             ClassificationsRequired = 0;
             ClassificationsComplete = 0;
+
+            StatusText = "Reading...";
         }
 
         public void HideView()
@@ -198,6 +212,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         outputLine = reader.ReadLine();
                         if ((!string.IsNullOrEmpty(outputLine)) && (int.TryParse(outputLine, out progressOutput)))
                         {
+                            StatusText = "Classifying...";
                             ClassificationsComplete = progressOutput;
                             Percent = (ClassificationsComplete * 100) / classificationsRequired;
                         }
@@ -208,6 +223,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     screenplaysJson = reader.ReadToEnd();
                 }
             }
+
+            Thread.Sleep(500);
+            StatusText = "Done!";
+            Thread.Sleep(500);
 
             // Generates classification report for each screenplay
             deserializedScreenplays = JsonConvert.DeserializeObject<List<ScreenplayModel>>(screenplaysJson);

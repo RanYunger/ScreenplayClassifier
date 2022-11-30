@@ -7,8 +7,8 @@
     },
     "Screenplay": {
       "ID": 1,
-      "Name": "Lord of the Rings: Fellowship of the Ring",
-      "MatchingPercentages": {
+      "Title": "Lord of the Rings: Fellowship of the Ring",
+      "GenrePercentages": {
         "Action": 20.0,
         "Adventure": 10.0,
         "Comedy": 10.6,
@@ -35,8 +35,8 @@
     },
     "Screenplay": {
       "ID": 2,
-      "Name": "Lord of the Rings: The Two Towers",
-      "MatchingPercentages": {
+      "Title": "Lord of the Rings: The Two Towers",
+      "GenrePercentages": {
         "Action": 25.0,
         "Adventure": 15.0,
         "Comedy": 10.6,
@@ -63,8 +63,8 @@
     },
     "Screenplay": {
       "ID": 3,
-      "Name": "Lord of the Rings: The Return of the King",
-      "MatchingPercentages": {
+      "Title": "Lord of the Rings: The Return of the King",
+      "GenrePercentages": {
         "Action": 0.0,
         "Adventure": 30.0,
         "Comedy": 10.6,
@@ -91,8 +91,8 @@
     },
     "Screenplay": {
       "ID": 4,
-      "Name": "Saw",
-      "MatchingPercentages": {
+      "Title": "Saw",
+      "GenrePercentages": {
         "Action": 20.0,
         "Adventure": 10.0,
         "Comedy": 10.6,

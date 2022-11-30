@@ -331,7 +331,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 Reports = new ObservableCollection<ClassificationModel>();
             else
             {
-                Reports = JSON.LoadReports();
+                JSON.LoadReports();
+                Reports = JSON.LoadedReports;
 
                 if (user.Role == UserModel.UserRole.MEMBER)
                 {

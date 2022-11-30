@@ -69,13 +69,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ((ArchivesByGenreViewModel)ArchivesByGenreView.DataContext).Init(ArchivesByGenreView, this);
             ((ArchivesByPercentViewModel)ArchivesByPercentView.DataContext).Init(ArchivesByPercentView, this);
 
-            Genres = JSON.LoadGenres();
+            InitGenres();
             InitScreenplays();
 
             ((ArchivesByGenreViewModel)ArchivesByGenreView.DataContext).RefreshArchives(Genres, Screenplays);
         }
 
-        protected void InitScreenplays()
+        private void InitGenres()
+        {
+            JSON.LoadGenres();
+            Genres = JSON.LoadedGenres;
+        }
+
+        private void InitScreenplays()
         {
             UserModel user = MainViewModel.UserToolbarViewModel.User;
             ReportsViewModel reportsViewModel = (ReportsViewModel)MainViewModel.ReportsView.DataContext;

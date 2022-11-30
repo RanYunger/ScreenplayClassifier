@@ -120,7 +120,7 @@
                     </lvc:PieChart>
                 </StackPanel>
             </WrapPanel>
-            <lvc:CartesianChart Series="{Binding OwnerSeries}" Height="300" LegendLocation="Left">
+            <lvc:CartesianChart x:Name="UsersCartesianChart" Series="{Binding OwnerSeries}" Height="300" LegendLocation="Left">
                 <lvc:CartesianChart.Style>
                     <Style TargetType="lvc:CartesianChart">
                         <Style.Triggers>

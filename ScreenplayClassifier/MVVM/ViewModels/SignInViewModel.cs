@@ -237,7 +237,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     break;
                 }
 
-            AuthenticatedUsers = JSON.LoadedUsers == null ? JSON.LoadUsers() : JSON.LoadedUsers;
+            if (JSON.LoadedUsers == null)
+                JSON.LoadUsers();
+            AuthenticatedUsers = JSON.LoadedUsers;
+
             UsernameInput = string.Empty;
             UsernameError = string.Empty;
             PasswordError = string.Empty;

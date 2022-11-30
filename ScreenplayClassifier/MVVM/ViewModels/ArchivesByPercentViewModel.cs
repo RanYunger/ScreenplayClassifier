@@ -40,6 +40,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return filteredGenre; }
             set
             {
+                // TODO: FIX (selection isn't shown)
                 filteredGenre = value;
 
                 if (filteredGenre != null)
@@ -66,6 +67,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return filteredSubGenre1; }
             set
             {
+                // TODO: FIX (selection isn't shown)
                 filteredSubGenre1 = value;
 
                 if (filteredSubGenre1 != null)
@@ -92,6 +94,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return filteredSubGenre2; }
             set
             {
+                // TODO: FIX (selection isn't shown)
                 filteredSubGenre2 = value;
 
                 if (filteredSubGenre2 != null)
@@ -378,6 +381,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
+                    // TODO: FIX (doesn't clear options)
                     NumericUpDown genreMinPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredGenreMinPercentageNumericUpDown"),
                         genreMaxPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredGenreMaxPercentageNumericUpDown"),
                         subGenre1MinPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre1MinPercentageNumericUpDown"),

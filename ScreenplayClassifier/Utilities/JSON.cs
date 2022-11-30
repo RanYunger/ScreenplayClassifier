@@ -20,34 +20,28 @@ namespace ScreenplayClassifier.Utilities
         public static ObservableCollection<ClassificationModel> LoadedReports;
 
         // Methods
-        public static ObservableCollection<UserModel> LoadUsers()
+        public static void LoadUsers()
         {
             string usersJson = File.ReadAllText(FolderPaths.JSONS + "Users.json");
             List<UserModel> deserializedUsers = JsonConvert.DeserializeObject<List<UserModel>>(usersJson);
 
             LoadedUsers = new ObservableCollection<UserModel>(deserializedUsers);
-
-            return LoadedUsers;
         }
 
-        public static ObservableCollection<string> LoadGenres()
+        public static void LoadGenres()
         {
             string genresJson = File.ReadAllText(FolderPaths.JSONS + "Genres.json");
             List<string> deserializedGenres = JsonConvert.DeserializeObject<List<string>>(genresJson);
 
             LoadedGenres = new ObservableCollection<string>(deserializedGenres);
-
-            return LoadedGenres;
         }
 
-        public static ObservableCollection<ClassificationModel> LoadReports()
+        public static void LoadReports()
         {
             string reportsJson = File.ReadAllText(FolderPaths.JSONS + "Reports.json");
             List<ClassificationModel> deserializedReports = JsonConvert.DeserializeObject<List<ClassificationModel>>(reportsJson);
 
             LoadedReports = new ObservableCollection<ClassificationModel>(deserializedReports);
-
-            return LoadedReports;
         }
 
         public static void SaveUsers(ObservableCollection<UserModel> users)
