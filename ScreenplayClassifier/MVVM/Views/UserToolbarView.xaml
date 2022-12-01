@@ -55,22 +55,12 @@
                 <WrapPanel>
                     <Button Height="40" Width="40" Command="{Binding HomeCommand}" ToolTip="Home"
                             Margin="0,15,5,0" Style="{StaticResource ButtonStyle}">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="10"/>
-                            </Style>
-                        </Button.Resources>
                         <Button.Content>
                             <Image Source="/Media/Images/Home.png"/>
                         </Button.Content>
                     </Button>
                     <Button Height="40" Width="40" Command="{Binding SettingsCommand}" ToolTip="Settings"
                             Margin="5,15,5,0">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="10"/>
-                            </Style>
-                        </Button.Resources>
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
@@ -97,11 +87,6 @@
                     </Button>
                     <Button Height="40" Width="40" Command="{Binding SignoutCommand}" ToolTip="Sign out"
                             Margin="5,15,5,0" Style="{StaticResource ButtonStyle}">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="10"/>
-                            </Style>
-                        </Button.Resources>
                         <Button.Content>
                             <Image Source="/Media/Images/Signout.png"/>
                         </Button.Content>
