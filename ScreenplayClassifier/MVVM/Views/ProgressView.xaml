@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:rpb="http://XamlRadialProgressBar/DotNet"
              Style="{StaticResource UserControlStyle}">
     <Grid>
@@ -18,16 +19,14 @@
         </WrapPanel>
         <rpb:RadialProgressBar x:Name="RadialProgressBar" Grid.Row="1" Value="{Binding Percent}" Height="650" Width="650" ArcWidth="25" 
                                Foreground="LimeGreen" InnerBackgroundBrush="{StaticResource MainColumnHeaderBackground}"/>
-        <TextBlock x:Name="StatusTextBlock" Grid.Row="1" Text="{Binding StatusText}" FontSize="50" HorizontalAlignment="Center">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="FontWeight" Value="Bold"/>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding StatusText}" Value="Reading...">
+                        <DataTrigger Binding="{Binding StatusText}" Value="Reading">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding StatusText}" Value="Classifying...">
+                        <DataTrigger Binding="{Binding StatusText}" Value="Classifying">
                             <Setter Property="Visibility" Value="Collapsed"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding StatusText}" Value="Done!">
@@ -35,17 +34,23 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </TextBlock.Style>
-        </TextBlock>
+            </StackPanel.Style>
+            <TextBlock Text="{Binding StatusText}" FontSize="50" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <Image gif:ImageBehavior.AnimatedSource="{Binding StatusGif}" gif:ImageBehavior.RepeatBehavior="Forever" Height="50" Width="50"
+                   Margin="0,40,0,0"/>
+        </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel.Style>
                 <Style TargetType="StackPanel">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=StatusTextBlock, Path=Visibility}" Value="Visible">
+                        <DataTrigger Binding="{Binding StatusText}" Value="Reading">
                             <Setter Property="Visibility" Value="Collapsed"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=StatusTextBlock, Path=Visibility}" Value="Collapsed">
+                        <DataTrigger Binding="{Binding StatusText}" Value="Classifying">
                             <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding StatusText}" Value="Done!">
+                            <Setter Property="Visibility" Value="Collapsed"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

@@ -27,6 +27,7 @@
     <None Remove="Media\Audios\Wilhelm Scream.mp3" />
     <None Remove="Media\Gifs\Archives.gif" />
     <None Remove="Media\Gifs\Classification.gif" />
+    <None Remove="Media\Gifs\Done!.gif" />
     <None Remove="Media\Gifs\Gears.gif" />
     <None Remove="Media\Gifs\Genres\Action.gif" />
     <None Remove="Media\Gifs\Genres\Adventure.gif" />
@@ -42,6 +43,7 @@
     <None Remove="Media\Gifs\Genres\War.gif" />
     <None Remove="Media\Gifs\Let Me See The Script.gif" />
     <None Remove="Media\Gifs\Percent.gif" />
+    <None Remove="Media\Gifs\Reading.gif" />
     <None Remove="Media\Gifs\Reel.gif" />
     <None Remove="Media\Gifs\Reports.gif" />
     <None Remove="Media\Images\Add.png" />
@@ -154,6 +156,9 @@
     <Content Include="Media\Gifs\Classification.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Gifs\Done!.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Gifs\Gears.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -197,6 +202,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Gifs\Reports.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Gifs\Reading.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Add.png">
