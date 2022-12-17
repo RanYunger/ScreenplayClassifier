@@ -7,48 +7,21 @@
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <Image Source="/Media/Images/Cinema.png" Stretch="Fill"/>
-        <MediaElement x:Name="MediaElement" Height="490" Width="1020" LoadedBehavior="Manual" UnloadedBehavior="Manual"
-                          Stretch="Fill" Margin="0,0,0,170">
-            <MediaElement.Style>
-                <Style TargetType="MediaElement">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsPlaying}" Value="True">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding IsPlaying}" Value="False">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </MediaElement.Style>
-        </MediaElement>
-        <WrapPanel>
-            <WrapPanel.Style>
-                <Style TargetType="WrapPanel">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsPlaying}" Value="True">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding IsPlaying}" Value="False">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </WrapPanel.Style>
-            <Image Source="/Media/Images/WillSmith.png" Height="500" Width="500" Margin="210,30,0,0"/>
-            <StackPanel>
-                <TextBlock Text="Screenplay Classifier" FontSize="55" Margin="0,60,0,0" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Text="Version 1.0 (64-bit)" FontSize="20" Margin="0,10,0,0" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Text="Engineering: Ran Yunger, Shy Ohev Zion" FontSize="20" Margin="0,10,0,0" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Text="Testing: Ran Yunger, Shy Ohev Zion" FontSize="20" Margin="0,10,0,0" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Text="Copyright © 2022-2023. All Rights Reserved." FontSize="20" Margin="0,10,0,0"
-                           Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock FontSize="20" Margin="0,10,0,0" Style="{StaticResource TextBlockStyle}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0" Source="/Media/Images/WillSmith.png"/>
+        <StackPanel Grid.Column="1">
+            <TextBlock Text="Screenplay Classifier" FontSize="60" Margin="0,10,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Version 1.0 (64-bit)" FontSize="20" Margin="0,10,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Engineering: Ran Yunger, Shy Ohev Zion" FontSize="20" Margin="0,10,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Testing: Ran Yunger, Shy Ohev Zion" FontSize="20" Margin="0,10,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Copyright © 2022-2023. All Rights Reserved." FontSize="20" Margin="0,10,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock FontSize="20" Margin="0,10,0,0" Style="{StaticResource TextBlockStyle}">
                     <Hyperlink>Found Bug?</Hyperlink>
-                </TextBlock>
-                <Image Source="/Media/Images/Screenplay.png" Height="200" Width="200" Margin="0,10,0,0"/>
-            </StackPanel>
-        </WrapPanel>
+            </TextBlock>
+            <Image Source="/Media/Images/Screenplay.png" Height="400" Width="400" Margin="0,30,0,0"/>
+        </StackPanel>
     </Grid>
 </UserControl>

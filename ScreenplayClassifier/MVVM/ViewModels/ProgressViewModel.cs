@@ -242,7 +242,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             Thread.Sleep(500);
             StatusText = "Done!";
-            Thread.Sleep(1250);
+            Thread.Sleep(1350);
 
             // Generates classification report for each screenplay
             deserializedScreenplays = JsonConvert.DeserializeObject<List<ScreenplayModel>>(screenplaysJson);
