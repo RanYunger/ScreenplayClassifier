@@ -117,6 +117,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             if (ReportsView.Visibility == Visibility.Collapsed)
                 ((ReportsViewModel)ReportsView.DataContext).ClearFilterCommand.Execute(null);
+
+            ((AboutViewModel)AboutView.DataContext).IsPlaying = viewToShow == AboutView;
         }
     }
 }

@@ -54,10 +54,8 @@
     <None Remove="Media\Images\Browse.png" />
     <None Remove="Media\Images\Clear.png" />
     <None Remove="Media\Images\Command Shell.png" />
-    <None Remove="Media\Images\EmptyFolder.png" />
     <None Remove="Media\Images\Error.png" />
     <None Remove="Media\Images\Filter.png" />
-    <None Remove="Media\Images\FullFolder.png" />
     <None Remove="Media\Images\Gears.png" />
     <None Remove="Media\Images\Genres\Action.png" />
     <None Remove="Media\Images\Genres\Adventure.png" />
@@ -94,10 +92,12 @@
     <None Remove="Media\Images\Signout.png" />
     <None Remove="Media\Images\StopPressed.png" />
     <None Remove="Media\Images\StopUnpressed.png" />
+    <None Remove="Media\Images\Ticket.png" />
     <None Remove="Media\Images\User.png" />
     <None Remove="Media\Images\Username.png" />
     <None Remove="Media\Images\Visible.png" />
     <None Remove="Media\Images\WillSmith.png" />
+    <None Remove="Media\Videos\Curtains.mp4" />
     <None Remove="Media\Videos\It%27s Over. Go Home.mp4" />
     <None Remove="Media\Videos\You Shall Not Pass.mp4" />
   </ItemGroup>
@@ -334,6 +334,9 @@
     <Content Include="Media\Images\StopUnpressed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\Ticket.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\User.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -346,6 +349,9 @@
     <Content Include="Media\Images\WillSmith.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Videos\Curtains.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Videos\It's Over. Go Home.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -356,18 +362,6 @@
 
   <ItemGroup>
     <Content Include="Media\Audios\Wilhelm Scream.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Media\Images\EmptyFolder.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Media\Images\FullFolder.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

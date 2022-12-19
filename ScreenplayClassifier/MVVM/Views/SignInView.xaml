@@ -68,7 +68,7 @@
             <Button Command="{Binding ContinueAsGuestCommand}" IsEnabled="{Binding CanSignin}" Content="Continue As Guest" Height="25" Width="150"
                     Margin="0,5,0,10" Style="{StaticResource ButtonStyle}"/>
             <Button Command="{Binding OpenCommandShellCommand}" IsEnabled="{Binding CanSignin}" Height="50" Width="50"
-                    HorizontalAlignment="Center" ToolTip="Open command shell" Style="{StaticResource ButtonStyle}">
+                    HorizontalAlignment="Center" ToolTip="Open Command Line Interface" Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <Image Source="/Media/Images/Command Shell.png"/>
                 </Button.Content>

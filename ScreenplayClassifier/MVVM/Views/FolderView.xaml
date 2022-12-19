@@ -12,10 +12,10 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <Image x:Name="FolderImage" Source="{Binding FolderImage}" Cursor="Hand"/>
+        <Image Source="/Media/Images/Ticket.png" Cursor="Hand"/>
         <TextBlock Text="{Binding Genre}" FontSize="40" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
         <Image x:Name="GenreGif" gif:ImageBehavior.AnimatedSource="{Binding GenreGif}" gif:ImageBehavior.RepeatBehavior="Forever"
-                   Height="200" Width="200" Cursor="Hand" Margin="0,20,0,10">
+                   Height="300" Width="215" Cursor="Hand" Margin="5,10,0,0">
             <Image.Triggers>
                 <EventTrigger RoutedEvent="MouseEnter">
                     <BeginStoryboard>

@@ -16,25 +16,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class FolderViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ImageSource folderImage, genreGif;
+        private ImageSource genreGif;
         private string genre;
         private ObservableCollection<ScreenplayModel> screenplaysInGenre;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public FolderView FolderView { get; private set; }
-
-        public ImageSource FolderImage
-        {
-            get { return folderImage; }
-            set
-            {
-                folderImage = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FolderImage"));
-            }
-        }
 
         public ImageSource GenreGif
         {
@@ -86,7 +74,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     GenreView genreView = null;
 
                     if (screenplaysInGenre.Count == 0)
-                        MessageBoxHandler.Show("No screenplays in this genre", "Error", 2, MessageBoxImage.Stop);
+                        MessageBoxHandler.Show(string.Format("No {0} screenplays to show", genre), "Error", 2, MessageBoxImage.Stop);
                     else
                     {
                         foreach (Window view in App.Current.Windows)
@@ -113,7 +101,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 ? "FullFolder.png" : "EmptyFolder.png"),
                 genreImageFilePath = string.Format(@"{0}{1}.gif", FolderPaths.GENREGIFS, Genre = genreName);
 
-            FolderImage = new BitmapImage(new Uri(folderImageFilePath));
             GenreGif = new BitmapImage(new Uri(genreImageFilePath));
 
             ScreenplaysInGenre = screenplaysInGenre;
