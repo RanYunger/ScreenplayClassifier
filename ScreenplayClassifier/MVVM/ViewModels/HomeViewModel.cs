@@ -244,39 +244,39 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         private void RotateLeft()
         {
-            Image leftGif = null, centerGif = null, rightGif = null;
+            Image leftImage = null, centerImage = null, rightImage = null;
 
             switch (ModuleName)
             {
                 case "Archives":
                     {
-                        leftGif = (Image)HomeView.FindName("ReportsGif");
-                        centerGif = (Image)HomeView.FindName("ArchivesGif");
-                        rightGif = (Image)HomeView.FindName("ClassificationGif");
+                        leftImage = (Image)HomeView.FindName("ReportsImage");
+                        centerImage = (Image)HomeView.FindName("ArchivesImage");
+                        rightImage = (Image)HomeView.FindName("ClassificationImage");
 
-                        LeftAnimation(leftGif, centerGif, rightGif);
+                        LeftAnimation(leftImage, centerImage, rightImage);
 
                         ModuleName = "Reports";
                     }
                     break;
                 case "Classification":
                     {
-                        leftGif = (Image)HomeView.FindName("ArchivesGif");
-                        centerGif = (Image)HomeView.FindName("ClassificationGif");
-                        rightGif = (Image)HomeView.FindName("ReportsGif");
+                        leftImage = (Image)HomeView.FindName("ArchivesImage");
+                        centerImage = (Image)HomeView.FindName("ClassificationImage");
+                        rightImage = (Image)HomeView.FindName("ReportsImage");
 
-                        LeftAnimation(leftGif, centerGif, rightGif);
+                        LeftAnimation(leftImage, centerImage, rightImage);
 
                         ModuleName = "Archives";
                     }
                     break;
                 case "Reports":
                     {
-                        leftGif = (Image)HomeView.FindName("ClassificationGif");
-                        centerGif = (Image)HomeView.FindName("ReportsGif");
-                        rightGif = (Image)HomeView.FindName("ArchivesGif");
+                        leftImage = (Image)HomeView.FindName("ClassificationImage");
+                        centerImage = (Image)HomeView.FindName("ReportsImage");
+                        rightImage = (Image)HomeView.FindName("ArchivesImage");
 
-                        LeftAnimation(leftGif, centerGif, rightGif);
+                        LeftAnimation(leftImage, centerImage, rightImage);
 
                         ModuleName = "Classification";
                     }
@@ -286,39 +286,39 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         private void RotateRight()
         {
-            Image leftGif = null, centerGif = null, rightGif = null;
+            Image leftImage = null, centerImage = null, rightImage = null;
 
             switch (ModuleName)
             {
                 case "Archives":
                     {
-                        leftGif = (Image)HomeView.FindName("ReportsGif");
-                        centerGif = (Image)HomeView.FindName("ArchivesGif");
-                        rightGif = (Image)HomeView.FindName("ClassificationGif");
+                        leftImage = (Image)HomeView.FindName("ReportsImage");
+                        centerImage = (Image)HomeView.FindName("ArchivesImage");
+                        rightImage = (Image)HomeView.FindName("ClassificationImage");
 
-                        RightAnimation(leftGif, centerGif, rightGif);
+                        RightAnimation(leftImage, centerImage, rightImage);
 
                         ModuleName = "Classification";
                     }
                     break;
                 case "Classification":
                     {
-                        leftGif = (Image)HomeView.FindName("ArchivesGif");
-                        centerGif = (Image)HomeView.FindName("ClassificationGif");
-                        rightGif = (Image)HomeView.FindName("ReportsGif");
+                        leftImage = (Image)HomeView.FindName("ArchivesImage");
+                        centerImage = (Image)HomeView.FindName("ClassificationImage");
+                        rightImage = (Image)HomeView.FindName("ReportsImage");
 
-                        RightAnimation(leftGif, centerGif, rightGif);
+                        RightAnimation(leftImage, centerImage, rightImage);
 
                         ModuleName = "Reports";
                     }
                     break;
                 case "Reports":
                     {
-                        leftGif = (Image)HomeView.FindName("ClassificationGif");
-                        centerGif = (Image)HomeView.FindName("ReportsGif");
-                        rightGif = (Image)HomeView.FindName("ArchivesGif");
+                        leftImage = (Image)HomeView.FindName("ClassificationImage");
+                        centerImage = (Image)HomeView.FindName("ReportsImage");
+                        rightImage = (Image)HomeView.FindName("ArchivesImage");
 
-                        RightAnimation(leftGif, centerGif, rightGif);
+                        RightAnimation(leftImage, centerImage, rightImage);
 
                         ModuleName = "Archives";
                     }

@@ -15,7 +15,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Fields
         private string genre, screenplaysCountText;
         private bool audioOn;
-        private ImageSource audioImage, genreGif;
+        private ImageSource audioImage, genreImage;
         private MediaPlayer mediaPlayer;
         private ObservableCollection<ScreenplayModel> screenplaysInGenre;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -69,15 +69,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public ImageSource GenreGif
+        public ImageSource GenreImage
         {
-            get { return genreGif; }
+            get { return genreImage; }
             set
             {
-                genreGif = value;
+                genreImage = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GenreGif"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("GenreImage"));
             }
         }
 
@@ -135,7 +135,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void Init(string genreName, ObservableCollection<ScreenplayModel> screenplayClassifiers)
         {
             Genre = genreName;
-            GenreGif = new BitmapImage(new Uri(string.Format(@"{0}{1}.gif", FolderPaths.GENREGIFS, genreName)));
+            GenreImage = new BitmapImage(new Uri(string.Format(@"{0}{1}.png", FolderPaths.GENREIMAGES, genreName)));
 
             ScreenplaysInGenre = screenplayClassifiers;
             ScreenplaysCountText = string.Format("{0} Screenplay{1}",

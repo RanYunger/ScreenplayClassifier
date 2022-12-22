@@ -140,9 +140,10 @@
 
     <!--TabItem Style-->
     <Style x:Key="TabItemStyle" TargetType="TabItem">
-        <Setter Property="Background" Value="{StaticResource UserControlBackground}"/>
+        <Setter Property="Background" Value="{StaticResource WindowBackground}"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FontSize" Value="25"/>
+        <Setter Property="Cursor" Value="Hand"/>
     </Style>
     
     <!--TextBlock Styles-->

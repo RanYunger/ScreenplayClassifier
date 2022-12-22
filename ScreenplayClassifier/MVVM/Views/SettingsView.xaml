@@ -217,7 +217,7 @@
                 </DataGrid>
             </StackPanel>
         </GroupBox>
-        <Image Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Gears.gif"
-               gif:ImageBehavior.RepeatBehavior="Forever"/>
+        <!--<Image Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Gears.gif"
+               gif:ImageBehavior.RepeatBehavior="Forever"/>-->
     </Grid>
 </UserControl>

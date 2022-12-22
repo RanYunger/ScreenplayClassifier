@@ -7,7 +7,6 @@
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views">
     <Grid>
         <StackPanel>
-            <TextBlock Text="Classification" FontSize="40" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <WrapPanel HorizontalAlignment="Center">
                 <StackPanel Margin="0,0,50,0">
                     <TextBlock Text="Predicted Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>

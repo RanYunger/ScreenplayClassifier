@@ -7,7 +7,6 @@
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -18,27 +17,19 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <WrapPanel Grid.Row="0" Grid.ColumnSpan="4">
-            <Button Command="{Binding BackCommand}" Cursor="Hand" ToolTip="Back" Margin="10" Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <Image Source="/Media/Images/Back.png"/>
-                </Button.Content>
-            </Button>
-            <TextBlock Text="Archives by Genre" FontSize="60" Margin="400,10,0,10" Style="{StaticResource TextBlockStyle}"/>
-        </WrapPanel>
-        <v:FolderView x:Name="ActionFolderView" Grid.Row="1" Grid.Column="0"/>
-        <v:FolderView x:Name="AdventureFolderView" Grid.Row="1" Grid.Column="1"/>
-        <v:FolderView x:Name="ComedyFolderView" Grid.Row="1" Grid.Column="2"/>
-        <v:FolderView x:Name="CrimeFolderView" Grid.Row="1" Grid.Column="3"/>
+        <v:FolderView x:Name="ActionFolderView" Grid.Row="0" Grid.Column="0"/>
+        <v:FolderView x:Name="AdventureFolderView" Grid.Row="0" Grid.Column="1"/>
+        <v:FolderView x:Name="ComedyFolderView" Grid.Row="0" Grid.Column="2"/>
+        <v:FolderView x:Name="CrimeFolderView" Grid.Row="0" Grid.Column="3"/>
 
-        <v:FolderView x:Name="DramaFolderView" Grid.Row="2" Grid.Column="0"/>
-        <v:FolderView x:Name="FamilyFolderView" Grid.Row="2" Grid.Column="1"/>
-        <v:FolderView x:Name="FantasyFolderView" Grid.Row="2" Grid.Column="2"/>
-        <v:FolderView x:Name="HorrorFolderView" Grid.Row="2" Grid.Column="3"/>
+        <v:FolderView x:Name="DramaFolderView" Grid.Row="1" Grid.Column="0"/>
+        <v:FolderView x:Name="FamilyFolderView" Grid.Row="1" Grid.Column="1"/>
+        <v:FolderView x:Name="FantasyFolderView" Grid.Row="1" Grid.Column="2"/>
+        <v:FolderView x:Name="HorrorFolderView" Grid.Row="1" Grid.Column="3"/>
 
-        <v:FolderView x:Name="RomanceFolderView" Grid.Row="3" Grid.Column="0"/>
-        <v:FolderView x:Name="SciFiFolderView" Grid.Row="3" Grid.Column="1"/>
-        <v:FolderView x:Name="ThrillerFolderView" Grid.Row="3" Grid.Column="2"/>
-        <v:FolderView x:Name="WarFolderView" Grid.Row="3" Grid.Column="3"/>
+        <v:FolderView x:Name="RomanceFolderView" Grid.Row="2" Grid.Column="0"/>
+        <v:FolderView x:Name="SciFiFolderView" Grid.Row="2" Grid.Column="1"/>
+        <v:FolderView x:Name="ThrillerFolderView" Grid.Row="2" Grid.Column="2"/>
+        <v:FolderView x:Name="WarFolderView" Grid.Row="2" Grid.Column="3"/>
     </Grid>
 </UserControl>

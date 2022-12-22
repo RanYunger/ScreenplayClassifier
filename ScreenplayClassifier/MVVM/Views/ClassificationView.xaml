@@ -8,14 +8,22 @@
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              Style="{StaticResource UserControlStyle}">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="500"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <v:BrowseView x:Name="BrowseView" Grid.Column="0"/>
-        <v:ProgressView x:Name="ProgressView" Grid.Column="1" Visibility="Collapsed"/>
-        <v:FeedbackView x:Name="FeedbackView" Grid.Column="1" Visibility="Collapsed"/>
-        <Image Grid.Column="1" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Let Me See The Script.gif"
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Classification" FontSize="80" HorizontalAlignment="Center"
+                   Style="{StaticResource TextBlockStyle}"/>
+        <Image Grid.RowSpan="2" Grid.ColumnSpan="2" Source="/Media/Images/Classification.png" Opacity="0.1"/>
+
+        <v:BrowseView x:Name="BrowseView" Grid.Row="1" Grid.Column="0"/>
+        <v:ProgressView x:Name="ProgressView" Grid.Row="1" Grid.Column="1" Visibility="Collapsed"/>
+        <v:FeedbackView x:Name="FeedbackView" Grid.Row="1" Grid.Column="1" Visibility="Collapsed"/>
+        <Image Grid.Row="1" Grid.Column="1" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Let Me See The Script.gif"
                gif:ImageBehavior.RepeatBehavior="Forever" Margin="50">
             <Image.Style>
                 <Style TargetType="Image">
@@ -41,7 +49,7 @@
                 </Style>
             </Image.Style>
         </Image>
-        <MediaElement x:Name="MediaElement" Grid.ColumnSpan="2" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill">
+        <MediaElement x:Name="MediaElement" Grid.Row="1" Grid.ColumnSpan="2" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill">
             <MediaElement.Style>
                 <Style TargetType="MediaElement">
                     <Style.Triggers>

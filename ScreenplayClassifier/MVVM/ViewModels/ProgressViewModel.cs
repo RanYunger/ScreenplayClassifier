@@ -23,7 +23,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private System.Timers.Timer durationTimer;
-        private ImageSource statusGif;
         private TimeSpan duration;
         private int classificationsRequired, classificationsComplete, percent;
         private string classificationsText, statusText, durationText;
@@ -43,18 +42,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("DurationTimer"));
-            }
-        }
-
-        public ImageSource StatusGif
-        {
-            get { return statusGif; }
-            set
-            {
-                statusGif = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("StatusGif"));
             }
         }
 
@@ -126,9 +113,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             set
             {
                 statusText = value;
-
-                if ((!string.IsNullOrEmpty(statusText)) && (statusText != "Classifying"))
-                    App.Current.Dispatcher.Invoke(() => StatusGif = new BitmapImage(new Uri(FolderPaths.GIFS + statusText + ".gif")));
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("StatusText"));
@@ -242,7 +226,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             Thread.Sleep(500);
             StatusText = "Done!";
-            Thread.Sleep(1350);
+            Thread.Sleep(500);
 
             // Generates classification report for each screenplay
             deserializedScreenplays = JsonConvert.DeserializeObject<List<ScreenplayModel>>(screenplaysJson);

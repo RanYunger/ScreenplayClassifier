@@ -6,8 +6,32 @@
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <v:ArchivesSelectionView x:Name="ArchivesSelectionView" Visibility="Visible"/>
-        <v:ArchivesByGenreView x:Name="ArchivesByGenreView" Visibility="Collapsed"/>
-        <v:ArchivesByPercentView x:Name="ArchivesByPercentView" Visibility="Collapsed"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Archives" FontSize="80" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+        <Image Grid.RowSpan="2" Source="/Media/Images/Archives.png" Opacity="0.1"/>
+        
+        <TabControl Grid.Row="1">
+            <TabItem Style="{StaticResource TabItemStyle}">
+                <TabItem.Header>
+                    <WrapPanel>
+                        <Image Source="/Media/Images/Genre.png" Height="30" Width="30"/>
+                        <TextBlock Text="By Genre" FontSize="20" Margin="5,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+                    </WrapPanel>
+                </TabItem.Header>
+                <v:ArchivesByGenreView x:Name="ArchivesByGenreView"/>
+            </TabItem>
+            <TabItem Style="{StaticResource TabItemStyle}">
+                <TabItem.Header>
+                    <WrapPanel>
+                        <Image Source="/Media/Images/Percent.png" Height="30" Width="30"/>
+                        <TextBlock Text="By Percent" FontSize="20" Margin="5,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+                    </WrapPanel>
+                </TabItem.Header>
+                <v:ArchivesByPercentView x:Name="ArchivesByPercentView"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>

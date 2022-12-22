@@ -32,7 +32,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
-        public ArchivesViewModel ArchivesViewModel { get; private set; }
         public ArchivesByPercentView ArchivesByPercentView { get; private set; }
 
         public string FilteredGenre
@@ -246,11 +245,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command BackCommand
-        {
-            get { return new Command(() => ArchivesViewModel.ShowView(ArchivesViewModel.ArchivesSelectionView)); }
-        }
-
         public Command ChangeFilteredGenrePercentageRangeCommand
         {
             get
@@ -392,9 +386,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
-        public void Init(ArchivesByPercentView archivesByPercentView, ArchivesViewModel archivesViewModel)
+        public void Init(ArchivesByPercentView archivesByPercentView)
         {
-            ArchivesViewModel = archivesViewModel;
             ArchivesByPercentView = archivesByPercentView;
         }
 

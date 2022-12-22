@@ -14,7 +14,6 @@ namespace ScreenplayClassifier.Utilities
         public static string GENREAUDIOS = AUDIOS + @"\Genres\";
 
         public static string GIFS = MEDIA + @"\Gifs\";
-        public static string GENREGIFS = GIFS + @"\Genres\";
 
         public static string IMAGES = MEDIA + @"\Images\";
         public static string GENREIMAGES = IMAGES + @"\Genres\";

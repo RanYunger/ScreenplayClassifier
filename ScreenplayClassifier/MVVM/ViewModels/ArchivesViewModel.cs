@@ -21,7 +21,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Properties
         public MainViewModel MainViewModel { get; private set; }
         public ArchivesView ArchivesView { get; private set; }
-        public ArchivesSelectionView ArchivesSelectionView { get; private set; }
         public ArchivesByGenreView ArchivesByGenreView { get; private set; }
         public ArchivesByPercentView ArchivesByPercentView { get; private set; }
 
@@ -61,13 +60,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             MainViewModel = mainViewModel;
             ArchivesView = archivesView;
 
-            ArchivesSelectionView = (ArchivesSelectionView)ArchivesView.FindName("ArchivesSelectionView");
             ArchivesByGenreView = (ArchivesByGenreView)ArchivesView.FindName("ArchivesByGenreView");
             ArchivesByPercentView = (ArchivesByPercentView)ArchivesView.FindName("ArchivesByPercentView");
 
-            ((ArchivesSelectionViewModel)ArchivesSelectionView.DataContext).Init(this);
-            ((ArchivesByGenreViewModel)ArchivesByGenreView.DataContext).Init(ArchivesByGenreView, this);
-            ((ArchivesByPercentViewModel)ArchivesByPercentView.DataContext).Init(ArchivesByPercentView, this);
+            ((ArchivesByGenreViewModel)ArchivesByGenreView.DataContext).Init(ArchivesByGenreView);
+            ((ArchivesByPercentViewModel)ArchivesByPercentView.DataContext).Init(ArchivesByPercentView);
 
             InitGenres();
             InitScreenplays();
@@ -95,20 +92,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 Screenplays = Screenplays; // Triggers PropertyChanged event
             }
-        }
-
-        public void ShowView(UserControl viewToShow)
-        {
-            UserControl[] views = { ArchivesSelectionView, ArchivesByPercentView, ArchivesByGenreView };
-
-            if (viewToShow.Visibility == Visibility.Visible)
-            {
-                viewToShow.Focus();
-                return;
-            }
-
-            foreach (UserControl view in views)
-                view.Visibility = view == viewToShow ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

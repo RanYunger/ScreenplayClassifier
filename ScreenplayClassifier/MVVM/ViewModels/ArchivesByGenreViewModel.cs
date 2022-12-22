@@ -16,7 +16,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Properties
         private Dictionary<string, ObservableCollection<ScreenplayModel>> archives;
-        public ArchivesViewModel ArchivesViewModel { get; private set; }
         public ArchivesByGenreView ArchivesByGenreView { get; private set; }
 
         public Dictionary<string, ObservableCollection<ScreenplayModel>> Archives
@@ -36,15 +35,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command BackCommand
-        {
-            get { return new Command(() => ArchivesViewModel.ShowView(ArchivesViewModel.ArchivesSelectionView)); }
-        }
         #endregion
 
-        public void Init(ArchivesByGenreView archivesByGenreView, ArchivesViewModel archivesViewModel)
+        public void Init(ArchivesByGenreView archivesByGenreView)
         {
-            ArchivesViewModel = archivesViewModel;
             ArchivesByGenreView = archivesByGenreView;
 
             Archives = new Dictionary<string, ObservableCollection<ScreenplayModel>>();
@@ -66,12 +60,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void RefreshFolderViews()
         {
             FolderView folderView = null;
-            FolderViewModel folderViewModel = null;
+            TicketViewModel folderViewModel = null;
 
             foreach (string genreName in Archives.Keys)
             {
                 folderView = (FolderView)ArchivesByGenreView.FindName(genreName + "FolderView");
-                folderViewModel = (FolderViewModel)folderView.DataContext;
+                folderViewModel = (TicketViewModel)folderView.DataContext;
                 folderViewModel.Init(genreName, Archives[genreName]);
             }
         }

@@ -21,7 +21,11 @@
             <ColumnDefinition Width="600"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Reports" FontSize="40" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Reports" FontSize="80" HorizontalAlignment="Center"
+                   Style="{StaticResource TextBlockStyle}"/>
+        <Image Grid.RowSpan="2" Grid.ColumnSpan="2" Source="/Media/Images/Reports.png" Opacity="0.1"/>
+
+
         <StackPanel Grid.Row="1" Grid.Column="0">
             <GroupBox Margin="10" Style="{StaticResource GroupBoxStyle}">
                 <GroupBox.Header>
@@ -90,8 +94,6 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="Statistics" FontSize="40" HorizontalAlignment="Center"
-                   Style="{StaticResource TextBlockStyle}"/>
         <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center">
             <WrapPanel>
                 <StackPanel>
