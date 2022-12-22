@@ -93,8 +93,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             ((HomeViewModel)HomeView.DataContext).Init(HomeView, this);
             ((SettingsViewModel)SettingsView.DataContext).Init(SettingsView, this, authenticatedUsers);
-            ((AboutViewModel)AboutView.DataContext).Init(AboutView, this);
-            ((ReportsViewModel)ReportsView.DataContext).Init(ReportsView, this);
+            ((AboutViewModel)AboutView.DataContext).Init(AboutView);
+            ((ReportsViewModel)ReportsView.DataContext).Init(UserToolbarViewModel.User);
             ((ArchivesViewModel)ArchivesView.DataContext).Init(ArchivesView, this);
             ((ClassificationViewModel)ClassificationView.DataContext).Init(ClassificationView, this);
         }

@@ -199,10 +199,10 @@
     <Content Include="Media\Gifs\Let Me See The Script.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Gifs\Reports.gif">
+    <Content Include="Media\Gifs\Reading.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Gifs\Reading.gif">
+    <Content Include="Media\Gifs\Reports.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Add.png">

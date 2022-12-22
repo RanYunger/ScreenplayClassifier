@@ -10,10 +10,9 @@ using System.Windows;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class FeedbackViewModel : INotifyPropertyChanged
+    public class FeedbackViewModel
     {
         // Fields
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }

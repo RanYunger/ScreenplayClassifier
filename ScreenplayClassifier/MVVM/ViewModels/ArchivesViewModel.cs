@@ -65,7 +65,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ArchivesByGenreView = (ArchivesByGenreView)ArchivesView.FindName("ArchivesByGenreView");
             ArchivesByPercentView = (ArchivesByPercentView)ArchivesView.FindName("ArchivesByPercentView");
 
-            ((ArchivesSelectionViewModel)ArchivesSelectionView.DataContext).Init(ArchivesSelectionView, this);
+            ((ArchivesSelectionViewModel)ArchivesSelectionView.DataContext).Init(this);
             ((ArchivesByGenreViewModel)ArchivesByGenreView.DataContext).Init(ArchivesByGenreView, this);
             ((ArchivesByPercentViewModel)ArchivesByPercentView.DataContext).Init(ArchivesByPercentView, this);
 

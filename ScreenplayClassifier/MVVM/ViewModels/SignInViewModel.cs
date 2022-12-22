@@ -151,13 +151,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                             passwordErrorWrapPanel.Visibility = Visibility.Visible;
                         }
                         else
-                        {
-                            App.Current.MainWindow = new MainView();
-                            ((MainViewModel)App.Current.MainWindow.DataContext).Init(identifiedUser, AuthenticatedUsers);
-                            App.Current.MainWindow.Show();
-
-                            SignInView.Close();
-                        }
+                            OpenMainView(identifiedUser);
                     }
                     else if (++AttemptsCount == 3)
                     {
@@ -170,18 +164,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public Command ContinueAsGuestCommand
         {
-            get
-            {
-                return new Command(() =>
-                {
-                    App.Current.MainWindow = new MainView();
-
-                    ((MainViewModel)App.Current.MainWindow.DataContext).Init(new UserModel(), AuthenticatedUsers);
-                    App.Current.MainWindow.Show();
-
-                    SignInView.Close();
-                });
-            }
+            get { return new Command(() => OpenMainView(new UserModel())); }
         }
 
         public Command OpenCommandShellCommand
@@ -246,6 +229,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             PasswordError = string.Empty;
 
             CanSignin = true;
+        }
+
+        public void OpenMainView(UserModel user)
+        {
+            App.Current.MainWindow = new MainView();
+
+            ((MainViewModel)App.Current.MainWindow.DataContext).Init(user, AuthenticatedUsers);
+            SignInView.Close();
+
+            App.Current.MainWindow.Show();
         }
 
         public UserModel FindUser(string username)

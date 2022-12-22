@@ -6,14 +6,12 @@ using System.Text;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ArchivesSelectionViewModel : INotifyPropertyChanged
+    public class ArchivesSelectionViewModel
     {
         // Fields
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ArchivesViewModel ArchivesViewModel { get; private set; }
-        public ArchivesSelectionView ArchivesSelectionView { get; private set; }
 
         // Constructors
         public ArchivesSelectionViewModel() { }
@@ -31,10 +29,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
-        public void Init(ArchivesSelectionView archivesSelectionView, ArchivesViewModel archivesViewModel)
+        public void Init(ArchivesViewModel archivesViewModel)
         {
             ArchivesViewModel = archivesViewModel;
-            ArchivesSelectionView = archivesSelectionView;
         }
     }
 }

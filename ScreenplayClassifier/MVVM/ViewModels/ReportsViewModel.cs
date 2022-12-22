@@ -30,9 +30,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
-        public MainViewModel MainViewModel { get; private set; }
-        public ReportsView ReportsView { get; private set; }
-
         public ObservableCollection<ClassificationModel> Reports
         {
             get { return reports; }
@@ -314,17 +311,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
-        public void Init(ReportsView reportsView, MainViewModel mainViewModel)
+        public void Init(UserModel user)
         {
-            MainViewModel = mainViewModel;
-            ReportsView = reportsView;
-
-            InitReports();
+            InitReports(user);
         }
 
-        private void InitReports()
+        private void InitReports(UserModel user)
         {
-            UserModel user = MainViewModel.UserToolbarViewModel.User;
             List<ClassificationModel> memberReports;
 
             if (user.Role == UserModel.UserRole.GUEST)

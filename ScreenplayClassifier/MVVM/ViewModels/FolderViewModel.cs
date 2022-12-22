@@ -22,8 +22,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
-        public FolderView FolderView { get; private set; }
-
         public ImageSource GenreGif
         {
             get { return genreGif; }

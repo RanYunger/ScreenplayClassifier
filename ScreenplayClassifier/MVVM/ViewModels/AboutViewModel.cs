@@ -19,7 +19,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
-        public MainViewModel MainViewModel { get; private set; }
         public AboutView AboutView { get; private set; }
 
         public Timer VideoTimer
@@ -92,9 +91,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
-        public void Init(AboutView aboutView, MainViewModel mainViewModel)
+        public void Init(AboutView aboutView)
         {
-            MainViewModel = mainViewModel;
             AboutView = aboutView;
 
             VideoTimer = new Timer(6000);
