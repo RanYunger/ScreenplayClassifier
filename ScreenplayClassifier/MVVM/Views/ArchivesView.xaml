@@ -10,10 +10,10 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Image Grid.RowSpan="2" Source="/Media/Images/Archives.png" Opacity="0.3"/>
         <TextBlock Grid.Row="0" Text="Archives" FontSize="80" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-        <Image Grid.RowSpan="2" Source="/Media/Images/Archives.png" Opacity="0.1"/>
         
-        <TabControl Grid.Row="1">
+        <TabControl Grid.Row="1" Background="Transparent">
             <TabItem Style="{StaticResource TabItemStyle}">
                 <TabItem.Header>
                     <WrapPanel>

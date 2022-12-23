@@ -26,7 +26,7 @@
 
     <!--UserControl Style-->
     <Style x:Key="UserControlStyle" TargetType="UserControl">
-        <Setter Property="Background" Value="{StaticResource WindowBackground}"/>
+        <Setter Property="Background" Value="Transparent"/>
     </Style>
     
     <!--Button Style-->
@@ -140,7 +140,7 @@
 
     <!--TabItem Style-->
     <Style x:Key="TabItemStyle" TargetType="TabItem">
-        <Setter Property="Background" Value="{StaticResource WindowBackground}"/>
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FontSize" Value="25"/>
         <Setter Property="Cursor" Value="Hand"/>

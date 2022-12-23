@@ -25,7 +25,6 @@
     <None Remove="Media\Audios\Genres\War.mp3" />
     <None Remove="Media\Audios\Jim.mp3" />
     <None Remove="Media\Audios\Wilhelm Scream.mp3" />
-    <None Remove="Media\Gifs\Let Me See The Script.gif" />
     <None Remove="Media\Images\Add.png" />
     <None Remove="Media\Images\Admin.png" />
     <None Remove="Media\Images\Archives.png" />
@@ -38,7 +37,6 @@
     <None Remove="Media\Images\Command Shell.png" />
     <None Remove="Media\Images\Error.png" />
     <None Remove="Media\Images\Filter.png" />
-    <None Remove="Media\Images\Gears.png" />
     <None Remove="Media\Images\Genre.png" />
     <None Remove="Media\Images\Genres\Action.png" />
     <None Remove="Media\Images\Genres\Adventure.png" />
@@ -131,9 +129,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Audios\Jim.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Gifs\Let Me See The Script.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Add.png">
@@ -317,7 +312,6 @@
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
     <PackageReference Include="XamlRadialProgressBar" Version="1.0.3" />
   </ItemGroup>
 
@@ -330,12 +324,6 @@
   <ItemGroup>
     <Content Include="Media\Images\Movie.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Media\Images\Gears.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
@@ -380,9 +368,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="DLLs\System.Windows.Interactivity.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="DLLs\WpfAnimatedGif.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="DLLs\XamlRadialProgressBar.dll">

@@ -5,11 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="120"/>
             <RowDefinition Height="190"/>
             <RowDefinition Height="400"/>
             <RowDefinition Height="*"/>
@@ -18,8 +17,9 @@
             <ColumnDefinition Width="500"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Settings" FontSize="50" HorizontalAlignment="Center"
-                   Style="{StaticResource TextBlockStyle}"/>
+        <Image Grid.RowSpan="3" Grid.ColumnSpan="2" Source="/Media/Images/Settings.png" Opacity="0.3"/>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Settings" FontSize="80" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+        
         <GroupBox Grid.Row="1" Grid.Column="0" FontSize="20" Margin="10" Style="{StaticResource GroupBoxStyle}">
             <GroupBox.Header>
                 <WrapPanel>

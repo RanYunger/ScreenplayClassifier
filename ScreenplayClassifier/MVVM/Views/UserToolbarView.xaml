@@ -82,7 +82,7 @@
                             </Style>
                         </Button.Style>
                         <Button.Content>
-                            <Image Source="/Media/Images/Gears.png"/>
+                            <Image Source="/Media/Images/Settings.png"/>
                         </Button.Content>
                     </Button>
                     <Button Height="40" Width="40" Command="{Binding SignoutCommand}" ToolTip="Sign out"
