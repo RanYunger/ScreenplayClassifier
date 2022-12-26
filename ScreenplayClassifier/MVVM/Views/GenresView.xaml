@@ -8,7 +8,7 @@
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <StackPanel>
-            <Ellipse Height="300" Width="300" Cursor="Hand" Margin="0,10,0,20">
+            <Ellipse Height="250" Width="250" Cursor="Hand" Margin="0,10,0,20">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
                         <i:InvokeCommandAction Command="{Binding SelectGenreCommand}"/>
@@ -19,7 +19,7 @@
                 </Ellipse.Fill>
             </Ellipse>
             <WrapPanel HorizontalAlignment="Center">
-                <Ellipse Height="200" Width="200" Cursor="Hand" Margin="0,0,30,0">
+                <Ellipse Height="150" Width="150" Cursor="Hand" Margin="0,0,30,0">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding SelectSubGenre1Command}"/>
@@ -29,7 +29,7 @@
                         <ImageBrush ImageSource="{Binding SubGenre1Image}"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <Ellipse Height="200" Width="200" Cursor="Hand" Margin="30,0,0,0">
+                <Ellipse Height="150" Width="150" Cursor="Hand" Margin="30,0,0,0">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding SelectSubGenre2Command}"/>

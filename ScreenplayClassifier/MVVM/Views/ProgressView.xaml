@@ -14,10 +14,10 @@
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0" VerticalAlignment="Center">
             <TextBlock Text="{Binding ClassificationsText}" FontSize="30" Margin="20,0,0,0" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="{Binding DurationText}" FontSize="30" Margin="680,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding DurationText}" FontSize="30" Margin="630,0,0,0" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
-        <rpb:RadialProgressBar x:Name="RadialProgressBar" Grid.Row="1" Value="{Binding Percent}" Height="550" Width="550" ArcWidth="25" 
-                               Foreground="LimeGreen" InnerBackgroundBrush="{StaticResource MainColumnHeaderBackground}"/>
+        <rpb:RadialProgressBar x:Name="RadialProgressBar" Grid.Row="1" Value="{Binding Percent}" Height="500" Width="500" ArcWidth="25" 
+                               Foreground="LimeGreen" Margin="0,-20,0,0" InnerBackgroundBrush="{StaticResource MainColumnHeaderBackground}"/>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel.Style>
                 <Style TargetType="StackPanel">

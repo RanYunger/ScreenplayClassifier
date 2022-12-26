@@ -69,7 +69,7 @@
                     </Button>
                 </WrapPanel>
             </GroupBox>
-            <DataGrid ItemsSource="{Binding Reports}" Height="420" IsReadOnly="True" SelectionMode="Single" Margin="10,0,10,0"
+            <DataGrid ItemsSource="{Binding Reports}" Height="350" IsReadOnly="True" SelectionMode="Single" Margin="10,0,10,0"
                       Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Title" Binding="{Binding Path=Screenplay.Title}" Width="100"
@@ -123,7 +123,7 @@
                     </lvc:PieChart>
                 </StackPanel>
             </WrapPanel>
-            <lvc:CartesianChart x:Name="UsersCartesianChart" Series="{Binding OwnerSeries}" Height="300" LegendLocation="Left">
+            <lvc:CartesianChart x:Name="UsersCartesianChart" Series="{Binding OwnerSeries}" Height="230" LegendLocation="Left">
                 <lvc:CartesianChart.Style>
                     <Style TargetType="lvc:CartesianChart">
                         <Style.Triggers>

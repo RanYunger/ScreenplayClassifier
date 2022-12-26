@@ -36,12 +36,12 @@
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110"/>
-                    <ColumnDefinition Width="110"/>
-                    <ColumnDefinition Width="110"/>
-                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="130"/>
-                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="120"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Genre is:" FontSize="15" Style="{StaticResource TextBlockStyle}"/>
@@ -139,13 +139,13 @@
         <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Archives}" SelectedItem="{Binding SelectedScreenplay}"
                   Height="450" IsReadOnly="True" FontSize="15" Margin="10" Style="{StaticResource DataGridStyle}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="350"
+                <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="380"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                <DataGridTextColumn Header="Genre" Binding="{Binding Path=ActualGenre}" Width="130"
+                <DataGridTextColumn Header="Genre" Binding="{Binding Path=ActualGenre}" Width="110"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=ActualSubGenre1}" Width="130"
+                <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=ActualSubGenre1}" Width="110"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=ActualSubGenre2}" Width="130"
+                <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=ActualSubGenre2}" Width="110"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
             </DataGrid.Columns>
         </DataGrid>

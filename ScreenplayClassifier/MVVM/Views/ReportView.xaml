@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        Title="Screenplay Classifier" Height="800" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="Screenplay Classifier" Height="650" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Style="{StaticResource WindowStyle}">
     <Grid>
         <Grid.RowDefinitions>
@@ -31,7 +31,7 @@
                          Style="{StaticResource ReadOnlyTextBoxStyle}"/>
             </WrapPanel>
             <TextBlock Text="Genre Predictions" FontSize="20" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="350" Width="350" Hoverable="True" Margin="20">
+            <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="300" Width="300" Hoverable="True" Margin="20">
                 <lvc:PieChart.ChartLegend>
                     <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="10"/>
                 </lvc:PieChart.ChartLegend>

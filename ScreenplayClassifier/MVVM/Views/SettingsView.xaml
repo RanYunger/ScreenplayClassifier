@@ -10,7 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
             <RowDefinition Height="190"/>
-            <RowDefinition Height="400"/>
+            <RowDefinition Height="340"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -125,7 +125,7 @@
                 <Button Content="Save" Command="{Binding ChangePasswordCommand}" Style="{StaticResource ButtonStyle}"/>
             </WrapPanel>
         </GroupBox>
-        <GroupBox Grid.Row="2" Grid.Column="0" Height="380" FontSize="20" Margin="10">
+        <GroupBox Grid.Row="2" Grid.Column="0" Height="320" FontSize="20" Margin="10">
             <GroupBox.Style>
                 <Style TargetType="GroupBox">
                     <Setter Property="Background" Value="{StaticResource GroupBoxBackground}"/>
@@ -161,7 +161,7 @@
                     <Button Content="Remove" Command="{Binding RemoveMemberCommand}" IsEnabled="{Binding CanRemove}"
                             Margin="5" Style="{StaticResource ButtonStyle}"/>
                 </WrapPanel>
-                <DataGrid ItemsSource="{Binding AuthenticatedUsers}" SelectedIndex="{Binding SelectedUser}" Height="270" IsReadOnly="True"
+                <DataGrid ItemsSource="{Binding AuthenticatedUsers}" SelectedIndex="{Binding SelectedUser}" Height="210" IsReadOnly="True"
                           SelectionMode="Single" Margin="10,0,10,0" Style="{StaticResource DataGridStyle}">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Width="50" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">

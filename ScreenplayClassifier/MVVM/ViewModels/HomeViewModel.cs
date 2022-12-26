@@ -84,8 +84,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             animationDuration = new Duration(TimeSpan.FromSeconds(0.3));
             leftMargin = new Thickness(50, 50, 50, 50);
-            centerMargin = new Thickness(400, 0, 0, 0);
-            rightMargin = new Thickness(850, 50, 50, 50);
+            centerMargin = new Thickness(425, 0, 0, 0);
+            rightMargin = new Thickness(900, 50, 50, 50);
 
             ModuleName = "Classification";
         }
@@ -198,8 +198,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         private void LeftResizeAnimation(Image leftImage, Image centerImage, Image rightImage)
         {
-            DoubleAnimation enlargeAnimation = new DoubleAnimation(300, 400, animationDuration),
-                reduceAnimation = new DoubleAnimation(400, 300, animationDuration);
+            DoubleAnimation enlargeAnimation = new DoubleAnimation(250, 350, animationDuration),
+                reduceAnimation = new DoubleAnimation(350, 250, animationDuration);
 
             leftImage.BeginAnimation(Image.HeightProperty, enlargeAnimation, HandoffBehavior.Compose);
             leftImage.BeginAnimation(Image.WidthProperty, enlargeAnimation, HandoffBehavior.Compose);
@@ -232,8 +232,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         private void RightResizeAnimation(Image leftImage, Image centerImage, Image rightImage)
         {
-            DoubleAnimation enlargeAnimation = new DoubleAnimation(300, 400, animationDuration),
-                reduceAnimation = new DoubleAnimation(400, 300, animationDuration);
+            DoubleAnimation enlargeAnimation = new DoubleAnimation(250, 350, animationDuration),
+                reduceAnimation = new DoubleAnimation(350, 250, animationDuration);
 
             rightImage.BeginAnimation(Image.HeightProperty, enlargeAnimation, HandoffBehavior.Compose);
             rightImage.BeginAnimation(Image.WidthProperty, enlargeAnimation, HandoffBehavior.Compose);

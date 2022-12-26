@@ -15,7 +15,7 @@
                        Style="{StaticResource TextBlockStyle}"/>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <WrapPanel>
-                <Image Source="{Binding LeftArrowImage}" Width="100" Height="100" Cursor="Hand" Margin="25">
+                <Image Source="{Binding LeftArrowImage}" Width="100" Height="100" Cursor="Hand" Margin="15">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding PressLeftCommand}"/>
@@ -25,8 +25,8 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Image>
-                <Canvas Height="400" Width="1200">
-                    <Image x:Name="ArchivesImage" Source="/Media/Images/Archives.png" Height="300" Width="300" Margin="50">
+                <Canvas Height="350" Width="1200">
+                    <Image x:Name="ArchivesImage" Source="/Media/Images/Archives.png" Height="250" Width="250" Margin="50">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDown">
                                 <i:InvokeCommandAction Command="{Binding ShowArchivesViewCommand}"/>
@@ -48,7 +48,7 @@
                             </Style>
                         </Image.Style>
                     </Image>
-                    <Image x:Name="ClassificationImage" Source="/Media/Images/Classification.png" Height="400" Width="400" Margin="400,0,0,0">
+                    <Image x:Name="ClassificationImage" Source="/Media/Images/Classification.png" Height="350" Width="350" Margin="425,0,0,0">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDown">
                                 <i:InvokeCommandAction Command="{Binding ShowClassificationViewCommand}"/>
@@ -70,7 +70,7 @@
                             </Style>
                         </Image.Style>
                     </Image>
-                    <Image x:Name="ReportsImage" Source="/Media/Images/Reports.png" Height="300" Width="300" Margin="850,50,50,50">
+                    <Image x:Name="ReportsImage" Source="/Media/Images/Reports.png" Height="250" Width="250" Margin="900,50,50,50">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDown">
                                 <i:InvokeCommandAction Command="{Binding ShowReportsViewCommand}"/>
@@ -93,7 +93,7 @@
                         </Image.Style>
                     </Image>
                 </Canvas>
-                <Image Source="{Binding RightArrowImage}" Width="100" Height="100" Cursor="Hand" Margin="25">
+                <Image Source="{Binding RightArrowImage}" Width="100" Height="100" Cursor="Hand" Margin="15">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding PressRightCommand}"/>
@@ -105,7 +105,8 @@
                 </Image>
             </WrapPanel>
             <TextBlock Text="{Binding ModuleName}" HorizontalAlignment="Center" FontSize="60" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="{Binding ModuleDescription}" HorizontalAlignment="Center" FontSize="30" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding ModuleDescription}" HorizontalAlignment="Center" FontSize="30" Margin="10"
+                       Style="{StaticResource TextBlockStyle}"/>
         </StackPanel>
     </Grid>
 </UserControl>

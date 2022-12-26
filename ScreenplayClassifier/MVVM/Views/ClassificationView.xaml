@@ -22,7 +22,8 @@
         <v:BrowseView x:Name="BrowseView" Grid.Row="1" Grid.Column="0"/>
         <v:ProgressView x:Name="ProgressView" Grid.Row="1" Grid.Column="1" Visibility="Collapsed"/>
         <v:FeedbackView x:Name="FeedbackView" Grid.Row="1" Grid.Column="1" Visibility="Collapsed"/>
-        <MediaElement x:Name="MediaElement" Grid.Row="1" Grid.ColumnSpan="2" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill">
+        <MediaElement x:Name="MediaElement" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" LoadedBehavior="Manual" UnloadedBehavior="Manual"
+                      Stretch="Fill">
             <MediaElement.Style>
                 <Style TargetType="MediaElement">
                     <Style.Triggers>

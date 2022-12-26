@@ -18,7 +18,7 @@
                 </StackPanel>
             </WrapPanel>
             <Button Grid.Row="2" Grid.ColumnSpan="2" FontSize="20" Content="Submit" Command="{Binding SubmitFeedbackCommand}"
-                Margin="10" Style="{StaticResource ButtonStyle}"/>
+                Margin="30" Style="{StaticResource ButtonStyle}"/>
         </StackPanel>
     </Grid>
 </UserControl>
