@@ -135,6 +135,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     {
                         case "Genre":
                             {
+                                // Checks whether the selected genre is taken
                                 if ((Screenplay.ActualSubGenre1 == SelectedGenre) || (Screenplay.ActualSubGenre2 == SelectedGenre))
                                     MessageBoxHandler.Show(SelectedGenre + " genre already selected", "Error", 3, MessageBoxImage.Error);
                                 else
@@ -147,6 +148,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                             break;
                         case "SubGenre1":
                             {
+                                // Checks whether the selected genre is taken
                                 if ((Screenplay.ActualGenre == SelectedGenre) || (Screenplay.ActualSubGenre2 == SelectedGenre))
                                     MessageBoxHandler.Show(SelectedGenre + " genre already selected", "Error", 3, MessageBoxImage.Error);
                                 else
@@ -159,6 +161,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                             break;
                         case "SubGenre2":
                             {
+                                // Checks whether the selected genre is taken
                                 if ((Screenplay.ActualGenre == SelectedGenre) || (Screenplay.ActualSubGenre1 == SelectedGenre))
                                     MessageBoxHandler.Show(SelectedGenre + " genre already selected", "Error", 3, MessageBoxImage.Error);
                                 else
@@ -175,6 +178,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="affectedGenre">The genre affected by the genre selection</param>
+        /// <param name="screenplay">The screenplay the genre of which is selected</param>
+        /// <param name="genreSelectionView">The view to obtain controls from</param>
+        /// <param name="genresView">The GenresView which parents the GenreSelectionView</param>
         public void Init(string affectedGenre, ScreenplayModel screenplay, GenreSelectionView genreSelectionView, GenresView genresView)
         {
             AffectedGenre = affectedGenre;

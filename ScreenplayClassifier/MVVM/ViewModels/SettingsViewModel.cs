@@ -154,6 +154,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     PasswordBox oldPasswordBox = (PasswordBox)SettingsView.FindName("OldPasswordBox");
                     TextBox oldPasswordTextBox = (TextBox)SettingsView.FindName("OldPasswordTextBox");
 
+                    // Changes the password's visibility
                     IsOldPasswordVisible = !IsOldPasswordVisible;
 
                     if (IsOldPasswordVisible)
@@ -181,6 +182,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     PasswordBox newPasswordBox = (PasswordBox)SettingsView.FindName("NewPasswordBox");
                     TextBox newPasswordTextBox = (TextBox)SettingsView.FindName("NewPasswordTextBox");
 
+                    // Changes the password's visibility
                     IsNewPasswordVisible = !IsNewPasswordVisible;
 
                     if (IsNewPasswordVisible)
@@ -213,6 +215,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         confirmPasswordBox = (PasswordBox)SettingsView.FindName("ConfirmPasswordBox");
                     int userOffset = AuthenticatedUsers.IndexOf(MainViewModel.UserToolbarViewModel.User);
 
+                    // Obtains the current string representations of both old and new passwords
                     OldPassword = IsOldPasswordVisible ? oldPasswordTextBox.Text.Trim() : oldPasswordBox.Password.Trim();
                     NewPassword = IsNewPasswordVisible ? newPasswordTextBox.Text.Trim() : newPasswordBox.Password.Trim();
 
@@ -263,11 +266,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     ICollectionView usersCollectionView = CollectionViewSource.GetDefaultView(AuthenticatedUsers);
                     string usernameInput = usernameInputTextBox.Text;
 
+                    // Updates and activates the filter
                     usernameFilter = (o) => { return string.IsNullOrEmpty(usernameInput) ? true : ((UserModel)o).Username.Contains(usernameInput); };
 
                     usersCollectionView.Filter = (o) => { return usernameFilter.Invoke(o); };
                     usersCollectionView.Refresh();
 
+                    // Checks whether the searched user can be added
                     CanAdd = true;
                     foreach (UserModel user in AuthenticatedUsers)
                     {
@@ -313,6 +318,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="settingsView">The view to obtain controls from</param>
+        /// <param name="mainViewModel">The MainView's view model</param>
+        /// <param name="authenticatedUsers">List of all users who can authenticate to the system</param>
         public void Init(SettingsView settingsView, MainViewModel mainViewModel, ObservableCollection<UserModel> authenticatedUsers)
         {
             PasswordBox oldPasswordBox, newPasswordBox, confirmPasswordBox;

@@ -71,28 +71,28 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     GenreView genreView = null;
 
-                    if (screenplaysInGenre.Count == 0)
-                        MessageBoxHandler.Show(string.Format("No {0} screenplays to show", genre), "Error", 2, MessageBoxImage.Stop);
-                    else
-                    {
-                        foreach (Window view in App.Current.Windows)
+                    // Focuses on an open GenreView (if there's one)
+                    foreach (Window view in App.Current.Windows)
+                        if (view is GenreView)
                         {
-                            if (view is GenreView)
-                            {
-                                view.Focus();
-                                return;
-                            }
+                            view.Focus();
+                            return;
                         }
 
-                        genreView = new GenreView();
-                        ((GenreViewModel)genreView.DataContext).Init(Genre, ScreenplaysInGenre);
-                        genreView.Show();
-                    }
+                    // Opens a new GenreView to the genre
+                    genreView = new GenreView();
+                    ((GenreViewModel)genreView.DataContext).Init(Genre, ScreenplaysInGenre);
+                    genreView.Show();
                 });
             }
         }
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="genreName">The genre represented by the TicketView</param>
+        /// <param name="screenplaysInGenre">Collection of screenplays whose main genre is <genreName></param>
         public void Init(string genreName, ObservableCollection<ScreenplayModel> screenplaysInGenre)
         {
             string genreImageFilePath = string.Format(@"{0}{1}.png", FolderPaths.GENREIMAGES, Genre = genreName);

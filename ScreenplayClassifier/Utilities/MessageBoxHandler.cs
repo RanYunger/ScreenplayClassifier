@@ -50,7 +50,7 @@ namespace ScreenplayClassifier.Utilities
         /// <param name="text">The text to display</param>
         /// <param name="caption">The caption of the MessageBox</param>
         /// <param name="timeout">The amount of seconds for which the MessageBox will be displayed</param>
-        /// <param name="rtl">The indicator for how the MessageBox will be displayed - RTL or LTR</param>
+        /// <param name="image">The image to display in the MessageBox</param>
         public static void Show(string text, string caption, byte timeout, MessageBoxImage image)
         {
             new MessageBoxHandler(text, caption, timeout, image);

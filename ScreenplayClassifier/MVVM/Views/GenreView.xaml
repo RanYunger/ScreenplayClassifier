@@ -13,6 +13,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
+        <Image Source="/Media/Images/Genre.png" Opacity="0.3"/>
         <StackPanel>
             <Image Source="{Binding AudioImage}" Height="40" Width="40" Cursor="Hand" Margin="10">
                 <i:Interaction.Triggers>
@@ -21,10 +22,13 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Image>
-            <TextBlock Text="{Binding Genre}" HorizontalAlignment="Center" FontSize="50" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <Image Source="{Binding GenreImage}" Height="300" Width="500"/>
+            <Ellipse Height="400" Width="400">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{Binding GenreImage}"/>
+                </Ellipse.Fill>
+            </Ellipse>
             <TextBlock Text="{Binding ScreenplaysCountText}" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <DataGrid ItemsSource="{Binding ScreenplaysInGenre}" Height="265" IsReadOnly="True" Margin="10,0,10,0"
+            <DataGrid ItemsSource="{Binding ScreenplaysInGenre}" Height="255" IsReadOnly="True" Margin="10,0,10,0"
                       Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="260"

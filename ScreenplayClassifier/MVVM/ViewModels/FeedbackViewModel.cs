@@ -48,6 +48,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Initiates the view model
+        /// </summary>
+        /// <param name="classificationViewModel">The view model which manages the classification module</param>
+        /// <param name="feedbackView">The view to obtain controls from</param>
         public void Init(ClassificationViewModel classificationViewModel, FeedbackView feedbackView)
         {
             GenresView predictedGenresView, actualGenresView;
@@ -64,6 +69,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ActualGenresViewModel.Init(actualGenresView);
         }
 
+        /// <summary>
+        /// Shows the view.
+        /// </summary>
         public void ShowView()
         {
             ScreenplayModel screenplay = ClassificationViewModel.ClassifiedScreenplays[ClassificationViewModel.SelectedScreenplay].Screenplay;
@@ -72,6 +80,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             App.Current.Dispatcher.Invoke(() => FeedbackView.Visibility = Visibility.Visible);
         }
 
+        /// <summary>
+        /// Refreshes the view.
+        /// </summary>
+        /// <param name="selectedScreenplay">The screenplay to be shown in the view</param>
         public void RefreshView(ScreenplayModel selectedScreenplay)
         {
             try
@@ -82,11 +94,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             catch { }
         }
 
+        /// <summary>
+        /// Hides the view.
+        /// </summary>
         public void HideView()
         {
             App.Current.Dispatcher.Invoke(() => FeedbackView.Visibility = Visibility.Collapsed);
         }
 
+        /// <summary>
+        /// Indicates wheather the user can submit his feedback.
+        /// </summary>
+        /// <returns>True if feedback can be submited, False otherwise</returns>
         private bool CanSubmit()
         {
             ScreenplayModel currentScreenplay = null;
@@ -102,6 +121,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             return true;
         }
 
+        /// <summary>
+        /// Notifies other modules of the completed classification process.
+        /// </summary>
         private void UpdateOtherModules()
         {
             ReportsViewModel reportsViewModel = (ReportsViewModel)ClassificationViewModel.MainViewModel.ReportsView.DataContext;

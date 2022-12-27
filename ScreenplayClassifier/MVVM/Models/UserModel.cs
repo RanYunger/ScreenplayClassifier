@@ -84,6 +84,7 @@ namespace ScreenplayClassifier.MVVM.Models
                     MessageBoxResult confirmResult = MessageBox.Show(string.Format("Are you sure you want to {0} {1}?", roleAction, Username),
                         "Confirm Role Change", MessageBoxButton.YesNo);
 
+                    // Changes the user's role (if confirmation is given)
                     if (confirmResult == MessageBoxResult.Yes)
                     {
                         Role = newRole;

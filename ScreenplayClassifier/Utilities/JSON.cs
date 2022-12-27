@@ -20,6 +20,9 @@ namespace ScreenplayClassifier.Utilities
         public static List<ClassificationModel> LoadedReports;
 
         // Methods
+        /// <summary>
+        /// Loads the authenticated users saved in json file.
+        /// </summary>
         public static void LoadUsers()
         {
             string usersJson = File.ReadAllText(FolderPaths.JSONS + "Users.json");
@@ -27,6 +30,9 @@ namespace ScreenplayClassifier.Utilities
             LoadedUsers = JsonConvert.DeserializeObject<List<UserModel>>(usersJson);
         }
 
+        /// <summary>
+        /// Loads the genre labels saved in json file.
+        /// </summary>
         public static void LoadGenres()
         {
             string genresJson = File.ReadAllText(FolderPaths.JSONS + "Genres.json");
@@ -34,6 +40,9 @@ namespace ScreenplayClassifier.Utilities
             LoadedGenres = JsonConvert.DeserializeObject<List<string>>(genresJson);
         }
 
+        /// <summary>
+        /// Loads the reports saved in json file.
+        /// </summary>
         public static void LoadReports()
         {
             string reportsJson = File.ReadAllText(FolderPaths.JSONS + "Reports.json");
@@ -41,6 +50,10 @@ namespace ScreenplayClassifier.Utilities
             LoadedReports = JsonConvert.DeserializeObject<List<ClassificationModel>>(reportsJson);
         }
 
+        /// <summary>
+        /// Saves the authenticated users to json file.
+        /// </summary>
+        /// <param name="users">Authenticated users to be saved</param>
         public static void SaveUsers(ObservableCollection<UserModel> users)
         {
             LoadedUsers = new List<UserModel>(users); // For signing out (reloading the file is unnecessary)
@@ -48,6 +61,10 @@ namespace ScreenplayClassifier.Utilities
             File.WriteAllText(FolderPaths.JSONS + "Users.json", JsonConvert.SerializeObject(LoadedUsers, Formatting.Indented));
         }
 
+        /// <summary>
+        /// Saves classification reports to json file.
+        /// </summary>
+        /// <param name="reports"></param>
         public static void SaveReports(ObservableCollection<ClassificationModel> reports)
         {
             // Prevents duplications

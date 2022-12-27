@@ -13,10 +13,9 @@ using System.Windows.Media;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel
     {
         // Fields
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public MainView MainView { get; private set; }
@@ -53,6 +52,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     ClassificationViewModel classificationViewModel = (ClassificationViewModel)ClassificationView.DataContext;
                     ReportsViewModel reportsViewModel = (ReportsViewModel)ReportsView.DataContext;
 
+                    // Guest's changes aren't saved (invisible to the database)
                     if (UserToolbarViewModel.User.Role != UserModel.UserRole.GUEST)
                     {
                         JSON.SaveReports(reportsViewModel.Reports);
@@ -61,6 +61,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     classificationViewModel.InterruptVideoCommand.Execute(null);
 
+                    // Closes any delegate windows opened from the view
                     foreach (Window view in App.Current.Windows)
                         if ((view is GenreSelectionView) || (view is GenreView) || (view is ReportView))
                             view.Close();
@@ -69,6 +70,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="user">The user who authenticated to the system</param>
+        /// <param name="authenticatedUsers">List of all users who can authenticate to the system</param>
         public void Init(UserModel user, ObservableCollection<UserModel> authenticatedUsers)
         {
             UserToolbarView userToolbarView;
@@ -99,6 +105,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ((ClassificationViewModel)ClassificationView.DataContext).Init(ClassificationView, this);
         }
 
+        /// <summary>
+        /// Shows a child view.
+        /// </summary>
+        /// <param name="viewToShow">The child view to show within the view</param>
         public void ShowView(UserControl viewToShow)
         {
             UserControl[] views = { HomeView, SettingsView, AboutView, ArchivesView, ClassificationView, ReportsView };

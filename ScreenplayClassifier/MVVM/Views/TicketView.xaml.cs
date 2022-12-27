@@ -17,9 +17,9 @@ namespace ScreenplayClassifier.MVVM.Views
     /// <summary>
     /// Interaction logic for FolderView.xaml
     /// </summary>
-    public partial class FolderView : UserControl
+    public partial class TicketView : UserControl
     {
-        public FolderView()
+        public TicketView()
         {
             InitializeComponent();
             DataContext = new TicketViewModel();

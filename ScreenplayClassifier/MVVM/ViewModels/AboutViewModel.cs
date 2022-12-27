@@ -91,6 +91,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="aboutView">The view to obtain controls from</param>
         public void Init(AboutView aboutView)
         {
             AboutView = aboutView;
@@ -99,6 +103,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             VideoTimer.Elapsed += VideoTimer_Elapsed;
         }
 
+        /// <summary>
+        /// Callback method to the timer's Elapsed event.
+        /// </summary>
+        /// <param name="sender">The invoker of the event</param>
+        /// <param name="e">The event argument</param>
         private void VideoTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             VideoTimer.Stop();

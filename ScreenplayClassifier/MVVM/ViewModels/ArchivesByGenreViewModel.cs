@@ -37,6 +37,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         #region Commands
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="archivesByGenreView">The view to obtain controls from</param>
         public void Init(ArchivesByGenreView archivesByGenreView)
         {
             ArchivesByGenreView = archivesByGenreView;
@@ -44,6 +48,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             Archives = new Dictionary<string, ObservableCollection<ScreenplayModel>>();
         }
 
+        /// <summary>
+        /// Refreshes the archives
+        /// </summary>
+        /// <param name="genres">List of genre labels</param>
+        /// <param name="screenplays">List of screenplays to be categorized into genres</param>
         public void RefreshArchives(ObservableCollection<string> genres, List<ScreenplayModel> screenplays)
         {
             List<ScreenplayModel> genreScreenplays;
@@ -54,19 +63,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 Archives[genreName] = new ObservableCollection<ScreenplayModel>(genreScreenplays);
             }
 
-            RefreshFolderViews();
+            RefreshTicketViews();
         }
 
-        private void RefreshFolderViews()
+        /// <summary>
+        /// Refreshes the TicketViews.
+        /// </summary>
+        private void RefreshTicketViews()
         {
-            FolderView folderView = null;
-            TicketViewModel folderViewModel = null;
+            TicketView ticketView = null;
+            TicketViewModel ticketViewModel = null;
 
             foreach (string genreName in Archives.Keys)
             {
-                folderView = (FolderView)ArchivesByGenreView.FindName(genreName + "FolderView");
-                folderViewModel = (TicketViewModel)folderView.DataContext;
-                folderViewModel.Init(genreName, Archives[genreName]);
+                ticketView = (TicketView)ArchivesByGenreView.FindName(genreName + "TicketView");
+                ticketViewModel = (TicketViewModel)ticketView.DataContext;
+                ticketViewModel.Init(genreName, Archives[genreName]);
             }
         }
     }

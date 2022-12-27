@@ -176,6 +176,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="classificationView">The view to obtain controls from</param>
+        /// <param name="mainViewModel">The MainView's view model</param>
         public void Init(ClassificationView classificationView, MainViewModel mainViewModel)
         {
             BrowseView browseView;

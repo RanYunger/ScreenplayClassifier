@@ -112,6 +112,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     string imagePath = string.Empty;
 
+                    // Toggles the audio's image and state
                     AudioOn = !AudioOn;
 
                     if (AudioOn)
@@ -132,6 +133,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="genreName">The genre to be represented by the GenreView</param>
+        /// <param name="mainViewModel">The MainView's view model</param>
         public void Init(string genreName, ObservableCollection<ScreenplayModel> screenplayClassifiers)
         {
             Genre = genreName;

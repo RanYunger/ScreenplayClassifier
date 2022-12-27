@@ -165,6 +165,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="homeView">The view to obtain controls from</param>
+        /// <param name="mainViewModel">The MainView's view model</param>
         public void Init(HomeView homeView, MainViewModel mainViewModel)
         {
             MainViewModel = mainViewModel;
@@ -174,6 +179,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             RightArrowImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "RightArrowUnpressed.png"));
         }
 
+        /// <summary>
+        /// Rotates the modules circle left.
+        /// </summary>
+        /// <param name="leftImage">The image on the left</param>
+        /// <param name="centerImage">The image on the center</param>
+        /// <param name="rightImage">The image on the right</param>
         private void LeftAnimation(Image leftImage, Image centerImage, Image rightImage)
         {
             // Updates Z indices of all images for the illusion of circularity
@@ -185,6 +196,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             LeftResizeAnimation(leftImage, centerImage, rightImage);
         }
 
+        /// <summary>
+        /// Animates a left slide of the modules circle.
+        /// </summary>
+        /// <param name="leftImage">The image on the left</param>
+        /// <param name="centerImage">The image on the center</param>
+        /// <param name="rightImage">The image on the right</param>
         private void LeftSlideAnimation(Image leftImage, Image centerImage, Image rightImage)
         {
             ThicknessAnimation leftToCenterAnimation = new ThicknessAnimation(leftMargin, centerMargin, animationDuration),
@@ -196,6 +213,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             rightImage.BeginAnimation(Border.MarginProperty, rightToLeftAnimation);
         }
 
+        /// <summary>
+        /// Animates a left resize of the modules circle.
+        /// </summary>
+        /// <param name="leftImage">The image on the left</param>
+        /// <param name="centerImage">The image on the center</param>
+        /// <param name="rightImage">The image on the right</param>
         private void LeftResizeAnimation(Image leftImage, Image centerImage, Image rightImage)
         {
             DoubleAnimation enlargeAnimation = new DoubleAnimation(250, 350, animationDuration),
@@ -208,6 +231,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             centerImage.BeginAnimation(Image.WidthProperty, reduceAnimation, HandoffBehavior.Compose);
         }
 
+        /// <summary>
+        /// Rotates the modules circle right.
+        /// </summary>
+        /// <param name="leftImage">The image on the left</param>
+        /// <param name="centerImage">The image on the center</param>
+        /// <param name="rightImage">The image on the right</param>
         private void RightAnimation(Image leftImage, Image centerImage, Image rightImage)
         {
             // Updates Z indices of all images for the illusion of circularity
@@ -219,6 +248,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             RightResizeAnimation(leftImage, centerImage, rightImage);
         }
 
+        /// <summary>
+        /// Animates a right slide of the modules circle.
+        /// </summary>
+        /// <param name="leftImage">The image on the left</param>
+        /// <param name="centerImage">The image on the center</param>
+        /// <param name="rightImage">The image on the right</param>
         private void RightSlideAnimation(Image leftImage, Image centerImage, Image rightImage)
         {
             ThicknessAnimation leftToRightAnimation = new ThicknessAnimation(leftMargin, rightMargin, animationDuration),
@@ -230,6 +265,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             rightImage.BeginAnimation(Border.MarginProperty, rightToCenterAnimation);
         }
 
+        /// <summary>
+        /// Animates a right resize of the modules circle.
+        /// </summary>
+        /// <param name="leftImage">The image on the left</param>
+        /// <param name="centerImage">The image on the center</param>
+        /// <param name="rightImage">The image on the right</param>
         private void RightResizeAnimation(Image leftImage, Image centerImage, Image rightImage)
         {
             DoubleAnimation enlargeAnimation = new DoubleAnimation(250, 350, animationDuration),
@@ -242,6 +283,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             centerImage.BeginAnimation(Image.WidthProperty, reduceAnimation, HandoffBehavior.Compose);
         }
 
+        /// <summary>
+        /// Reorders the modules circle before left rotation.
+        /// </summary>
         private void RotateLeft()
         {
             Image leftImage = null, centerImage = null, rightImage = null;
@@ -284,6 +328,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        /// <summary>
+        /// Reorders the modules circle before right rotation.
+        /// </summary>
         private void RotateRight()
         {
             Image leftImage = null, centerImage = null, rightImage = null;

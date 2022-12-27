@@ -171,9 +171,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (filteredGenre != null)
                 {
+                    // Restores options to their default collection
                     SubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
                     SubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
 
+                    // Removes selected option from other collections to prevent duplications
                     SubGenre1Options.Remove(filteredGenre);
                     SubGenre1Options.Remove(FilteredSubGenre2);
                     SubGenre1Options = SubGenre1Options;
@@ -199,9 +201,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (filteredSubGenre1 != null)
                 {
+                    // Restores options to their default collection
                     GenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
                     SubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
 
+                    // Removes selected option from other collections to prevent duplications
                     GenreOptions.Remove(filteredSubGenre1);
                     GenreOptions.Remove(FilteredSubGenre2);
                     GenreOptions = GenreOptions;
@@ -227,9 +231,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (filteredSubGenre2 != null)
                 {
+                    // Restores options to their default collection
                     GenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
                     SubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
 
+                    // Removes selected option from other collections to prevent duplications
                     GenreOptions.Remove(filteredSubGenre2);
                     GenreOptions.Remove(FilteredSubGenre1);
                     GenreOptions = GenreOptions;
@@ -257,6 +263,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     ICollectionView reportsCollectionView = CollectionViewSource.GetDefaultView(Reports);
 
+                    // Updates all filters
                     titleFilter = (o) =>
                     {
                         return string.IsNullOrEmpty(TitlePattern) ? true
@@ -278,6 +285,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                             : ((ClassificationModel)o).Screenplay.ActualSubGenre2 == FilteredSubGenre2;
                     };
 
+                    // Activates a combination of all filters
                     reportsCollectionView.Filter = (o) =>
                     {
                         return (titleFilter.Invoke(o)) && (genreFilter.Invoke(o)) && (subGenre1Filter.Invoke(o)) && (subGenre2Filter.Invoke(o));
@@ -296,10 +304,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
+                    // Restores options to their default collection
                     GenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
                     SubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
                     SubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
 
+                    // Clears filtered values
                     TitlePattern = null;
                     FilteredGenre = null;
                     FilteredSubGenre1 = null;
@@ -311,11 +321,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="user">The user who authenticated to the system</param>
         public void Init(UserModel user)
         {
             InitReports(user);
         }
 
+        /// <summary>
+        /// Initiates the reports.
+        /// </summary>
+        /// <param name="user">The user authenticated to the system</param>
         private void InitReports(UserModel user)
         {
             List<ClassificationModel> memberReports;
@@ -327,6 +345,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 JSON.LoadReports();
                 Reports = new ObservableCollection<ClassificationModel>(JSON.LoadedReports);
 
+                // Members can only view the reports they own
                 if (user.Role == UserModel.UserRole.MEMBER)
                 {
                     memberReports = new List<ClassificationModel>(Reports).FindAll(report => report.Owner.Username.Equals(user.Username));
@@ -335,6 +354,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        /// <summary>
+        /// Refreshes the pie charts.
+        /// </summary>
+        /// <param name="reportsCollectionView">The filtered reports collection</param>
         private void RefreshPieCharts(ICollectionView reportsCollectionView)
         {
             int genreCount, subGenre1Count, subGenre2Count;
@@ -343,6 +366,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             SubGenre1Series = new SeriesCollection();
             SubGenre2Series = new SeriesCollection();
 
+            // Creates a slice for each genre criteria
             foreach (string genreName in JSON.LoadedGenres)
             {
                 genreCount = CountRecordsByGenre(reportsCollectionView, genreName, "Genre");
@@ -374,6 +398,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        /// <summary>
+        /// Refreshes the bar chart.
+        /// </summary>
+        /// <param name="reportsCollectionView">The filtered reports collection</param>
         private void RefreshBarChart(ICollectionView reportsCollectionView)
         {
             int ownerCount;
@@ -382,6 +410,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             LabelFormatter = value => value.ToString("N");
             OwnerLabels = new string[] { };
 
+            // Creates a bar for each user
             foreach (UserModel owner in JSON.LoadedUsers)
             {
                 ownerCount = CountRecordsByOwner(reportsCollectionView, owner);
@@ -395,6 +424,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        /// <summary>
+        /// Counts records by a given genre query.
+        /// </summary>
+        /// <param name="reportsCollectionView">The filtered reports collection</param>
+        /// <param name="genreName">The genre label to count by</param>
+        /// <param name="genreType">The genre's type: Main/SubGenre1/SubGenre2</param>
+        /// <returns></returns>
         private int CountRecordsByGenre(ICollectionView reportsCollectionView, string genreName, string genreType)
         {
             ClassificationModel currentReport;
@@ -418,6 +454,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             return count;
         }
 
+        /// <summary>
+        /// Counts records by a given owner.
+        /// </summary>
+        /// <param name="reportsCollectionView">The filtered reports collection</param>
+        /// <param name="owner">The owenr to check records by</param>
+        /// <returns></returns>
         private int CountRecordsByOwner(ICollectionView reportsCollectionView, UserModel owner)
         {
             ClassificationModel currentReport;

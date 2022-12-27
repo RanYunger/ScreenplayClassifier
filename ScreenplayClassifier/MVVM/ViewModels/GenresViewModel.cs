@@ -135,6 +135,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     GenreSelectionView genreSelectionView = null;
                     string genreType = string.Empty;
 
+                    // Focuses on an existing GenreSelectionView (if there's one)
                     foreach (Window view in App.Current.Windows)
                         if (view is GenreSelectionView)
                         {
@@ -142,6 +143,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                             return;
                         }
 
+                    // Opens a new GenreSelectionView
                     genreSelectionView = new GenreSelectionView();
                     ((GenreSelectionViewModel)genreSelectionView.DataContext).Init(AffectedGenre, Screenplay, genreSelectionView, GenresView);
                     genreSelectionView.Show();
@@ -150,11 +152,20 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="genresView">The view to obtain controls from</param>
         public void Init(GenresView genresView)
         {
             GenresView = genresView;
         }
 
+        /// <summary>
+        /// Refreshes the view.
+        /// </summary>
+        /// <param name="screenplay">The screenplay the genres of which are shown in the view</param>
+        /// <param name="genresAffiliation">The genres' affiliation: Predicted/Actual</param>
         public void RefreshView(ScreenplayModel screenplay, string genresAffiliation)
         {
             bool isActual = genresAffiliation == "Actual";
@@ -164,7 +175,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             if (screenplay != null)
             {
-                genreImagePath = string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, 
+                // Updates the images representing the screenplay's genres.
+                genreImagePath = string.Format("{0}{1}.png", FolderPaths.GENREIMAGES,
                     isActual ? screenplay.ActualGenre : screenplay.PredictedGenre);
                 subGenre1ImagePath = string.Format("{0}{1}.png", FolderPaths.GENREIMAGES,
                     isActual ? screenplay.ActualSubGenre1 : screenplay.PredictedSubGenre1);

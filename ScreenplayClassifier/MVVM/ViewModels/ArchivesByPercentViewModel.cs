@@ -298,6 +298,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     ICollectionView archivesCollectionView = CollectionViewSource.GetDefaultView(Archives);
 
+                    // Updates all filters
                     genreFilter = (o) =>
                     {
                         return string.IsNullOrEmpty(FilteredGenre) ? true : ((ScreenplayModel)o).ActualGenre == FilteredGenre;
@@ -336,6 +337,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                             : (subGenre2Percentage >= FilteredSubGenre2MinPercentage) && (subGenre2Percentage <= FilteredSubGenre2MaxPercentage);
                     };
 
+                    // Activates and filters by a combination of all filters
                     archivesCollectionView.Filter = (o) =>
                     {
                         return (genreFilter.Invoke(o)) && (subGenre1Filter.Invoke(o)) && (subGenre2Filter.Invoke(o)) &&
@@ -361,16 +363,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         subGenre2MinPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre2MinPercentageNumericUpDown"),
                         subGenre2MaxPercentageNumericUpDown = (NumericUpDown)ArchivesByPercentView.FindName("FilteredSubGenre2MaxPercentageNumericUpDown");
 
+                    // Restores collections to their initial state
                     GenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
                     SubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
                     SubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
 
+                    // Clears all filtered values
                     FilteredGenre = null;
                     FilteredSubGenre1 = null;
                     FilteredSubGenre2 = null;
 
                     SelectedScreenplay = null;
 
+                    // Restores all numeric values to their initial states
                     genreMinPercentageNumericUpDown.Value = FilteredGenreMinPercentage = 0;
                     genreMaxPercentageNumericUpDown.Value = FilteredGenreMaxPercentage = 100;
 
@@ -386,11 +391,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="archivesByPercentView">The view to obtain controls from</param>
         public void Init(ArchivesByPercentView archivesByPercentView)
         {
             ArchivesByPercentView = archivesByPercentView;
         }
 
+        /// <summary>
+        /// Refreshes the archives.
+        /// </summary>
+        /// <param name="refreshedArchives">List of screenplays used for refreshing</param>
         public void RefreshArchives(List<ScreenplayModel> refreshedArchives)
         {
             Archives = new ObservableCollection<ScreenplayModel>();
@@ -402,6 +415,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             Archives = Archives; // Triggers PropertyChanged event
         }
 
+        /// <summary>
+        /// Refreshes the pie chart.
+        /// </summary>
         private void RefreshPieChart()
         {
             float genrePercentage;
@@ -410,6 +426,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             if (SelectedScreenplay == null)
                 return;
 
+            // Creates a slice for each genre
             foreach (string genreName in JSON.LoadedGenres)
             {
                 genrePercentage = SelectedScreenplay.GenrePercentages[genreName];

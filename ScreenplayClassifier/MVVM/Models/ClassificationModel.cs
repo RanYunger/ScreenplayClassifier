@@ -81,6 +81,7 @@ namespace ScreenplayClassifier.MVVM.Models
                     ReportView reportView;
                     ReportViewModel reportViewModel;
 
+                    // Finds an existing ReportView (if there's one)
                     foreach (Window view in App.Current.Windows)
                         if (view is ReportView)
                         {
@@ -98,6 +99,7 @@ namespace ScreenplayClassifier.MVVM.Models
                             }
                         }
 
+                    // Shows the report in a new ReportView
                     reportView = new ReportView();
                     ((ReportViewModel)reportView.DataContext).Init(this, reportView);
 

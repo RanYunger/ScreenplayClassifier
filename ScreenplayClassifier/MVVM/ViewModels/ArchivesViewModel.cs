@@ -51,10 +51,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        #region Commands
+        #endregion
+
         // Constructors
         public ArchivesViewModel() { }
 
         // Methods
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="archivesView">The view to obtain controls from</param>
+        /// <param name="mainViewModel">The MainView's view model</param>
         public void Init(ArchivesView archivesView, MainViewModel mainViewModel)
         {
             MainViewModel = mainViewModel;
@@ -72,12 +80,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ((ArchivesByGenreViewModel)ArchivesByGenreView.DataContext).RefreshArchives(Genres, Screenplays);
         }
 
+        /// <summary>
+        /// Initiates the genres collection.
+        /// </summary>
         private void InitGenres()
         {
             JSON.LoadGenres();
             Genres = new ObservableCollection<string>(JSON.LoadedGenres);
         }
 
+        /// <summary>
+        /// Initiates the screenplays collection.
+        /// </summary>
         private void InitScreenplays()
         {
             UserModel user = MainViewModel.UserToolbarViewModel.User;

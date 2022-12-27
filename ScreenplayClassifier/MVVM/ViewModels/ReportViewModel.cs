@@ -53,6 +53,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         #region Commands
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="classificationReport">The report to represent in the ReportView</param>
+        /// <param name="reportView">The view to obtain controls from</param>
         public void Init(ClassificationModel classificationReport, ReportView reportView)
         {
             GenresView genresView;
@@ -69,12 +74,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             RefreshPieChart();
         }
 
+        /// <summary>
+        /// Refreshes the pie chart.
+        /// </summary>
         private void RefreshPieChart()
         {
             float genrePercentage;
 
             PercentageSeries = new SeriesCollection();
 
+            // Creates slice for each genre
             foreach (string genreName in JSON.LoadedGenres)
             {
                 genrePercentage = ClassificationReport.Screenplay.GenrePercentages[genreName];

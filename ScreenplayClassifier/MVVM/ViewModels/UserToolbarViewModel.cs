@@ -83,6 +83,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="user">The user who authenticated to the system</param>
+        /// <param name="mainViewModel">The MainView's view model</param>
         public void Init(UserModel user, MainViewModel mainViewModel)
         {
             User = user;

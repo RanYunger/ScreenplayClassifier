@@ -150,6 +150,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if (!CanBrowse)
                         return;
 
+                    // Checks wether the user as activated deletion
                     if ((Keyboard.IsKeyDown(Key.Back)) || (Keyboard.IsKeyDown(Key.Delete)))
                         for (int i = 0; i < browsedScreenplaysListView.Items.Count; i++)
                             if (browsedScreenplaysListView.SelectedItems.Contains(browsedScreenplaysListView.Items[i]))
@@ -171,16 +172,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    OpenFileDialog openFileDialog = new OpenFileDialog();
                     string screenplayPath = string.Empty;
+                    OpenFileDialog openFileDialog = new OpenFileDialog()
+                    {
+                        Title = "Browse screenplays to classify",
+                        DefaultExt = "txt",
+                        Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
+                        Multiselect = true,
+                        InitialDirectory = Environment.CurrentDirectory
+                    };
 
-                    openFileDialog.Title = "Browse screenplays to classify";
-                    openFileDialog.DefaultExt = "txt";
-                    openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-                    openFileDialog.Multiselect = true;
-                    openFileDialog.InitialDirectory = Environment.CurrentDirectory;
                     openFileDialog.ShowDialog();
 
+                    // Adds each browsed screenplay to collection
                     for (int i = 0; i < openFileDialog.FileNames.Length; i++)
                     {
                         BrowsedScreenplaysTitles.Add(Path.GetFileNameWithoutExtension(openFileDialog.FileNames[i]));
@@ -229,12 +233,20 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="classificationViewModel">The view model which manages the classification module</param>
+        /// <param name="browseView">The view to obtain controls from.</param>
         public void Init(ClassificationViewModel classificationViewModel, BrowseView browseView)
         {
             ClassificationViewModel = classificationViewModel;
             BrowseView = browseView;
         }
 
+        /// <summary>
+        /// Refreshes the view.
+        /// </summary>
         public void RefreshView()
         {
             BrowsedScreenplaysTitles = new ObservableCollection<string>();
@@ -251,6 +263,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 App.Current.Dispatcher.Invoke(() => BrowseView.Visibility = Visibility.Visible);
         }
 
+        /// <summary>
+        /// Hides the view.
+        /// </summary>
         public void HideView()
         {
             if (BrowseView != null)

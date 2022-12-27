@@ -17,19 +17,19 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <v:FolderView x:Name="ActionFolderView" Grid.Row="0" Grid.Column="0"/>
-        <v:FolderView x:Name="AdventureFolderView" Grid.Row="0" Grid.Column="1"/>
-        <v:FolderView x:Name="ComedyFolderView" Grid.Row="0" Grid.Column="2"/>
-        <v:FolderView x:Name="CrimeFolderView" Grid.Row="0" Grid.Column="3"/>
+        <v:TicketView x:Name="ActionTicketView" Grid.Row="0" Grid.Column="0"/>
+        <v:TicketView x:Name="AdventureTicketView" Grid.Row="0" Grid.Column="1"/>
+        <v:TicketView x:Name="ComedyTicketView" Grid.Row="0" Grid.Column="2"/>
+        <v:TicketView x:Name="CrimeTicketView" Grid.Row="0" Grid.Column="3"/>
 
-        <v:FolderView x:Name="DramaFolderView" Grid.Row="1" Grid.Column="0"/>
-        <v:FolderView x:Name="FamilyFolderView" Grid.Row="1" Grid.Column="1"/>
-        <v:FolderView x:Name="FantasyFolderView" Grid.Row="1" Grid.Column="2"/>
-        <v:FolderView x:Name="HorrorFolderView" Grid.Row="1" Grid.Column="3"/>
+        <v:TicketView x:Name="DramaTicketView" Grid.Row="1" Grid.Column="0"/>
+        <v:TicketView x:Name="FamilyTicketView" Grid.Row="1" Grid.Column="1"/>
+        <v:TicketView x:Name="FantasyTicketView" Grid.Row="1" Grid.Column="2"/>
+        <v:TicketView x:Name="HorrorTicketView" Grid.Row="1" Grid.Column="3"/>
 
-        <v:FolderView x:Name="RomanceFolderView" Grid.Row="2" Grid.Column="0"/>
-        <v:FolderView x:Name="SciFiFolderView" Grid.Row="2" Grid.Column="1"/>
-        <v:FolderView x:Name="ThrillerFolderView" Grid.Row="2" Grid.Column="2"/>
-        <v:FolderView x:Name="WarFolderView" Grid.Row="2" Grid.Column="3"/>
+        <v:TicketView x:Name="RomanceTicketView" Grid.Row="2" Grid.Column="0"/>
+        <v:TicketView x:Name="SciFiTicketView" Grid.Row="2" Grid.Column="1"/>
+        <v:TicketView x:Name="ThrillerTicketView" Grid.Row="2" Grid.Column="2"/>
+        <v:TicketView x:Name="WarTicketView" Grid.Row="2" Grid.Column="3"/>
     </Grid>
 </UserControl>

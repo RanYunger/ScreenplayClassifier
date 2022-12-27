@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:rpb="http://XamlRadialProgressBar/DotNet"
              Style="{StaticResource UserControlStyle}">
     <Grid>
@@ -34,7 +35,21 @@
                     </Style.Triggers>
                 </Style>
             </StackPanel.Style>
-            <TextBlock Text="{Binding StatusText}" FontSize="60" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding StatusText}" FontSize="50" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+            <Image Height="150" Width="150" gif:ImageBehavior.RepeatBehavior="Forever">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding StatusText}" Value="Reading">
+                                <Setter Property="gif:ImageBehavior.AnimatedSource" Value="/Media/GIFs/Reading.gif"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding StatusText}" Value="Done!">
+                                <Setter Property="gif:ImageBehavior.AnimatedSource" Value="/Media/GIFs/Done!.gif"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel.Style>

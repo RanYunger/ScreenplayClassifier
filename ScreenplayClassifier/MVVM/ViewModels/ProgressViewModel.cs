@@ -149,12 +149,21 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
+        /// <param name="classificationViewModel">The view model who manages the classification module</param>
+        /// <param name="progressView">The view to obtain controls from</param>
         public void Init(ClassificationViewModel classificationViewModel, ProgressView progressView)
         {
             ClassificationViewModel = classificationViewModel;
             ProgressView = progressView;
         }
 
+        /// <summary>
+        /// Shows the view.
+        /// </summary>
+        /// <param name="browsedScreenplays">The screenplays to be processed</param>
         public void ShowView(ObservableCollection<string> browsedScreenplays)
         {
             DurationTimer.Start();
@@ -168,6 +177,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             new Thread(() => ClassificationThread(browsedScreenplays)).Start();
         }
 
+        /// <summary>
+        /// Refreshes the view.
+        /// </summary>
         public void RefreshView()
         {
             DurationTimer.Stop();
@@ -179,6 +191,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             StatusText = "Reading";
         }
 
+        /// <summary>
+        /// Hides the view.
+        /// </summary>
         public void HideView()
         {
             RefreshView();
@@ -186,6 +201,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Collapsed);
         }
 
+        /// <summary>
+        /// Classification thread: sends the screenplays to the python classifier for processing.
+        /// </summary>
+        /// <param name="screenplaysToClassify">The screenplays to be processed by the thread</param>
         private void ClassificationThread(ObservableCollection<string> screenplaysToClassify)
         {
             int progressOutput;
@@ -209,6 +228,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     while (Percent < 100)
                     {
+                        // Reads progress values printed by the python classifier
                         outputLine = reader.ReadLine();
                         if ((!string.IsNullOrEmpty(outputLine)) && (int.TryParse(outputLine, out progressOutput)))
                         {
@@ -220,6 +240,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         Thread.Sleep(500);
                     }
 
+                    // Reads the rest of the process output, which contains the json representation of the classifications
                     screenplaysJson = reader.ReadToEnd();
                 }
             }
@@ -233,6 +254,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             foreach (ScreenplayModel screenplay in deserializedScreenplays)
                 classifications.Add(new ClassificationModel(owner, screenplay));
 
+            // Stores the classification results
             ClassificationViewModel.ClassifiedScreenplays = new ObservableCollection<ClassificationModel>(classifications);
             App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
         }

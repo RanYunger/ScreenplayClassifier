@@ -118,6 +118,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     Regex usernameRegex = new Regex(JSON.USERNAMEPATTERN), passwordRegex = new Regex(JSON.PASSWORDPATTERN);
                     UserModel identifiedUser = null;
 
+                    // Validates the input username
                     usernameErrorWrapPanel.Visibility = Visibility.Hidden;
                     if (string.IsNullOrEmpty(UsernameInput))
                     {
@@ -130,6 +131,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         usernameErrorWrapPanel.Visibility = Visibility.Visible;
                     }
 
+                    // Validates the input password
                     passwordErrorWrapPanel.Visibility = Visibility.Hidden;
                     if (string.IsNullOrEmpty(passwordBox.Password))
                     {
@@ -196,6 +198,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     UsernameInput = string.Empty;
                     passwordBox.Clear();
 
+                    // Shows and activates the video 
                     usernameErrorWrapPanel.Visibility = passwordErrorWrapPanel.Visibility = Visibility.Hidden;
                     kickUserMediaElement.Source = new Uri(FolderPaths.VIDEOS + "You Shall Not Pass.mp4");
                     kickUserMediaElement.Play();
@@ -211,6 +214,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Initiates the view model.
+        /// </summary>
         public void Init()
         {
             foreach (Window view in App.Current.Windows)
@@ -231,7 +237,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             CanSignin = true;
         }
 
-        public void OpenMainView(UserModel user)
+        /// <summary>
+        /// Opens the MainView.
+        /// </summary>
+        /// <param name="user">The user authenticated to the system</param>
+        private void OpenMainView(UserModel user)
         {
             App.Current.MainWindow = new MainView();
 
@@ -240,8 +250,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             App.Current.MainWindow.Show();
         }
-
-        public UserModel FindUser(string username)
+        
+        /// <summary>
+        /// Searches a user by his username.
+        /// </summary>
+        /// <param name="username">The username to search by</param>
+        /// <returns>The user (if exists), null otherwise</returns>
+        private UserModel FindUser(string username)
         {
             foreach (UserModel user in AuthenticatedUsers)
                 if (user.Username.Equals(username))
