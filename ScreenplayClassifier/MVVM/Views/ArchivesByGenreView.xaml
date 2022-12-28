@@ -17,19 +17,19 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <v:TicketView x:Name="ActionTicketView" Grid.Row="0" Grid.Column="0"/>
-        <v:TicketView x:Name="AdventureTicketView" Grid.Row="0" Grid.Column="1"/>
-        <v:TicketView x:Name="ComedyTicketView" Grid.Row="0" Grid.Column="2"/>
-        <v:TicketView x:Name="CrimeTicketView" Grid.Row="0" Grid.Column="3"/>
+        <v:ReelView x:Name="ActionReelView" Grid.Row="0" Grid.Column="0"/>
+        <v:ReelView x:Name="AdventureReelView" Grid.Row="0" Grid.Column="1"/>
+        <v:ReelView x:Name="ComedyReelView" Grid.Row="0" Grid.Column="2"/>
+        <v:ReelView x:Name="CrimeReelView" Grid.Row="0" Grid.Column="3"/>
 
-        <v:TicketView x:Name="DramaTicketView" Grid.Row="1" Grid.Column="0"/>
-        <v:TicketView x:Name="FamilyTicketView" Grid.Row="1" Grid.Column="1"/>
-        <v:TicketView x:Name="FantasyTicketView" Grid.Row="1" Grid.Column="2"/>
-        <v:TicketView x:Name="HorrorTicketView" Grid.Row="1" Grid.Column="3"/>
+        <v:ReelView x:Name="DramaReelView" Grid.Row="1" Grid.Column="0"/>
+        <v:ReelView x:Name="FamilyReelView" Grid.Row="1" Grid.Column="1"/>
+        <v:ReelView x:Name="FantasyReelView" Grid.Row="1" Grid.Column="2"/>
+        <v:ReelView x:Name="HorrorReelView" Grid.Row="1" Grid.Column="3"/>
 
-        <v:TicketView x:Name="RomanceTicketView" Grid.Row="2" Grid.Column="0"/>
-        <v:TicketView x:Name="SciFiTicketView" Grid.Row="2" Grid.Column="1"/>
-        <v:TicketView x:Name="ThrillerTicketView" Grid.Row="2" Grid.Column="2"/>
-        <v:TicketView x:Name="WarTicketView" Grid.Row="2" Grid.Column="3"/>
+        <v:ReelView x:Name="RomanceReelView" Grid.Row="2" Grid.Column="0"/>
+        <v:ReelView x:Name="SciFiReelView" Grid.Row="2" Grid.Column="1"/>
+        <v:ReelView x:Name="ThrillerReelView" Grid.Row="2" Grid.Column="2"/>
+        <v:ReelView x:Name="WarReelView" Grid.Row="2" Grid.Column="3"/>
     </Grid>
 </UserControl>

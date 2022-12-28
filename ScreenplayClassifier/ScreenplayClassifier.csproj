@@ -68,6 +68,7 @@
     <None Remove="Media\Images\Percent.png" />
     <None Remove="Media\Images\PlayPressed.png" />
     <None Remove="Media\Images\PlayUnpressed.png" />
+    <None Remove="Media\Images\Reel.png" />
     <None Remove="Media\Images\Remove.png" />
     <None Remove="Media\Images\Reports.png" />
     <None Remove="Media\Images\RightArrowPressed.png" />
@@ -78,7 +79,6 @@
     <None Remove="Media\Images\Signout.png" />
     <None Remove="Media\Images\StopPressed.png" />
     <None Remove="Media\Images\StopUnpressed.png" />
-    <None Remove="Media\Images\Ticket.png" />
     <None Remove="Media\Images\User.png" />
     <None Remove="Media\Images\Username.png" />
     <None Remove="Media\Images\Visible.png" />
@@ -257,6 +257,9 @@
     <Content Include="Media\Images\PlayUnpressed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\Reel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\Remove.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -285,9 +288,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\StopUnpressed.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\Ticket.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\User.png">

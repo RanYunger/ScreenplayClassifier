@@ -17,12 +17,12 @@ namespace ScreenplayClassifier.MVVM.Views
     /// <summary>
     /// Interaction logic for FolderView.xaml
     /// </summary>
-    public partial class TicketView : UserControl
+    public partial class ReelView : UserControl
     {
-        public TicketView()
+        public ReelView()
         {
             InitializeComponent();
-            DataContext = new TicketViewModel();
+            DataContext = new ReelViewModel();
         }
     }
 }

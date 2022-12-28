@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class TicketViewModel : INotifyPropertyChanged
+    public class ReelViewModel : INotifyPropertyChanged
     {
         // Fields
         private ImageSource genreImage;
@@ -59,7 +59,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Constructors
-        public TicketViewModel() { }
+        public ReelViewModel() { }
 
         // Methods
         #region Commands

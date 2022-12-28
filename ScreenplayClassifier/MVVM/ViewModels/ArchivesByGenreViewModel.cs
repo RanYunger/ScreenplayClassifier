@@ -63,22 +63,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 Archives[genreName] = new ObservableCollection<ScreenplayModel>(genreScreenplays);
             }
 
-            RefreshTicketViews();
+            RefreshReelViews();
         }
 
         /// <summary>
-        /// Refreshes the TicketViews.
+        /// Refreshes the ReelViews.
         /// </summary>
-        private void RefreshTicketViews()
+        private void RefreshReelViews()
         {
-            TicketView ticketView = null;
-            TicketViewModel ticketViewModel = null;
+            ReelView reelView = null;
+            ReelViewModel reelViewModel = null;
 
             foreach (string genreName in Archives.Keys)
             {
-                ticketView = (TicketView)ArchivesByGenreView.FindName(genreName + "TicketView");
-                ticketViewModel = (TicketViewModel)ticketView.DataContext;
-                ticketViewModel.Init(genreName, Archives[genreName]);
+                reelView = (ReelView)ArchivesByGenreView.FindName(genreName + "ReelView");
+                reelViewModel = (ReelViewModel)reelView.DataContext;
+                reelViewModel.Init(genreName, Archives[genreName]);
             }
         }
     }
