@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         Title="Screenplay Classifier" Height="800" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Style="{StaticResource WindowStyle}">
     <i:Interaction.Triggers>
@@ -22,11 +23,35 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Image>
-            <Ellipse Height="400" Width="400">
-                <Ellipse.Fill>
-                    <ImageBrush ImageSource="{Binding GenreImage}"/>
-                </Ellipse.Fill>
-            </Ellipse>
+            <Canvas Height="400" Width="400" HorizontalAlignment="Center">
+                <Image gif:ImageBehavior.AnimatedSource="{Binding GenreGif}" gif:ImageBehavior.RepeatBehavior="Forever"
+                       Height="400" Width="400">
+                    <Image.Clip>
+                        <EllipseGeometry Center="200,200" RadiusX="200" RadiusY="200"/>
+                    </Image.Clip>
+                </Image>
+                <Ellipse Height="400" Width="400">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding GenreImage}"/>
+                    </Ellipse.Fill>
+                    <Ellipse.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Opacity" To="0"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Opacity" To="1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Ellipse.Triggers>
+                </Ellipse>
+            </Canvas>
             <TextBlock Text="{Binding ScreenplaysCountText}" Margin="10" Style="{StaticResource TextBlockStyle}"/>
             <DataGrid ItemsSource="{Binding ScreenplaysInGenre}" Height="255" IsReadOnly="True" Margin="10,0,10,0"
                       Style="{StaticResource DataGridStyle}">

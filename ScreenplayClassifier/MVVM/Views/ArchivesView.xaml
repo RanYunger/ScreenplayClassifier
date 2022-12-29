@@ -17,7 +17,7 @@
             <TabItem Style="{StaticResource TabItemStyle}">
                 <TabItem.Header>
                     <WrapPanel>
-                        <Image Source="/Media/Images/Genre.png" Height="30" Width="30"/>
+                        <Image Source="/Media/Images/Reel.png" Height="30" Width="30"/>
                         <TextBlock Text="By Genre" FontSize="20" Margin="5,0,0,0" Style="{StaticResource TextBlockStyle}"/>
                     </WrapPanel>
                 </TabItem.Header>

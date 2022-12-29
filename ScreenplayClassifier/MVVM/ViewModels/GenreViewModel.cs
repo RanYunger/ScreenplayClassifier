@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Timers;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -13,14 +14,63 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class GenreViewModel : INotifyPropertyChanged
     {
         // Fields
-        private string genre, screenplaysCountText;
-        private bool audioOn;
-        private ImageSource audioImage, genreImage;
+        private Timer audioTimer;
+        private ImageSource audioImage, genreImage, genreGif;
         private MediaPlayer mediaPlayer;
         private ObservableCollection<ScreenplayModel> screenplaysInGenre;
+        private string genre, screenplaysCountText;
+        private bool audioOn;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
+        public ImageSource AudioImage
+        {
+            get { return audioImage; }
+            set
+            {
+                audioImage = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("AudioImage"));
+            }
+        }
+
+        public ImageSource GenreImage
+        {
+            get { return genreImage; }
+            set
+            {
+                genreImage = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("GenreImage"));
+            }
+        }
+
+        public ImageSource GenreGif
+        {
+            get { return genreGif; }
+            set
+            {
+                genreGif = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("GenreGif"));
+            }
+        }
+
+        public ObservableCollection<ScreenplayModel> ScreenplaysInGenre
+        {
+            get { return screenplaysInGenre; }
+            set
+            {
+                screenplaysInGenre = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ScreenplaysInGenre"));
+            }
+        }
+
         public string Genre
         {
             get { return genre; }
@@ -57,45 +107,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public ImageSource AudioImage
-        {
-            get { return audioImage; }
-            set
-            {
-                audioImage = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("AudioImage"));
-            }
-        }
-
-        public ImageSource GenreImage
-        {
-            get { return genreImage; }
-            set
-            {
-                genreImage = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GenreImage"));
-            }
-        }
-
-        public ObservableCollection<ScreenplayModel> ScreenplaysInGenre
-        {
-            get { return screenplaysInGenre; }
-            set
-            {
-                screenplaysInGenre = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ScreenplaysInGenre"));
-            }
-        }
-
         // Constructors
         public GenreViewModel()
         {
+            audioTimer = new Timer(2500) { AutoReset = false };
+            audioTimer.Elapsed += AudioTimer_Elapsed;
+
             mediaPlayer = new MediaPlayer();
 
             AudioOn = true;
@@ -131,6 +148,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get { return new Command(() => mediaPlayer.Stop()); }
         }
+
+        private void AudioTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            App.Current.Dispatcher.Invoke(() => mediaPlayer.Open(new Uri(string.Format("{0}{1}.mp3", FolderPaths.GENREAUDIOS, Genre))));
+            App.Current.Dispatcher.Invoke(() => mediaPlayer.Play());
+        }
         #endregion
 
         /// <summary>
@@ -141,14 +164,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void Init(string genreName, ObservableCollection<ScreenplayModel> screenplayClassifiers)
         {
             Genre = genreName;
-            GenreImage = new BitmapImage(new Uri(string.Format(@"{0}{1}.png", FolderPaths.GENREIMAGES, genreName)));
+            GenreImage = new BitmapImage(new Uri(string.Format(@"{0}{1}.png", FolderPaths.GENREIMAGES, Genre)));
+            GenreGif = new BitmapImage(new Uri(string.Format(@"{0}{1}.gif", FolderPaths.GENREGIFS, Genre)));
 
             ScreenplaysInGenre = screenplayClassifiers;
             ScreenplaysCountText = string.Format("{0} Screenplay{1}",
                 ScreenplaysInGenre.Count, ScreenplaysInGenre.Count != 1 ? "s" : string.Empty);
 
-            mediaPlayer.Open(new Uri(string.Format("{0}{1}.mp3", FolderPaths.GENREAUDIOS, Genre)));
-            mediaPlayer.Play();
+            audioTimer.Start();
         }
     }
 }
