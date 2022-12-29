@@ -27,10 +27,18 @@
     <None Remove="Media\Audios\Wilhelm Scream.mp3" />
     <None Remove="Media\GIFs\Bug.gif" />
     <None Remove="Media\GIFs\Done!.gif" />
+    <None Remove="Media\GIFs\Genres\Action.gif" />
     <None Remove="Media\GIFs\Genres\Adventure.gif" />
     <None Remove="Media\GIFs\Genres\Comedy.gif" />
     <None Remove="Media\GIFs\Genres\Crime.gif" />
     <None Remove="Media\GIFs\Genres\Drama.gif" />
+    <None Remove="Media\GIFs\Genres\Family.gif" />
+    <None Remove="Media\GIFs\Genres\Fantasy.gif" />
+    <None Remove="Media\GIFs\Genres\Horror.gif" />
+    <None Remove="Media\GIFs\Genres\Romance.gif" />
+    <None Remove="Media\GIFs\Genres\SciFi.gif" />
+    <None Remove="Media\GIFs\Genres\Thriller.gif" />
+    <None Remove="Media\GIFs\Genres\War.gif" />
     <None Remove="Media\GIFs\Reading.gif" />
     <None Remove="Media\Images\Add.png" />
     <None Remove="Media\Images\Admin.png" />
@@ -144,6 +152,9 @@
     <Content Include="Media\GIFs\Done!.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\GIFs\Genres\Action.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\GIFs\Genres\Adventure.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -154,6 +165,27 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\GIFs\Genres\Drama.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\GIFs\Genres\Family.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\GIFs\Genres\Fantasy.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\GIFs\Genres\Horror.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\GIFs\Genres\Romance.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\GIFs\Genres\SciFi.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\GIFs\Genres\Thriller.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\GIFs\Genres\War.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\GIFs\Reading.gif">
