@@ -24,6 +24,8 @@ namespace ScreenplayClassifier.Utilities
 
         public static string CLASSIFIER = Environment.CurrentDirectory + @"\Classifier\";
 
+        public static string CLI = Environment.CurrentDirectory + @"\CLI\";
+
         public static string JSONS = Environment.CurrentDirectory + @"\Jsons\";
     }
 }

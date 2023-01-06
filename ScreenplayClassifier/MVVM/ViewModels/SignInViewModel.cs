@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using ScreenplayClassifier.Utilities;
+using System.Diagnostics;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
@@ -176,7 +177,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    // TODO: COMPLETE (Open the command shell version of ScreenplayClassifier)
+                    Process.Start(FolderPaths.CLI + "CLI.bat");
                     SignInView.Close();
                 });
             }

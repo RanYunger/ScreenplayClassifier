@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
@@ -202,6 +203,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         /// <summary>
+        /// Retrieves the installation path of Python.exe on the local machine.
+        /// </summary>
+        /// <returns>The installation path of Python.exe on the local machine</returns>
+        private string GetPythonPath()
+        {
+            // TODO: COMPLETE
+            "HKEY_CURRENT_USER\SOFTWARE\Python\PythonCore\<version>\PythonPath";
+            RegistryKey key = Registry.LocalMachine.OpenSubKey(@"HKLM\SOFTWARE\Wow6432Node\Python\PythonCore\versionnumber\InstallPath");
+
+            return key.GetValue("Location").ToString();
+        }
+
+        /// <summary>
         /// Classification thread: sends the screenplays to the python classifier for processing.
         /// </summary>
         /// <param name="screenplaysToClassify">The screenplays to be processed by the thread</param>
@@ -215,7 +229,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             List<ScreenplayModel> deserializedScreenplays;
             ProcessStartInfo processStartInfo = new ProcessStartInfo()
             {
-                FileName = @"C:\Users\Admin\AppData\Local\Programs\Python\Python39\python.exe",
+                FileName = GetPythonPath() + @"\python.exe",
                 Arguments = string.Format("\"{0}\" {1}", scriptPath, scriptArgs),
                 UseShellExecute = false,
                 RedirectStandardOutput = true,

@@ -146,10 +146,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     ListView browsedScreenplaysListView = (ListView)BrowseView.FindName("BrowsedScreenplaysListView");
 
-                    // Validation
-                    if (!CanBrowse)
-                        return;
-
                     // Checks wether the user as activated deletion
                     if ((Keyboard.IsKeyDown(Key.Back)) || (Keyboard.IsKeyDown(Key.Delete)))
                         for (int i = 0; i < browsedScreenplaysListView.Items.Count; i++)
@@ -160,6 +156,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                             }
 
                     SelectedScreenplay = browsedScreenplaysTitles.Count > 0 ? 0 : SelectedScreenplay;
+                    CanBrowse = browsedScreenplaysTitles.Count < 10;
                     CanChoose = BrowsedScreenplaysTitles.Count > 0;
                     CanProceed = BrowsedScreenplaysTitles.Count > 0;
                 });
@@ -187,12 +184,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     // Adds each browsed screenplay to collection
                     for (int i = 0; i < openFileDialog.FileNames.Length; i++)
                     {
+                        if (BrowsedScreenplaysPaths.Count == 10)
+                            break;
+
                         BrowsedScreenplaysTitles.Add(Path.GetFileNameWithoutExtension(openFileDialog.FileNames[i]));
                         screenplayPath = string.Format("\"{0}\"", openFileDialog.FileNames[i]); // for passing paths as arguments
                         BrowsedScreenplaysPaths.Add(screenplayPath);
                     }
 
                     SelectedScreenplay = browsedScreenplaysTitles.Count > 0 ? 0 : SelectedScreenplay;
+                    CanBrowse = BrowsedScreenplaysPaths.Count < 10;
                     CanChoose = BrowsedScreenplaysTitles.Count > 0;
                     CanProceed = BrowsedScreenplaysTitles.Count > 0;
                 });
