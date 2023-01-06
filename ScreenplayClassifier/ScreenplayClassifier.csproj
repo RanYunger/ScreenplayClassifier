@@ -26,6 +26,7 @@
     <None Remove="Media\Audios\Jim.mp3" />
     <None Remove="Media\Audios\Wilhelm Scream.mp3" />
     <None Remove="Media\GIFs\Bug.gif" />
+    <None Remove="Media\GIFs\Classifying.gif" />
     <None Remove="Media\GIFs\Done!.gif" />
     <None Remove="Media\GIFs\Genres\Action.gif" />
     <None Remove="Media\GIFs\Genres\Adventure.gif" />
@@ -147,6 +148,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\GIFs\Bug.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\GIFs\Classifying.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\GIFs\Done!.gif">

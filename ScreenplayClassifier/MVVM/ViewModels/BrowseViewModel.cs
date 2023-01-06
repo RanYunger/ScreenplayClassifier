@@ -156,7 +156,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                             }
 
                     SelectedScreenplay = browsedScreenplaysTitles.Count > 0 ? 0 : SelectedScreenplay;
-                    CanBrowse = browsedScreenplaysTitles.Count < 10;
+                    CanBrowse = browsedScreenplaysTitles.Count < 5;
                     CanChoose = BrowsedScreenplaysTitles.Count > 0;
                     CanProceed = BrowsedScreenplaysTitles.Count > 0;
                 });
@@ -184,8 +184,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     // Adds each browsed screenplay to collection
                     for (int i = 0; i < openFileDialog.FileNames.Length; i++)
                     {
-                        if (BrowsedScreenplaysPaths.Count == 10)
+                        if (BrowsedScreenplaysPaths.Count == 5)
+                        {
+                            MessageBoxHandler.Show("You can classify up to 5 screenplays each time.", "Screenplays Quota Reached", 3,
+                                MessageBoxImage.Warning);
                             break;
+                        }
 
                         BrowsedScreenplaysTitles.Add(Path.GetFileNameWithoutExtension(openFileDialog.FileNames[i]));
                         screenplayPath = string.Format("\"{0}\"", openFileDialog.FileNames[i]); // for passing paths as arguments
@@ -193,7 +197,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     }
 
                     SelectedScreenplay = browsedScreenplaysTitles.Count > 0 ? 0 : SelectedScreenplay;
-                    CanBrowse = BrowsedScreenplaysPaths.Count < 10;
+                    CanBrowse = BrowsedScreenplaysPaths.Count < 5;
                     CanChoose = BrowsedScreenplaysTitles.Count > 0;
                     CanProceed = BrowsedScreenplaysTitles.Count > 0;
                 });

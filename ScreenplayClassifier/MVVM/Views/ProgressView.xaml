@@ -15,61 +15,33 @@
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0" VerticalAlignment="Center">
             <TextBlock Text="{Binding ClassificationsText}" FontSize="30" Margin="20,0,0,0" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="{Binding DurationText}" FontSize="30" Margin="630,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding DurationText}" FontSize="30" Margin="620,0,0,0" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
         <rpb:RadialProgressBar x:Name="RadialProgressBar" Grid.Row="1" Value="{Binding Percent}" Height="500" Width="500" ArcWidth="25" 
                                Foreground="LimeGreen" Margin="0,-20,0,0" InnerBackgroundBrush="{StaticResource MainColumnHeaderBackground}"/>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <StackPanel.Style>
-                <Style TargetType="StackPanel">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding StatusText}" Value="Reading">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding StatusText}" Value="Classifying">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding StatusText}" Value="Done!">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-            <TextBlock Text="{Binding StatusText}" FontSize="50" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <Image Height="150" Width="150" gif:ImageBehavior.RepeatBehavior="Forever">
-                <Image.Style>
-                    <Style TargetType="Image">
+            <TextBlock Text="{Binding PhaseText}" FontSize="50" HorizontalAlignment="Center" Margin="10"
+                       Style="{StaticResource TextBlockStyle}"/>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding StatusText}" Value="Reading">
-                                <Setter Property="gif:ImageBehavior.AnimatedSource" Value="/Media/GIFs/Reading.gif"/>
+                            <DataTrigger Binding="{Binding CurrentPhase}" Value="0">
+                                <Setter Property="Visibility" Value="Collapsed"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding StatusText}" Value="Done!">
-                                <Setter Property="gif:ImageBehavior.AnimatedSource" Value="/Media/GIFs/Done!.gif"/>
+                            <DataTrigger Binding="{Binding CurrentPhase}" Value="1">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentPhase}" Value="2">
+                                <Setter Property="Visibility" Value="Collapsed"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </Image.Style>
-            </Image>
-        </StackPanel>
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <StackPanel.Style>
-                <Style TargetType="StackPanel">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding StatusText}" Value="Reading">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding StatusText}" Value="Classifying">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding StatusText}" Value="Done!">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-            <TextBlock Text="{Binding ElementName=RadialProgressBar, Path=Value}" FontSize="50" HorizontalAlignment="Center"
+                </StackPanel.Style>
+                <TextBlock Text="{Binding ElementName=RadialProgressBar, Path=Value}" FontSize="50" HorizontalAlignment="Center"
                        Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="P E R C E N T" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock Text="P E R C E N T" FontSize="40" Style="{StaticResource TextBlockStyle}"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

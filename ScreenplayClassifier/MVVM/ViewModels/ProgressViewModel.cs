@@ -22,11 +22,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 {
     public class ProgressViewModel : INotifyPropertyChanged
     {
+        // Constants
+        private string[] READING_TEXTS = { "Reading", "Reading .", "Reading . .", "Reading . . ." };
+
         // Fields
-        private System.Timers.Timer durationTimer;
+        private System.Timers.Timer durationTimer, textTimer;
         private TimeSpan duration;
-        private int classificationsRequired, classificationsComplete, percent;
-        private string classificationsText, statusText, durationText;
+        private int classificationsRequired, classificationsComplete, percent, currentPhase, textOffset, textDirection;
+        private string classificationsText, durationText, phaseText;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -43,6 +46,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("DurationTimer"));
+            }
+        }
+
+        public System.Timers.Timer TextTimer
+        {
+            get { return textTimer; }
+            set
+            {
+                textTimer = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("TextTimer"));
             }
         }
 
@@ -96,6 +111,42 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public int CurrentPhase
+        {
+            get { return currentPhase; }
+            set
+            {
+                currentPhase = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CurrentPhase"));
+            }
+        }
+
+        public int TextOffset
+        {
+            get { return textOffset; }
+            set
+            {
+                textOffset = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("TextOffset"));
+            }
+        }
+
+        public int TextDirection
+        {
+            get { return textDirection; }
+            set
+            {
+                textDirection = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("TextDirection"));
+            }
+        }
+
         public string ClassificationsText
         {
             get { return classificationsText; }
@@ -105,18 +156,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ClassificationsText"));
-            }
-        }
-
-        public string StatusText
-        {
-            get { return statusText; }
-            set
-            {
-                statusText = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("StatusText"));
             }
         }
 
@@ -131,6 +170,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     PropertyChanged(this, new PropertyChangedEventArgs("DurationText"));
             }
         }
+        public string PhaseText
+        {
+            get { return phaseText; }
+            set
+            {
+                phaseText = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("PhaseText"));
+            }
+        }
 
         // Constructors
         public ProgressViewModel()
@@ -138,6 +188,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             DurationTimer = new System.Timers.Timer();
             DurationTimer.Interval = 1000;
             DurationTimer.Elapsed += DurationTimer_Elapsed;
+
+            TextTimer = new System.Timers.Timer();
+            TextTimer.Interval = 500;
+            TextTimer.Elapsed += TextTimer_Elapsed;
+
+            TextDirection = -1;
 
             RefreshView();
         }
@@ -148,6 +204,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             Duration = Duration.Add(TimeSpan.FromSeconds(1));
         }
+        private void TextTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if ((TextOffset == 0) || (TextOffset == READING_TEXTS.Length - 1))
+                TextDirection = -TextDirection;
+
+            PhaseText = READING_TEXTS[TextOffset + TextDirection];
+            TextOffset = (TextOffset + TextDirection) % READING_TEXTS.Length;
+        }
+
         #endregion
 
         /// <summary>
@@ -174,6 +239,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             Percent = 0;
 
             App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Visible);
+            TextTimer.Start();
 
             new Thread(() => ClassificationThread(browsedScreenplays)).Start();
         }
@@ -184,12 +250,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void RefreshView()
         {
             DurationTimer.Stop();
+            TextTimer.Stop();
             Duration = TimeSpan.Zero;
 
             ClassificationsRequired = 0;
             ClassificationsComplete = 0;
 
-            StatusText = "Reading";
+            CurrentPhase = 0;
+            TextOffset = 0;
+            TextDirection = -1;
+            PhaseText = "Reading";
         }
 
         /// <summary>
@@ -208,11 +278,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <returns>The installation path of Python.exe on the local machine</returns>
         private string GetPythonPath()
         {
-            // TODO: COMPLETE
-            "HKEY_CURRENT_USER\SOFTWARE\Python\PythonCore\<version>\PythonPath";
-            RegistryKey key = Registry.LocalMachine.OpenSubKey(@"HKLM\SOFTWARE\Wow6432Node\Python\PythonCore\versionnumber\InstallPath");
+            RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Python\PythonCore\3.9\PythonPath");
+            string registryValue = registryKey.GetValue("").ToString();
+            string pythonPath = registryValue.Substring(0, registryValue.IndexOf("Lib"));
 
-            return key.GetValue("Location").ToString();
+            return pythonPath;
         }
 
         /// <summary>
@@ -229,7 +299,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             List<ScreenplayModel> deserializedScreenplays;
             ProcessStartInfo processStartInfo = new ProcessStartInfo()
             {
-                FileName = GetPythonPath() + @"\python.exe",
+                FileName = GetPythonPath() + "python.exe",
                 Arguments = string.Format("\"{0}\" {1}", scriptPath, scriptArgs),
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
@@ -246,7 +316,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         outputLine = reader.ReadLine();
                         if ((!string.IsNullOrEmpty(outputLine)) && (int.TryParse(outputLine, out progressOutput)))
                         {
-                            StatusText = "Classifying";
+                            TextTimer.Stop();
+
+                            CurrentPhase = 1;
+                            PhaseText = "Classifying";
+
                             ClassificationsComplete = progressOutput;
                             Percent = (ClassificationsComplete * 100) / classificationsRequired;
                         }
@@ -260,7 +334,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
 
             Thread.Sleep(500);
-            StatusText = "Done!";
+            CurrentPhase = 2;
+            PhaseText = "Done!";
             Thread.Sleep(500);
 
             // Generates classification report for each screenplay
