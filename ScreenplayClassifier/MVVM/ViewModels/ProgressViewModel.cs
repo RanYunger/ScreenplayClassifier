@@ -22,13 +22,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 {
     public class ProgressViewModel : INotifyPropertyChanged
     {
-        // Constants
-        private string[] READING_TEXTS = { "Reading", "Reading .", "Reading . .", "Reading . . ." };
-
         // Fields
-        private System.Timers.Timer durationTimer, textTimer;
+        private System.Timers.Timer durationTimer;
         private TimeSpan duration;
-        private int classificationsRequired, classificationsComplete, percent, currentPhase, textOffset, textDirection;
+        private int classificationsRequired, classificationsComplete, percent, currentPhase;
         private string classificationsText, durationText, phaseText;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -46,18 +43,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("DurationTimer"));
-            }
-        }
-
-        public System.Timers.Timer TextTimer
-        {
-            get { return textTimer; }
-            set
-            {
-                textTimer = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("TextTimer"));
             }
         }
 
@@ -123,30 +108,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public int TextOffset
-        {
-            get { return textOffset; }
-            set
-            {
-                textOffset = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("TextOffset"));
-            }
-        }
-
-        public int TextDirection
-        {
-            get { return textDirection; }
-            set
-            {
-                textDirection = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("TextDirection"));
-            }
-        }
-
         public string ClassificationsText
         {
             get { return classificationsText; }
@@ -189,12 +150,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             DurationTimer.Interval = 1000;
             DurationTimer.Elapsed += DurationTimer_Elapsed;
 
-            TextTimer = new System.Timers.Timer();
-            TextTimer.Interval = 500;
-            TextTimer.Elapsed += TextTimer_Elapsed;
-
-            TextDirection = -1;
-
             RefreshView();
         }
 
@@ -203,14 +158,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void DurationTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Duration = Duration.Add(TimeSpan.FromSeconds(1));
-        }
-        private void TextTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            if ((TextOffset == 0) || (TextOffset == READING_TEXTS.Length - 1))
-                TextDirection = -TextDirection;
-
-            PhaseText = READING_TEXTS[TextOffset + TextDirection];
-            TextOffset = (TextOffset + TextDirection) % READING_TEXTS.Length;
         }
 
         #endregion
@@ -239,7 +186,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             Percent = 0;
 
             App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Visible);
-            TextTimer.Start();
 
             new Thread(() => ClassificationThread(browsedScreenplays)).Start();
         }
@@ -250,15 +196,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void RefreshView()
         {
             DurationTimer.Stop();
-            TextTimer.Stop();
             Duration = TimeSpan.Zero;
 
             ClassificationsRequired = 0;
             ClassificationsComplete = 0;
 
             CurrentPhase = 0;
-            TextOffset = 0;
-            TextDirection = -1;
             PhaseText = "Reading";
         }
 
@@ -316,8 +259,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         outputLine = reader.ReadLine();
                         if ((!string.IsNullOrEmpty(outputLine)) && (int.TryParse(outputLine, out progressOutput)))
                         {
-                            TextTimer.Stop();
-
                             CurrentPhase = 1;
                             PhaseText = "Classifying";
 
