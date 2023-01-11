@@ -6,17 +6,23 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
     public class UserToolbarViewModel : INotifyPropertyChanged
     {
         // Fields
+        private MediaPlayer mediaPlayer;
         private UserModel user;
+        private Thickness iconStartMargin, iconEndMargin;
+        private Duration animationDuration;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
+        public UserToolbarView UserToolbarView { get; set; }
         public MainViewModel MainViewModel { get; set; }
 
         public UserModel User
@@ -32,7 +38,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Constructors
-        public UserToolbarViewModel() { }
+        public UserToolbarViewModel()
+        {
+            animationDuration = new Duration(TimeSpan.FromSeconds(0.3));
+            iconStartMargin = new Thickness(10, 0, 10, 0);
+            iconEndMargin = new Thickness(10, 150, 10, 0);
+
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.Open(new Uri(string.Format("{0}Wilhelm Scream.mp3", FolderPaths.AUDIOS)));
+        }
 
         // Methods
         #region Commands
@@ -60,26 +74,25 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public Command AboutCommand
-        {
-            get { return new Command(() => MainViewModel.ShowView(MainViewModel.AboutView)); }
-        }
-
-        public Command SpeakNameCommand
+        public Command DropIconCommand
         {
             get
             {
                 return new Command(() =>
                 {
-                    MediaPlayer mediaPlayer = new MediaPlayer();
+                    ThicknessAnimation dropAnimation = new ThicknessAnimation(iconStartMargin, iconEndMargin, animationDuration);
+                    Image iconImage = (Image)UserToolbarView.FindName("IconImage");
 
-                    if (User.Role == UserModel.UserRole.GUEST)
-                    {
-                        mediaPlayer.Open(new Uri(FolderPaths.AUDIOS + "Jim.mp3"));
-                        mediaPlayer.Play();
-                    }
+                    mediaPlayer.Play();
+
+                    iconImage.BeginAnimation(Border.MarginProperty, dropAnimation);
                 });
             }
+        }
+
+        public Command AboutCommand
+        {
+            get { return new Command(() => MainViewModel.ShowView(MainViewModel.AboutView)); }
         }
         #endregion
 
@@ -87,10 +100,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// Initiates the view model.
         /// </summary>
         /// <param name="user">The user who authenticated to the system</param>
+        /// <param name="userToolbarView">The view to obtain controls from</param>
         /// <param name="mainViewModel">The MainView's view model</param>
-        public void Init(UserModel user, MainViewModel mainViewModel)
+        public void Init(UserModel user, UserToolbarView userToolbarView, MainViewModel mainViewModel)
         {
             User = user;
+            UserToolbarView = userToolbarView;
             MainViewModel = mainViewModel;
         }
     }

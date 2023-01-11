@@ -14,7 +14,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private ScreenplayModel screenplay;
-        private string affectedGenre, selectedGenre;
+        private string affectedGenre, selectedGenre, viewTitle;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -40,6 +40,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 affectedGenre = value;
 
+                switch (affectedGenre)
+                {
+                    case "Genre": ViewTitle = "Choose Main Genre"; break;
+                    case "SubGenre1": ViewTitle = "Choose Subgenre 1"; break;
+                    case "SubGenre2": ViewTitle = "Choose Subgenre 2"; break;
+                }
+
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("AffectedGenre"));
             }
@@ -54,6 +61,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("SelectedGenre"));
+            }
+        }
+
+        public string ViewTitle
+        {
+            get { return viewTitle; }
+            set
+            {
+                viewTitle = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ViewTitle"));
             }
         }
 

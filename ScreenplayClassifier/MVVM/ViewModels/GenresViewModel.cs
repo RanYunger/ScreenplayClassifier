@@ -133,14 +133,25 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     GenreSelectionView genreSelectionView = null;
+                    GenreSelectionViewModel genreSelectionViewModel = null;
                     string genreType = string.Empty;
 
                     // Focuses on an existing GenreSelectionView (if there's one)
                     foreach (Window view in App.Current.Windows)
                         if (view is GenreSelectionView)
                         {
-                            view.Focus();
-                            return;
+                            genreSelectionViewModel = (GenreSelectionViewModel)view.DataContext;
+
+                            if (genreSelectionViewModel.AffectedGenre.Equals(AffectedGenre))
+                            {
+                                view.Focus();
+                                return;
+                            }
+                            else
+                            {
+                                view.Close();
+                                break;
+                            }
                         }
 
                     // Opens a new GenreSelectionView

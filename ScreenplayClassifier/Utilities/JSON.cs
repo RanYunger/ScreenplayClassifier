@@ -11,7 +11,7 @@ namespace ScreenplayClassifier.Utilities
     public static class JSON
     {
         // Constants
-        public static string USERNAMEPATTERN = "([A-Z]{1}[a-z]+){2,3}"; // E.G. RanYunger, ShyOhevZion
+        public static string USERNAMEPATTERN = "[A-Z]{1}[a-z]+(.[A-Z]{1}[a-z]+){1,2}"; // E.G. Ran.Yunger, Shy.Ohev.Zion
         public static string PASSWORDPATTERN = "[A-Z]{2,3}[0-9]{5,6}"; // E.G. RY120696, SHZ101098
 
         // Fields

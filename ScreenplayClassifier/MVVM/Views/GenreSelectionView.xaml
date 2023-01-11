@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
-        Title="Screenplay Classifier" Height="450" Width="600" WindowStartupLocation="CenterScreen" Style="{StaticResource WindowStyle}">
+        Title="Screenplay Classifier" Height="550" Width="600" WindowStartupLocation="CenterScreen" Style="{StaticResource WindowStyle}">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -18,7 +19,10 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Image Grid.Row="0" Grid.Column="0" Height="100" Width="100" Source="/Media/Images/Genres/Action.png" Cursor="Hand">
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Text="{Binding ViewTitle}" TextAlignment="Center" FontSize="50"
+                   Style="{StaticResource TextBlockStyle}"/>
+
+        <Image Grid.Row="1" Grid.Column="0" Height="100" Width="100" Source="/Media/Images/Genres/Action.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectActionGenreCommand}"/>
@@ -43,7 +47,7 @@
                 </EventTrigger>
             </Image.Triggers>
         </Image>
-        <Image Grid.Row="0" Grid.Column="1" Height="100" Width="100" Source="/Media/Images/Genres/Adventure.png" Cursor="Hand">
+        <Image Grid.Row="1" Grid.Column="1" Height="100" Width="100" Source="/Media/Images/Genres/Adventure.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectAdventureGenreCommand}"/>
@@ -68,7 +72,7 @@
                 </EventTrigger>
             </Image.Triggers>
         </Image>
-        <Image Grid.Row="0" Grid.Column="2" Height="100" Width="100" Source="/Media/Images/Genres/Comedy.png" Cursor="Hand">
+        <Image Grid.Row="1" Grid.Column="2" Height="100" Width="100" Source="/Media/Images/Genres/Comedy.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectComedyGenreCommand}"/>
@@ -93,7 +97,7 @@
                 </EventTrigger>
             </Image.Triggers>
         </Image>
-        <Image Grid.Row="0" Grid.Column="3" Height="100" Width="100" Source="/Media/Images/Genres/Crime.png" Cursor="Hand">
+        <Image Grid.Row="1" Grid.Column="3" Height="100" Width="100" Source="/Media/Images/Genres/Crime.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectCrimeGenreCommand}"/>
@@ -119,7 +123,7 @@
             </Image.Triggers>
         </Image>
 
-        <Image Grid.Row="1" Grid.Column="0" Height="100" Width="100" Source="/Media/Images/Genres/Drama.png" Cursor="Hand">
+        <Image Grid.Row="2" Grid.Column="0" Height="100" Width="100" Source="/Media/Images/Genres/Drama.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectDramaGenreCommand}"/>
@@ -144,7 +148,7 @@
                 </EventTrigger>
             </Image.Triggers>
         </Image>
-        <Image Grid.Row="1" Grid.Column="1" Height="100" Width="100" Source="/Media/Images/Genres/Family.png" Cursor="Hand">
+        <Image Grid.Row="2" Grid.Column="1" Height="100" Width="100" Source="/Media/Images/Genres/Family.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectFamilyGenreCommand}"/>
@@ -169,7 +173,7 @@
                 </EventTrigger>
             </Image.Triggers>
         </Image>
-        <Image Grid.Row="1" Grid.Column="2" Height="100" Width="100" Source="/Media/Images/Genres/Fantasy.png" Cursor="Hand">
+        <Image Grid.Row="2" Grid.Column="2" Height="100" Width="100" Source="/Media/Images/Genres/Fantasy.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectFantasyGenreCommand}"/>
@@ -194,7 +198,7 @@
                 </EventTrigger>
             </Image.Triggers>
         </Image>
-        <Image Grid.Row="1" Grid.Column="3" Height="100" Width="100" Source="/Media/Images/Genres/Horror.png" Cursor="Hand">
+        <Image Grid.Row="2" Grid.Column="3" Height="100" Width="100" Source="/Media/Images/Genres/Horror.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectHorrorGenreCommand}"/>
@@ -220,7 +224,7 @@
             </Image.Triggers>
         </Image>
 
-        <Image Grid.Row="2" Grid.Column="0" Height="100" Width="100" Source="/Media/Images/Genres/Romance.png" Cursor="Hand">
+        <Image Grid.Row="3" Grid.Column="0" Height="100" Width="100" Source="/Media/Images/Genres/Romance.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectRomanceGenreCommand}"/>
@@ -245,7 +249,7 @@
                 </EventTrigger>
             </Image.Triggers>
         </Image>
-        <Image Grid.Row="2" Grid.Column="1" Height="100" Width="100" Source="/Media/Images/Genres/SciFi.png" Cursor="Hand">
+        <Image Grid.Row="3" Grid.Column="1" Height="100" Width="100" Source="/Media/Images/Genres/SciFi.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectSciFiGenreCommand}"/>
@@ -270,7 +274,7 @@
                 </EventTrigger>
             </Image.Triggers>
         </Image>
-        <Image Grid.Row="2" Grid.Column="2" Height="100" Width="100" Source="/Media/Images/Genres/Thriller.png" Cursor="Hand">
+        <Image Grid.Row="3" Grid.Column="2" Height="100" Width="100" Source="/Media/Images/Genres/Thriller.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectThrillerGenreCommand}"/>
@@ -295,7 +299,7 @@
                 </EventTrigger>
             </Image.Triggers>
         </Image>
-        <Image Grid.Row="2" Grid.Column="3" Height="100" Width="100" Source="/Media/Images/Genres/War.png" Cursor="Hand">
+        <Image Grid.Row="3" Grid.Column="3" Height="100" Width="100" Source="/Media/Images/Genres/War.png" Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding SelectWarGenreCommand}"/>

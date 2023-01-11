@@ -267,7 +267,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     string usernameInput = usernameInputTextBox.Text;
 
                     // Updates and activates the filter
-                    usernameFilter = (o) => { return string.IsNullOrEmpty(usernameInput) ? true : ((UserModel)o).Username.Contains(usernameInput); };
+                    usernameFilter = (o) =>
+                    {
+                        return string.IsNullOrEmpty(usernameInput) ? true
+  : ((UserModel)o).Username.Contains(usernameInput);
+                    };
 
                     usersCollectionView.Filter = (o) => { return usernameFilter.Invoke(o); };
                     usersCollectionView.Refresh();
@@ -292,8 +296,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
+                    Regex usernameRegex = new Regex(JSON.USERNAMEPATTERN);
                     TextBox usernameInputTextBox = (TextBox)SettingsView.FindName("UsernameInputTextBox");
                     string usernameInput = usernameInputTextBox.Text;
+
+                    if (!usernameRegex.IsMatch(usernameInput))
+                    {
+                        MessageBoxHandler.Show("Invalid User name", "E.G. Ran.Yunger, Shy.Ohev.Zion", 3, MessageBoxImage.Error);
+                        return;
+                    }
 
                     AuthenticatedUsers.Add(new UserModel(usernameInput, UserModel.UserRole.MEMBER, "ABC123"));
 

@@ -88,7 +88,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             userToolbarView = (UserToolbarView)MainView.FindName("UserToolbarView");
             UserToolbarViewModel = (UserToolbarViewModel)userToolbarView.DataContext;
-            UserToolbarViewModel.Init(user, this);
+            UserToolbarViewModel.Init(user, userToolbarView, this);
 
             HomeView = (HomeView)MainView.FindName("HomeView");
             SettingsView = (SettingsView)MainView.FindName("SettingsView");

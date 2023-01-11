@@ -40,10 +40,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 isPlaying = value;
 
-                if (isPlaying)
-                    PlayVideoCommand.Execute(null);
-                else
-                    InterruptVideoCommand.Execute(null);
+                //if (isPlaying)
+                //    PlayVideoCommand.Execute(null);
+                //else
+                //    InterruptVideoCommand.Execute(null);
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("IsPlaying"));

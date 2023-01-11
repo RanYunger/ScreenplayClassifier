@@ -78,8 +78,8 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 return new Command(() =>
                 {
-                    ReportView reportView;
-                    ReportViewModel reportViewModel;
+                    ReportView reportView = null;
+                    ReportViewModel reportViewModel = null;
 
                     // Finds an existing ReportView (if there's one)
                     foreach (Window view in App.Current.Windows)
