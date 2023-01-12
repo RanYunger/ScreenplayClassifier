@@ -201,7 +201,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     // Shows and activates the video 
                     usernameErrorWrapPanel.Visibility = passwordErrorWrapPanel.Visibility = Visibility.Hidden;
-                    kickUserMediaElement.Source = new Uri(FolderPaths.VIDEOS + "You Shall Not Pass.mp4");
                     kickUserMediaElement.Play();
 
                     videoTimer.Elapsed += VideoTimer_Elapsed;
@@ -220,6 +219,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void Init()
         {
+            MediaElement kickUserMediaElement = null;
+
             foreach (Window view in App.Current.Windows)
                 if (view is SignInView)
                 {
@@ -236,6 +237,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             PasswordError = string.Empty;
 
             CanSignin = true;
+
+            kickUserMediaElement = (MediaElement)SignInView.FindName("KickUserMediaElement");
+            kickUserMediaElement.Source = new Uri(FolderPaths.VIDEOS + "You Shall Not Pass.mp4");
         }
 
         /// <summary>
@@ -251,7 +255,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             App.Current.MainWindow.Show();
         }
-        
+
         /// <summary>
         /// Searches a user by his username.
         /// </summary>

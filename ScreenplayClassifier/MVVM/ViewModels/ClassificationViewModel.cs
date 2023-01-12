@@ -146,7 +146,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     MediaElement mediaElement = (MediaElement)ClassificationView.FindName("MediaElement");
 
-                    mediaElement.Source = new Uri(FolderPaths.VIDEOS + "It's Over. Go Home.mp4");
                     mediaElement.Play();
 
                     videoTimer.Start();
@@ -183,9 +182,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <param name="mainViewModel">The MainView's view model</param>
         public void Init(ClassificationView classificationView, MainViewModel mainViewModel)
         {
-            BrowseView browseView;
-            ProgressView progressView;
-            FeedbackView feedbackView;
+            BrowseView browseView = null;
+            ProgressView progressView = null;
+            FeedbackView feedbackView = null;
+            MediaElement mediaElement = null;
 
             MainViewModel = mainViewModel;
             ClassificationView = classificationView;
@@ -201,6 +201,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             feedbackView = (FeedbackView)ClassificationView.FindName("FeedbackView");
             FeedbackViewModel = (FeedbackViewModel)feedbackView.DataContext;
             FeedbackViewModel.Init(this, feedbackView);
+
+            mediaElement = (MediaElement)ClassificationView.FindName("MediaElement");
+            mediaElement.Source = new Uri(FolderPaths.VIDEOS + "It's Over. Go Home.mp4");
         }
     }
 }

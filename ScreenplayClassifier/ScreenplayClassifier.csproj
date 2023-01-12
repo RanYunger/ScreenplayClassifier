@@ -80,7 +80,6 @@
     <None Remove="Media\Images\PlayPressed.png" />
     <None Remove="Media\Images\PlayUnpressed.png" />
     <None Remove="Media\Images\Reel.png" />
-    <None Remove="Media\Images\Remove.png" />
     <None Remove="Media\Images\Reports.png" />
     <None Remove="Media\Images\RightArrowPressed.png" />
     <None Remove="Media\Images\RightArrowUnpressed.png" />
@@ -88,12 +87,9 @@
     <None Remove="Media\Images\Search.png" />
     <None Remove="Media\Images\Settings.png" />
     <None Remove="Media\Images\Signout.png" />
-    <None Remove="Media\Images\StopPressed.png" />
-    <None Remove="Media\Images\StopUnpressed.png" />
     <None Remove="Media\Images\User.png" />
     <None Remove="Media\Images\Username.png" />
     <None Remove="Media\Images\Visible.png" />
-    <None Remove="Media\Images\WillSmith.png" />
     <None Remove="Media\Videos\Credits.mp4" />
     <None Remove="Media\Videos\It%27s Over. Go Home.mp4" />
     <None Remove="Media\Videos\You Shall Not Pass.mp4" />
@@ -304,9 +300,6 @@
     <Content Include="Media\Images\Reel.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\Remove.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\Images\Reports.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -328,12 +321,6 @@
     <Content Include="Media\Images\Signout.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\StopPressed.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\StopUnpressed.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\Images\User.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -341,9 +328,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Visible.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\WillSmith.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Videos\Credits.mp4">
