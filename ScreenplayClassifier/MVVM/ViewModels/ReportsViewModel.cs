@@ -9,7 +9,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
@@ -26,10 +28,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private SeriesCollection genreSeries, subGenre1Series, subGenre2Series, ownerSeries;
         private Func<double, string> labelFormatter;
         private string[] ownerLabels;
-        private string titlePattern, filteredGenre, filteredSubGenre1, filteredSubGenre2;
+        private string filteredGenre, filteredSubGenre1, filteredSubGenre2;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
+        public ReportsView ReportsView { get; private set; }
+
         public ObservableCollection<ClassificationModel> Reports
         {
             get { return reports; }
@@ -150,18 +154,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public string TitlePattern
-        {
-            get { return titlePattern; }
-            set
-            {
-                titlePattern = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("TitlePattern"));
-            }
-        }
-
         public string FilteredGenre
         {
             get { return filteredGenre; }
@@ -255,19 +247,81 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
+        public Command EnterTitleTextboxCommand
+        {
+            get
+            {
+                TextBox titleTextBox = null;
+
+                return new Command(() =>
+                {
+                    string titlePattern = string.Empty;
+
+                    // Validation
+                    if (ReportsView == null)
+                        return;
+
+                    titleTextBox = (TextBox)ReportsView.FindName("TitleTextBox");
+                    titlePattern = titleTextBox.Text;
+
+                    if (string.Equals(titlePattern, "Pattern"))
+                    {
+                        titleTextBox.Foreground = Brushes.Black;
+                        titleTextBox.Text = string.Empty;
+                    }
+                });
+            }
+        }
+
+        public Command LeaveTitleTextboxCommand
+        {
+            get
+            {
+                TextBox titleTextBox = null;
+
+                return new Command(() =>
+                {
+                    string titlePattern = string.Empty;
+
+                    // Validation
+                    if (ReportsView == null)
+                        return;
+
+                    titleTextBox = (TextBox)ReportsView.FindName("TitleTextBox");
+                    titlePattern = titleTextBox.Text;
+
+                    if (string.IsNullOrEmpty(titlePattern))
+                    {
+                        titleTextBox.Foreground = Brushes.Gray;
+                        titleTextBox.Text = "Pattern";
+                    }
+                });
+            }
+        }
+
         public Command FilterReportsCommand
         {
             get
             {
+                TextBox titleTextBox = null;
+
                 return new Command(() =>
                 {
                     ICollectionView reportsCollectionView = CollectionViewSource.GetDefaultView(Reports);
+                    string titlePattern = null;
+
+                    // Validation
+                    if (ReportsView == null)
+                        return;
+
+                    titleTextBox = (TextBox)ReportsView.FindName("TitleTextBox");
+                    titlePattern = titleTextBox.Text;
 
                     // Updates all filters
                     titleFilter = (o) =>
                     {
-                        return string.IsNullOrEmpty(TitlePattern) ? true
-                            : ((ClassificationModel)o).Screenplay.Title.Contains(TitlePattern);
+                        return string.IsNullOrEmpty(titlePattern.Trim()) || string.Equals(titlePattern, "Pattern")
+                            ? true : ((ClassificationModel)o).Screenplay.Title.Contains(titlePattern);
                     };
                     genreFilter = (o) =>
                     {
@@ -302,15 +356,24 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
+                TextBox titleTextBox = null;
+
                 return new Command(() =>
                 {
+                    // Validation
+                    if (ReportsView == null)
+                        return;
+
                     // Restores options to their default collection
                     GenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
                     SubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
                     SubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
 
                     // Clears filtered values
-                    TitlePattern = null;
+                    titleTextBox = (TextBox)ReportsView.FindName("TitleTextBox");
+                    titleTextBox.Foreground = Brushes.Gray;
+                    titleTextBox.Text = "Pattern";
+
                     FilteredGenre = null;
                     FilteredSubGenre1 = null;
                     FilteredSubGenre2 = null;
@@ -325,8 +388,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// Initiates the view model.
         /// </summary>
         /// <param name="user">The user who authenticated to the system</param>
-        public void Init(UserModel user)
+        public void Init(ReportsView reportsView, UserModel user)
         {
+            ReportsView = reportsView;
+
             InitReports(user);
         }
 

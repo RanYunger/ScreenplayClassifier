@@ -39,17 +39,14 @@
     <None Remove="Media\GIFs\Genres\Thriller.gif" />
     <None Remove="Media\GIFs\Genres\War.gif" />
     <None Remove="Media\GIFs\Reading.gif" />
-    <None Remove="Media\Images\Add.png" />
     <None Remove="Media\Images\Admin.png" />
     <None Remove="Media\Images\Archives.png" />
     <None Remove="Media\Images\AudioOff.png" />
     <None Remove="Media\Images\AudioOn.png" />
-    <None Remove="Media\Images\Back.png" />
     <None Remove="Media\Images\Browse.png" />
     <None Remove="Media\Images\Classification.png" />
     <None Remove="Media\Images\Clear.png" />
     <None Remove="Media\Images\Command Shell.png" />
-    <None Remove="Media\Images\Document.png" />
     <None Remove="Media\Images\Error.png" />
     <None Remove="Media\Images\Filter.png" />
     <None Remove="Media\Images\Genres\Action.png" />
@@ -65,6 +62,7 @@
     <None Remove="Media\Images\Genres\Thriller.png" />
     <None Remove="Media\Images\Genres\Unknown.png" />
     <None Remove="Media\Images\Genres\War.png" />
+    <None Remove="Media\Images\Hole.png" />
     <None Remove="Media\Images\Home.png" />
     <None Remove="Media\Images\Icon.ico" />
     <None Remove="Media\Images\Info.png" />
@@ -72,14 +70,12 @@
     <None Remove="Media\Images\LeftArrowPressed.png" />
     <None Remove="Media\Images\LeftArrowUnpressed.png" />
     <None Remove="Media\Images\Member.png" />
-    <None Remove="Media\Images\Movie.png" />
     <None Remove="Media\Images\Password.png" />
-    <None Remove="Media\Images\PausePressed.png" />
-    <None Remove="Media\Images\PauseUnpressed.png" />
     <None Remove="Media\Images\Percent.png" />
     <None Remove="Media\Images\PlayPressed.png" />
     <None Remove="Media\Images\PlayUnpressed.png" />
     <None Remove="Media\Images\Reel.png" />
+    <None Remove="Media\Images\Report.png" />
     <None Remove="Media\Images\Reports.png" />
     <None Remove="Media\Images\RightArrowPressed.png" />
     <None Remove="Media\Images\RightArrowUnpressed.png" />
@@ -183,9 +179,6 @@
     <Content Include="Media\GIFs\Reading.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\Add.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\Images\Admin.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -198,9 +191,6 @@
     <Content Include="Media\Images\AudioOn.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\Back.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\Images\Browse.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -211,9 +201,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Command Shell.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\Document.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Error.png">
@@ -261,6 +248,9 @@
     <Content Include="Media\Images\Genres\War.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\Hole.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\Home.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -282,12 +272,6 @@
     <Content Include="Media\Images\Icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\PausePressed.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\PauseUnpressed.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\Images\Percent.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -298,6 +282,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Reel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Report.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Reports.png">
@@ -358,12 +345,6 @@
 
   <ItemGroup>
     <Content Include="Jsons\Genres.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Media\Images\Movie.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

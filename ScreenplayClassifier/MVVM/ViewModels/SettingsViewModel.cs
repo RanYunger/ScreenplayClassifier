@@ -256,28 +256,78 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public Command EnterUsernameTextboxCommand
+        {
+            get
+            {
+                TextBox usernameTextBox = null;
+
+                return new Command(() =>
+                {
+                    string usernameInput = string.Empty;
+
+                    // Validation
+                    if (SettingsView == null)
+                        return;
+
+                    usernameTextBox = (TextBox)SettingsView.FindName("UsernameTextBox");
+                    usernameInput = usernameTextBox.Text;
+
+                    if (string.Equals(usernameInput, "Username"))
+                    {
+                        usernameTextBox.Foreground = Brushes.Black;
+                        usernameTextBox.Text = string.Empty;
+                    }
+                });
+            }
+        }
+
+        public Command LeaveUsernameTextboxCommand
+        {
+            get
+            {
+                TextBox usernameTextBox = null;
+
+                return new Command(() =>
+                {
+                    string usernameInput = string.Empty;
+
+                    if (SettingsView == null)
+                        return;
+
+                    usernameTextBox = (TextBox)SettingsView.FindName("UsernameTextBox");
+                    usernameInput = usernameTextBox.Text;
+
+                    if (string.IsNullOrEmpty(usernameInput))
+                    {
+                        usernameTextBox.Foreground = Brushes.Gray;
+                        usernameTextBox.Text = "Username";
+                    }
+                });
+            }
+        }
+
         public Command SearchCommand
         {
             get
             {
                 return new Command(() =>
                 {
-                    TextBox usernameInputTextBox = (TextBox)SettingsView.FindName("UsernameInputTextBox");
+                    TextBox usernameTextBox = (TextBox)SettingsView.FindName("UsernameTextBox");
                     ICollectionView usersCollectionView = CollectionViewSource.GetDefaultView(AuthenticatedUsers);
-                    string usernameInput = usernameInputTextBox.Text;
+                    string usernameInput = usernameTextBox.Text;
 
                     // Updates and activates the filter
                     usernameFilter = (o) =>
                     {
-                        return string.IsNullOrEmpty(usernameInput) ? true
-  : ((UserModel)o).Username.Contains(usernameInput);
+                        return (string.IsNullOrEmpty(usernameInput.Trim())) || (string.Equals(usernameInput, "Username"))
+                            ? true : ((UserModel)o).Username.Contains(usernameInput);
                     };
-
                     usersCollectionView.Filter = (o) => { return usernameFilter.Invoke(o); };
                     usersCollectionView.Refresh();
 
                     // Checks whether the searched user can be added
-                    CanAdd = true;
+                    CanAdd = !string.IsNullOrEmpty(usernameInput.Trim());
                     foreach (UserModel user in AuthenticatedUsers)
                     {
                         if (user.Username.Equals(usernameInput))
@@ -297,12 +347,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     Regex usernameRegex = new Regex(JSON.USERNAMEPATTERN);
-                    TextBox usernameInputTextBox = (TextBox)SettingsView.FindName("UsernameInputTextBox");
-                    string usernameInput = usernameInputTextBox.Text;
+                    TextBox usernameTextBox = (TextBox)SettingsView.FindName("UsernameTextBox");
+                    string usernameInput = usernameTextBox.Text;
 
                     if (!usernameRegex.IsMatch(usernameInput))
                     {
-                        MessageBoxHandler.Show("Invalid User name", "E.G. Ran.Yunger, Shy.Ohev.Zion", 3, MessageBoxImage.Error);
+                        MessageBoxHandler.Show("E.G. Ran.Yunger, Shy.Ohev.Zion", "Invalid User name", 3, MessageBoxImage.Error);
                         return;
                     }
 
@@ -337,7 +387,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <param name="authenticatedUsers">List of all users who can authenticate to the system</param>
         public void Init(SettingsView settingsView, MainViewModel mainViewModel, ObservableCollection<UserModel> authenticatedUsers)
         {
-            PasswordBox oldPasswordBox, newPasswordBox, confirmPasswordBox;
+            PasswordBox oldPasswordBox = null, newPasswordBox = null, confirmPasswordBox = null;
+            TextBox usernameTextBox = null;
 
             MainViewModel = mainViewModel;
             SettingsView = settingsView;
@@ -354,6 +405,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             confirmPasswordBox = (PasswordBox)SettingsView.FindName("ConfirmPasswordBox");
             confirmPasswordBox.Clear();
+
+            usernameTextBox = (TextBox)SettingsView.FindName("UsernameTextBox");
+            usernameTextBox.Foreground = Brushes.Gray;
+            usernameTextBox.Text = "Username";
 
             CanAdd = false;
             CanRemove = false;

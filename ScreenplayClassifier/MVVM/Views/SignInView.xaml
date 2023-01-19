@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
         Title="Screenplay Classifier" Height="600" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Style="{StaticResource WindowStyle}">
@@ -41,8 +42,20 @@
             <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,5">
                 <Image Source="/Media/Images/Username.png" Height="50" Width="50"/>
                 <StackPanel>
-                    <TextBox Text="{Binding UsernameInput}" Height="20" Width="150" VerticalAlignment="Top" IsEnabled="{Binding CanSignin}"
-                             ToolTip="Enter your username" Margin="20,0,0,0" Style="{StaticResource BaseTextBoxStyle}"/>
+                    <TextBox x:Name="UsernameTextBox" Height="20" Width="150" VerticalAlignment="Top"
+                             IsEnabled="{Binding CanSignin}" Margin="20,0,0,0" Style="{StaticResource BaseTextBoxStyle}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="GotFocus">
+                                <i:InvokeCommandAction Command="{Binding EnterUsernameTextboxCommand}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="LostFocus">
+                                <i:InvokeCommandAction Command="{Binding LeaveUsernameTextboxCommand}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="KeyDown">
+                                <i:InvokeCommandAction Command="{Binding CheckKeyCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
                     <WrapPanel x:Name="UsernameErrorWrapPanel" Visibility="Hidden">
                         <Image Source="/Media/Images/Error.png" Height="20" Width="20" HorizontalAlignment="Left" Margin="20,5,0,0"/>
                         <TextBlock Text="{Binding UsernameError}" Foreground="DarkRed" Margin="10,0,0,0"
@@ -53,9 +66,26 @@
             <WrapPanel HorizontalAlignment="Center" Margin="0,5,0,10">
                 <Image Source="/Media/Images/Password.png" Height="50" Width="50"/>
                 <StackPanel>
-                    <PasswordBox x:Name="PasswordBox" Height="20" Width="150" MaxLength="9" VerticalAlignment="Top"
-                                 IsEnabled="{Binding CanSignin}" ToolTip="Enter your password" Margin="20,0,0,0"
-                                 Style="{StaticResource PasswordBoxStyle}"/>
+                    <Grid>
+                        <PasswordBox x:Name="PasswordBox" Height="20" Width="150" MaxLength="9" VerticalAlignment="Top"
+                                 IsEnabled="{Binding CanSignin}" Margin="20,0,0,0"
+                                 Style="{StaticResource PasswordBoxStyle}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="LostFocus">
+                                    <i:InvokeCommandAction Command="{Binding LeavePasswordTextboxCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </PasswordBox>
+                        <TextBox x:Name="PasswordTextBox" Text="Password" Height="20" Width="150" Foreground="Gray"
+                                 VerticalAlignment="Top" IsEnabled="{Binding CanSignin}" Margin="20,0,0,0"
+                                 Style="{StaticResource BaseTextBoxStyle}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="GotFocus">
+                                    <i:InvokeCommandAction Command="{Binding EnterPasswordTextboxCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                    </Grid>
                     <WrapPanel x:Name="PasswordErrorWrapPanel" Visibility="Hidden">
                         <Image Source="/Media/Images/Error.png" Height="20" Width="20" HorizontalAlignment="Left" Margin="20,5,0,0"/>
                         <TextBlock Text="{Binding PasswordError}" Foreground="DarkRed" Margin="10,0,0,0"

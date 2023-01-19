@@ -16,7 +16,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Image Grid.RowSpan="2" Grid.ColumnSpan="2" Source="/Media/Images/Document.png" Opacity="0.3"/>
+        <Image Grid.RowSpan="2" Grid.ColumnSpan="2" Source="/Media/Images/Report.png" Opacity="0.3"/>
         <TextBlock Text="Classification" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" FontSize="80" Margin="10"
                    Style="{StaticResource TextBlockStyle}"/>
         <StackPanel Grid.Row="1" Grid.Column="0">

@@ -37,7 +37,19 @@
                     <StackPanel>
                         <WrapPanel Margin="5">
                             <TextBlock Text="Title contains:" Style="{StaticResource TextBlockStyle}"/>
-                            <TextBox Width="100" Text="{Binding TitlePattern}" Margin="20,0,0,0" Style="{StaticResource BaseTextBoxStyle}"/>
+                            <TextBox x:Name="TitleTextBox" Width="100" Margin="20,0,0,0" Style="{StaticResource BaseTextBoxStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="GotFocus">
+                                        <i:InvokeCommandAction Command="{Binding EnterTitleTextboxCommand}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="LostFocus">
+                                        <i:InvokeCommandAction Command="{Binding LeaveTitleTextboxCommand}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="KeyDown">
+                                        <i:InvokeCommandAction Command="{Binding CheckKeyCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
                         </WrapPanel>
                         <WrapPanel Margin="5">
                             <TextBlock Text="Genre is:" Style="{StaticResource TextBlockStyle}"/>
