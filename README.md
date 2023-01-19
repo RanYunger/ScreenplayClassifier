@@ -1,6 +1,10 @@
 # ScreenplayClassifier
 
 A C# + Python-based project to learn, predict and classify screenplays to 12 filmgenres:
+* a  *a   *a   *a
+* b  *b   *b   *b
+* c  *c   *c   *c
+
 \
 -💥  Action\        -💰   Crime       -🦄  Fantasy      -🤖  SciFi
 -🚶   Adventure\     -😢  Drama       -😨   Horror      -🕵️  Thriller
