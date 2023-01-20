@@ -92,13 +92,35 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands  
+        public Command ShowModuleViewCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    switch (ModuleName)
+                    {
+                        case "Archives":
+                            ShowArchivesViewCommand.Execute(null);
+                            break;
+                        case "Classification":
+                            ShowClassificationViewCommand.Execute(null);
+                            break;
+                        case "Reports":
+                            ShowReportsViewCommand.Execute(null);
+                            break;
+                    }
+                });
+            }
+        }
+
         public Command ShowArchivesViewCommand
         {
             get
             {
                 return new Command(() =>
                 {
-                    if (ModuleName == "Archives")
+                    if (string.Equals(ModuleName, "Archives"))
                         MainViewModel.ShowView(MainViewModel.ArchivesView);
                 });
             }
@@ -110,7 +132,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    if (ModuleName == "Classification")
+                    if (string.Equals(ModuleName, "Classification"))
                         MainViewModel.ShowView(MainViewModel.ClassificationView);
                 });
             }
@@ -122,7 +144,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    if (ModuleName == "Reports")
+                    if (string.Equals(ModuleName, "Reports"))
                         MainViewModel.ShowView(MainViewModel.ReportsView);
                 });
             }

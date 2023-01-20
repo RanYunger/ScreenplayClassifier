@@ -12,13 +12,16 @@
     </i:Interaction.Triggers>
     <Grid>
         <Image Source="/Media/Images/Reel.png" Cursor="Hand"/>
-        <Image Source="{Binding GenreImage}" Height="70" Width="70" Margin="150,5,0,0">
-            <Image.Triggers>
+        <Ellipse Height="70" Width="70">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="{Binding GenreImage}"/>
+            </Ellipse.Fill>
+            <Ellipse.Triggers>
                 <EventTrigger RoutedEvent="MouseEnter">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="110"/>
-                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="110"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Height" To="140"/>
+                            <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Width" To="140"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
@@ -30,7 +33,7 @@
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
-            </Image.Triggers>
-        </Image>
+            </Ellipse.Triggers>
+        </Ellipse>
     </Grid>
 </UserControl>
