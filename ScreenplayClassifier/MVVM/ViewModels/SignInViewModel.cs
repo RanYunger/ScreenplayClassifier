@@ -241,18 +241,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return new Command(() => OpenMainView(new UserModel())); }
         }
 
-        public Command OpenCommandShellCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    Process.Start(FolderPaths.CLI + "CLI.bat");
-                    SignInView.Close();
-                });
-            }
-        }
-
         public Command KickUserCommand
         {
             get

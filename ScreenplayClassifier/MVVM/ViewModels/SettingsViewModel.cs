@@ -228,7 +228,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     if (!passwordRegex.IsMatch(NewPassword))
                     {
-                        MessageBoxHandler.Show("New password is invalid", "Error", 3, MessageBoxImage.Error);
+                        MessageBox.Show("Password must contain 2-3 capital letters followed by 5-6 digits.", "Invalid Password",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
 
@@ -352,7 +353,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     if (!usernameRegex.IsMatch(usernameInput))
                     {
-                        MessageBoxHandler.Show("E.G. Ran.Yunger, Shy.Ohev.Zion", "Invalid User name", 3, MessageBoxImage.Error);
+                        MessageBox.Show("Username must contain 2-3 capital words seperated by dots (E.G. Ran.Yunger, Shy.Ohev.Zion)",
+                            "Invalid Username", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
 
