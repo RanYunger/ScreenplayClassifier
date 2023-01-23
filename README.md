@@ -29,7 +29,7 @@ A C# + Python-based project to learn, predict and classify screenplays to 12 fil
 ## Screenshots
 Sign in:
 
-![image](https://user-images.githubusercontent.com/62587988/213484568-8724e69a-9ba0-4418-91ab-12b847ac5ccf.png)
+![image](https://user-images.githubusercontent.com/62587988/213988101-cb8f91d0-75a6-47c0-b2ed-dd2bde7dcb43.png)
 
 Main Menu:
 
@@ -45,7 +45,7 @@ Classification Process:
 
 Archives:
 
-![image](https://user-images.githubusercontent.com/62587988/213484852-9f523235-86ac-46b4-88f3-57732686834a.png)
+![image](https://user-images.githubusercontent.com/62587988/213724233-bcd55b55-a3ad-499f-8ee7-a67162ccfee0.png)
 
 ![image](https://user-images.githubusercontent.com/62587988/213484893-81228576-7a16-41ad-9a64-c289f0da7abd.png)
 
