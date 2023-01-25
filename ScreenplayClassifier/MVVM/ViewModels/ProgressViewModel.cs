@@ -235,7 +235,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void ClassificationThread(ObservableCollection<string> screenplaysToClassify)
         {
             int progressOutput;
-            string scriptPath = FolderPaths.CLASSIFIER + "Setup.py", scriptArgs = string.Join(" ", screenplaysToClassify);
+            string scriptPath = FolderPaths.CLASSIFIER + "Loader.py", scriptArgs = string.Join(" ", screenplaysToClassify);
             string outputLine = string.Empty, screenplaysJson = string.Empty;
             UserModel owner = ClassificationViewModel.MainViewModel.UserToolbarViewModel.User;
             List<ClassificationModel> classifications = new List<ClassificationModel>();
