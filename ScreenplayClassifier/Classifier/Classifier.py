@@ -9,7 +9,7 @@ from sklearn.metrics import f1_score
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.preprocessing import MultiLabelBinarizer
 
-from Setup import *
+from Loader import *
 from TextProcessor import *
 
 # Globals

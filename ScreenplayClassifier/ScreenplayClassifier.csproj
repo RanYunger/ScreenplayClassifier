@@ -367,7 +367,7 @@
     <None Update="Classifier\Pickle">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Classifier\Setup.py">
+    <None Update="Classifier\Loader.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Classifier\TextProcessor.py">

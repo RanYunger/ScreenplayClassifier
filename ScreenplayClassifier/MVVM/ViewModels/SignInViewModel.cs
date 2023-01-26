@@ -245,8 +245,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
-                TextBox usernameTextBox = (TextBox)SignInView.FindName("UsernameTextBox");
-                PasswordBox passwordBox = passwordBox = (PasswordBox)SignInView.FindName("PasswordBox");
+                TextBox usernameTextBox = (TextBox)SignInView.FindName("UsernameTextBox"),
+                    passwordTextBox = (TextBox)SignInView.FindName("PasswordTextBox");
+                PasswordBox passwordBox = (PasswordBox)SignInView.FindName("PasswordBox");
                 MediaElement kickUserMediaElement = (MediaElement)SignInView.FindName("KickUserMediaElement");
                 WrapPanel usernameErrorWrapPanel = (WrapPanel)SignInView.FindName("UsernameErrorWrapPanel"),
                     passwordErrorWrapPanel = (WrapPanel)SignInView.FindName("PasswordErrorWrapPanel");
@@ -255,14 +256,20 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     Timer videoTimer = new Timer(6000);
 
-                    usernameTextBox.Text = string.Empty;
+                    // Disables all controls
+                    usernameTextBox.Clear();
+
+                    passwordTextBox.Clear();
                     passwordBox.Clear();
 
-                    // Shows and activates the video 
                     usernameErrorWrapPanel.Visibility = passwordErrorWrapPanel.Visibility = Visibility.Hidden;
-                    kickUserMediaElement.Play();
 
+                    EnterPasswordTextboxCommand.Execute(null); // collapses passwordTextBox's visibility 
+
+                    // Shows and activates the video 
                     videoTimer.Elapsed += VideoTimer_Elapsed;
+
+                    kickUserMediaElement.Play();
                     videoTimer.Start();
                 });
             }
