@@ -202,7 +202,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ClassificationsComplete = 0;
 
             CurrentPhase = 0;
-            PhaseText = "Reading";
+            PhaseText = "Processing";
         }
 
         /// <summary>
