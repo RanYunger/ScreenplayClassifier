@@ -19,7 +19,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private ObservableCollection<string> browsedScreenplaysTitles, browsedScreenplaysPaths;
-        private ImageSource playImage;
         private int selectedScreenplay;
         private bool canBrowse, canClear, canChoose, canProceed;
 
@@ -53,18 +52,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public ImageSource PlayImage
-        {
-            get { return playImage; }
-            set
-            {
-                playImage = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("PlayImage"));
-            }
-        }
-
         public int SelectedScreenplay
         {
             get { return selectedScreenplay; }
@@ -85,9 +72,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             set
             {
                 canBrowse = value;
-
-                if (!canBrowse)
-                    PlayImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "PlayPressed.png"));
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("CanBrowse"));
@@ -112,9 +96,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             set
             {
                 canChoose = value;
-
-                if ((canChoose) && (!canBrowse))
-                    PlayImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "PlayUnpressed.png"));
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("CanChoose"));
@@ -257,8 +238,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             CanClear = true;
             CanChoose = false;
             CanProceed = false;
-
-            PlayImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "PlayUnpressed.png"));
 
             if (BrowseView != null)
                 App.Current.Dispatcher.Invoke(() => BrowseView.Visibility = Visibility.Visible);

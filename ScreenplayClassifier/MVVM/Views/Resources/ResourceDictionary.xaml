@@ -68,8 +68,8 @@
         <Setter Property="AutoGenerateColumns" Value="False"/>
         <Setter Property="Background" Value="{StaticResource UserControlBackground}"/>
         <Setter Property="CanUserResizeColumns" Value="False"/>
-        <Setter Property="CanUserReorderColumns" Value="True"/>
-        <Setter Property="CanUserSortColumns" Value="False"/>
+        <Setter Property="CanUserReorderColumns" Value="False"/>
+        <Setter Property="CanUserSortColumns" Value="True"/>
         <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
         <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -82,6 +82,7 @@
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Cursor" Value="Hand"/>
     </Style>
     <Style x:Key="DataGridMainColumnHeaderStyle" TargetType="DataGridColumnHeader" BasedOn="{StaticResource BaseDataGridColumnHeaderStyle}">
         <Setter Property="Background" Value="{StaticResource MainColumnHeaderBackground}"/>

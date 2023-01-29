@@ -7,12 +7,17 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class FeedbackViewModel
+    public class FeedbackViewModel : INotifyPropertyChanged
     {
         // Fields
+        private ImageSource firstImage, previousImage, nextImage, lastImage;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
@@ -20,11 +25,108 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public GenresViewModel PredictedGenresViewModel { get; private set; }
         public GenresViewModel ActualGenresViewModel { get; private set; }
 
+        public ImageSource FirstImage
+        {
+            get { return firstImage; }
+            set
+            {
+                firstImage = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("FirstImage"));
+            }
+        }
+
+        public ImageSource PreviousImage
+        {
+            get { return previousImage; }
+            set
+            {
+                previousImage = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("PreviousImage"));
+            }
+        }
+
+        public ImageSource NextImage
+        {
+            get { return nextImage; }
+            set
+            {
+                nextImage = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("NextImage"));
+            }
+        }
+
+        public ImageSource LastImage
+        {
+            get { return lastImage; }
+            set
+            {
+                lastImage = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("LastImage"));
+            }
+        }
+
         // Constructors
         public FeedbackViewModel() { }
 
         // Methods
         #region Commands
+        public Command PressFirstCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    ClassificationViewModel.BrowseViewModel.SelectedScreenplay = 0;
+
+                    FirstImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "FirstPressed.png"));
+                });
+            }
+        }
+
+        public Command UnpressFirstCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    FirstImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "FirstUnpressed.png"));
+                });
+            }
+        }
+
+        public Command PressPreviousCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    if (ClassificationViewModel.BrowseViewModel.SelectedScreenplay > 0)
+                        ClassificationViewModel.BrowseViewModel.SelectedScreenplay--;
+
+                    PreviousImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "PreviousPressed.png"));
+                });
+            }
+        }
+
+        public Command UnpressPreviousCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    PreviousImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "PreviousUnpressed.png"));
+                });
+            }
+        }
+
         public Command SubmitFeedbackCommand
         {
             get
@@ -43,6 +145,55 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                             MessageBoxButton.YesNo, MessageBoxImage.Question);
                         ClassificationViewModel.ClassificationComplete = startOver == MessageBoxResult.No;
                     }
+                });
+            }
+        }
+
+        public Command PressNextCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    if (ClassificationViewModel.BrowseViewModel.SelectedScreenplay < ClassificationViewModel.ClassifiedScreenplays.Count - 1)
+                        ClassificationViewModel.BrowseViewModel.SelectedScreenplay++;
+
+                    NextImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "NextPressed.png"));
+                });
+            }
+        }
+
+        public Command UnpressNextCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    NextImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "NextUnpressed.png"));
+                });
+            }
+        }
+
+        public Command PressLastCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    ClassificationViewModel.BrowseViewModel.SelectedScreenplay = ClassificationViewModel.ClassifiedScreenplays.Count - 1;
+
+                    LastImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "LastPressed.png"));
+                });
+            }
+        }
+
+        public Command UnpressLastCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    LastImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "LastUnpressed.png"));
                 });
             }
         }
@@ -67,6 +218,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             actualGenresView = (GenresView)FeedbackView.FindName("ActualGenresView");
             ActualGenresViewModel = (GenresViewModel)actualGenresView.DataContext;
             ActualGenresViewModel.Init(actualGenresView);
+
+            FirstImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "FirstUnpressed.png"));
+            PreviousImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "PreviousUnpressed.png"));
+            NextImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "NextUnpressed.png"));
+            LastImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "LastUnpressed.png"));
+
         }
 
         /// <summary>

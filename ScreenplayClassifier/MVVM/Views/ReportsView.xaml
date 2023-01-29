@@ -21,9 +21,10 @@
             <ColumnDefinition Width="600"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Image Grid.RowSpan="2" Grid.ColumnSpan="2" Source="/Media/Images/Reports.png" Opacity="0.3"/>
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Reports" FontSize="80" HorizontalAlignment="Center"
-                   Style="{StaticResource TextBlockStyle}"/>
+        <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            <Image Source="/Media/Images/Reports.png" Height="60" Width="60" Margin="0,0,10,0"/>
+            <TextBlock Text="Reports" FontSize="60" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+        </WrapPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="0">
             <GroupBox Margin="10" Style="{StaticResource GroupBoxStyle}">
@@ -71,7 +72,7 @@
                             ToolTip="Filter reports" Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
                         <Button.Content>
                             <StackPanel>
-                                <Image Source="/Media/Images/Filter.png" Height="70" Width="70"/>
+                                <Image Source="/Media/Images/Filter.png" Height="90" Width="90"/>
                                 <TextBlock Text="Filter" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                             </StackPanel>
                         </Button.Content>
@@ -80,14 +81,14 @@
                         Margin="10" Style="{StaticResource ButtonStyle}">
                         <Button.Content>
                             <StackPanel>
-                                <Image Source="/Media/Images/Clear.png" Height="70" Width="70"/>
+                                <Image Source="/Media/Images/Clear.png" Height="90" Width="90"/>
                                 <TextBlock Text="Clear All" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                             </StackPanel>
                         </Button.Content>
                     </Button>
                 </WrapPanel>
             </GroupBox>
-            <DataGrid ItemsSource="{Binding Reports}" Height="350" IsReadOnly="True" SelectionMode="Single" Margin="10,0,10,0"
+            <DataGrid ItemsSource="{Binding Reports}" Height="430" IsReadOnly="True" SelectionMode="Single" Margin="10,0,10,0"
                       Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Title" Binding="{Binding Path=Screenplay.Title}" Width="100"
@@ -115,7 +116,7 @@
             <WrapPanel>
                 <StackPanel>
                     <TextBlock Text="Genre" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    <lvc:PieChart x:Name="GenrePieChart" Height="250" Width="250" LegendLocation="Bottom" Series="{Binding GenreSeries}"
+                    <lvc:PieChart x:Name="GenrePieChart" Height="280" Width="280" LegendLocation="Bottom" Series="{Binding GenreSeries}"
                       Hoverable="True" Margin="20">
                         <lvc:PieChart.ChartLegend>
                             <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="10"/>
@@ -124,7 +125,7 @@
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="SubGenre 1" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    <lvc:PieChart Height="250" Width="250" LegendLocation="Bottom" Series="{Binding SubGenre1Series}"
+                    <lvc:PieChart Height="280" Width="280" LegendLocation="Bottom" Series="{Binding SubGenre1Series}"
                                   SeriesColors="{Binding ElementName=GenrePieChart, Path=SeriesColors}" Hoverable="True" Margin="20">
                         <lvc:PieChart.ChartLegend>
                             <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="10"/>
@@ -133,7 +134,7 @@
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="SubGenre 2" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    <lvc:PieChart Height="250" Width="250" LegendLocation="Bottom" Series="{Binding SubGenre2Series}"
+                    <lvc:PieChart Height="280" Width="280" LegendLocation="Bottom" Series="{Binding SubGenre2Series}"
                                   SeriesColors="{Binding ElementName=GenrePieChart, Path=SeriesColors}" Hoverable="True" Margin="20">
                         <lvc:PieChart.ChartLegend>
                             <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="10"/>
@@ -141,7 +142,7 @@
                     </lvc:PieChart>
                 </StackPanel>
             </WrapPanel>
-            <lvc:CartesianChart x:Name="UsersCartesianChart" Series="{Binding OwnerSeries}" Height="230" LegendLocation="Left">
+            <lvc:CartesianChart x:Name="UsersCartesianChart" Series="{Binding OwnerSeries}" Height="250" LegendLocation="Left">
                 <lvc:CartesianChart.Style>
                     <Style TargetType="lvc:CartesianChart">
                         <Style.Triggers>

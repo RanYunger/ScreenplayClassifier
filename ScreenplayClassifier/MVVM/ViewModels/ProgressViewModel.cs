@@ -218,6 +218,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             DurationTimer.Start();
 
             ClassificationsRequired = browsedScreenplays.Count;
+            ClassificationsComplete = 0;
 
             PhaseText = "Processing";
 

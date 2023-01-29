@@ -15,9 +15,10 @@
             <ColumnDefinition Width="500"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Image Grid.RowSpan="2" Grid.ColumnSpan="2" Source="/Media/Images/Classification.png" Opacity="0.3"/>
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Classification" FontSize="80" HorizontalAlignment="Center"
-                   Style="{StaticResource TextBlockStyle}"/>
+        <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            <Image Source="/Media/Images/Classification.png" Height="60" Width="60" Margin="0,0,10,0"/>
+            <TextBlock Text="Classification" FontSize="60" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+        </WrapPanel>
 
         <v:BrowseView x:Name="BrowseView" Grid.Row="1" Grid.Column="0"/>
         <v:ProgressView x:Name="ProgressView" Grid.Row="1" Grid.Column="1"/>

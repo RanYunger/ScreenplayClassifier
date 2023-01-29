@@ -42,8 +42,8 @@
                     Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <StackPanel>
-                        <Image Source="{Binding PlayImage}" Height="70" Width="70"/>
-                        <TextBlock Text="Proceed" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                        <Image Source="/Media/Images/Activate.png" Height="70" Width="70"/>
+                        <TextBlock Text="Activate" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>
             </Button>

@@ -6,19 +6,95 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views">
     <Grid>
-        <StackPanel>
-            <WrapPanel HorizontalAlignment="Center">
-                <StackPanel Margin="0,0,50,0">
-                    <TextBlock Text="Predicted Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    <v:GenresView x:Name="PredictedGenresView" IsEnabled="False"/>
-                </StackPanel>
-                <StackPanel Margin="50,0,0,0">
-                    <TextBlock Text="Actual Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    <v:GenresView x:Name="ActualGenresView"/>
-                </StackPanel>
-            </WrapPanel>
-            <Button Grid.Row="2" Grid.ColumnSpan="2" FontSize="20" Content="Submit" Command="{Binding SubmitFeedbackCommand}"
-                Margin="30" Style="{StaticResource ButtonStyle}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,50,0">
+            <TextBlock Text="Predicted Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <v:GenresView x:Name="PredictedGenresView" IsEnabled="False"/>
         </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="50,0,0,0">
+            <TextBlock Text="Actual Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <v:GenresView x:Name="ActualGenresView"/>
+        </StackPanel>
+        <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="10">
+            <Button Margin="0,0,10,0" Style="{StaticResource ButtonStyle}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding PressFirstCommand}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseUp">
+                        <i:InvokeCommandAction Command="{Binding UnpressFirstCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="{Binding FirstImage}" Height="60" Width="60"/>
+                        <TextBlock Text="First" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Margin="10,0,10,0" Style="{StaticResource ButtonStyle}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding PressPreviousCommand}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseUp">
+                        <i:InvokeCommandAction Command="{Binding UnpressPreviousCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="{Binding PreviousImage}" Height="60" Width="60"/>
+                        <TextBlock Text="Previous" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding SubmitFeedbackCommand}" Margin="10,0,10,0" Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Media/Images/Submit.png" Height="60" Width="60"/>
+                        <TextBlock Text="Submit" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Margin="10,0,10,0" Style="{StaticResource ButtonStyle}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding PressNextCommand}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseUp">
+                        <i:InvokeCommandAction Command="{Binding UnpressNextCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="{Binding NextImage}" Height="60" Width="60"/>
+                        <TextBlock Text="Next" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding PressLastCommand}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseUp">
+                        <i:InvokeCommandAction Command="{Binding UnpressLastCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="{Binding LastImage}" Height="60" Width="60"/>
+                        <TextBlock Text="Last" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </WrapPanel>
     </Grid>
 </UserControl>

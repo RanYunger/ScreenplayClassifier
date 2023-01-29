@@ -39,6 +39,7 @@
     <None Remove="Media\GIFs\Genres\Thriller.gif" />
     <None Remove="Media\GIFs\Genres\War.gif" />
     <None Remove="Media\GIFs\Reading.gif" />
+    <None Remove="Media\Images\Activate.png" />
     <None Remove="Media\Images\Admin.png" />
     <None Remove="Media\Images\Archives.png" />
     <None Remove="Media\Images\AudioOff.png" />
@@ -48,6 +49,8 @@
     <None Remove="Media\Images\Clear.png" />
     <None Remove="Media\Images\Error.png" />
     <None Remove="Media\Images\Filter.png" />
+    <None Remove="Media\Images\FirstPressed.png" />
+    <None Remove="Media\Images\FirstUnpressed.png" />
     <None Remove="Media\Images\Genres\Action.png" />
     <None Remove="Media\Images\Genres\Adventure.png" />
     <None Remove="Media\Images\Genres\Comedy.png" />
@@ -66,22 +69,24 @@
     <None Remove="Media\Images\Icon.ico" />
     <None Remove="Media\Images\Info.png" />
     <None Remove="Media\Images\Invisible.png" />
-    <None Remove="Media\Images\LeftArrowPressed.png" />
-    <None Remove="Media\Images\LeftArrowUnpressed.png" />
+    <None Remove="Media\Images\LastPressed.png" />
+    <None Remove="Media\Images\LastUnpressed.png" />
     <None Remove="Media\Images\Member.png" />
+    <None Remove="Media\Images\More.png" />
+    <None Remove="Media\Images\NextPressed.png" />
+    <None Remove="Media\Images\NextUnpressed.png" />
     <None Remove="Media\Images\Password.png" />
     <None Remove="Media\Images\Percent.png" />
-    <None Remove="Media\Images\PlayPressed.png" />
-    <None Remove="Media\Images\PlayUnpressed.png" />
+    <None Remove="Media\Images\PreviousPressed.png" />
+    <None Remove="Media\Images\PreviousUnpressed.png" />
     <None Remove="Media\Images\Reel.png" />
     <None Remove="Media\Images\Report.png" />
     <None Remove="Media\Images\Reports.png" />
-    <None Remove="Media\Images\RightArrowPressed.png" />
-    <None Remove="Media\Images\RightArrowUnpressed.png" />
     <None Remove="Media\Images\Screenplay.png" />
     <None Remove="Media\Images\Search.png" />
     <None Remove="Media\Images\Settings.png" />
     <None Remove="Media\Images\Signout.png" />
+    <None Remove="Media\Images\Submit.png" />
     <None Remove="Media\Images\User.png" />
     <None Remove="Media\Images\Username.png" />
     <None Remove="Media\Images\Visible.png" />
@@ -178,6 +183,9 @@
     <Content Include="Media\GIFs\Reading.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\Activate.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\Admin.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -203,6 +211,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Filter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\FirstPressed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\FirstUnpressed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Genres\Action.png">
@@ -253,13 +267,22 @@
     <Content Include="Media\Images\Info.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\LeftArrowPressed.png">
+    <Content Include="Media\Images\LastPressed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\LeftArrowUnpressed.png">
+    <Content Include="Media\Images\LastUnpressed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Member.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\More.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\NextPressed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\NextUnpressed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Password.png">
@@ -271,10 +294,10 @@
     <Content Include="Media\Images\Percent.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\PlayPressed.png">
+    <Content Include="Media\Images\PreviousPressed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\PlayUnpressed.png">
+    <Content Include="Media\Images\PreviousUnpressed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Reel.png">
@@ -284,12 +307,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Reports.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\RightArrowPressed.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\RightArrowUnpressed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Screenplay.png">
@@ -302,6 +319,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Signout.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Submit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\User.png">

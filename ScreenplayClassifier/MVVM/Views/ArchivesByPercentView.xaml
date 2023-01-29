@@ -123,15 +123,21 @@
                 </WrapPanel>
 
                 <Button Grid.Row="0" Grid.RowSpan="3" Grid.Column="4" Command="{Binding FilterArchivesCommand}"
-                        IsEnabled="{Binding CanClear}" ToolTip="Filter archives" Margin="10" Style="{StaticResource ButtonStyle}">
+                        IsEnabled="{Binding CanClear}" Margin="10" Style="{StaticResource ButtonStyle}">
                     <Button.Content>
-                        <Image Source="/Media/Images/Filter.png"/>
+                        <StackPanel>
+                            <Image Source="/Media/Images/Filter.png" Height="60" Width="60"/>
+                            <TextBlock Text="Filter" TextAlignment="Center" FontSize="15" Style="{StaticResource TextBlockStyle}"/>
+                        </StackPanel>
                     </Button.Content>
                 </Button>
-                <Button Grid.Row="0" Grid.RowSpan="3" Grid.Column="5" Command="{Binding ClearFilterCommand}" ToolTip="Clear filter" Margin="10"
+                <Button Grid.Row="0" Grid.RowSpan="3" Grid.Column="5" Command="{Binding ClearFilterCommand}" Margin="10"
                         Style="{StaticResource ButtonStyle}">
                     <Button.Content>
-                        <Image Source="/Media/Images/Clear.png"/>
+                        <StackPanel>
+                            <Image Source="/Media/Images/Clear.png" Height="60" Width="60"/>
+                            <TextBlock Text="Clear All" TextAlignment="Center" FontSize="15" Style="{StaticResource TextBlockStyle}"/>
+                        </StackPanel>
                     </Button.Content>
                 </Button>
             </Grid>
