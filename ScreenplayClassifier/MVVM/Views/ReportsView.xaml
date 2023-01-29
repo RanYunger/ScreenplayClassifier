@@ -70,13 +70,19 @@
                     <Button Command="{Binding FilterReportsCommand}" Height="120" Width="120" IsEnabled="{Binding CanClear}"
                             ToolTip="Filter reports" Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
                         <Button.Content>
-                            <Image Source="/Media/Images/Filter.png"/>
+                            <StackPanel>
+                                <Image Source="/Media/Images/Filter.png" Height="70" Width="70"/>
+                                <TextBlock Text="Filter" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                            </StackPanel>
                         </Button.Content>
                     </Button>
                     <Button Command="{Binding ClearFilterCommand}" Height="120" Width="120" ToolTip="Clear filter"
                         Margin="10" Style="{StaticResource ButtonStyle}">
                         <Button.Content>
-                            <Image Source="/Media/Images/Clear.png"/>
+                            <StackPanel>
+                                <Image Source="/Media/Images/Clear.png" Height="70" Width="70"/>
+                                <TextBlock Text="Clear All" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                            </StackPanel>
                         </Button.Content>
                     </Button>
                 </WrapPanel>

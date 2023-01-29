@@ -174,7 +174,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     {
                         Title = "Browse screenplays to classify",
                         DefaultExt = "txt",
-                        Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
+                        Filter = "Text files (*.txt)|*.txt|Word Documents (*.docx)|*.docx|All files (*.*)|*.*",
                         Multiselect = true,
                         InitialDirectory = Environment.CurrentDirectory
                     };
@@ -185,13 +185,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     for (int i = 0; i < openFileDialog.FileNames.Length; i++)
                     {
                         if (BrowsedScreenplaysPaths.Count == 5)
-                        {
-                            MessageBoxHandler.Show("You can classify up to 5 screenplays each time.", "Screenplays Quota Reached", 3,
-                                MessageBoxImage.Warning);
                             break;
-                        }
 
-                        BrowsedScreenplaysTitles.Add(Path.GetFileNameWithoutExtension(openFileDialog.FileNames[i]));
+                        BrowsedScreenplaysTitles.Add(Path.GetFileName(openFileDialog.FileNames[i]));
                         screenplayPath = string.Format("\"{0}\"", openFileDialog.FileNames[i]); // for passing paths as arguments
                         BrowsedScreenplaysPaths.Add(screenplayPath);
                     }

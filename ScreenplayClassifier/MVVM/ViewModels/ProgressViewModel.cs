@@ -176,18 +176,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Shows the view.
         /// </summary>
-        /// <param name="browsedScreenplays">The screenplays to be processed</param>
-        public void ShowView(ObservableCollection<string> browsedScreenplays)
+        public void ShowView()
         {
-            DurationTimer.Start();
-
-            ClassificationsRequired = browsedScreenplays.Count;
-            ClassificationsComplete = 0;
-            Percent = 0;
-
             App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Visible);
-
-            new Thread(() => ClassificationThread(browsedScreenplays)).Start();
         }
 
         /// <summary>
@@ -201,8 +192,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ClassificationsRequired = 0;
             ClassificationsComplete = 0;
 
+            Percent = 0;
+
             CurrentPhase = 0;
-            PhaseText = "Processing";
+
+            PhaseText = string.Empty;
         }
 
         /// <summary>
@@ -213,6 +207,21 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             RefreshView();
 
             App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Collapsed);
+        }
+
+        /// <summary>
+        /// Starts the classification process.
+        /// </summary>
+        /// <param name="browsedScreenplays">The screenplays to be processed</param>
+        public void StartClassification(ObservableCollection<string> browsedScreenplays)
+        {
+            DurationTimer.Start();
+
+            ClassificationsRequired = browsedScreenplays.Count;
+
+            PhaseText = "Processing";
+
+            new Thread(() => ClassificationThread(browsedScreenplays)).Start();
         }
 
         /// <summary>

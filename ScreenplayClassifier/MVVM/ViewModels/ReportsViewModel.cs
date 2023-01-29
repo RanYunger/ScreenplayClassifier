@@ -32,6 +32,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
+        public MainViewModel MainViewModel { get; private set; }
+
         public ReportsView ReportsView { get; private set; }
 
         public ObservableCollection<ClassificationModel> Reports
@@ -388,8 +390,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// Initiates the view model.
         /// </summary>
         /// <param name="user">The user who authenticated to the system</param>
-        public void Init(ReportsView reportsView, UserModel user)
+        /// <param name="mainViewModel">The MainView's view model</param>
+        public void Init(ReportsView reportsView, UserModel user, MainViewModel mainViewModel)
         {
+            MainViewModel = mainViewModel;
             ReportsView = reportsView;
 
             InitReports(user);

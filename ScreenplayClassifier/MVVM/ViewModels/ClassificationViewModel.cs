@@ -68,7 +68,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 browseComplete = value;
 
                 if (browseComplete)
-                    ProgressViewModel.ShowView(BrowseViewModel.BrowsedScreenplaysPaths);
+                {
+                    ProgressViewModel.RefreshView();
+                    ProgressViewModel.ShowView();
+                    ProgressViewModel.StartClassification(BrowseViewModel.BrowsedScreenplaysPaths);
+                }
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("BrowseComplete"));
@@ -105,17 +109,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 if (classificationComplete)
                 {
                     BrowseViewModel.HideView();
+                    ProgressViewModel.HideView();
                     FeedbackViewModel.HideView();
 
                     PlayVideoCommand.Execute(null);
                 }
-                else if (FeedbackViewModel != null)
+                else
                 {
-                    BrowseComplete = false;
-                    ProgressComplete = false;
+                    if (FeedbackViewModel != null)
+                    {
+                        BrowseComplete = false;
+                        ProgressComplete = false;
 
-                    FeedbackViewModel.HideView();
-                    BrowseViewModel.RefreshView();
+                        FeedbackViewModel.HideView();
+                        ProgressViewModel.ShowView();
+                        BrowseViewModel.RefreshView();
+                    }
                 }
 
                 if (PropertyChanged != null)

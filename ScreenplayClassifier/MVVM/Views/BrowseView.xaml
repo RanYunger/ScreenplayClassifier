@@ -8,22 +8,29 @@
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <StackPanel HorizontalAlignment="Center" Visibility="Visible">
-            <TextBlock Text="Classified Screenplays" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Screenplays to Classify" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,10">
-                <Button Command="{Binding BrowseScreenplaysCommand}" Height="100" Width="100" IsEnabled="{Binding CanBrowse}" ToolTip="Browse..."
+                <Button Command="{Binding BrowseScreenplaysCommand}" Height="100" Width="100" IsEnabled="{Binding CanBrowse}"
                         Style="{StaticResource ButtonStyle}">
                     <Button.Content>
-                        <Image Source="/Media/Images/Browse.png"/>
+                        <StackPanel>
+                            <Image Source="/Media/Images/Browse.png" Height="70" Width="70"/>
+                            <TextBlock Text="Browse" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                        </StackPanel>
                     </Button.Content>
                 </Button>
-                <Button Command="{Binding ClearScreenplaysCommand}" Height="100" Width="100" IsEnabled="{Binding CanClear}" ToolTip="Clear"
-                        Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
+                <Button Command="{Binding ClearScreenplaysCommand}" Height="100" Width="100" IsEnabled="{Binding CanClear}" Margin="10,0,0,0"
+                        Style="{StaticResource ButtonStyle}">
                     <Button.Content>
-                        <Image Source="/Media/Images/Clear.png"/>
+                        <StackPanel>
+                            <Image Source="/Media/Images/Clear.png" Height="70" Width="70"/>
+                            <TextBlock Text="Clear All" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                        </StackPanel>
                     </Button.Content>
                 </Button>
             </WrapPanel>
-            <ListView x:Name="BrowsedScreenplaysListView" Height="260" Width="450" FontSize="20" IsEnabled="{Binding CanChoose}"
+            <TextBlock Text="Note: You can browse up to 5 files" FontSize="20" Margin="10,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <ListView x:Name="BrowsedScreenplaysListView" Height="310" Width="450" FontSize="20" IsEnabled="{Binding CanChoose}"
                       SelectedIndex="{Binding SelectedScreenplay}" ItemsSource="{Binding BrowsedScreenplaysTitles}" Margin="10">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="KeyDown">
@@ -32,9 +39,12 @@
                 </i:Interaction.Triggers>
             </ListView>
             <Button Command="{Binding ProceedToClassificationCommand}" Height="110" Width="110" IsEnabled="{Binding CanProceed}"
-                    ToolTip="Proceed to classification" Style="{StaticResource ButtonStyle}">
+                    Style="{StaticResource ButtonStyle}">
                 <Button.Content>
-                    <Image Source="{Binding PlayImage}"/>
+                    <StackPanel>
+                        <Image Source="{Binding PlayImage}" Height="70" Width="70"/>
+                        <TextBlock Text="Proceed" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
                 </Button.Content>
             </Button>
         </StackPanel>

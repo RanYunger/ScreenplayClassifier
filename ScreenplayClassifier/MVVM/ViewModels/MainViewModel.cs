@@ -42,52 +42,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command PressKeyCommand
-        {
-            get
-            {
-                HomeViewModel homeViewModel = null;
-
-                return new Command(() =>
-                {
-                    // Validation
-                    if (HomeView.Visibility == Visibility.Collapsed)
-                        return;
-
-                    homeViewModel = (HomeViewModel)HomeView.DataContext;
-
-                    if (Keyboard.IsKeyDown(Key.Left))
-                        homeViewModel.PressLeftCommand.Execute(null);
-                    if (Keyboard.IsKeyDown(Key.Enter))
-                        homeViewModel.ShowModuleViewCommand.Execute(null);
-                    if (Keyboard.IsKeyDown(Key.Right))
-                        homeViewModel.PressRightCommand.Execute(null);
-                });
-            }
-        }
-
-        public Command UnpressKeyCommand
-        {
-            get
-            {
-                HomeViewModel homeViewModel = null;
-
-                return new Command(() =>
-                {
-                    // Validation
-                    if (HomeView.Visibility == Visibility.Collapsed)
-                        return;
-
-                    homeViewModel = (HomeViewModel)HomeView.DataContext;
-
-                    if (Keyboard.IsKeyUp(Key.Left))
-                        homeViewModel.UnpressLeftCommand.Execute(null);
-                    if (Keyboard.IsKeyUp(Key.Right))
-                        homeViewModel.UnpressRightCommand.Execute(null);
-                });
-            }
-        }
-
         public Command CloseCommand
         {
             get
@@ -146,7 +100,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ((HomeViewModel)HomeView.DataContext).Init(HomeView, this);
             ((SettingsViewModel)SettingsView.DataContext).Init(SettingsView, this, authenticatedUsers);
             ((AboutViewModel)AboutView.DataContext).Init(AboutView);
-            ((ReportsViewModel)ReportsView.DataContext).Init(ReportsView, UserToolbarViewModel.User);
+            ((ReportsViewModel)ReportsView.DataContext).Init(ReportsView, UserToolbarViewModel.User, this);
             ((ArchivesViewModel)ArchivesView.DataContext).Init(ArchivesView, this);
             ((ClassificationViewModel)ClassificationView.DataContext).Init(ClassificationView, this);
         }
