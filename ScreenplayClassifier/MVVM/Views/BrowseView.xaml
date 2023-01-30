@@ -40,13 +40,7 @@
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked}" Width="50"
-                                            HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
-                        <DataGridCheckBoxColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding Path=AllSelected}" Style="{StaticResource BaseCheckBoxStyle}"/>
-                            </DataTemplate>
-                        </DataGridCheckBoxColumn.HeaderTemplate>
-                    </DataGridCheckBoxColumn>
+                                            HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                     <DataGridTextColumn Header="Title" Binding="{Binding Path=ScreenplayFileName}" Width="390" IsReadOnly="True"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                 </DataGrid.Columns>

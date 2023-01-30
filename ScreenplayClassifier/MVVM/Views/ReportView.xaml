@@ -5,48 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        Title="Screenplay Classifier" Height="800" Width="900" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="Screenplay Classifier" Height="670" Width="1100" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Style="{StaticResource WindowStyle}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="Classification Report" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" FontSize="60" Margin="10"
                    Style="{StaticResource TextBlockStyle}"/>
-        <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="10">
-            <TextBlock Text="Title:" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="{Binding ClassificationReport.Screenplay.Title}" Margin="20,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+        <WrapPanel Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Center" Margin="10">
+            <TextBlock Text="Title:" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding ClassificationReport.Screenplay.Title}" FontSize="30" Margin="20,0,0,0"
+                       Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
         <StackPanel Grid.Row="2" Grid.Column="0">
+            <TextBlock Text="Text" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <TextBox Text="{Binding ScreenplayText}" TextWrapping="Wrap" Height="420" VerticalScrollBarVisibility="Visible"
+                     Margin="10" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1">
             <TextBlock Text="Predicted Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <v:GenresView x:Name="PredictedGenresView" IsEnabled="False"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="1">
+        <StackPanel Grid.Row="2" Grid.Column="2">
             <TextBlock Text="Actual Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <v:GenresView x:Name="ActualGenresView" IsEnabled="False"/>
         </StackPanel>
-        <Expander Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource ExpanderStyle}">
-            <Expander.Header>
-                <WrapPanel>
-                    <Image Source="/Media/Images/More.png" Height="30" Width="30"/>
-                    <TextBlock Text="More" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                </WrapPanel>
-            </Expander.Header>
-            <StackPanel>
+        <!--<StackPanel>
                 <TextBlock Text="Genre Predictions" FontSize="20" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
                 <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="300" Width="300" Hoverable="True" Margin="20">
                     <lvc:PieChart.ChartLegend>
                         <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="10"/>
                     </lvc:PieChart.ChartLegend>
                 </lvc:PieChart>
-            </StackPanel>
-        </Expander>
+            </StackPanel>-->
     </Grid>
 </Window>

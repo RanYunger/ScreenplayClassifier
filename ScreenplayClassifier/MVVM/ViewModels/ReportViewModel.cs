@@ -7,6 +7,7 @@ using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Text;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
@@ -16,13 +17,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Fields
         private ClassificationModel classificationReport;
         private SeriesCollection percentageSeries;
+        private string screenplayText;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ReportView ReportView { get; set; }
         public GenresViewModel PredictedGenresViewModel { get; private set; }
         public GenresViewModel ActualGenresViewModel { get; private set; }
-
 
         public ClassificationModel ClassificationReport
         {
@@ -48,6 +50,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public string ScreenplayText
+        {
+            get { return screenplayText; }
+            set
+            {
+                screenplayText = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ScreebplayText"));
+            }
+        }
+
         // Constructors
         public ReportViewModel() { }
 
@@ -65,6 +79,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             GenresView predictedGenresView, actualGenresView;
 
             ClassificationReport = classificationReport;
+            ScreenplayText = File.ReadAllText(classificationReport.Screenplay.FilePath);
+
             ReportView = reportView;
 
             predictedGenresView = (GenresView)ReportView.FindName("PredictedGenresView");

@@ -6,25 +6,24 @@
       "Password": "RY12696"
     },
     "Screenplay": {
-      "ID": 1,
-      "Title": "Lord of the Rings: Fellowship of the Ring",
+      "FilePath": "C:\\Users\\Admin\\Desktop\\Screenplays\\Top Gun.txt",
       "GenrePercentages": {
-        "Action": 20.0,
-        "Adventure": 30.0,
+        "Action": 60.0,
+        "Adventure": 0.0,
         "Comedy": 0.0,
         "Crime": 0.0,
-        "Drama": 0.0,
+        "Drama": 40.0,
         "Family": 0.0,
-        "Fantasy": 50.0,
+        "Fantasy": 0.0,
         "Horror": 0.0,
         "Romance": 0.0,
         "SciFi": 0.0,
         "Thriller": 0.0,
         "War": 0.0
       },
-      "ActualGenre": "Fantasy",
-      "ActualSubGenre1": "Adventure",
-      "ActualSubGenre2": "Action"
+      "ActualGenre": "Action",
+      "ActualSubGenre1": "Drama",
+      "ActualSubGenre2": "Adventure"
     }
   },
   {
@@ -34,25 +33,24 @@
       "Password": "RY12696"
     },
     "Screenplay": {
-      "ID": 2,
-      "Title": "Lord of the Rings: The Two Towers",
+      "FilePath": "C:\\Users\\Admin\\Desktop\\Screenplays\\Armageddon.txt",
       "GenrePercentages": {
-        "Action": 20.0,
-        "Adventure": 30.0,
+        "Action": 50.0,
+        "Adventure": 0.0,
         "Comedy": 0.0,
         "Crime": 0.0,
         "Drama": 0.0,
         "Family": 0.0,
-        "Fantasy": 50.0,
+        "Fantasy": 0.0,
         "Horror": 0.0,
         "Romance": 0.0,
-        "SciFi": 0.0,
-        "Thriller": 0.0,
+        "SciFi": 30.0,
+        "Thriller": 20.0,
         "War": 0.0
       },
-      "ActualGenre": "Fantasy",
-      "ActualSubGenre1": "Adventure",
-      "ActualSubGenre2": "Action"
+      "ActualGenre": "Action",
+      "ActualSubGenre1": "SciFi",
+      "ActualSubGenre2": "Thriller"
     }
   },
   {
@@ -62,53 +60,24 @@
       "Password": "SHZ101098"
     },
     "Screenplay": {
-      "ID": 3,
-      "Title": "Lord of the Rings: The Return of the King",
+      "FilePath": "C:\\Users\\Admin\\Desktop\\Screenplays\\Superbad.txt",
       "GenrePercentages": {
-        "Action": 20.0,
-        "Adventure": 30.0,
-        "Comedy": 0.0,
+        "Action": 0.0,
+        "Adventure": 0.0,
+        "Comedy": 100.0,
         "Crime": 0.0,
         "Drama": 0.0,
         "Family": 0.0,
-        "Fantasy": 50.0,
+        "Fantasy": 0.0,
         "Horror": 0.0,
         "Romance": 0.0,
         "SciFi": 0.0,
         "Thriller": 0.0,
         "War": 0.0
       },
-      "ActualGenre": "Fantasy",
+      "ActualGenre": "Comedy",
       "ActualSubGenre1": "Adventure",
       "ActualSubGenre2": "Action"
-    }
-  },
-  {
-    "Owner": {
-      "Username": "Ran.Yunger",
-      "Role": 2,
-      "Password": "RY12696"
-    },
-    "Screenplay": {
-      "ID": 4,
-      "Title": "Saw",
-      "GenrePercentages": {
-        "Action": 0.0,
-        "Adventure": 0.0,
-        "Comedy": 0.0,
-        "Crime": 15.0,
-        "Drama": 0.0,
-        "Family": 0.0,
-        "Fantasy": 0.0,
-        "Horror": 75.0,
-        "Romance": 0.0,
-        "SciFi": 0.0,
-        "Thriller": 10.0,
-        "War": 0.0
-      },
-      "ActualGenre": "Horror",
-      "ActualSubGenre1": "Crime",
-      "ActualSubGenre2": "Thriller"
     }
   }
 ]

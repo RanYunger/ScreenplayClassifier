@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Text;
 
 namespace ScreenplayClassifier.MVVM.Models
@@ -9,7 +10,7 @@ namespace ScreenplayClassifier.MVVM.Models
     {
         // Fields
         private Dictionary<string, float> genrePercentages;
-        private string title;
+        private string filePath, title;
         private string predictedGenre, predictedSubGenre1, predictedSubGenre2;
         private string actualGenre, actualSubGenre1, actualSubGenre2;
         private bool isfeedbacked;
@@ -25,6 +26,18 @@ namespace ScreenplayClassifier.MVVM.Models
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("GenrePercentages"));
+            }
+        }
+
+        public string FilePath
+        {
+            get { return filePath; }
+            set
+            {
+                filePath = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("FilePath"));
             }
         }
 
@@ -125,11 +138,12 @@ namespace ScreenplayClassifier.MVVM.Models
         }
 
         // Constructors
-        public ScreenplayModel(string title, Dictionary<string, float> genrePercentages)
+        public ScreenplayModel(string filePath, Dictionary<string, float> genrePercentages)
         {
             List<string> predictedGenres = new List<string>(genrePercentages.Keys);
 
-            Title = title;
+            FilePath = filePath;
+            Title = Path.GetFileNameWithoutExtension(filePath);
 
             GenrePercentages = genrePercentages;
 
