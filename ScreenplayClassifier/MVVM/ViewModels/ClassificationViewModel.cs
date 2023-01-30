@@ -20,7 +20,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Fields
         private Timer videoTimer;
         private ObservableCollection<ClassificationModel> classifiedScreenplays;
-        private int selectedScreenplay;
         private bool browseComplete, progressComplete, classificationComplete;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -45,21 +44,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public int SelectedScreenplay
-        {
-            get { return selectedScreenplay; }
-            set
-            {
-                selectedScreenplay = value;
-
-                if ((selectedScreenplay != -1) && (ClassifiedScreenplays.Count > 0))
-                    FeedbackViewModel.RefreshView(ClassifiedScreenplays[selectedScreenplay].Screenplay);
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedScreenplay"));
-            }
-        }
-
         public bool BrowseComplete
         {
             get { return browseComplete; }
@@ -71,7 +55,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     ProgressViewModel.RefreshView();
                     ProgressViewModel.ShowView();
-                    ProgressViewModel.StartClassification(BrowseViewModel.BrowsedScreenplaysPaths);
+                    ProgressViewModel.StartClassification(BrowseViewModel.CheckedScreenplays);
                 }
 
                 if (PropertyChanged != null)
@@ -139,7 +123,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             videoTimer.Elapsed += VideoTimer_Elapsed;
 
             ClassifiedScreenplays = new ObservableCollection<ClassificationModel>();
-            SelectedScreenplay = -1;
             BrowseComplete = false;
             ProgressComplete = false;
             ClassificationComplete = false;

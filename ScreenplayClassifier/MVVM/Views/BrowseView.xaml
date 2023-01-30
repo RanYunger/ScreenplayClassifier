@@ -30,14 +30,27 @@
                 </Button>
             </WrapPanel>
             <TextBlock Text="Note: You can browse up to 5 files" FontSize="20" Margin="10,0,0,0" Style="{StaticResource TextBlockStyle}"/>
-            <ListView x:Name="BrowsedScreenplaysListView" Height="310" Width="450" FontSize="20" IsEnabled="{Binding CanChoose}"
-                      SelectedIndex="{Binding SelectedScreenplay}" ItemsSource="{Binding BrowsedScreenplaysTitles}" Margin="10">
+            <DataGrid x:Name="BrowsedScreenplaysDataGrid" ItemsSource="{Binding BrowsedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}"
+                      Height="310" Width="450" IsEnabled="{Binding CanChoose}" SelectionMode="Single" Margin="10"
+                      Style="{StaticResource DataGridStyle}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="KeyDown">
                         <i:InvokeCommandAction Command="{Binding CheckKeyCommand}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-            </ListView>
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked}" Width="50"
+                                            HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
+                        <DataGridCheckBoxColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Path=AllSelected}" Style="{StaticResource BaseCheckBoxStyle}"/>
+                            </DataTemplate>
+                        </DataGridCheckBoxColumn.HeaderTemplate>
+                    </DataGridCheckBoxColumn>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Path=ScreenplayFileName}" Width="390" IsReadOnly="True"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                </DataGrid.Columns>
+            </DataGrid>
             <Button Command="{Binding ProceedToClassificationCommand}" Height="110" Width="110" IsEnabled="{Binding CanProceed}"
                     Style="{StaticResource ButtonStyle}">
                 <Button.Content>

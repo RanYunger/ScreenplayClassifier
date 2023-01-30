@@ -49,8 +49,7 @@
     <None Remove="Media\Images\Clear.png" />
     <None Remove="Media\Images\Error.png" />
     <None Remove="Media\Images\Filter.png" />
-    <None Remove="Media\Images\FirstPressed.png" />
-    <None Remove="Media\Images\FirstUnpressed.png" />
+    <None Remove="Media\Images\First.png" />
     <None Remove="Media\Images\Genres\Action.png" />
     <None Remove="Media\Images\Genres\Adventure.png" />
     <None Remove="Media\Images\Genres\Comedy.png" />
@@ -69,16 +68,13 @@
     <None Remove="Media\Images\Icon.ico" />
     <None Remove="Media\Images\Info.png" />
     <None Remove="Media\Images\Invisible.png" />
-    <None Remove="Media\Images\LastPressed.png" />
-    <None Remove="Media\Images\LastUnpressed.png" />
+    <None Remove="Media\Images\Last.png" />
     <None Remove="Media\Images\Member.png" />
     <None Remove="Media\Images\More.png" />
-    <None Remove="Media\Images\NextPressed.png" />
-    <None Remove="Media\Images\NextUnpressed.png" />
+    <None Remove="Media\Images\Next.png" />
     <None Remove="Media\Images\Password.png" />
     <None Remove="Media\Images\Percent.png" />
-    <None Remove="Media\Images\PreviousPressed.png" />
-    <None Remove="Media\Images\PreviousUnpressed.png" />
+    <None Remove="Media\Images\Previous.png" />
     <None Remove="Media\Images\Reel.png" />
     <None Remove="Media\Images\Report.png" />
     <None Remove="Media\Images\Reports.png" />
@@ -213,10 +209,7 @@
     <Content Include="Media\Images\Filter.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\FirstPressed.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\FirstUnpressed.png">
+    <Content Include="Media\Images\First.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Genres\Action.png">
@@ -267,10 +260,7 @@
     <Content Include="Media\Images\Info.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\LastPressed.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\LastUnpressed.png">
+    <Content Include="Media\Images\Last.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Member.png">
@@ -279,10 +269,7 @@
     <Content Include="Media\Images\More.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\NextPressed.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\NextUnpressed.png">
+    <Content Include="Media\Images\Next.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Password.png">
@@ -294,10 +281,7 @@
     <Content Include="Media\Images\Percent.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\PreviousPressed.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\PreviousUnpressed.png">
+    <Content Include="Media\Images\Previous.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Reel.png">

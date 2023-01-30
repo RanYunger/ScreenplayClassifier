@@ -212,17 +212,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Starts the classification process.
         /// </summary>
-        /// <param name="browsedScreenplays">The screenplays to be processed</param>
-        public void StartClassification(ObservableCollection<string> browsedScreenplays)
+        /// <param name="screenplaysToClassify">The screenplays to be processed</param>
+        public void StartClassification(ObservableCollection<BrowseModel> screenplaysToClassify)
         {
+            ObservableCollection<string> screenplayFilePaths = new ObservableCollection<string>();
+
+            foreach (BrowseModel browsedScreenplay in screenplaysToClassify)
+                screenplayFilePaths.Add(browsedScreenplay.ScreenplayFilePath);
+
             DurationTimer.Start();
 
-            ClassificationsRequired = browsedScreenplays.Count;
+            ClassificationsRequired = screenplaysToClassify.Count;
             ClassificationsComplete = 0;
 
             PhaseText = "Processing";
 
-            new Thread(() => ClassificationThread(browsedScreenplays)).Start();
+            new Thread(() => ClassificationThread(screenplayFilePaths)).Start();
         }
 
         /// <summary>
@@ -241,11 +246,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Classification thread: sends the screenplays to the python classifier for processing.
         /// </summary>
-        /// <param name="screenplaysToClassify">The screenplays to be processed by the thread</param>
-        private void ClassificationThread(ObservableCollection<string> screenplaysToClassify)
+        /// <param name="screenplayFilePaths">The file paths of the screenplays to be processed by the thread</param>
+        private void ClassificationThread(ObservableCollection<string> screenplayFilePaths)
         {
             int progressOutput;
-            string scriptPath = FolderPaths.CLASSIFIER + "Loader.py", scriptArgs = string.Join(" ", screenplaysToClassify);
+            string scriptPath = FolderPaths.CLASSIFIER + "Loader.py", scriptArgs = string.Join(" ", screenplayFilePaths);
             string outputLine = string.Empty, screenplaysJson = string.Empty;
             UserModel owner = ClassificationViewModel.MainViewModel.UserToolbarViewModel.User;
             List<ClassificationModel> classifications = new List<ClassificationModel>();

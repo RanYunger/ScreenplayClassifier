@@ -7,27 +7,24 @@ namespace ScreenplayClassifier.MVVM.Models
 {
     public class ScreenplayModel : INotifyPropertyChanged
     {
-        // Constants
-        private static int IDGenerator = 1;
-
         // Fields
-        private int screenplayID;
+        private Dictionary<string, float> genrePercentages;
         private string title;
         private string predictedGenre, predictedSubGenre1, predictedSubGenre2;
         private string actualGenre, actualSubGenre1, actualSubGenre2;
-        private Dictionary<string, float> genrePercentages;
+        private bool isfeedbacked;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
-        public int ID
+        public Dictionary<string, float> GenrePercentages
         {
-            get { return screenplayID; }
+            get { return genrePercentages; }
             set
             {
-                screenplayID = value;
+                genrePercentages = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ID"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("GenrePercentages"));
             }
         }
 
@@ -115,15 +112,15 @@ namespace ScreenplayClassifier.MVVM.Models
             }
         }
 
-        public Dictionary<string, float> GenrePercentages
+        public bool Isfeedbacked
         {
-            get { return genrePercentages; }
+            get { return isfeedbacked; }
             set
             {
-                genrePercentages = value;
+                isfeedbacked = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GenrePercentages"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("Isfeedbacked"));
             }
         }
 
@@ -132,7 +129,6 @@ namespace ScreenplayClassifier.MVVM.Models
         {
             List<string> predictedGenres = new List<string>(genrePercentages.Keys);
 
-            ID = IDGenerator++;
             Title = title;
 
             GenrePercentages = genrePercentages;
@@ -144,6 +140,8 @@ namespace ScreenplayClassifier.MVVM.Models
             ActualGenre = "Unknown";
             ActualSubGenre1 = "Unknown";
             ActualSubGenre2 = "Unknown";
+
+            Isfeedbacked = false;
         }
     }
 }

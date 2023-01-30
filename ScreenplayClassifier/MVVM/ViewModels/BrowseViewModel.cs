@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
 using System;
@@ -18,7 +19,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class BrowseViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ObservableCollection<string> browsedScreenplaysTitles, browsedScreenplaysPaths;
+        private ObservableCollection<BrowseModel> browsedScreenplays, checkedScreenplays;
         private int selectedScreenplay;
         private bool canBrowse, canClear, canChoose, canProceed;
 
@@ -28,27 +29,27 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ClassificationViewModel ClassificationViewModel { get; private set; }
         public BrowseView BrowseView { get; private set; }
 
-        public ObservableCollection<string> BrowsedScreenplaysTitles
+        public ObservableCollection<BrowseModel> BrowsedScreenplays
         {
-            get { return browsedScreenplaysTitles; }
+            get { return browsedScreenplays; }
             set
             {
-                browsedScreenplaysTitles = value;
+                browsedScreenplays = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("BrowsedScreenplaysTitles"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("BrowsedScreenplays"));
             }
         }
 
-        public ObservableCollection<string> BrowsedScreenplaysPaths
+        public ObservableCollection<BrowseModel> CheckedScreenplays
         {
-            get { return browsedScreenplaysPaths; }
+            get { return checkedScreenplays; }
             set
             {
-                browsedScreenplaysPaths = value;
+                checkedScreenplays = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("BrowsedScreenplaysPaths"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("CheckedScreenplays"));
             }
         }
 
@@ -57,9 +58,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return selectedScreenplay; }
             set
             {
+                FeedbackViewModel feedbackViewModel = null;
+                ScreenplayModel shownScreenplay = null;
+                int relativeScreenplayOffset = -1;
+
                 selectedScreenplay = value;
+
                 if (ClassificationViewModel != null)
-                    ClassificationViewModel.SelectedScreenplay = selectedScreenplay;
+                {
+                    feedbackViewModel = ClassificationViewModel.FeedbackViewModel;
+                    if (feedbackViewModel.CheckedOffsets.Contains(selectedScreenplay))
+                    {
+                        relativeScreenplayOffset = feedbackViewModel.CheckedOffsets.IndexOf(selectedScreenplay);
+                        shownScreenplay = ClassificationViewModel.ClassifiedScreenplays[relativeScreenplayOffset].Screenplay;
+                        feedbackViewModel.RefreshView(shownScreenplay);
+                    }
+                }
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("SelectedScreenplay"));
@@ -125,21 +139,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    ListView browsedScreenplaysListView = (ListView)BrowseView.FindName("BrowsedScreenplaysListView");
+                    DataGrid browsedScreenplaysDataGrid = (DataGrid)BrowseView.FindName("BrowsedScreenplaysDataGrid");
 
                     // Checks wether the user as activated deletion
                     if ((Keyboard.IsKeyDown(Key.Back)) || (Keyboard.IsKeyDown(Key.Delete)))
-                        for (int i = 0; i < browsedScreenplaysListView.Items.Count; i++)
-                            if (browsedScreenplaysListView.SelectedItems.Contains(browsedScreenplaysListView.Items[i]))
-                            {
-                                BrowsedScreenplaysTitles.RemoveAt(i);
-                                browsedScreenplaysPaths.RemoveAt(i);
-                            }
+                        for (int i = 0; i < browsedScreenplaysDataGrid.Items.Count; i++)
+                            if (browsedScreenplaysDataGrid.SelectedItems.Contains(browsedScreenplaysDataGrid.Items[i]))
+                                BrowsedScreenplays.RemoveAt(i);
 
-                    SelectedScreenplay = browsedScreenplaysTitles.Count > 0 ? 0 : SelectedScreenplay;
-                    CanBrowse = browsedScreenplaysTitles.Count < 5;
-                    CanChoose = BrowsedScreenplaysTitles.Count > 0;
-                    CanProceed = BrowsedScreenplaysTitles.Count > 0;
+                    SelectedScreenplay = BrowsedScreenplays.Count > 0 ? 0 : SelectedScreenplay;
+                    //CanBrowse = BrowsedScreenplays.Count < 5;
+                    CanChoose = BrowsedScreenplays.Count > 0;
+                    CanProceed = BrowsedScreenplays.Count > 0;
                 });
             }
         }
@@ -165,18 +176,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     // Adds each browsed screenplay to collection
                     for (int i = 0; i < openFileDialog.FileNames.Length; i++)
                     {
-                        if (BrowsedScreenplaysPaths.Count == 5)
-                            break;
+                        //if (BrowsedScreenplays.Count == 5)
+                        //    break;
 
-                        BrowsedScreenplaysTitles.Add(Path.GetFileName(openFileDialog.FileNames[i]));
-                        screenplayPath = string.Format("\"{0}\"", openFileDialog.FileNames[i]); // for passing paths as arguments
-                        BrowsedScreenplaysPaths.Add(screenplayPath);
+                        screenplayPath = string.Format("\"{0}\"", openFileDialog.FileNames[i]); // for passing paths with spaces
+                        BrowsedScreenplays.Add(new BrowseModel(screenplayPath));
                     }
 
-                    SelectedScreenplay = browsedScreenplaysTitles.Count > 0 ? 0 : SelectedScreenplay;
-                    CanBrowse = BrowsedScreenplaysPaths.Count < 5;
-                    CanChoose = BrowsedScreenplaysTitles.Count > 0;
-                    CanProceed = BrowsedScreenplaysTitles.Count > 0;
+                    SelectedScreenplay = BrowsedScreenplays.Count > 0 ? 0 : SelectedScreenplay;
+                    //CanBrowse = BrowsedScreenplays.Count < 5;
+                    CanChoose = BrowsedScreenplays.Count > 0;
+                    CanProceed = BrowsedScreenplays.Count > 0;
                 });
             }
         }
@@ -187,8 +197,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    BrowsedScreenplaysTitles.Clear();
-                    browsedScreenplaysPaths.Clear();
+                    BrowsedScreenplays.Clear();
+                    CheckedScreenplays.Clear();
 
                     SelectedScreenplay = -1;
                     CanBrowse = true;
@@ -208,6 +218,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     CanClear = false;
                     CanChoose = false;
                     CanProceed = false;
+
+                    CheckedScreenplays.Clear();
+                    foreach (BrowseModel browsedScreenplay in BrowsedScreenplays)
+                        if (browsedScreenplay.IsChecked)
+                            CheckedScreenplays.Add(browsedScreenplay);
 
                     ClassificationViewModel.BrowseComplete = true;
                 });
@@ -231,8 +246,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void RefreshView()
         {
-            BrowsedScreenplaysTitles = new ObservableCollection<string>();
-            BrowsedScreenplaysPaths = new ObservableCollection<string>();
+            BrowsedScreenplays = new ObservableCollection<BrowseModel>();
+            CheckedScreenplays = new ObservableCollection<BrowseModel>();
             SelectedScreenplay = -1;
             CanBrowse = true;
             CanClear = true;

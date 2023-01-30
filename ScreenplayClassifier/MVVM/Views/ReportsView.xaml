@@ -68,8 +68,8 @@
                                       SelectedValue="{Binding FilteredSubGenre2}" Style="{StaticResource ComboBoxStyle}"/>
                         </WrapPanel>
                     </StackPanel>
-                    <Button Command="{Binding FilterReportsCommand}" Height="120" Width="120" IsEnabled="{Binding CanClear}"
-                            ToolTip="Filter reports" Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
+                    <Button Command="{Binding FilterReportsCommand}" Height="120" Width="120" IsEnabled="{Binding CanClear}" Margin="10,0,0,0"
+                            Style="{StaticResource ButtonStyle}">
                         <Button.Content>
                             <StackPanel>
                                 <Image Source="/Media/Images/Filter.png" Height="90" Width="90"/>
@@ -77,8 +77,7 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Command="{Binding ClearFilterCommand}" Height="120" Width="120" ToolTip="Clear filter"
-                        Margin="10" Style="{StaticResource ButtonStyle}">
+                    <Button Command="{Binding ClearFilterCommand}" Height="120" Width="120" Margin="10" Style="{StaticResource ButtonStyle}">
                         <Button.Content>
                             <StackPanel>
                                 <Image Source="/Media/Images/Clear.png" Height="90" Width="90"/>
@@ -104,8 +103,7 @@
                     <DataGridTemplateColumn Width="70" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Details" Command="{Binding ShowReportViewCommand}" Width="65" ToolTip="View Classification Report"
-                                        Style="{StaticResource ButtonStyle}"/>
+                                <Button Content="Details" Command="{Binding ShowReportViewCommand}" Width="65" Style="{StaticResource ButtonStyle}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

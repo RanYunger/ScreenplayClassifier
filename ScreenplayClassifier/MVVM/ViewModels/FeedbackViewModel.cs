@@ -15,7 +15,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class FeedbackViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ImageSource firstImage, previousImage, nextImage, lastImage;
+        private List<int> checkedOffsets;
+        private int currentOffset;
+        private bool canGoToFirst, canGoToPrevious, canGoToNext, canGoToLast;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,51 +27,86 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public GenresViewModel PredictedGenresViewModel { get; private set; }
         public GenresViewModel ActualGenresViewModel { get; private set; }
 
-        public ImageSource FirstImage
+        public List<int> CheckedOffsets
         {
-            get { return firstImage; }
+            get { return checkedOffsets; }
             set
             {
-                firstImage = value;
+                checkedOffsets = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FirstImage"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("CheckedOffsets"));
             }
         }
 
-        public ImageSource PreviousImage
+        public int CurrentOffset
         {
-            get { return previousImage; }
+            get { return currentOffset; }
             set
             {
-                previousImage = value;
+                BrowseViewModel browseViewModel = ClassificationViewModel.BrowseViewModel;
+                ScreenplayModel shownScreenplay = null;
+
+                currentOffset = value;
+
+                if (CheckedOffsets.Count > 0)
+                {
+                    browseViewModel.SelectedScreenplay = CheckedOffsets[currentOffset];
+
+                    shownScreenplay = ClassificationViewModel.ClassifiedScreenplays[currentOffset].Screenplay;
+                    RefreshView(shownScreenplay);
+                }
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("PreviousImage"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("CurrentOffset"));
             }
         }
 
-        public ImageSource NextImage
+        public bool CanGoToFirst
         {
-            get { return nextImage; }
+            get { return canGoToFirst; }
             set
             {
-                nextImage = value;
+                canGoToFirst = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("NextImage"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanGoToFirst"));
             }
         }
 
-        public ImageSource LastImage
+        public bool CanGoToPrevious
         {
-            get { return lastImage; }
+            get { return canGoToPrevious; }
             set
             {
-                lastImage = value;
+                canGoToPrevious = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("LastImage"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanGoToPrevious"));
+            }
+        }
+
+        public bool CanGoToNext
+        {
+            get { return canGoToNext; }
+            set
+            {
+                canGoToNext = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanGoToNext"));
+            }
+        }
+
+        public bool CanGoToLast
+        {
+            get { return canGoToLast; }
+            set
+            {
+                canGoToLast = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanGoToLast"));
             }
         }
 
@@ -78,122 +115,105 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command PressFirstCommand
+        public Command GoToFirstCommand
         {
             get
             {
                 return new Command(() =>
                 {
-                    ClassificationViewModel.BrowseViewModel.SelectedScreenplay = 0;
+                    CurrentOffset = 0;
 
-                    FirstImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "FirstPressed.png"));
+                    CanGoToFirst = false;
+                    CanGoToPrevious = false;
+                    CanGoToNext = true;
+                    CanGoToLast = true;
                 });
             }
         }
 
-        public Command UnpressFirstCommand
+        public Command GoToPreviousCommand
         {
             get
             {
                 return new Command(() =>
                 {
-                    FirstImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "FirstUnpressed.png"));
-                });
-            }
-        }
+                    CurrentOffset = CurrentOffset - 1 <= 0 ? 0 : CurrentOffset - 1;
 
-        public Command PressPreviousCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    if (ClassificationViewModel.BrowseViewModel.SelectedScreenplay > 0)
-                        ClassificationViewModel.BrowseViewModel.SelectedScreenplay--;
-
-                    PreviousImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "PreviousPressed.png"));
-                });
-            }
-        }
-
-        public Command UnpressPreviousCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    PreviousImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "PreviousUnpressed.png"));
-                });
-            }
-        }
-
-        public Command SubmitFeedbackCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    MessageBoxResult startOver;
-
-                    if (!CanSubmit())
-                        MessageBoxHandler.Show("Complete feedback for all screenplays", "Error", 3, MessageBoxImage.Error);
-                    else
+                    if (CurrentOffset == 0)
                     {
-                        UpdateOtherModules();
+                        CanGoToFirst = false;
+                        CanGoToPrevious = false;
+                    }
+                    CanGoToNext = true;
+                    CanGoToLast = true;
+                });
+            }
+        }
 
-                        startOver = MessageBox.Show("Would you like to start over?", "Classification Complete",
-                            MessageBoxButton.YesNo, MessageBoxImage.Question);
-                        ClassificationViewModel.ClassificationComplete = startOver == MessageBoxResult.No;
+        public Command SubmitAllFeedbackCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    ScreenplayModel screenplay = null;
+
+                    // Validation
+                    foreach (ClassificationModel classification in ClassificationViewModel.ClassifiedScreenplays)
+                    {
+                        screenplay = classification.Screenplay;
+                        if (!screenplay.Isfeedbacked)
+                        {
+                            MessageBoxHandler.Show("Complete feedback for " + screenplay.Title, "Error", 3, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+
+                    // TODO: COMPLETE
+
+                    //MessageBoxResult startOver;
+                    //else
+                    //{
+                    //  UpdateOtherModules();
+                    //    startOver = MessageBox.Show("Would you like to start over?", "Classification Complete",
+                    //        MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    //    ClassificationViewModel.ClassificationComplete = startOver == MessageBoxResult.No;
+                    //}
+                });
+            }
+        }
+
+        public Command GoToNextCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    CurrentOffset = CurrentOffset + 1 >= CheckedOffsets.Count - 1 ? CheckedOffsets.Count - 1 : CurrentOffset + 1;
+
+                    CanGoToFirst = true;
+                    CanGoToPrevious = true;
+                    if (CurrentOffset == CheckedOffsets.Count - 1)
+                    {
+                        CanGoToNext = false;
+                        CanGoToLast = false;
                     }
                 });
             }
         }
 
-        public Command PressNextCommand
+        public Command GoToLastCommand
         {
             get
             {
                 return new Command(() =>
                 {
-                    if (ClassificationViewModel.BrowseViewModel.SelectedScreenplay < ClassificationViewModel.ClassifiedScreenplays.Count - 1)
-                        ClassificationViewModel.BrowseViewModel.SelectedScreenplay++;
+                    CurrentOffset = CheckedOffsets.Count - 1;
 
-                    NextImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "NextPressed.png"));
-                });
-            }
-        }
-
-        public Command UnpressNextCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    NextImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "NextUnpressed.png"));
-                });
-            }
-        }
-
-        public Command PressLastCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    ClassificationViewModel.BrowseViewModel.SelectedScreenplay = ClassificationViewModel.ClassifiedScreenplays.Count - 1;
-
-                    LastImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "LastPressed.png"));
-                });
-            }
-        }
-
-        public Command UnpressLastCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    LastImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "LastUnpressed.png"));
+                    CanGoToFirst = true;
+                    CanGoToPrevious = true;
+                    CanGoToNext = false;
+                    CanGoToLast = false;
                 });
             }
         }
@@ -219,11 +239,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ActualGenresViewModel = (GenresViewModel)actualGenresView.DataContext;
             ActualGenresViewModel.Init(actualGenresView);
 
-            FirstImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "FirstUnpressed.png"));
-            PreviousImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "PreviousUnpressed.png"));
-            NextImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "NextUnpressed.png"));
-            LastImage = new BitmapImage(new Uri(FolderPaths.IMAGES + "LastUnpressed.png"));
-
+            CheckedOffsets = new List<int>();
+            CurrentOffset = -1;
+            CanGoToFirst = false;
+            CanGoToPrevious = false;
+            CanGoToNext = true;
+            CanGoToLast = true;
         }
 
         /// <summary>
@@ -231,22 +252,27 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void ShowView()
         {
-            ScreenplayModel screenplay = ClassificationViewModel.ClassifiedScreenplays[ClassificationViewModel.SelectedScreenplay].Screenplay;
+            BrowseViewModel browseViewModel = ClassificationViewModel.BrowseViewModel;
 
-            RefreshView(screenplay);
+            CheckedOffsets.Clear();
+            foreach (BrowseModel checkedScreenplay in browseViewModel.CheckedScreenplays)
+                CheckedOffsets.Add(browseViewModel.BrowsedScreenplays.IndexOf(checkedScreenplay));
+
+            GoToFirstCommand.Execute(null);
+
             App.Current.Dispatcher.Invoke(() => FeedbackView.Visibility = Visibility.Visible);
         }
 
         /// <summary>
         /// Refreshes the view.
         /// </summary>
-        /// <param name="selectedScreenplay">The screenplay to be shown in the view</param>
-        public void RefreshView(ScreenplayModel selectedScreenplay)
+        /// <param name="shownScreenplay">The screenplay to be shown in the view</param>
+        public void RefreshView(ScreenplayModel shownScreenplay)
         {
             try
             {
-                PredictedGenresViewModel.RefreshView(selectedScreenplay, "Predicted");
-                ActualGenresViewModel.RefreshView(selectedScreenplay, "Actual");
+                PredictedGenresViewModel.RefreshView(shownScreenplay, "Predicted");
+                ActualGenresViewModel.RefreshView(shownScreenplay, "Actual");
             }
             catch { }
         }
@@ -257,25 +283,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void HideView()
         {
             App.Current.Dispatcher.Invoke(() => FeedbackView.Visibility = Visibility.Collapsed);
-        }
-
-        /// <summary>
-        /// Indicates wheather the user can submit his feedback.
-        /// </summary>
-        /// <returns>True if feedback can be submited, False otherwise</returns>
-        private bool CanSubmit()
-        {
-            ScreenplayModel currentScreenplay = null;
-
-            for (int i = 0; i < ClassificationViewModel.ClassifiedScreenplays.Count; i++)
-            {
-                currentScreenplay = ClassificationViewModel.ClassifiedScreenplays[i].Screenplay;
-                if ((currentScreenplay.ActualGenre == "Unknown") || (currentScreenplay.ActualSubGenre1 == "Unknown")
-                    || (currentScreenplay.ActualSubGenre2 == "Unknown"))
-                    return false;
-            }
-
-            return true;
         }
 
         /// <summary>
