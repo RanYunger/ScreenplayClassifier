@@ -122,7 +122,14 @@
                                      Style="{StaticResource PasswordBoxStyle}"/>
                     </WrapPanel>
                 </StackPanel>
-                <Button Content="Save" Command="{Binding ChangePasswordCommand}" Style="{StaticResource ButtonStyle}"/>
+                <Button Command="{Binding ChangePasswordCommand}" Style="{StaticResource ButtonStyle}">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Media/Images/Save.png" Height="80" Width="80"/>
+                            <TextBlock Text="Save" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </WrapPanel>
         </GroupBox>
         <GroupBox Grid.Row="2" Grid.Column="0" Height="320" FontSize="20" Margin="10">

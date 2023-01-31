@@ -67,6 +67,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
+        public Command ReadScreenplayCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    ScreenplayView screenplayView = new ScreenplayView();
+
+                    ((ScreenplayViewModel)screenplayView.DataContext).Init(ClassificationReport.Screenplay.FilePath, screenplayView);
+                    screenplayView.Show();
+                });
+            }
+        }
         #endregion
 
         /// <summary>

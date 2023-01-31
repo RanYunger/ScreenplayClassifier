@@ -44,14 +44,11 @@ def read_genres():
 
 # Main
 if __name__ == "__main__":
-    # Loads test screenplays (script's arguments)
-    test_screenplays = read_test_screenplays(sys.argv[1:])
-
     # Loads model variables from pickle and trains them (if necessary)
     model_variables = train()
 
     # Classifies test screenplays
-    classifications = classify(model_variables, test_screenplays)
+    classifications = classify(model_variables, sys.argv[1:])
 
     """
     OUTPUT EXAMPLE:

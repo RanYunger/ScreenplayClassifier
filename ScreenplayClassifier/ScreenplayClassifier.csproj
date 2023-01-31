@@ -78,11 +78,11 @@
     <None Remove="Media\Images\Reel.png" />
     <None Remove="Media\Images\Report.png" />
     <None Remove="Media\Images\Reports.png" />
+    <None Remove="Media\Images\Save.png" />
     <None Remove="Media\Images\Screenplay.png" />
     <None Remove="Media\Images\Search.png" />
     <None Remove="Media\Images\Settings.png" />
     <None Remove="Media\Images\Signout.png" />
-    <None Remove="Media\Images\Submit.png" />
     <None Remove="Media\Images\User.png" />
     <None Remove="Media\Images\Username.png" />
     <None Remove="Media\Images\Visible.png" />
@@ -305,7 +305,7 @@
     <Content Include="Media\Images\Signout.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\Submit.png">
+    <Content Include="Media\Images\Save.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\User.png">

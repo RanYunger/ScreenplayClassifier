@@ -66,6 +66,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (ClassificationViewModel != null)
                 {
+                    // Updates the checked screenplays
+                    CheckSelectionCommand.Execute(null);
+
+                    // Updates the shown screenplay
                     feedbackViewModel = ClassificationViewModel.FeedbackViewModel;
                     if (feedbackViewModel.CheckedOffsets.Contains(selectedScreenplay))
                     {
@@ -133,6 +137,35 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
+        public Command CheckSelectionCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    BrowseModel browsedScreenplay = null;
+
+                    // Validation
+                    if ((!CanBrowse) || (BrowsedScreenplays.Count == 0))
+                        return;
+
+                    browsedScreenplay = BrowsedScreenplays[selectedScreenplay];
+                    if (CheckedScreenplays.Contains(browsedScreenplay))
+                    {
+                        browsedScreenplay.IsChecked = false;
+                        CheckedScreenplays.Remove(browsedScreenplay);
+                    }
+                    else if (CheckedScreenplays.Count < 5)
+                    {
+                        browsedScreenplay.IsChecked = true;
+                        CheckedScreenplays.Add(browsedScreenplay);
+                    }
+
+                    CanProceed = CheckedScreenplays.Count > 0;
+                });
+            }
+        }
+
         public Command CheckKeyCommand
         {
             get
@@ -147,10 +180,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                             if (browsedScreenplaysDataGrid.SelectedItems.Contains(browsedScreenplaysDataGrid.Items[i]))
                                 BrowsedScreenplays.RemoveAt(i);
 
-                    SelectedScreenplay = BrowsedScreenplays.Count > 0 ? 0 : SelectedScreenplay;
-                    //CanBrowse = BrowsedScreenplays.Count < 5;
+                    //SelectedScreenplay = BrowsedScreenplays.Count > 0 ? 0 : SelectedScreenplay;
                     CanChoose = BrowsedScreenplays.Count > 0;
-                    CanProceed = BrowsedScreenplays.Count > 0;
                 });
             }
         }
@@ -176,17 +207,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     // Adds each browsed screenplay to collection
                     for (int i = 0; i < openFileDialog.FileNames.Length; i++)
                     {
-                        //if (BrowsedScreenplays.Count == 5)
-                        //    break;
-
                         screenplayPath = string.Format("\"{0}\"", openFileDialog.FileNames[i]); // for passing paths with spaces
                         BrowsedScreenplays.Add(new BrowseModel(screenplayPath));
                     }
 
-                    SelectedScreenplay = BrowsedScreenplays.Count > 0 ? 0 : SelectedScreenplay;
-                    //CanBrowse = BrowsedScreenplays.Count < 5;
+                    //SelectedScreenplay = BrowsedScreenplays.Count > 0 ? 0 : SelectedScreenplay;
                     CanChoose = BrowsedScreenplays.Count > 0;
-                    CanProceed = BrowsedScreenplays.Count > 0;
                 });
             }
         }
@@ -201,8 +227,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     CheckedScreenplays.Clear();
 
                     SelectedScreenplay = -1;
-                    CanBrowse = true;
-                    CanChoose = false;
                     CanProceed = false;
                 });
             }
@@ -218,11 +242,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     CanClear = false;
                     CanChoose = false;
                     CanProceed = false;
-
-                    CheckedScreenplays.Clear();
-                    foreach (BrowseModel browsedScreenplay in BrowsedScreenplays)
-                        if (browsedScreenplay.IsChecked)
-                            CheckedScreenplays.Add(browsedScreenplay);
 
                     ClassificationViewModel.BrowseComplete = true;
                 });

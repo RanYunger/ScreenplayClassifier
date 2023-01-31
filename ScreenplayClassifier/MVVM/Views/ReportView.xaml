@@ -20,31 +20,28 @@
         </Grid.ColumnDefinitions>
         <TextBlock Text="Classification Report" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" FontSize="60" Margin="10"
                    Style="{StaticResource TextBlockStyle}"/>
-        <WrapPanel Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Center" Margin="10">
+        <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10">
             <TextBlock Text="Title:" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
             <TextBlock Text="{Binding ClassificationReport.Screenplay.Title}" FontSize="30" Margin="20,0,0,0"
                        Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
+        <Button Grid.Row="1" Grid.Column="3" Command="{Binding ReadScreenplayCommand}" Content="Read File"
+                Style="{StaticResource ButtonStyle}"/>
         <StackPanel Grid.Row="2" Grid.Column="0">
-            <TextBlock Text="Text" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-            <TextBox Text="{Binding ScreenplayText}" TextWrapping="Wrap" Height="420" VerticalScrollBarVisibility="Visible"
-                     Margin="10" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="1">
             <TextBlock Text="Predicted Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <v:GenresView x:Name="PredictedGenresView" IsEnabled="False"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="2">
+        <StackPanel Grid.Row="2" Grid.Column="1">
             <TextBlock Text="Actual Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <v:GenresView x:Name="ActualGenresView" IsEnabled="False"/>
         </StackPanel>
-        <!--<StackPanel>
-                <TextBlock Text="Genre Predictions" FontSize="20" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-                <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="300" Width="300" Hoverable="True" Margin="20">
-                    <lvc:PieChart.ChartLegend>
-                        <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="10"/>
-                    </lvc:PieChart.ChartLegend>
-                </lvc:PieChart>
-            </StackPanel>-->
+        <StackPanel Grid.Row="2" Grid.Column="3">
+            <TextBlock Text="Genre Predictions" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="350" Width="350" Hoverable="True" Margin="10">
+                <lvc:PieChart.ChartLegend>
+                    <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="10"/>
+                </lvc:PieChart.ChartLegend>
+            </lvc:PieChart>
+        </StackPanel>
     </Grid>
 </Window>

@@ -44,7 +44,7 @@
             <Button Command="{Binding SubmitAllFeedbackCommand}" Margin="10,0,10,0" Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <StackPanel>
-                        <Image Source="/Media/Images/Submit.png" Height="60" Width="60"/>
+                        <Image Source="/Media/Images/Save.png" Height="60" Width="60"/>
                         <TextBlock Text="Submit All" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>

@@ -9,10 +9,10 @@
       "FilePath": "C:\\Users\\Admin\\Desktop\\Screenplays\\Top Gun.txt",
       "GenrePercentages": {
         "Action": 60.0,
-        "Adventure": 0.0,
+        "Adventure": 5.0,
         "Comedy": 0.0,
         "Crime": 0.0,
-        "Drama": 40.0,
+        "Drama": 35.0,
         "Family": 0.0,
         "Fantasy": 0.0,
         "Horror": 0.0,
@@ -62,9 +62,9 @@
     "Screenplay": {
       "FilePath": "C:\\Users\\Admin\\Desktop\\Screenplays\\Superbad.txt",
       "GenrePercentages": {
-        "Action": 0.0,
-        "Adventure": 0.0,
-        "Comedy": 100.0,
+        "Action": 10.0,
+        "Adventure": 10.0,
+        "Comedy": 80.0,
         "Crime": 0.0,
         "Drama": 0.0,
         "Family": 0.0,

@@ -75,7 +75,8 @@ def train():
 
     return [binarizer, vectorizer, classifier]
 
-def classify(classifier_variables, test_screenplays):
+def classify(classifier_variables, file_paths):
+    test_screenplays = read_test_screenplays(file_paths)
     binarizer, vectorizer, classifier = classifier_variables
     classifications_dict = {}
     classifications_complete = 0

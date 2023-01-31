@@ -29,17 +29,20 @@
                     </Button.Content>
                 </Button>
             </WrapPanel>
-            <TextBlock Text="Note: You can browse up to 5 files" FontSize="20" Margin="10,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Note: You can choose up to 5 screenplays" FontSize="20" Margin="10,0,0,0" Style="{StaticResource TextBlockStyle}"/>
             <DataGrid x:Name="BrowsedScreenplaysDataGrid" ItemsSource="{Binding BrowsedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}"
                       Height="310" Width="450" IsEnabled="{Binding CanChoose}" SelectionMode="Single" Margin="10"
                       Style="{StaticResource DataGridStyle}">
                 <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding CheckSelectionCommand}"/>
+                    </i:EventTrigger>
                     <i:EventTrigger EventName="KeyDown">
                         <i:InvokeCommandAction Command="{Binding CheckKeyCommand}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked}" Width="50"
+                    <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, Mode=TwoWay}" Width="50"
                                             HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                     <DataGridTextColumn Header="Title" Binding="{Binding Path=ScreenplayFileName}" Width="390" IsReadOnly="True"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
