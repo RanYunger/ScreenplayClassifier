@@ -97,7 +97,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     // Shows the screenplay in a new ScreenplayView
                     screenplayView = new ScreenplayView();
-                    ((ScreenplayViewModel)screenplayView.DataContext).Init(ClassificationReport.Screenplay.FilePath, screenplayView);
+                    ((ScreenplayViewModel)screenplayView.DataContext).Init(ClassificationReport.Screenplay.FilePath);
 
                     screenplayView.Show();
                 });

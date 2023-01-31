@@ -155,12 +155,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         case "Genre":
                             {
                                 // Checks whether the selected genre is taken
-                                if ((Screenplay.ActualSubGenre1 == SelectedGenre) || (Screenplay.ActualSubGenre2 == SelectedGenre))
+                                if ((Screenplay.UserSubGenre1 == SelectedGenre) || (Screenplay.UserSubGenre2 == SelectedGenre))
                                     MessageBoxHandler.Show(SelectedGenre + " genre already selected", "Error", 3, MessageBoxImage.Error);
                                 else
                                 {
-                                    Screenplay.ActualGenre = SelectedGenre;
-                                    ((GenresViewModel)GenresView.DataContext).RefreshView(Screenplay, "Actual");
+                                    Screenplay.UserGenre = SelectedGenre;
+                                    ((GenresViewModel)GenresView.DataContext).RefreshView(Screenplay, "User");
                                     GenreSelectionView.Close();
                                 }
                             }
@@ -168,12 +168,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         case "SubGenre1":
                             {
                                 // Checks whether the selected genre is taken
-                                if ((Screenplay.ActualGenre == SelectedGenre) || (Screenplay.ActualSubGenre2 == SelectedGenre))
+                                if ((Screenplay.UserGenre == SelectedGenre) || (Screenplay.UserSubGenre2 == SelectedGenre))
                                     MessageBoxHandler.Show(SelectedGenre + " genre already selected", "Error", 3, MessageBoxImage.Error);
                                 else
                                 {
-                                    Screenplay.ActualSubGenre1 = SelectedGenre;
-                                    ((GenresViewModel)GenresView.DataContext).RefreshView(Screenplay, "Actual");
+                                    Screenplay.UserSubGenre1 = SelectedGenre;
+                                    ((GenresViewModel)GenresView.DataContext).RefreshView(Screenplay, "User");
                                     GenreSelectionView.Close();
                                 }
                             }
@@ -181,12 +181,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         case "SubGenre2":
                             {
                                 // Checks whether the selected genre is taken
-                                if ((Screenplay.ActualGenre == SelectedGenre) || (Screenplay.ActualSubGenre1 == SelectedGenre))
+                                if ((Screenplay.UserGenre == SelectedGenre) || (Screenplay.UserSubGenre1 == SelectedGenre))
                                     MessageBoxHandler.Show(SelectedGenre + " genre already selected", "Error", 3, MessageBoxImage.Error);
                                 else
                                 {
-                                    Screenplay.ActualSubGenre2 = SelectedGenre;
-                                    ((GenresViewModel)GenresView.DataContext).RefreshView(Screenplay, "Actual");
+                                    Screenplay.UserSubGenre2 = SelectedGenre;
+                                    ((GenresViewModel)GenresView.DataContext).RefreshView(Screenplay, "User");
                                     GenreSelectionView.Close();
                                 }
                             }

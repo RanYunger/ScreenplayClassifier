@@ -329,17 +329,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     genreFilter = (o) =>
                     {
                         return string.IsNullOrEmpty(FilteredGenre) ? true
-                            : ((ClassificationModel)o).Screenplay.ActualGenre == FilteredGenre;
+                            : ((ClassificationModel)o).Screenplay.UserGenre == FilteredGenre;
                     };
                     subGenre1Filter = (o) =>
                     {
                         return string.IsNullOrEmpty(FilteredSubGenre1) ? true
-                            : ((ClassificationModel)o).Screenplay.ActualSubGenre1 == FilteredSubGenre1;
+                            : ((ClassificationModel)o).Screenplay.UserSubGenre1 == FilteredSubGenre1;
                     };
                     subGenre2Filter = (o) =>
                     {
                         return string.IsNullOrEmpty(FilteredSubGenre2) ? true
-                            : ((ClassificationModel)o).Screenplay.ActualSubGenre2 == FilteredSubGenre2;
+                            : ((ClassificationModel)o).Screenplay.UserSubGenre2 == FilteredSubGenre2;
                     };
 
                     // Activates a combination of all filters
@@ -517,9 +517,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 if (currentReport != null)
                     switch (genreType)
                     {
-                        case "Genre": count += Convert.ToInt32(currentReport.Screenplay.ActualGenre == genreName); break;
-                        case "SubGenre1": count += Convert.ToInt32(currentReport.Screenplay.ActualSubGenre1 == genreName); break;
-                        case "SubGenre2": count += Convert.ToInt32(currentReport.Screenplay.ActualSubGenre2 == genreName); break;
+                        case "Genre": count += Convert.ToInt32(currentReport.Screenplay.UserGenre == genreName); break;
+                        case "SubGenre1": count += Convert.ToInt32(currentReport.Screenplay.UserSubGenre1 == genreName); break;
+                        case "SubGenre2": count += Convert.ToInt32(currentReport.Screenplay.UserSubGenre2 == genreName); break;
                     }
             }
             while (reportsCollectionView.MoveCurrentToNext());

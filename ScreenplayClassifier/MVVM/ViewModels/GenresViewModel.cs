@@ -176,10 +176,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// Refreshes the view.
         /// </summary>
         /// <param name="screenplay">The screenplay the genres of which are shown in the view</param>
-        /// <param name="genresAffiliation">The genres' affiliation: Predicted/Actual</param>
+        /// <param name="genresAffiliation">The genres' affiliation: Model/User</param>
         public void RefreshView(ScreenplayModel screenplay, string genresAffiliation)
         {
-            bool isActual = genresAffiliation == "Actual";
+            bool isUser = genresAffiliation == "User";
             string genreImagePath = string.Format("{0}Unknown.png", FolderPaths.GENREIMAGES),
                 subGenre1ImagePath = string.Format("{0}Unknown.png", FolderPaths.GENREIMAGES),
                 subGenre2ImagePath = string.Format("{0}Unknown.png", FolderPaths.GENREIMAGES);
@@ -188,11 +188,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 // Updates the images representing the screenplay's genres.
                 genreImagePath = string.Format("{0}{1}.png", FolderPaths.GENREIMAGES,
-                    isActual ? screenplay.ActualGenre : screenplay.PredictedGenre);
+                    isUser ? screenplay.UserGenre : screenplay.ModelGenre);
                 subGenre1ImagePath = string.Format("{0}{1}.png", FolderPaths.GENREIMAGES,
-                    isActual ? screenplay.ActualSubGenre1 : screenplay.PredictedSubGenre1);
+                    isUser ? screenplay.UserSubGenre1 : screenplay.ModelSubGenre1);
                 subGenre2ImagePath = string.Format("{0}{1}.png", FolderPaths.GENREIMAGES,
-                    isActual ? screenplay.ActualSubGenre2 : screenplay.PredictedSubGenre2);
+                    isUser ? screenplay.UserSubGenre2 : screenplay.ModelSubGenre2);
             }
 
             Screenplay = screenplay;

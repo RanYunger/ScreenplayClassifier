@@ -48,7 +48,7 @@
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Command="{Binding ProceedToClassificationCommand}" Height="110" Width="110" IsEnabled="{Binding CanProceed}"
+            <Button Command="{Binding ActivateClassificationCommand}" Height="110" Width="110" IsEnabled="{Binding CanActivate}"
                     Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <StackPanel>

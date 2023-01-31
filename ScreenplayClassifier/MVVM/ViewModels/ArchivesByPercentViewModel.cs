@@ -301,21 +301,21 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     // Updates all filters
                     genreFilter = (o) =>
                     {
-                        return string.IsNullOrEmpty(FilteredGenre) ? true : ((ScreenplayModel)o).ActualGenre == FilteredGenre;
+                        return string.IsNullOrEmpty(FilteredGenre) ? true : ((ScreenplayModel)o).UserGenre == FilteredGenre;
                     };
                     subGenre1Filter = (o) =>
                     {
-                        return string.IsNullOrEmpty(FilteredSubGenre1) ? true : ((ScreenplayModel)o).ActualSubGenre1 == FilteredSubGenre1;
+                        return string.IsNullOrEmpty(FilteredSubGenre1) ? true : ((ScreenplayModel)o).UserSubGenre1 == FilteredSubGenre1;
                     };
                     subGenre2Filter = (o) =>
                     {
-                        return string.IsNullOrEmpty(FilteredSubGenre2) ? true : ((ScreenplayModel)o).ActualSubGenre2 == FilteredSubGenre2;
+                        return string.IsNullOrEmpty(FilteredSubGenre2) ? true : ((ScreenplayModel)o).UserSubGenre2 == FilteredSubGenre2;
                     };
 
                     genrePercentageFilter = (o) =>
                     {
                         ScreenplayModel screenplay = (ScreenplayModel)o;
-                        float genrePercentage = screenplay.GenrePercentages[screenplay.ActualGenre];
+                        float genrePercentage = screenplay.GenrePercentages[screenplay.UserGenre];
 
                         return string.IsNullOrEmpty(FilteredGenre) ? true
                             : (genrePercentage >= FilteredGenreMinPercentage) && (genrePercentage <= FilteredGenreMaxPercentage);
@@ -323,7 +323,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     subGenre1PercentageFilter = (o) =>
                     {
                         ScreenplayModel screenplay = (ScreenplayModel)o;
-                        float subGenre1Percentage = screenplay.GenrePercentages[screenplay.ActualSubGenre1];
+                        float subGenre1Percentage = screenplay.GenrePercentages[screenplay.UserSubGenre1];
 
                         return string.IsNullOrEmpty(FilteredSubGenre1) ? true
                             : (subGenre1Percentage >= FilteredSubGenre1MinPercentage) && (subGenre1Percentage <= FilteredSubGenre1MaxPercentage);
@@ -331,7 +331,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     subGenre2PercentageFilter = (o) =>
                     {
                         ScreenplayModel screenplay = (ScreenplayModel)o;
-                        float subGenre2Percentage = screenplay.GenrePercentages[screenplay.ActualSubGenre2];
+                        float subGenre2Percentage = screenplay.GenrePercentages[screenplay.UserSubGenre2];
 
                         return string.IsNullOrEmpty(FilteredSubGenre2) ? true
                             : (subGenre2Percentage >= FilteredSubGenre2MinPercentage) && (subGenre2Percentage <= FilteredSubGenre2MaxPercentage);

@@ -15,8 +15,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
-        public ScreenplayView ScreenplayView { get; private set; }
-
         public string FilePath
         {
             get { return filePath; }
@@ -57,10 +55,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ScreenplayViewModel() { }
 
         // Methods
-        public void Init(string filePath, ScreenplayView screenplayView)
+        public void Init(string filePath)
         {
-            ScreenplayView = screenplayView;
-
             FilePath = filePath;
             Title = Path.GetFileNameWithoutExtension(filePath);
             Text = File.ReadAllText(filePath);

@@ -94,11 +94,11 @@
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                     <DataGridTextColumn Header="Owner" Binding="{Binding Path=Owner.Username}" Width="100"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="Genre" Binding="{Binding Path=Screenplay.ActualGenre}" Width="100"
+                    <DataGridTextColumn Header="Genre" Binding="{Binding Path=Screenplay.UserGenre}" Width="100"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=Screenplay.ActualSubGenre1}" Width="100"
+                    <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=Screenplay.UserSubGenre1}" Width="100"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=Screenplay.ActualSubGenre2}" Width="100"
+                    <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=Screenplay.UserSubGenre2}" Width="100"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                     <DataGridTemplateColumn Width="70" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
                         <DataGridTemplateColumn.CellTemplate>

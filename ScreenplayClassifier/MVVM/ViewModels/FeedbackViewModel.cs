@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -15,17 +16,31 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class FeedbackViewModel : INotifyPropertyChanged
     {
         // Fields
+        private ObservableCollection<ScreenplayModel> feedbackedScreenplays;
         private List<int> checkedOffsets;
         private int currentOffset;
-        private bool canGoToFirst, canGoToPrevious, canGoToNext, canGoToLast;
+        private bool canProceed;
+        private bool canGoToFirst, canGoToPrevious, canSubmitAll, canGoToNext, canGoToLast;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
         public FeedbackView FeedbackView { get; private set; }
-        public GenresViewModel PredictedGenresViewModel { get; private set; }
-        public GenresViewModel ActualGenresViewModel { get; private set; }
+        public GenresViewModel ModelClassificationGenresViewModel { get; private set; }
+        public GenresViewModel UserClassificationGenresViewModel { get; private set; }
+
+        public ObservableCollection<ScreenplayModel> FeedbackedScreenplays
+        {
+            get { return feedbackedScreenplays; }
+            set
+            {
+                feedbackedScreenplays = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("feedbackedScreenplays"));
+            }
+        }
 
         public List<int> CheckedOffsets
         {
@@ -44,21 +59,25 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return currentOffset; }
             set
             {
-                BrowseViewModel browseViewModel = ClassificationViewModel.BrowseViewModel;
-                ScreenplayModel shownScreenplay = null;
-
                 currentOffset = value;
 
-                if (CheckedOffsets.Count > 0)
-                {
-                    browseViewModel.SelectedScreenplay = CheckedOffsets[currentOffset];
-
-                    shownScreenplay = ClassificationViewModel.ClassifiedScreenplays[currentOffset].Screenplay;
-                    RefreshView(shownScreenplay);
-                }
+                if (currentOffset != -1)
+                    RefreshView();
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("CurrentOffset"));
+            }
+        }
+
+        public bool CanProceed
+        {
+            get { return canProceed; }
+            set
+            {
+                canProceed = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanProceed"));
             }
         }
 
@@ -83,6 +102,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("CanGoToPrevious"));
+            }
+        }
+
+        public bool CanSubmitAll
+        {
+            get { return canSubmitAll; }
+            set
+            {
+                canSubmitAll = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanSubmitAll"));
             }
         }
 
@@ -115,6 +146,79 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
+        public Command GiveFeedbackCommand
+        {
+            get
+            {
+                RadioButton yesCorrectRadioButton = null, noCorrectRadioButton = null, yesReadRadioButton = null, noReadRadioButton = null;
+                ScreenplayView screenplayView = null;
+                ScreenplayViewModel screenplayViewModel = null;
+                ScreenplayModel feedbackedScreenplay = null;
+
+                return new Command(() =>
+                {
+                    // Validation
+                    if (FeedbackView == null)
+                        return;
+
+                    yesCorrectRadioButton = (RadioButton)FeedbackView.FindName("YesCorrectRadioButton");
+                    noCorrectRadioButton = (RadioButton)FeedbackView.FindName("NoCorrectRadioButton");
+                    yesReadRadioButton = (RadioButton)FeedbackView.FindName("YesReadRadioButton");
+                    noReadRadioButton = (RadioButton)FeedbackView.FindName("NoReadRadioButton");
+
+                    if (yesCorrectRadioButton.IsChecked == noCorrectRadioButton.IsChecked)
+                    {
+                        MessageBoxHandler.Show("Choose whether the classification is correct", string.Empty, 3, MessageBoxImage.Error);
+                        return;
+                    }
+                    if (yesReadRadioButton.IsChecked == noReadRadioButton.IsChecked)
+                    {
+                        MessageBoxHandler.Show("Choose whether to read the screenplay", string.Empty, 3, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    feedbackedScreenplay = FeedbackedScreenplays[CurrentOffset];
+
+                    if (yesCorrectRadioButton.IsChecked.Value)
+                    {
+                        feedbackedScreenplay.UserGenre = feedbackedScreenplay.ModelGenre;
+                        feedbackedScreenplay.UserSubGenre1 = feedbackedScreenplay.ModelSubGenre1;
+                        feedbackedScreenplay.UserSubGenre2 = feedbackedScreenplay.ModelSubGenre2;
+                        feedbackedScreenplay.Isfeedbacked = true;
+
+                        RefreshView();
+                    }
+
+                    if (yesReadRadioButton.IsChecked.Value)
+                    {
+                        // Finds an existing ScreenplayView (if there's one)
+                        foreach (Window view in App.Current.Windows)
+                            if (view is ScreenplayView)
+                            {
+                                screenplayViewModel = (ScreenplayViewModel)view.DataContext;
+
+                                if (string.Equals(screenplayViewModel.FilePath, feedbackedScreenplay.FilePath))
+                                {
+                                    view.Focus();
+                                    return;
+                                }
+                                else
+                                {
+                                    view.Close();
+                                    break;
+                                }
+                            }
+
+                        // Shows the screenplay in a new ScreenplayView
+                        screenplayView = new ScreenplayView();
+                        ((ScreenplayViewModel)screenplayView.DataContext).Init(feedbackedScreenplay.FilePath);
+
+                        screenplayView.Show();
+                    }
+                });
+            }
+        }
+
         public Command GoToFirstCommand
         {
             get
@@ -125,8 +229,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     CanGoToFirst = false;
                     CanGoToPrevious = false;
-                    CanGoToNext = true;
-                    CanGoToLast = true;
+                    CanGoToNext = FeedbackedScreenplays.Count > 1;
+                    CanGoToLast = FeedbackedScreenplays.Count > 1;
                 });
             }
         }
@@ -189,11 +293,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    CurrentOffset = CurrentOffset + 1 >= CheckedOffsets.Count - 1 ? CheckedOffsets.Count - 1 : CurrentOffset + 1;
+                    CurrentOffset = CurrentOffset + 1 >= FeedbackedScreenplays.Count - 1 ? FeedbackedScreenplays.Count - 1 : CurrentOffset + 1;
 
                     CanGoToFirst = true;
                     CanGoToPrevious = true;
-                    if (CurrentOffset == CheckedOffsets.Count - 1)
+                    if (CurrentOffset == FeedbackedScreenplays.Count - 1)
                     {
                         CanGoToNext = false;
                         CanGoToLast = false;
@@ -208,10 +312,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    CurrentOffset = CheckedOffsets.Count - 1;
+                    CurrentOffset = FeedbackedScreenplays.Count - 1;
 
-                    CanGoToFirst = true;
-                    CanGoToPrevious = true;
+                    CanGoToFirst = FeedbackedScreenplays.Count > 1;
+                    CanGoToPrevious = FeedbackedScreenplays.Count > 1;
                     CanGoToNext = false;
                     CanGoToLast = false;
                 });
@@ -226,21 +330,23 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <param name="feedbackView">The view to obtain controls from</param>
         public void Init(ClassificationViewModel classificationViewModel, FeedbackView feedbackView)
         {
-            GenresView predictedGenresView, actualGenresView;
+            GenresView modelClassificationGenresView, userClassificationGenresView;
 
             ClassificationViewModel = classificationViewModel;
             FeedbackView = feedbackView;
 
-            predictedGenresView = (GenresView)FeedbackView.FindName("PredictedGenresView");
-            PredictedGenresViewModel = (GenresViewModel)predictedGenresView.DataContext;
-            PredictedGenresViewModel.Init(predictedGenresView);
+            modelClassificationGenresView = (GenresView)FeedbackView.FindName("ModelClassificationGenresView");
+            ModelClassificationGenresViewModel = (GenresViewModel)modelClassificationGenresView.DataContext;
+            ModelClassificationGenresViewModel.Init(modelClassificationGenresView);
 
-            actualGenresView = (GenresView)FeedbackView.FindName("ActualGenresView");
-            ActualGenresViewModel = (GenresViewModel)actualGenresView.DataContext;
-            ActualGenresViewModel.Init(actualGenresView);
+            userClassificationGenresView = (GenresView)FeedbackView.FindName("UserClassificationGenresView");
+            UserClassificationGenresViewModel = (GenresViewModel)userClassificationGenresView.DataContext;
+            UserClassificationGenresViewModel.Init(userClassificationGenresView);
 
+            FeedbackedScreenplays = new ObservableCollection<ScreenplayModel>();
             CheckedOffsets = new List<int>();
             CurrentOffset = -1;
+            CanProceed = false;
             CanGoToFirst = false;
             CanGoToPrevious = false;
             CanGoToNext = true;
@@ -254,9 +360,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             BrowseViewModel browseViewModel = ClassificationViewModel.BrowseViewModel;
 
-            CheckedOffsets.Clear();
-            foreach (BrowseModel checkedScreenplay in browseViewModel.CheckedScreenplays)
-                CheckedOffsets.Add(browseViewModel.BrowsedScreenplays.IndexOf(checkedScreenplay));
+            // Obtains the collection of checked offsets
+            for (int i = 0; i < browseViewModel.BrowsedScreenplays.Count; i++)
+                if (browseViewModel.BrowsedScreenplays[i].IsChecked)
+                    CheckedOffsets.Add(i);
+
+            // Obtains the collection of feedbacked screenplays
+            foreach (ClassificationModel classificationReport in ClassificationViewModel.ClassifiedScreenplays)
+                FeedbackedScreenplays.Add(classificationReport.Screenplay);
 
             GoToFirstCommand.Execute(null);
 
@@ -266,15 +377,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Refreshes the view.
         /// </summary>
-        /// <param name="shownScreenplay">The screenplay to be shown in the view</param>
-        public void RefreshView(ScreenplayModel shownScreenplay)
+        public void RefreshView()
         {
-            try
-            {
-                PredictedGenresViewModel.RefreshView(shownScreenplay, "Predicted");
-                ActualGenresViewModel.RefreshView(shownScreenplay, "Actual");
-            }
-            catch { }
+            ScreenplayModel feedbackedScreenplay = FeedbackedScreenplays[CurrentOffset];
+
+            //CanProceed = feedbackedScreenplay.Isfeedbacked;
+
+            ModelClassificationGenresViewModel.RefreshView(feedbackedScreenplay, "Model");
+            UserClassificationGenresViewModel.RefreshView(feedbackedScreenplay, "User");
+
+            CanSubmitAll = new List<ScreenplayModel>(FeedbackedScreenplays).TrueForAll(s => s.Isfeedbacked);
         }
 
         /// <summary>

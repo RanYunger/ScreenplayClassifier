@@ -11,8 +11,8 @@ namespace ScreenplayClassifier.MVVM.Models
         // Fields
         private Dictionary<string, float> genrePercentages;
         private string filePath, title;
-        private string predictedGenre, predictedSubGenre1, predictedSubGenre2;
-        private string actualGenre, actualSubGenre1, actualSubGenre2;
+        private string modelGenre, modelSubGenre1, modelSubGenre2;
+        private string userGenre, userSubGenre1, userSubGenre2;
         private bool isfeedbacked;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -53,75 +53,75 @@ namespace ScreenplayClassifier.MVVM.Models
             }
         }
 
-        public string PredictedGenre
+        public string ModelGenre
         {
-            get { return predictedGenre; }
+            get { return modelGenre; }
             set
             {
-                predictedGenre = value;
+                modelGenre = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("PredictedGenre"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("ModelGenre"));
             }
         }
 
-        public string PredictedSubGenre1
+        public string ModelSubGenre1
         {
-            get { return predictedSubGenre1; }
+            get { return modelSubGenre1; }
             set
             {
-                predictedSubGenre1 = value;
+                modelSubGenre1 = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("PredictedSubGenre1"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("ModelSubGenre1"));
             }
         }
 
-        public string PredictedSubGenre2
+        public string ModelSubGenre2
         {
-            get { return predictedSubGenre2; }
+            get { return modelSubGenre2; }
             set
             {
-                predictedSubGenre2 = value;
+                modelSubGenre2 = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("PredictedSubGenre2"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("ModelSubGenre2"));
             }
         }
 
-        public string ActualGenre
+        public string UserGenre
         {
-            get { return actualGenre; }
+            get { return userGenre; }
             set
             {
-                actualGenre = value;
+                userGenre = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ActualGenre"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("UserGenre"));
             }
         }
 
-        public string ActualSubGenre1
+        public string UserSubGenre1
         {
-            get { return actualSubGenre1; }
+            get { return userSubGenre1; }
             set
             {
-                actualSubGenre1 = value;
+                userSubGenre1 = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ActualSubGenre1"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("UserSubGenre1"));
             }
         }
 
-        public string ActualSubGenre2
+        public string UserSubGenre2
         {
-            get { return actualSubGenre2; }
+            get { return userSubGenre2; }
             set
             {
-                actualSubGenre2 = value;
+                userSubGenre2 = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ActualSubGenre2"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("UserSubGenre2"));
             }
         }
 
@@ -147,13 +147,13 @@ namespace ScreenplayClassifier.MVVM.Models
 
             GenrePercentages = genrePercentages;
 
-            PredictedGenre = predictedGenres[0];
-            PredictedSubGenre1 = predictedGenres[1];
-            PredictedSubGenre2 = predictedGenres[2];
+            ModelGenre = predictedGenres[0];
+            ModelSubGenre1 = predictedGenres[1];
+            ModelSubGenre2 = predictedGenres[2];
 
-            ActualGenre = "Unknown";
-            ActualSubGenre1 = "Unknown";
-            ActualSubGenre2 = "Unknown";
+            UserGenre = "Unknown";
+            UserSubGenre1 = "Unknown";
+            UserSubGenre2 = "Unknown";
 
             Isfeedbacked = false;
         }

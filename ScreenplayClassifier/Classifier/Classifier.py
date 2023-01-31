@@ -86,7 +86,7 @@ def classify(classifier_variables, file_paths):
         test_probabilities = sum(classifier.predict_proba(test_vector).tolist(), []) # Flattens the list
         test_percentages = probabilities_to_percentages(test_probabilities)
 
-        classifications_dict[test_screenplay["Title"]] = test_percentages
+        classifications_dict[file_paths[offset]] = test_percentages
 
         classifications_complete += 1
         print(classifications_complete)
@@ -96,5 +96,5 @@ def classify(classifier_variables, file_paths):
     # Saves classifier's variables to file
     save_pickle(binarizer, vectorizer, classifier)
 
-    return pandas.DataFrame({"Title": classifications_dict.keys(),
+    return pandas.DataFrame({"FilePath": classifications_dict.keys(),
                              "GenrePercentages": classifications_dict.values()})

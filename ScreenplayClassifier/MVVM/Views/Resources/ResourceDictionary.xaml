@@ -129,7 +129,6 @@
         <Setter Property="Background" Value="{StaticResource GroupBoxBackground}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Margin" Value="10,0"/>
     </Style>
 
     <!--RadioButton Style-->

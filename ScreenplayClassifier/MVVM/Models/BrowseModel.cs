@@ -55,10 +55,8 @@ namespace ScreenplayClassifier.MVVM.Models
         // Constructors
         public BrowseModel(string screenplayFilePath)
         {
-            string fileName = Path.GetFileName(screenplayFilePath);
-
             ScreenplayFilePath = screenplayFilePath;
-            ScreenplayFileName = fileName.Remove(fileName.Length - 1);
+            ScreenplayFileName = Path.GetFileNameWithoutExtension(screenplayFilePath);
             IsChecked = false;
         }
     }

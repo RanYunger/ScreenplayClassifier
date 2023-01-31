@@ -21,7 +21,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Fields
         private ObservableCollection<BrowseModel> browsedScreenplays, checkedScreenplays;
         private int selectedScreenplay;
-        private bool canBrowse, canClear, canChoose, canProceed;
+        private bool canBrowse, canClear, canChoose, canActivate;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -59,8 +59,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             set
             {
                 FeedbackViewModel feedbackViewModel = null;
-                ScreenplayModel shownScreenplay = null;
-                int relativeScreenplayOffset = -1;
 
                 selectedScreenplay = value;
 
@@ -72,11 +70,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     // Updates the shown screenplay
                     feedbackViewModel = ClassificationViewModel.FeedbackViewModel;
                     if (feedbackViewModel.CheckedOffsets.Contains(selectedScreenplay))
-                    {
-                        relativeScreenplayOffset = feedbackViewModel.CheckedOffsets.IndexOf(selectedScreenplay);
-                        shownScreenplay = ClassificationViewModel.ClassifiedScreenplays[relativeScreenplayOffset].Screenplay;
-                        feedbackViewModel.RefreshView(shownScreenplay);
-                    }
+                        feedbackViewModel.CurrentOffset = feedbackViewModel.CheckedOffsets.IndexOf(selectedScreenplay);
                 }
 
                 if (PropertyChanged != null)
@@ -120,15 +114,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public bool CanProceed
+        public bool CanActivate
         {
-            get { return canProceed; }
+            get { return canActivate; }
             set
             {
-                canProceed = value;
+                canActivate = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanProceed"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanActivate"));
             }
         }
 
@@ -161,7 +155,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         CheckedScreenplays.Add(browsedScreenplay);
                     }
 
-                    CanProceed = CheckedScreenplays.Count > 0;
+                    CanActivate = CheckedScreenplays.Count > 0;
                 });
             }
         }
@@ -227,12 +221,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     CheckedScreenplays.Clear();
 
                     SelectedScreenplay = -1;
-                    CanProceed = false;
+                    CanActivate = false;
                 });
             }
         }
 
-        public Command ProceedToClassificationCommand
+        public Command ActivateClassificationCommand
         {
             get
             {
@@ -241,7 +235,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     CanBrowse = false;
                     CanClear = false;
                     CanChoose = false;
-                    CanProceed = false;
+                    CanActivate = false;
 
                     ClassificationViewModel.BrowseComplete = true;
                 });
@@ -271,7 +265,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             CanBrowse = true;
             CanClear = true;
             CanChoose = false;
-            CanProceed = false;
+            CanActivate = false;
 
             if (BrowseView != null)
                 App.Current.Dispatcher.Invoke(() => BrowseView.Visibility = Visibility.Visible);
