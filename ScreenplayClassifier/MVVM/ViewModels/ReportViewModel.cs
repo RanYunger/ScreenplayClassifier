@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+using System.Windows;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
@@ -73,9 +74,31 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    ScreenplayView screenplayView = new ScreenplayView();
+                    ScreenplayView screenplayView = null;
+                    ScreenplayViewModel screenplayViewModel = null;
 
+                    // Finds an existing ScreenplayView (if there's one)
+                    foreach (Window view in App.Current.Windows)
+                        if (view is ScreenplayView)
+                        {
+                            screenplayViewModel = (ScreenplayViewModel)view.DataContext;
+
+                            if (string.Equals(screenplayViewModel.FilePath, ClassificationReport.Screenplay.FilePath))
+                            {
+                                view.Focus();
+                                return;
+                            }
+                            else
+                            {
+                                view.Close();
+                                break;
+                            }
+                        }
+
+                    // Shows the screenplay in a new ScreenplayView
+                    screenplayView = new ScreenplayView();
                     ((ScreenplayViewModel)screenplayView.DataContext).Init(ClassificationReport.Screenplay.FilePath, screenplayView);
+
                     screenplayView.Show();
                 });
             }
@@ -127,7 +150,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     {
                         Title = genreName,
                         Values = new ChartValues<ObservableValue> { new ObservableValue(genrePercentage) },
-                        DataLabels = false
+                        FontSize = 20,
+                        DataLabels = true
                     });
             }
         }

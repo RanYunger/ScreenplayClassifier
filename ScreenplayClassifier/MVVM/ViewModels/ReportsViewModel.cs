@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -26,7 +27,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private ObservableCollection<ClassificationModel> reports;
         private ObservableCollection<string> genreOptions, subGenre1Options, subGenre2Options;
         private SeriesCollection genreSeries, subGenre1Series, subGenre2Series, ownerSeries;
-        private Func<double, string> labelFormatter;
+        private Func<int, string> labelFormatter;
         private string[] ownerLabels;
         private string filteredGenre, filteredSubGenre1, filteredSubGenre2;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -132,7 +133,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public Func<double, string> LabelFormatter
+        public Func<int, string> LabelFormatter
         {
             get { return labelFormatter; }
             set
@@ -444,6 +445,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     {
                         Title = genreName,
                         Values = new ChartValues<ObservableValue> { new ObservableValue(genreCount) },
+                        FontSize = 20,
                         DataLabels = true
                     });
 
@@ -453,6 +455,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     {
                         Title = genreName,
                         Values = new ChartValues<ObservableValue> { new ObservableValue(subGenre1Count) },
+                        FontSize = 20,
                         DataLabels = true
                     });
 
@@ -462,6 +465,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     {
                         Title = genreName,
                         Values = new ChartValues<ObservableValue> { new ObservableValue(subGenre2Count) },
+                        FontSize = 20,
                         DataLabels = true
                     });
             }
@@ -488,7 +492,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     OwnerSeries.Add(new ColumnSeries()
                     {
                         Title = owner.Username,
-                        Values = new ChartValues<double> { ownerCount }
+                        Values = new ChartValues<int> { ownerCount }
                     });
             }
         }

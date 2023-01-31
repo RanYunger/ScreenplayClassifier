@@ -15,11 +15,11 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,50,0">
-            <TextBlock Text="Predicted Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Model Classification" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <v:GenresView x:Name="PredictedGenresView" IsEnabled="False"/>
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="1" Margin="50,0,0,0">
-            <TextBlock Text="Actual Genres" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Your Classification" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <v:GenresView x:Name="ActualGenresView"/>
         </StackPanel>
         <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="10">

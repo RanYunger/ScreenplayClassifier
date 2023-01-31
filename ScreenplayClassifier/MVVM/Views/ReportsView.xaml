@@ -113,7 +113,7 @@
         <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center">
             <WrapPanel>
                 <StackPanel>
-                    <TextBlock Text="Genre" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="Genre Counts" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                     <lvc:PieChart x:Name="GenrePieChart" Height="250" Width="250" LegendLocation="Bottom" Series="{Binding GenreSeries}"
                       Hoverable="True" Margin="20">
                         <lvc:PieChart.ChartLegend>
@@ -122,7 +122,7 @@
                     </lvc:PieChart>
                 </StackPanel>
                 <StackPanel>
-                    <TextBlock Text="SubGenre 1" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="SubGenre 1 Counts" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                     <lvc:PieChart Height="250" Width="250" LegendLocation="Bottom" Series="{Binding SubGenre1Series}"
                                   SeriesColors="{Binding ElementName=GenrePieChart, Path=SeriesColors}" Hoverable="True" Margin="20">
                         <lvc:PieChart.ChartLegend>
@@ -131,7 +131,7 @@
                     </lvc:PieChart>
                 </StackPanel>
                 <StackPanel>
-                    <TextBlock Text="SubGenre 2" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="SubGenre 2 Counts" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                     <lvc:PieChart Height="250" Width="250" LegendLocation="Bottom" Series="{Binding SubGenre2Series}"
                                   SeriesColors="{Binding ElementName=GenrePieChart, Path=SeriesColors}" Hoverable="True" Margin="20">
                         <lvc:PieChart.ChartLegend>
@@ -140,9 +140,9 @@
                     </lvc:PieChart>
                 </StackPanel>
             </WrapPanel>
-            <lvc:CartesianChart x:Name="UsersCartesianChart" Series="{Binding OwnerSeries}" Height="250" LegendLocation="Left">
-                <lvc:CartesianChart.Style>
-                    <Style TargetType="lvc:CartesianChart">
+            <StackPanel>
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=MainViewModel.UserToolbarViewModel.User.Role}" Value="Guest">
                                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -155,14 +155,18 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </lvc:CartesianChart.Style>
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Owners" Labels="{Binding OwnerLabels}"/>
-                </lvc:CartesianChart.AxisX>
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Records" LabelFormatter="{Binding LabelFormatter}"/>
-                </lvc:CartesianChart.AxisY>
-            </lvc:CartesianChart>
+                </StackPanel.Style>
+                <TextBlock Text="Owner Counts" FontSize="30" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+                <lvc:CartesianChart x:Name="UsersCartesianChart" Series="{Binding OwnerSeries}" Height="220" FontSize="20" Foreground="Black"
+                                    LegendLocation="Left">
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Labels="{Binding OwnerLabels}" FontSize="20" Foreground="Black"/>
+                    </lvc:CartesianChart.AxisX>
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis LabelFormatter="{Binding LabelFormatter}" FontSize="20" Foreground="Black"/>
+                    </lvc:CartesianChart.AxisY>
+                </lvc:CartesianChart>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

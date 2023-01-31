@@ -50,6 +50,7 @@
     <None Remove="Media\Images\Error.png" />
     <None Remove="Media\Images\Filter.png" />
     <None Remove="Media\Images\First.png" />
+    <None Remove="Media\Images\Gear.png" />
     <None Remove="Media\Images\Genres\Action.png" />
     <None Remove="Media\Images\Genres\Adventure.png" />
     <None Remove="Media\Images\Genres\Comedy.png" />
@@ -75,13 +76,13 @@
     <None Remove="Media\Images\Password.png" />
     <None Remove="Media\Images\Percent.png" />
     <None Remove="Media\Images\Previous.png" />
+    <None Remove="Media\Images\Read.png" />
     <None Remove="Media\Images\Reel.png" />
     <None Remove="Media\Images\Report.png" />
     <None Remove="Media\Images\Reports.png" />
     <None Remove="Media\Images\Save.png" />
     <None Remove="Media\Images\Screenplay.png" />
     <None Remove="Media\Images\Search.png" />
-    <None Remove="Media\Images\Settings.png" />
     <None Remove="Media\Images\Signout.png" />
     <None Remove="Media\Images\User.png" />
     <None Remove="Media\Images\Username.png" />
@@ -284,6 +285,9 @@
     <Content Include="Media\Images\Previous.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\Read.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\Reel.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -299,7 +303,7 @@
     <Content Include="Media\Images\Search.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\Settings.png">
+    <Content Include="Media\Images\Gear.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Signout.png">

@@ -79,6 +79,14 @@ namespace ScreenplayClassifier.MVVM.Models
                             }
                             else
                             {
+                                // Closes the child ScreenplayView (if there's one)
+                                foreach (Window childView in App.Current.Windows)
+                                    if (childView is ScreenplayView)
+                                    {
+                                        childView.Close();
+                                        break;
+                                    }
+
                                 view.Close();
                                 break;
                             }

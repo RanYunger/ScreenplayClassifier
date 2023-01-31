@@ -63,7 +63,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     // Closes any delegate windows opened from the view
                     foreach (Window view in App.Current.Windows)
-                        if ((view is GenreSelectionView) || (view is GenreView) || (view is ReportView))
+                        if ((view is GenreSelectionView) || (view is GenreView) || (view is ReportView) || (view is ScreenplayView))
                             view.Close();
                 });
             }
