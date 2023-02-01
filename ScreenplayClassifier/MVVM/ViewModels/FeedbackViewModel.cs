@@ -18,9 +18,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Fields
         private ObservableCollection<ScreenplayModel> feedbackedScreenplays;
         private List<int> checkedOffsets;
+        private List<bool> hasAnsweredSurveys;
         private int currentOffset;
-        private bool canProceed;
-        private bool canGoToFirst, canGoToPrevious, canSubmitAll, canGoToNext, canGoToLast;
+        private bool hasAnsweredSurvey, canGoToFirst, canGoToPrevious, canSubmitAll, canGoToNext, canGoToLast;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -54,30 +54,49 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public List<bool> HasAnsweredSurveys
+        {
+            get { return hasAnsweredSurveys; }
+            set
+            {
+                hasAnsweredSurveys = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("HasAnsweredSurveys"));
+            }
+        }
+
         public int CurrentOffset
         {
             get { return currentOffset; }
             set
             {
+                BrowseViewModel browseViewModel = null;
+
                 currentOffset = value;
 
                 if (currentOffset != -1)
+                {
+                    browseViewModel = ClassificationViewModel.BrowseViewModel;
+                    browseViewModel.SelectedScreenplay = CheckedOffsets[currentOffset];
+
                     RefreshView();
+                }
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("CurrentOffset"));
             }
         }
 
-        public bool CanProceed
+        public bool HasAnsweredSurvey
         {
-            get { return canProceed; }
+            get { return hasAnsweredSurvey; }
             set
             {
-                canProceed = value;
+                hasAnsweredSurvey = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanProceed"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("HasAnsweredSurvey"));
             }
         }
 
@@ -146,7 +165,32 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command GiveFeedbackCommand
+        public Command PrepareSurveyCommand
+        {
+            get
+            {
+                RadioButton yesCorrectRadioButton = null, noCorrectRadioButton = null, yesReadRadioButton = null, noReadRadioButton = null;
+
+                return new Command(() =>
+                {
+                    // Validation
+                    if (FeedbackView == null)
+                        return;
+
+                    yesCorrectRadioButton = (RadioButton)FeedbackView.FindName("YesCorrectRadioButton");
+                    noCorrectRadioButton = (RadioButton)FeedbackView.FindName("NoCorrectRadioButton");
+                    yesReadRadioButton = (RadioButton)FeedbackView.FindName("YesReadRadioButton");
+                    noReadRadioButton = (RadioButton)FeedbackView.FindName("NoReadRadioButton");
+
+                    yesCorrectRadioButton.IsChecked = false;
+                    noCorrectRadioButton.IsChecked = false;
+                    yesReadRadioButton.IsChecked = false;
+                    noReadRadioButton.IsChecked = false;
+                });
+            }
+        }
+
+        public Command AnswerSurveyCommand
         {
             get
             {
@@ -168,12 +212,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     if (yesCorrectRadioButton.IsChecked == noCorrectRadioButton.IsChecked)
                     {
-                        MessageBoxHandler.Show("Choose whether the classification is correct", string.Empty, 3, MessageBoxImage.Error);
+                        MessageBoxHandler.Show("Choose whether the classification is correct.", string.Empty, 3, MessageBoxImage.Exclamation);
                         return;
                     }
                     if (yesReadRadioButton.IsChecked == noReadRadioButton.IsChecked)
                     {
-                        MessageBoxHandler.Show("Choose whether to read the screenplay", string.Empty, 3, MessageBoxImage.Error);
+                        MessageBoxHandler.Show("Choose whether you'd like to read the screenplay.", string.Empty, 3, MessageBoxImage.Exclamation);
                         return;
                     }
 
@@ -184,9 +228,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         feedbackedScreenplay.UserGenre = feedbackedScreenplay.ModelGenre;
                         feedbackedScreenplay.UserSubGenre1 = feedbackedScreenplay.ModelSubGenre1;
                         feedbackedScreenplay.UserSubGenre2 = feedbackedScreenplay.ModelSubGenre2;
-                        feedbackedScreenplay.Isfeedbacked = true;
-
-                        RefreshView();
                     }
 
                     if (yesReadRadioButton.IsChecked.Value)
@@ -198,23 +239,25 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                                 screenplayViewModel = (ScreenplayViewModel)view.DataContext;
 
                                 if (string.Equals(screenplayViewModel.FilePath, feedbackedScreenplay.FilePath))
-                                {
                                     view.Focus();
-                                    return;
-                                }
                                 else
                                 {
+                                    // Shows the screenplay in a new ScreenplayView
                                     view.Close();
-                                    break;
+
+                                    screenplayView = new ScreenplayView();
+                                    ((ScreenplayViewModel)screenplayView.DataContext).Init(feedbackedScreenplay.FilePath);
+
+                                    screenplayView.Show();
                                 }
+
+                                break;
                             }
-
-                        // Shows the screenplay in a new ScreenplayView
-                        screenplayView = new ScreenplayView();
-                        ((ScreenplayViewModel)screenplayView.DataContext).Init(feedbackedScreenplay.FilePath);
-
-                        screenplayView.Show();
                     }
+
+                    HasAnsweredSurveys[CurrentOffset] = true;
+
+                    CurrentOffset = CurrentOffset; // Triggers PropertyChanged event
                 });
             }
         }
@@ -260,25 +303,30 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    ScreenplayModel screenplay = null;
+                    MessageBoxResult reClassifyDecision;
 
                     // Validation
                     foreach (ClassificationModel classification in ClassificationViewModel.ClassifiedScreenplays)
-                    {
-                        screenplay = classification.Screenplay;
-                        if (!screenplay.Isfeedbacked)
+                        if (!classification.Screenplay.Isfeedbacked)
                         {
-                            MessageBoxHandler.Show("Complete feedback for " + screenplay.Title, "Error", 3, MessageBoxImage.Error);
+                            MessageBoxHandler.Show("Complete feedback for " + classification.Screenplay.Title, string.Empty, 3,
+                                MessageBoxImage.Exclamation);
                             return;
                         }
-                    }
+
+                    CanSubmitAll = true;
+
+                    reClassifyDecision = MessageBox.Show("Would you like to re-classify this batch?", "Classification Complete",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (reClassifyDecision == MessageBoxResult.No)
+                        UpdateOtherModules();
+
+                    ClassificationViewModel.ClassificationComplete = false;
 
                     // TODO: COMPLETE
 
-                    //MessageBoxResult startOver;
                     //else
                     //{
-                    //  UpdateOtherModules();
                     //    startOver = MessageBox.Show("Would you like to start over?", "Classification Complete",
                     //        MessageBoxButton.YesNo, MessageBoxImage.Question);
                     //    ClassificationViewModel.ClassificationComplete = startOver == MessageBoxResult.No;
@@ -345,10 +393,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             FeedbackedScreenplays = new ObservableCollection<ScreenplayModel>();
             CheckedOffsets = new List<int>();
+            HasAnsweredSurveys = new List<bool>();
             CurrentOffset = -1;
-            CanProceed = false;
+            HasAnsweredSurvey = false;
             CanGoToFirst = false;
             CanGoToPrevious = false;
+            CanSubmitAll = false;
             CanGoToNext = true;
             CanGoToLast = true;
         }
@@ -361,13 +411,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             BrowseViewModel browseViewModel = ClassificationViewModel.BrowseViewModel;
 
             // Obtains the collection of checked offsets
+            CheckedOffsets.Clear();
             for (int i = 0; i < browseViewModel.BrowsedScreenplays.Count; i++)
                 if (browseViewModel.BrowsedScreenplays[i].IsChecked)
                     CheckedOffsets.Add(i);
 
             // Obtains the collection of feedbacked screenplays
+            FeedbackedScreenplays.Clear();
+            HasAnsweredSurveys.Clear();
             foreach (ClassificationModel classificationReport in ClassificationViewModel.ClassifiedScreenplays)
+            {
                 FeedbackedScreenplays.Add(classificationReport.Screenplay);
+                HasAnsweredSurveys.Add(false);
+            }
 
             GoToFirstCommand.Execute(null);
 
@@ -381,12 +437,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             ScreenplayModel feedbackedScreenplay = FeedbackedScreenplays[CurrentOffset];
 
-            //CanProceed = feedbackedScreenplay.Isfeedbacked;
-
             ModelClassificationGenresViewModel.RefreshView(feedbackedScreenplay, "Model");
             UserClassificationGenresViewModel.RefreshView(feedbackedScreenplay, "User");
 
-            CanSubmitAll = new List<ScreenplayModel>(FeedbackedScreenplays).TrueForAll(s => s.Isfeedbacked);
+            HasAnsweredSurvey = HasAnsweredSurveys[CurrentOffset];
+            if (!HasAnsweredSurvey)
+                PrepareSurveyCommand.Execute(null);
         }
 
         /// <summary>
@@ -402,8 +458,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         private void UpdateOtherModules()
         {
+            BrowseViewModel browseViewModel = ClassificationViewModel.BrowseViewModel;
             ReportsViewModel reportsViewModel = (ReportsViewModel)ClassificationViewModel.MainViewModel.ReportsView.DataContext;
             ArchivesViewModel archivesViewModel = (ArchivesViewModel)ClassificationViewModel.MainViewModel.ArchivesView.DataContext;
+
+            foreach (int checkedOffset in CheckedOffsets)
+                browseViewModel.BrowsedScreenplays.RemoveAt(checkedOffset);
 
             foreach (ClassificationModel report in ClassificationViewModel.ClassifiedScreenplays)
             {

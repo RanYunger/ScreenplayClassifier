@@ -15,6 +15,18 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,50,0">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CanSubmitAll}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CanSubmitAll}" Value="False">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
             <TextBlock Text="Model Classification" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <v:GenresView x:Name="ModelClassificationGenresView" IsEnabled="False"/>
         </StackPanel>
@@ -22,10 +34,10 @@
             <StackPanel.Style>
                 <Style TargetType="StackPanel">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=FeedbackedScreenplays[CurrentOffset].IsFeedbacked}" Value="True">
+                        <DataTrigger Binding="{Binding HasAnsweredSurvey}"  Value="True">
                             <Setter Property="Visibility" Value="Collapsed"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=FeedbackedScreenplays[CurrentOffset].IsFeedbacked}" Value="False">
+                        <DataTrigger Binding="{Binding HasAnsweredSurvey}"  Value="False">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
                     </Style.Triggers>
@@ -42,8 +54,7 @@
                 <RadioButton x:Name="YesReadRadioButton" Content="Yes" Margin="10,0,10,0" Style="{StaticResource RadioButtonStyle}"/>
                 <RadioButton x:Name="NoReadRadioButton" Content="No" Margin="10,0,10,0" Style="{StaticResource RadioButtonStyle}"/>
             </WrapPanel>
-            <Button Command="{Binding GiveFeedbackCommand}" Height="120" Width="120" IsEnabled="{Binding CanProceed}" Margin="0,200,0,0"
-                    Style="{StaticResource ButtonStyle}">
+            <Button Command="{Binding AnswerSurveyCommand}" Height="120" Width="120" Margin="0,200,0,0" Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <StackPanel>
                         <Image Source="/Media/Images/Proceed.png" Height="90" Width="90"/>
@@ -59,14 +70,82 @@
                         <DataTrigger Binding="{Binding ElementName=SurveyStackPanel, Path=Visibility}" Value="Visible">
                             <Setter Property="Visibility" Value="Collapsed"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=SurveyStackPanel, Path=Visibility}" Value="Collapsed">
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=SurveyStackPanel, Path=Visibility}" Value="Collapsed"/>
+                                <Condition Binding="{Binding CanSubmitAll}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=SurveyStackPanel, Path=Visibility}" Value="Collapsed"/>
+                                <Condition Binding="{Binding CanSubmitAll}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
                             <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
+                        </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>
             </StackPanel.Style>
             <TextBlock Text="Your Classification" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <v:GenresView x:Name="UserClassificationGenresView"/>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CanSubmitAll}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CanSubmitAll}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <TextBlock Text="Review" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <WrapPanel Margin="10">
+                <GroupBox Margin="10" Style="{StaticResource GroupBoxStyle}">
+                    <GroupBox.Header>
+                        <WrapPanel>
+                            <Image Source="/Media/Images/Percent.png" Height="30" Width="30"/>
+                            <TextBlock Text="Accuracy" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                        </WrapPanel>
+                    </GroupBox.Header>
+                    <StackPanel>
+                        <WrapPanel Margin="0,10,0,10">
+                            <TextBlock Text="Classifications:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBlock Text="AAA" FontSize="20" Margin="10,0,0,0"
+                                   Style="{StaticResource TextBlockStyle}"/>
+                        </WrapPanel>
+                        <WrapPanel Margin="0,10,0,10">
+                            <TextBlock Text="Main Genre:" FontSize="15" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBlock Text="AAA" FontSize="15" Margin="62,0,0,0"
+                                   Style="{StaticResource TextBlockStyle}"/>
+                        </WrapPanel>
+                        <WrapPanel Margin="0,10,0,10">
+                            <TextBlock Text="SubGenre 1:" FontSize="15" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBlock Text="AAA" FontSize="15" Margin="62,0,0,0"
+                                   Style="{StaticResource TextBlockStyle}"/>
+                        </WrapPanel>
+                        <WrapPanel Margin="0,10,0,10">
+                            <TextBlock Text="SubGenre 2:" FontSize="15" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBlock Text="AAA" FontSize="15" Margin="62,0,0,0"
+                                   Style="{StaticResource TextBlockStyle}"/>
+                        </WrapPanel>
+                    </StackPanel>
+                </GroupBox>
+                <DataGrid ItemsSource="{Binding FeedbackedScreenplays}" Margin="10" Style="{StaticResource DataGridStyle}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="300"
+                                            HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                        <DataGridTextColumn Header="Predicted Genre" Binding="{Binding Path=ModelGenre}" Width="100"
+                                            HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                        <DataGridTextColumn Header="Assigned Genre" Binding="{Binding Path=UserGenre}" Width="100"
+                                            HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </WrapPanel>
         </StackPanel>
         <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="10">
             <Button Command="{Binding GoToFirstCommand}" Height="60" Width="60" IsEnabled="{Binding CanGoToFirst}" Margin="0,0,10,0"
@@ -87,8 +166,7 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button Command="{Binding SubmitAllFeedbackCommand}" IsEnabled="{Binding CanSubmitAll}" Margin="10,0,10,0"
-                    Style="{StaticResource ButtonStyle}">
+            <Button Command="{Binding SubmitAllFeedbackCommand}" Margin="10,0,10,0" Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <StackPanel>
                         <Image Source="/Media/Images/Save.png" Height="60" Width="60"/>

@@ -75,7 +75,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     ProgressViewModel.HideView();
                     FeedbackViewModel.ShowView();
 
-                    BrowseViewModel.CanChoose = true;
+                    //BrowseViewModel.CanChoose = true;
                 }
 
                 if (PropertyChanged != null)

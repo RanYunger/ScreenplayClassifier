@@ -58,7 +58,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return selectedScreenplay; }
             set
             {
-                FeedbackViewModel feedbackViewModel = null;
+                //FeedbackViewModel feedbackViewModel = null;
 
                 selectedScreenplay = value;
 
@@ -68,9 +68,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     CheckSelectionCommand.Execute(null);
 
                     // Updates the shown screenplay
-                    feedbackViewModel = ClassificationViewModel.FeedbackViewModel;
-                    if (feedbackViewModel.CheckedOffsets.Contains(selectedScreenplay))
-                        feedbackViewModel.CurrentOffset = feedbackViewModel.CheckedOffsets.IndexOf(selectedScreenplay);
+                    //feedbackViewModel = ClassificationViewModel.FeedbackViewModel;
+                    //if (feedbackViewModel.CheckedOffsets.Contains(selectedScreenplay))
+                    //    feedbackViewModel.CurrentOffset = feedbackViewModel.CheckedOffsets.IndexOf(selectedScreenplay);
                 }
 
                 if (PropertyChanged != null)
@@ -140,7 +140,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     BrowseModel browsedScreenplay = null;
 
                     // Validation
-                    if ((!CanBrowse) || (BrowsedScreenplays.Count == 0))
+                    if ((!CanBrowse) || (selectedScreenplay == -1) || (BrowsedScreenplays.Count == 0))
                         return;
 
                     browsedScreenplay = BrowsedScreenplays[selectedScreenplay];
@@ -252,6 +252,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             ClassificationViewModel = classificationViewModel;
             BrowseView = browseView;
+
+            BrowsedScreenplays = new ObservableCollection<BrowseModel>();
+            CheckedScreenplays = new ObservableCollection<BrowseModel>();
         }
 
         /// <summary>
@@ -259,12 +262,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void RefreshView()
         {
-            BrowsedScreenplays = new ObservableCollection<BrowseModel>();
+            //BrowsedScreenplays = new ObservableCollection<BrowseModel>();
             CheckedScreenplays = new ObservableCollection<BrowseModel>();
             SelectedScreenplay = -1;
             CanBrowse = true;
             CanClear = true;
-            CanChoose = false;
+            CanChoose = true;
             CanActivate = false;
 
             if (BrowseView != null)

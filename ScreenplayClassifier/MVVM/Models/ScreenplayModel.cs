@@ -13,7 +13,7 @@ namespace ScreenplayClassifier.MVVM.Models
         private string filePath, title;
         private string modelGenre, modelSubGenre1, modelSubGenre2;
         private string userGenre, userSubGenre1, userSubGenre2;
-        private bool isfeedbacked;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -127,14 +127,7 @@ namespace ScreenplayClassifier.MVVM.Models
 
         public bool Isfeedbacked
         {
-            get { return isfeedbacked; }
-            set
-            {
-                isfeedbacked = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Isfeedbacked"));
-            }
+            get { return (UserGenre != "Unknown") && (UserSubGenre1 != "Unknown") && (UserSubGenre2 != "Unknown"); }
         }
 
         // Constructors
@@ -154,8 +147,6 @@ namespace ScreenplayClassifier.MVVM.Models
             UserGenre = "Unknown";
             UserSubGenre1 = "Unknown";
             UserSubGenre2 = "Unknown";
-
-            Isfeedbacked = false;
         }
     }
 }

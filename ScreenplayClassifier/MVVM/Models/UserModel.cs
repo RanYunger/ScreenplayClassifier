@@ -88,7 +88,7 @@ namespace ScreenplayClassifier.MVVM.Models
                     if (confirmResult == MessageBoxResult.Yes)
                     {
                         Role = newRole;
-                        MessageBoxHandler.Show(string.Format("{0} has been {1}d to {2}", Username, roleAction, Role), "Success", 3,
+                        MessageBoxHandler.Show(string.Format("{0} has been {1}d to {2}", Username, roleAction, Role), string.Empty, 3,
                             MessageBoxImage.Information);
                     }
                 });

@@ -222,7 +222,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     // Validations
                     if (string.IsNullOrEmpty(NewPassword))
                     {
-                        MessageBoxHandler.Show("Enter new password", "Error", 3, MessageBoxImage.Error);
+                        MessageBoxHandler.Show("Enter new password", string.Empty, 3, MessageBoxImage.Error);
                         return;
                     }
 
@@ -235,14 +235,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     if (OldPassword.Equals(NewPassword))
                     {
-                        MessageBoxHandler.Show("This is your current password", "Error", 3, MessageBoxImage.Error);
+                        MessageBoxHandler.Show("This is your current password", string.Empty, 3, MessageBoxImage.Error);
                         return;
                     }
 
                     ConfirmedPassword = confirmPasswordBox.Password.Trim();
                     if (!ConfirmedPassword.Equals(NewPassword))
                     {
-                        MessageBoxHandler.Show("New password must be confirmed", "Error", 3, MessageBoxImage.Error);
+                        MessageBoxHandler.Show("New password must be confirmed", string.Empty, 3, MessageBoxImage.Error);
                         return;
                     }
 
@@ -252,7 +252,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     newPasswordTextBox.Clear();
                     confirmPasswordBox.Clear();
 
-                    MessageBoxHandler.Show("Password changed successfuly", "Success", 3, MessageBoxImage.Information);
+                    MessageBoxHandler.Show("Password changed successfuly", string.Empty, 3, MessageBoxImage.Information);
                 });
             }
         }
