@@ -179,13 +179,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void RefreshView()
         {
             DurationTimer.Stop();
+
             Duration = TimeSpan.Zero;
 
             ClassificationsRequired = 0;
             ClassificationsComplete = 0;
-
             Percent = 0;
-
             CurrentPhase = 0;
 
             PhaseText = string.Empty;
@@ -198,8 +197,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void HideView()
         {
-            RefreshView();
-
             App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Collapsed);
         }
 

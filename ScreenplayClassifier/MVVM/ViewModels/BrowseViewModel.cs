@@ -204,7 +204,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         BrowsedScreenplays.Add(new BrowseModel(screenplayPath));
                     }
 
-                    //SelectedScreenplay = BrowsedScreenplays.Count > 0 ? 0 : SelectedScreenplay;
                     CanChoose = BrowsedScreenplays.Count > 0;
                 });
             }
@@ -263,8 +262,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void RefreshView()
         {
-            //BrowsedScreenplays = new ObservableCollection<BrowseModel>();
-            //CheckedScreenplays.Clear();
+            CheckedScreenplays.Clear();
             SelectedScreenplay = -1;
             CanBrowse = true;
             CanClear = true;

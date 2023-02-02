@@ -59,8 +59,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         JSON.SaveUsers(settingsViewModel.AuthenticatedUsers);
                     }
 
-                    classificationViewModel.InterruptVideoCommand.Execute(null);
-
                     // Closes any delegate windows opened from the view
                     foreach (Window view in App.Current.Windows)
                         if ((view is GenreSelectionView) || (view is GenreView) || (view is ReportView) || (view is ScreenplayView))
@@ -121,9 +119,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             foreach (UserControl view in views)
                 view.Visibility = view == viewToShow ? Visibility.Visible : Visibility.Collapsed;
-
-            if (ClassificationView.Visibility == Visibility.Collapsed)
-                ((ClassificationViewModel)ClassificationView.DataContext).InterruptVideoCommand.Execute(null);
 
             if (ReportsView.Visibility == Visibility.Collapsed)
                 ((ReportsViewModel)ReportsView.DataContext).ClearFilterCommand.Execute(null);

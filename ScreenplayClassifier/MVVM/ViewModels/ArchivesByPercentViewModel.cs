@@ -173,7 +173,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 selectedScreenplay = value;
 
-                RefreshPieChart();
+                if (selectedScreenplay != null)
+                    RefreshPieChart();
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("SelectedScreenplay"));
@@ -345,7 +346,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     };
                     archivesCollectionView.Refresh();
 
-                    RefreshPieChart();
+                    if (SelectedScreenplay != null)
+                        RefreshPieChart();
                 });
             }
         }
@@ -420,23 +422,26 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         private void RefreshPieChart()
         {
-            float genrePercentage;
+            float decimalPercentage;
+            string textualPercentage;
 
             PercentageSeries = new SeriesCollection();
-            if (SelectedScreenplay == null)
-                return;
 
             // Creates a slice for each genre
             foreach (string genreName in JSON.LoadedGenres)
             {
-                genrePercentage = SelectedScreenplay.GenrePercentages[genreName];
-                if (genrePercentage > 0)
+                decimalPercentage = SelectedScreenplay.GenrePercentages[genreName];
+                if (decimalPercentage > 0)
+                {
+                    textualPercentage = decimalPercentage.ToString("0.00");
                     PercentageSeries.Add(new PieSeries()
                     {
                         Title = genreName,
-                        Values = new ChartValues<ObservableValue> { new ObservableValue(genrePercentage) },
-                        DataLabels = false
+                        Values = new ChartValues<ObservableValue> { new ObservableValue(double.Parse(textualPercentage)) },
+                        FontSize = 20,
+                        DataLabels = true
                     });
+                }
             }
         }
     }

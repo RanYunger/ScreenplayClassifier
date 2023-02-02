@@ -145,20 +145,20 @@
         <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Archives}" SelectedItem="{Binding SelectedScreenplay}"
                   Height="450" IsReadOnly="True" FontSize="15" Margin="10" Style="{StaticResource DataGridStyle}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="380"
+                <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="390"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                <DataGridTextColumn Header="Genre" Binding="{Binding Path=ActualGenre}" Width="110"
+                <DataGridTextColumn Header="Genre" Binding="{Binding Path=UserGenre}" Width="110"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=ActualSubGenre1}" Width="110"
+                <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=UserSubGenre1}" Width="110"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=ActualSubGenre2}" Width="110"
+                <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=UserSubGenre2}" Width="110"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
             </DataGrid.Columns>
         </DataGrid>
         <lvc:PieChart Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" LegendLocation="Bottom" Series="{Binding PercentageSeries}"
-                      Hoverable="True" Margin="20">
+                      FontSize="20" Hoverable="True" Margin="10">
             <lvc:PieChart.ChartLegend>
-                <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="10"/>
+                <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="20"/>
             </lvc:PieChart.ChartLegend>
         </lvc:PieChart>
     </Grid>

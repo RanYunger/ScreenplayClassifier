@@ -82,7 +82,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     browseViewModel = ClassificationViewModel.BrowseViewModel;
                     feedbackedScreenplay = FeedbackedScreenplays[currentOffset];
 
-                    browseViewModel.SelectedScreenplay = browseViewModel.BrowsedScreenplays.IndexOf(CheckedScreenplays[currentOffset]);
+                    if ((browseViewModel.BrowsedScreenplays.Count > 0) && (CheckedScreenplays.Count > 0))
+                        browseViewModel.SelectedScreenplay = browseViewModel.BrowsedScreenplays.IndexOf(CheckedScreenplays[currentOffset]);
 
                     ModelClassificationGenresViewModel.RefreshView(feedbackedScreenplay, "Model");
                     UserClassificationGenresViewModel.RefreshView(feedbackedScreenplay, "User");
@@ -294,7 +295,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     }
 
                     CanAnswerSurveys[CurrentOffset] = false;
-                    
+
                     CurrentOffset = CurrentOffset; // Triggers PropertyChanged event
                 });
             }
@@ -308,7 +309,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     List<ScreenplayModel> screenplays = new List<ScreenplayModel>(FeedbackedScreenplays);
                     Predicate<ScreenplayModel>[] queries = { s => s.IsClassifiedCorrectly, s => s.ModelGenre == s.UserGenre,
-                s => s.ModelSubGenre1 == s.UserSubGenre1, s => s.ModelSubGenre2 == s.UserSubGenre2 };
+                        s => s.ModelSubGenre1 == s.UserSubGenre1, s => s.ModelSubGenre2 == s.UserSubGenre2 };
                     int correctClassifications;
                     string formattedText;
                     double percentage;
@@ -326,6 +327,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                             case 2: SubGenre1ClassificationsText = formattedText; break;
                             case 3: SubGenre2ClassificationsText = formattedText; break;
                         }
+
+                        //DominantGenreImage = new BitmapImage(new Uri(string.Format(@"{0}{1}.png", FolderPaths.GENREIMAGES, dominantGenre)));
+                        //DominantSubGenre1Image = new BitmapImage(new Uri(string.Format(@"{0}{1}.png", FolderPaths.GENREIMAGES, dominantSubGenre1)));
+                        //DominantSubGenre1Image = new BitmapImage(new Uri(string.Format(@"{0}{1}.png", FolderPaths.GENREIMAGES, dominantSubGenre2)));
                     }
                 });
             }
@@ -397,10 +402,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     reclassifyDecision = MessageBox.Show("Would you like to re-classify this batch?", "Classification Complete",
                         MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (reclassifyDecision == MessageBoxResult.No)
+                    if (reclassifyDecision == MessageBoxResult.Yes)
+                        ClassificationViewModel.ClassificationComplete = false;
+                    else
+                    {
                         UpdateOtherModules();
+                        ClassificationViewModel.ClassificationComplete = true;
+                    }
 
-                    ClassificationViewModel.ClassificationComplete = false;
+                    CanSubmit = false;
                 });
             }
         }
@@ -464,13 +474,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             FeedbackedScreenplays = new ObservableCollection<ScreenplayModel>();
             CheckedScreenplays = new List<BrowseModel>();
             CanAnswerSurveys = new List<bool>();
+
             CurrentOffset = -1;
+
             CanAnswerSurvey = false;
             CanGoToFirst = false;
             CanGoToPrevious = false;
             CanSubmit = false;
             CanGoToNext = true;
             CanGoToLast = true;
+
             ClassificationsText = string.Empty;
             GenreClassificationsText = string.Empty;
             SubGenre1ClassificationsText = string.Empty;
@@ -532,8 +545,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
 
             archivesViewModel.Screenplays = archivesViewModel.Screenplays; // Triggers PropertyChanged event
-
-            CanSubmit = false;
         }
     }
 }

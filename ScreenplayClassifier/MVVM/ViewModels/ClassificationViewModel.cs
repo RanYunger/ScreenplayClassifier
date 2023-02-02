@@ -18,7 +18,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ClassificationViewModel : INotifyPropertyChanged
     {
         // Fields
-        private Timer videoTimer;
         private ObservableCollection<ClassificationModel> classifiedScreenplays;
         private bool browseComplete, progressComplete, classificationComplete;
 
@@ -91,23 +90,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (classificationComplete)
                 {
-                    BrowseViewModel.HideView();
-                    ProgressViewModel.HideView();
+                    BrowseViewModel.RefreshView();
+                    ProgressViewModel.RefreshView();
                     FeedbackViewModel.HideView();
 
-                    PlayVideoCommand.Execute(null);
+                    BrowseComplete = false;
+                    ProgressComplete = false;
                 }
-                else
+                else if (FeedbackViewModel != null)
                 {
-                    if (FeedbackViewModel != null)
-                    {
-                        BrowseComplete = false;
-                        ProgressComplete = false;
+                    FeedbackViewModel.RefreshView();
+                    FeedbackViewModel.HideView();
 
-                        FeedbackViewModel.HideView();
-                        ProgressViewModel.RefreshView();
-                        BrowseViewModel.RefreshView();
-                    }
+                    BrowseComplete = true;
                 }
 
                 if (PropertyChanged != null)
@@ -118,9 +113,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Constructors
         public ClassificationViewModel()
         {
-            videoTimer = new Timer(21500);
-            videoTimer.Elapsed += VideoTimer_Elapsed;
-
             ClassifiedScreenplays = new ObservableCollection<ClassificationModel>();
             BrowseComplete = false;
             ProgressComplete = false;
@@ -129,41 +121,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command PlayVideoCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    MediaElement mediaElement = (MediaElement)ClassificationView.FindName("MediaElement");
-
-                    mediaElement.Play();
-
-                    videoTimer.Start();
-                });
-            }
-        }
-
-        public Command InterruptVideoCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    MediaElement mediaElement = (MediaElement)ClassificationView.FindName("MediaElement");
-
-                    mediaElement.Stop();
-                    videoTimer.Stop();
-                    ClassificationComplete = false;
-                });
-            }
-        }
-
-        private void VideoTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            App.Current.Dispatcher.Invoke(() => ClassificationComplete = false);
-            App.Current.Dispatcher.Invoke(() => MainViewModel.UserToolbarViewModel.HomeCommand.Execute(null));
-        }
         #endregion
 
         /// <summary>
@@ -176,7 +133,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             BrowseView browseView = null;
             ProgressView progressView = null;
             FeedbackView feedbackView = null;
-            MediaElement mediaElement = null;
 
             MainViewModel = mainViewModel;
             ClassificationView = classificationView;
@@ -192,9 +148,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             feedbackView = (FeedbackView)ClassificationView.FindName("FeedbackView");
             FeedbackViewModel = (FeedbackViewModel)feedbackView.DataContext;
             FeedbackViewModel.Init(this, feedbackView);
-
-            mediaElement = (MediaElement)ClassificationView.FindName("MediaElement");
-            mediaElement.Source = new Uri(FolderPaths.VIDEOS + "It's Over. Go Home.mp4");
         }
     }
 }
