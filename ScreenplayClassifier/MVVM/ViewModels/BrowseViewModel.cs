@@ -127,7 +127,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Constructors
-        public BrowseViewModel() { RefreshView(); }
+        public BrowseViewModel() { }
 
         // Methods
         #region Commands
@@ -174,7 +174,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                             if (browsedScreenplaysDataGrid.SelectedItems.Contains(browsedScreenplaysDataGrid.Items[i]))
                                 BrowsedScreenplays.RemoveAt(i);
 
-                    //SelectedScreenplay = BrowsedScreenplays.Count > 0 ? 0 : SelectedScreenplay;
                     CanChoose = BrowsedScreenplays.Count > 0;
                 });
             }
@@ -255,6 +254,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             BrowsedScreenplays = new ObservableCollection<BrowseModel>();
             CheckedScreenplays = new ObservableCollection<BrowseModel>();
+
+            RefreshView();
         }
 
         /// <summary>
@@ -263,12 +264,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void RefreshView()
         {
             //BrowsedScreenplays = new ObservableCollection<BrowseModel>();
-            CheckedScreenplays = new ObservableCollection<BrowseModel>();
+            //CheckedScreenplays.Clear();
             SelectedScreenplay = -1;
             CanBrowse = true;
             CanClear = true;
-            CanChoose = true;
-            CanActivate = false;
+            CanChoose = BrowsedScreenplays.Count > 0;
+            CanActivate = CheckedScreenplays.Count > 0;
 
             if (BrowseView != null)
                 App.Current.Dispatcher.Invoke(() => BrowseView.Visibility = Visibility.Visible);

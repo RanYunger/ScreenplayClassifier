@@ -137,22 +137,26 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         private void RefreshPieChart()
         {
-            float genrePercentage;
+            float decimalPercentage;
+            string textualPercentage;
 
             PercentageSeries = new SeriesCollection();
 
             // Creates slice for each genre
             foreach (string genreName in JSON.LoadedGenres)
             {
-                genrePercentage = ClassificationReport.Screenplay.GenrePercentages[genreName];
-                if (genrePercentage > 0)
+                decimalPercentage = ClassificationReport.Screenplay.GenrePercentages[genreName];
+                if (decimalPercentage > 0)
+                {
+                    textualPercentage = decimalPercentage.ToString("0.00");
                     PercentageSeries.Add(new PieSeries()
                     {
                         Title = genreName,
-                        Values = new ChartValues<ObservableValue> { new ObservableValue(genrePercentage) },
+                        Values = new ChartValues<ObservableValue> { new ObservableValue(double.Parse(textualPercentage)) },
                         FontSize = 20,
                         DataLabels = true
                     });
+                }
             }
         }
     }

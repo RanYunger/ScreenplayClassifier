@@ -70,6 +70,7 @@
         <Setter Property="CanUserResizeColumns" Value="False"/>
         <Setter Property="CanUserReorderColumns" Value="False"/>
         <Setter Property="CanUserSortColumns" Value="True"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
         <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
         <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>

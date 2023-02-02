@@ -130,6 +130,11 @@ namespace ScreenplayClassifier.MVVM.Models
             get { return (UserGenre != "Unknown") && (UserSubGenre1 != "Unknown") && (UserSubGenre2 != "Unknown"); }
         }
 
+        public bool IsClassifiedCorrectly
+        {
+            get { return (ModelGenre == UserGenre) && (ModelSubGenre1 == UserSubGenre1) && (ModelSubGenre2 == UserSubGenre2); }
+        }
+
         // Constructors
         public ScreenplayModel(string filePath, Dictionary<string, float> genrePercentages)
         {

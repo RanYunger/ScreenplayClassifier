@@ -149,8 +149,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             DurationTimer = new System.Timers.Timer();
             DurationTimer.Interval = 1000;
             DurationTimer.Elapsed += DurationTimer_Elapsed;
-
-            RefreshView();
         }
 
         // Methods
@@ -171,18 +169,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             ClassificationViewModel = classificationViewModel;
             ProgressView = progressView;
+
+            RefreshView();
         }
 
         /// <summary>
-        /// Shows the view.
-        /// </summary>
-        public void ShowView()
-        {
-            App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Visible);
-        }
-
-        /// <summary>
-        /// Refreshes the view.
+        /// Refreshes and shows the view.
         /// </summary>
         public void RefreshView()
         {
@@ -197,6 +189,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             CurrentPhase = 0;
 
             PhaseText = string.Empty;
+
+            App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Visible);
         }
 
         /// <summary>
