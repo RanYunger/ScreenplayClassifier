@@ -34,11 +34,11 @@
                         <TextBlock Text="Filter" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
                     </WrapPanel>
                 </GroupBox.Header>
-                <WrapPanel HorizontalAlignment="Center">
-                    <StackPanel>
-                        <WrapPanel Margin="5">
-                            <TextBlock Text="Title contains:" Style="{StaticResource TextBlockStyle}"/>
-                            <TextBox x:Name="TitleTextBox" Width="100" Margin="20,0,0,0" Style="{StaticResource BaseTextBoxStyle}">
+                <WrapPanel HorizontalAlignment="Left">
+                    <StackPanel VerticalAlignment="Center">
+                        <WrapPanel>
+                            <TextBlock Text="Title:" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBox x:Name="TitleTextBox" Width="340" Margin="25,10,0,10" Style="{StaticResource BaseTextBoxStyle}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="GotFocus">
                                         <i:InvokeCommandAction Command="{Binding EnterTitleTextboxCommand}"/>
@@ -52,42 +52,36 @@
                                 </i:Interaction.Triggers>
                             </TextBox>
                         </WrapPanel>
-                        <WrapPanel Margin="5">
-                            <TextBlock Text="Genre is:" Style="{StaticResource TextBlockStyle}"/>
-                            <ComboBox Width="100" Margin="55,0,0,0" ItemsSource="{Binding GenreOptions}" SelectedValue="{Binding FilteredGenre}"
-                                      Style="{StaticResource ComboBoxStyle}"/>
-                        </WrapPanel>
-                        <WrapPanel Margin="5">
-                            <TextBlock Text="SubGenre 1 is:" Style="{StaticResource TextBlockStyle}"/>
-                            <ComboBox Width="100" Margin="18,0,0,0" ItemsSource="{Binding SubGenre1Options}"
-                                      SelectedValue="{Binding FilteredSubGenre1}" Style="{StaticResource ComboBoxStyle}"/>
-                        </WrapPanel>
-                        <WrapPanel Margin="5">
-                            <TextBlock Text="SubGenre 2 is:" Style="{StaticResource TextBlockStyle}"/>
-                            <ComboBox Width="100" Margin="18,0,0,0" ItemsSource="{Binding SubGenre2Options}"
-                                      SelectedValue="{Binding FilteredSubGenre2}" Style="{StaticResource ComboBoxStyle}"/>
+                        <WrapPanel>
+                            <TextBlock Text="Genres:" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+                            <ComboBox Width="100" ItemsSource="{Binding GenreOptions}" SelectedValue="{Binding FilteredGenre}"
+                                      Margin="10" Style="{StaticResource ComboBoxStyle}"/>
+                            <ComboBox Width="100" ItemsSource="{Binding SubGenre1Options}" SelectedValue="{Binding FilteredSubGenre1}"
+                                      Margin="10" Style="{StaticResource ComboBoxStyle}"/>
+                            <ComboBox Width="100" ItemsSource="{Binding SubGenre2Options}" SelectedValue="{Binding FilteredSubGenre2}"
+                                      Margin="10" Style="{StaticResource ComboBoxStyle}"/>
                         </WrapPanel>
                     </StackPanel>
-                    <Button Command="{Binding FilterReportsCommand}" Height="120" Width="120" IsEnabled="{Binding CanClear}" Margin="10,0,0,0"
+                    <Button Command="{Binding FilterReportsCommand}" Height="60" Width="60" IsEnabled="{Binding CanClear}"
                             Style="{StaticResource ButtonStyle}">
                         <Button.Content>
                             <StackPanel>
-                                <Image Source="/Media/Images/Filter.png" Height="90" Width="90"/>
+                                <Image Source="/Media/Images/Filter.png" Height="40" Width="40"/>
                                 <TextBlock Text="Filter" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Command="{Binding ClearFilterCommand}" Height="120" Width="120" Margin="10" Style="{StaticResource ButtonStyle}">
+                    <Button Command="{Binding ClearFilterCommand}" Height="60" Width="60" Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
                         <Button.Content>
                             <StackPanel>
-                                <Image Source="/Media/Images/Clear.png" Height="90" Width="90"/>
-                                <TextBlock Text="Clear All" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                                <Image Source="/Media/Images/Clear.png" Height="40" Width="40"/>
+                                <TextBlock Text="Clear" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                             </StackPanel>
                         </Button.Content>
                     </Button>
                 </WrapPanel>
             </GroupBox>
-            <DataGrid ItemsSource="{Binding Reports}" Height="430" IsReadOnly="True" SelectionMode="Single" Margin="10,0,10,0"
+            <DataGrid ItemsSource="{Binding Reports}" Height="480" IsReadOnly="True" SelectionMode="Single" Margin="10,0,10,0"
                       Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Title" Binding="{Binding Path=Screenplay.Title}" Width="100"

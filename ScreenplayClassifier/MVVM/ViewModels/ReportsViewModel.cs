@@ -267,7 +267,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     titleTextBox = (TextBox)ReportsView.FindName("TitleTextBox");
                     titlePattern = titleTextBox.Text;
 
-                    if (string.Equals(titlePattern, "Pattern"))
+                    if (string.Equals(titlePattern, "Title Pattern"))
                     {
                         titleTextBox.Foreground = Brushes.Black;
                         titleTextBox.Text = string.Empty;
@@ -296,7 +296,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if (string.IsNullOrEmpty(titlePattern))
                     {
                         titleTextBox.Foreground = Brushes.Gray;
-                        titleTextBox.Text = "Pattern";
+                        titleTextBox.Text = "Title Pattern";
                     }
                 });
             }
@@ -323,7 +323,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     // Updates all filters
                     titleFilter = (o) =>
                     {
-                        return string.IsNullOrEmpty(titlePattern.Trim()) || string.Equals(titlePattern, "Pattern")
+                        return string.IsNullOrEmpty(titlePattern.Trim()) || string.Equals(titlePattern, "Title Pattern")
                             ? true : ((ClassificationModel)o).Screenplay.Title.Contains(titlePattern);
                     };
                     genreFilter = (o) =>
@@ -375,7 +375,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     // Clears filtered values
                     titleTextBox = (TextBox)ReportsView.FindName("TitleTextBox");
                     titleTextBox.Foreground = Brushes.Gray;
-                    titleTextBox.Text = "Pattern";
+                    titleTextBox.Text = "Title Pattern";
 
                     FilteredGenre = null;
                     FilteredSubGenre1 = null;

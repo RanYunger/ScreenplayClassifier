@@ -390,7 +390,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     PrepareReviewCommand.Execute(null);
 
+                    CanGoToFirst = false;
+                    CanGoToPrevious = false;
                     CanSubmit = true;
+                    CanGoToNext = false;
+                    CanGoToLast = false;
 
                     // Closes an existing ScreenplayView (if there's one)
                     foreach (Window view in App.Current.Windows)
@@ -544,7 +548,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 archivesViewModel.Screenplays.Add(report.Screenplay);
             }
 
-            archivesViewModel.Screenplays = archivesViewModel.Screenplays; // Triggers PropertyChanged event
+            // Triggers PropertyChanged events
+            reportsViewModel.Reports = reportsViewModel.Reports;
+            archivesViewModel.Screenplays = archivesViewModel.Screenplays;
         }
     }
 }
