@@ -173,8 +173,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 selectedScreenplay = value;
 
-                if (selectedScreenplay != null)
-                    RefreshPieChart();
+                RefreshPieChart();
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("SelectedScreenplay"));
@@ -346,8 +345,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     };
                     archivesCollectionView.Refresh();
 
-                    if (SelectedScreenplay != null)
-                        RefreshPieChart();
+                    SelectedScreenplay = archivesCollectionView.IsEmpty ? null : SelectedScreenplay;
                 });
             }
         }
@@ -426,6 +424,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             string textualPercentage;
 
             PercentageSeries = new SeriesCollection();
+
+            // Validation
+            if (SelectedScreenplay == null)
+                return;
 
             // Creates a slice for each genre
             foreach (string genreName in JSON.LoadedGenres)
