@@ -26,7 +26,7 @@
                 </Image.Style>
             </Image>
             <StackPanel>
-                <TextBox Text="{Binding User.Username}" Width="140" Margin="0,10,0,0" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                <TextBlock Text="{Binding User.Username}" Width="140" Margin="0,10,0,0" Style="{StaticResource TextBlockStyle}"/>
                 <WrapPanel>
                     <Button Height="40" Width="40" Command="{Binding HomeCommand}" ToolTip="Home" Focusable="False"
                             Margin="0,15,5,0" Style="{StaticResource ButtonStyle}">

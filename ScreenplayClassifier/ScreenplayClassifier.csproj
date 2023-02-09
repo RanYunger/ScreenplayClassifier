@@ -88,8 +88,7 @@
     <None Remove="Media\Images\User.png" />
     <None Remove="Media\Images\Username.png" />
     <None Remove="Media\Images\Visible.png" />
-    <None Remove="Media\Videos\Credits.mp4" />
-    <None Remove="Media\Videos\It%27s Over. Go Home.mp4" />
+    <None Remove="Media\Videos\About.mp4" />
     <None Remove="Media\Videos\You Shall Not Pass.mp4" />
   </ItemGroup>
 
@@ -325,10 +324,7 @@
     <Content Include="Media\Images\Visible.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Videos\Credits.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Videos\It's Over. Go Home.mp4">
+    <Content Include="Media\Videos\About.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Videos\You Shall Not Pass.mp4">
