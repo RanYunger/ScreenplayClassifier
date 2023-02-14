@@ -7,42 +7,36 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Welcome to Screenplay Classifier" HorizontalAlignment="Center" FontSize="70"
-                       Style="{StaticResource TextBlockStyle}"/>
         <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Cursor="Hand" Margin="50">
-                <Image x:Name="ArchivesImage" Source="/Media/Images/Archives.png" Height="350" Width="350">
+                <Image x:Name="ArchivesImage" Source="/Media/Images/Archives.png" Height="300" Width="300">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding ShowArchivesViewCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Image>
-                <TextBlock Text="Archives" HorizontalAlignment="Center" FontSize="60" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock Text="Archives" HorizontalAlignment="Center" FontSize="50" Margin="10" Style="{StaticResource TextBlockStyle}"/>
             </StackPanel>
             <StackPanel Cursor="Hand" Margin="50">
-                <Image x:Name="ClassificationImage" Source="/Media/Images/Classification.png" Height="350" Width="350">
+                <Image x:Name="ClassificationImage" Source="/Media/Images/Classification.png" Height="300" Width="300">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding ShowClassificationViewCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Image>
-                <TextBlock Text="Classification" HorizontalAlignment="Center" FontSize="60" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock Text="Classification" HorizontalAlignment="Center" FontSize="50" Margin="10" Style="{StaticResource TextBlockStyle}"/>
             </StackPanel>
             <StackPanel Cursor="Hand" Margin="50">
-                <Image x:Name="ReportsImage" Source="/Media/Images/Reports.png" Height="350" Width="350" Cursor="Hand">
+                <Image x:Name="ReportsImage" Source="/Media/Images/Reports.png" Height="300" Width="300" Cursor="Hand">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding ShowReportsViewCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Image>
-                <TextBlock Text="Reports" HorizontalAlignment="Center" FontSize="60" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock Text="Reports" HorizontalAlignment="Center" FontSize="50" Margin="10" Style="{StaticResource TextBlockStyle}"/>
             </StackPanel>
         </WrapPanel>
     </Grid>

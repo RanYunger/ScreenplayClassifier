@@ -74,22 +74,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public Command DropIconCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    ThicknessAnimation dropAnimation = new ThicknessAnimation(iconStartMargin, iconEndMargin, animationDuration);
-                    Image iconImage = (Image)UserToolbarView.FindName("IconImage");
-
-                    mediaPlayer.Play();
-
-                    iconImage.BeginAnimation(Border.MarginProperty, dropAnimation);
-                });
-            }
-        }
-
         public Command AboutCommand
         {
             get { return new Command(() => MainViewModel.ShowView(MainViewModel.AboutView)); }

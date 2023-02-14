@@ -64,9 +64,9 @@
     <None Remove="Media\Images\Genres\Thriller.png" />
     <None Remove="Media\Images\Genres\Unknown.png" />
     <None Remove="Media\Images\Genres\War.png" />
-    <None Remove="Media\Images\Hole.png" />
     <None Remove="Media\Images\Home.png" />
     <None Remove="Media\Images\Icon.ico" />
+    <None Remove="Media\Images\Icon.png" />
     <None Remove="Media\Images\Info.png" />
     <None Remove="Media\Images\Invisible.png" />
     <None Remove="Media\Images\Last.png" />
@@ -82,7 +82,6 @@
     <None Remove="Media\Images\Report.png" />
     <None Remove="Media\Images\Reports.png" />
     <None Remove="Media\Images\Save.png" />
-    <None Remove="Media\Images\Screenplay.png" />
     <None Remove="Media\Images\Search.png" />
     <None Remove="Media\Images\Signout.png" />
     <None Remove="Media\Images\User.png" />
@@ -213,6 +212,9 @@
     <Content Include="Media\Images\First.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\Gear.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\Genres\Action.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -252,10 +254,13 @@
     <Content Include="Media\Images\Genres\War.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\Hole.png">
+    <Content Include="Media\Images\Home.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\Home.png">
+    <Content Include="Media\Images\Icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Info.png">
@@ -274,9 +279,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Password.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\Icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Percent.png">
@@ -300,13 +302,7 @@
     <Content Include="Media\Images\Reports.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\Screenplay.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\Images\Search.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\Gear.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Signout.png">

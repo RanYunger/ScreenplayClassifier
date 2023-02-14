@@ -71,16 +71,7 @@
         </WrapPanel>
         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Screenplay" FontSize="40" Style="{StaticResource TextBlockStyle}"/>
-            <Grid>
-                <Image Source="/Media/Images/Hole.png" Height="90" Width="90" Margin="10,0,10,0"/>
-                <Image x:Name="IconImage" Source="/Media/Images/Screenplay.png" Height="90" Width="90" Cursor="Hand" Margin="10,0,10,0">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseUp">
-                            <i:InvokeCommandAction Command="{Binding DropIconCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </Image>
-            </Grid>
+            <Image x:Name="IconImage" Source="/Media/Images/Icon.png" Height="90" Width="90" Margin="10,0,10,0"/>
             <TextBlock Text="Classifier" FontSize="40" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
         <Button Height="80" Width="80" Command="{Binding AboutCommand}" HorizontalAlignment="Right"

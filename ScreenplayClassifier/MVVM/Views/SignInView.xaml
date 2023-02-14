@@ -25,7 +25,7 @@
                     </Style>
                 </MediaElement.Style>
             </MediaElement>
-            <Image Source="/Media/Images/Screenplay.png" Height="250" Width="250">
+            <Image Source="/Media/Images/Icon.png" Height="250" Width="250">
                 <Image.Style>
                     <Style TargetType="Image">
                         <Style.Triggers>
