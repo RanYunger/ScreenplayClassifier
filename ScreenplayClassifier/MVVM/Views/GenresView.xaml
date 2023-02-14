@@ -8,37 +8,28 @@
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <StackPanel>
-            <Ellipse Height="250" Width="250" Cursor="Hand" Margin="0,10,0,20">
+            <Image Source="{Binding GenreImage}" Height="250" Width="250" Cursor="Hand" Margin="0,10,0,20">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
                         <i:InvokeCommandAction Command="{Binding SelectGenreCommand}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <Ellipse.Fill>
-                    <ImageBrush ImageSource="{Binding GenreImage}"/>
-                </Ellipse.Fill>
-            </Ellipse>
+            </Image>
             <WrapPanel HorizontalAlignment="Center">
-                <Ellipse Height="150" Width="150" Cursor="Hand" Margin="0,0,15,0">
+                <Image Source="{Binding SubGenre1Image}" Height="150" Width="150" Cursor="Hand" Margin="0,0,15,0">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding SelectSubGenre1Command}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="{Binding SubGenre1Image}"/>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <Ellipse Height="150" Width="150" Cursor="Hand" Margin="15,0,0,0">
+                </Image>
+                <Image Source="{Binding SubGenre2Image}" Height="150" Width="150" Cursor="Hand" Margin="15,0,0,0">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding SelectSubGenre2Command}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="{Binding SubGenre2Image}"/>
-                    </Ellipse.Fill>
-                </Ellipse>
+                </Image>
             </WrapPanel>
         </StackPanel>
     </Grid>

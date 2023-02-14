@@ -104,7 +104,7 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <WrapPanel>
                 <StackPanel>
                     <TextBlock Text="Genre Counts" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>

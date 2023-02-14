@@ -149,10 +149,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         browsedScreenplay.IsChecked = false;
                         CheckedScreenplays.Remove(browsedScreenplay);
                     }
-                    else if (CheckedScreenplays.Count < 5)
+                    else
                     {
-                        browsedScreenplay.IsChecked = true;
-                        CheckedScreenplays.Add(browsedScreenplay);
+                        if (CheckedScreenplays.Count < 5)
+                        {
+                            browsedScreenplay.IsChecked = true;
+                            CheckedScreenplays.Add(browsedScreenplay);
+                        }
+                        else
+                            MessageBoxHandler.Show("You can choose up to 5 screenplays", string.Empty, 5, MessageBoxImage.Error);
                     }
 
                     CanActivate = CheckedScreenplays.Count > 0;
