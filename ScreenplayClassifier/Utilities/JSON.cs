@@ -17,7 +17,7 @@ namespace ScreenplayClassifier.Utilities
         // Fields
         public static List<UserModel> LoadedUsers;
         public static List<string> LoadedGenres;
-        public static List<ClassificationModel> LoadedReports;
+        public static List<ReportModel> LoadedReports;
 
         // Methods
         /// <summary>
@@ -47,7 +47,7 @@ namespace ScreenplayClassifier.Utilities
         {
             string reportsJson = File.ReadAllText(FolderPaths.JSONS + "Reports.json");
 
-            LoadedReports = JsonConvert.DeserializeObject<List<ClassificationModel>>(reportsJson);
+            LoadedReports = JsonConvert.DeserializeObject<List<ReportModel>>(reportsJson);
         }
 
         /// <summary>
@@ -65,10 +65,10 @@ namespace ScreenplayClassifier.Utilities
         /// Saves classification reports to json file.
         /// </summary>
         /// <param name="reports"></param>
-        public static void SaveReports(ObservableCollection<ClassificationModel> reports)
+        public static void SaveReports(ObservableCollection<ReportModel> reports)
         {
             // Prevents duplications
-            foreach (ClassificationModel addedReport in reports)
+            foreach (ReportModel addedReport in reports)
                 if (!LoadedReports.Contains(addedReport))
                     LoadedReports.Add(addedReport);
 

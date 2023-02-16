@@ -244,7 +244,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             string scriptPath = FolderPaths.CLASSIFIER + "Loader.py", scriptArgs = string.Join(" ", screenplayFilePaths);
             string outputLine = string.Empty, screenplaysJson = string.Empty;
             UserModel owner = ClassificationViewModel.MainViewModel.UserToolbarViewModel.User;
-            List<ClassificationModel> classifications = new List<ClassificationModel>();
+            List<ReportModel> classifications = new List<ReportModel>();
             List<ScreenplayModel> deserializedScreenplays;
             ProcessStartInfo processStartInfo = new ProcessStartInfo()
             {
@@ -288,10 +288,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             // Generates classification report for each screenplay
             deserializedScreenplays = JsonConvert.DeserializeObject<List<ScreenplayModel>>(screenplaysJson);
             foreach (ScreenplayModel screenplay in deserializedScreenplays)
-                classifications.Add(new ClassificationModel(owner, screenplay));
+                classifications.Add(new ReportModel(owner, screenplay));
 
             // Stores the classification results
-            ClassificationViewModel.ClassifiedScreenplays = new ObservableCollection<ClassificationModel>(classifications);
+            ClassificationViewModel.ClassifiedScreenplays = new ObservableCollection<ReportModel>(classifications);
             App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
         }
     }

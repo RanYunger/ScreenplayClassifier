@@ -1,16 +1,14 @@
-﻿<Window x:Class="ScreenplayClassifier.MVVM.Views.ReportView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
-        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        Title="Screenplay Classifier" Height="720" Width="1100" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        Style="{StaticResource WindowStyle}">
+﻿<UserControl x:Class="ScreenplayClassifier.MVVM.Views.ReportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -18,32 +16,30 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="Classification Report" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" FontSize="60" Margin="10"
-                   Style="{StaticResource TextBlockStyle}"/>
-        <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10">
-            <TextBlock Text="Title:" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="{Binding ClassificationReport.Screenplay.Title}" FontSize="30" Margin="20,0,0,0"
+
+        <WrapPanel Grid.Row="0" Grid.ColumnSpan="3">
+            <TextBlock Text="Title:" FontSize="30" Margin="10,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding Path=ClassificationReport.Screenplay.Title}" FontSize="30" Margin="80,0,0,0"
                        Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
-        <Button Grid.Row="1" Grid.Column="3" Command="{Binding ReadScreenplayCommand}" Style="{StaticResource ButtonStyle}">
-            <Button.Content>
-                <StackPanel>
-                    <Image Source="/Media/Images/Read.png" Height="70" Width="70"/>
-                    <TextBlock Text="Read" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                </StackPanel>
-            </Button.Content>
-        </Button>
-        <StackPanel Grid.Row="2" Grid.Column="0">
-            <TextBlock Text="Model Classification" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-            <v:GenresView x:Name="PredictedGenresView" IsEnabled="False"/>
-        </StackPanel>
+        <WrapPanel Grid.Row="1" Grid.ColumnSpan="3">
+            <TextBlock Text="Owner:" FontSize="30" Margin="10,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding Path=ClassificationReport.Owner.Username}" FontSize="30" Margin="50,0,0,0"
+                       Style="{StaticResource TextBlockStyle}"/>
+        </WrapPanel>
+
+        <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding ScreenplayText}" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"
+                 Margin="10" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
         <StackPanel Grid.Row="2" Grid.Column="1">
-            <TextBlock Text="Owner Classification" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-            <v:GenresView x:Name="ActualGenresView" IsEnabled="False"/>
+            <TextBlock Text="Model Classification" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <v:GenresView x:Name="ModelGenresView" IsEnabled="True"/>
+            <TextBlock Text="Owner Classification" FontSize="30" HorizontalAlignment="Center" Margin="0,30,0,0"
+                       Style="{StaticResource TextBlockStyle}"/>
+            <v:GenresView x:Name="UserGenresView" IsEnabled="False"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="3">
+        <StackPanel Grid.Row="2" Grid.Column="2">
             <TextBlock Text="Genre Percentages" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-            <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="350" Width="350" FontSize="20" Hoverable="True"
+            <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="400" Width="400" FontSize="20" Hoverable="True"
                           Margin="10">
                 <lvc:PieChart.ChartLegend>
                     <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="20"/>
@@ -51,4 +47,4 @@
             </lvc:PieChart>
         </StackPanel>
     </Grid>
-</Window>
+</UserControl>

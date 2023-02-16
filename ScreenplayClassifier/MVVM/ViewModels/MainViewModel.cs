@@ -61,7 +61,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     // Closes any delegate windows opened from the view
                     foreach (Window view in App.Current.Windows)
-                        if ((view is GenreSelectionView) || (view is GenreView) || (view is ReportView) || (view is ScreenplayView))
+                        if (view is GenreView)
                             view.Close();
                 });
             }
@@ -119,9 +119,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             foreach (UserControl view in views)
                 view.Visibility = view == viewToShow ? Visibility.Visible : Visibility.Collapsed;
-
-            if (ReportsView.Visibility == Visibility.Collapsed)
-                ((ReportsViewModel)ReportsView.DataContext).ClearFilterCommand.Execute(null);
 
             ((AboutViewModel)AboutView.DataContext).IsPlaying = viewToShow == AboutView;
         }

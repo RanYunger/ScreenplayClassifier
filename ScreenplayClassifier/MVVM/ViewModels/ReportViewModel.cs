@@ -16,7 +16,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ReportViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ClassificationModel classificationReport;
+        private ReportModel classificationReport;
         private SeriesCollection percentageSeries;
         private string screenplayText;
 
@@ -24,10 +24,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Properties
         public ReportView ReportView { get; set; }
-        public GenresViewModel PredictedGenresViewModel { get; private set; }
-        public GenresViewModel ActualGenresViewModel { get; private set; }
+        public GenresViewModel ModelGenresViewModel { get; private set; }
+        public GenresViewModel UserGenresViewModel { get; private set; }
 
-        public ClassificationModel ClassificationReport
+        public ReportModel ClassificationReport
         {
             get { return classificationReport; }
             set
@@ -59,7 +59,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 screenplayText = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ScreebplayText"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("screenplayText"));
             }
         }
 
@@ -68,41 +68,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command ReadScreenplayCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    ScreenplayView screenplayView = null;
-                    ScreenplayViewModel screenplayViewModel = null;
-
-                    // Finds an existing ScreenplayView (if there's one)
-                    foreach (Window view in App.Current.Windows)
-                        if (view is ScreenplayView)
-                        {
-                            screenplayViewModel = (ScreenplayViewModel)view.DataContext;
-
-                            if (string.Equals(screenplayViewModel.FilePath, ClassificationReport.Screenplay.FilePath))
-                            {
-                                view.Focus();
-                                return;
-                            }
-                            else
-                            {
-                                view.Close();
-                                break;
-                            }
-                        }
-
-                    // Shows the screenplay in a new ScreenplayView
-                    screenplayView = new ScreenplayView();
-                    ((ScreenplayViewModel)screenplayView.DataContext).Init(ClassificationReport.Screenplay.FilePath);
-
-                    screenplayView.Show();
-                });
-            }
-        }
         #endregion
 
         /// <summary>
@@ -110,24 +75,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         /// <param name="classificationReport">The report to represent in the ReportView</param>
         /// <param name="reportView">The view to obtain controls from</param>
-        public void Init(ClassificationModel classificationReport, ReportView reportView)
+        public void Init(ReportModel classificationReport, ReportView reportView)
         {
-            GenresView predictedGenresView, actualGenresView;
+            GenresView modelGenresView, userGenresView;
 
             ClassificationReport = classificationReport;
             ScreenplayText = File.ReadAllText(classificationReport.Screenplay.FilePath);
 
             ReportView = reportView;
 
-            predictedGenresView = (GenresView)ReportView.FindName("PredictedGenresView");
-            PredictedGenresViewModel = (GenresViewModel)predictedGenresView.DataContext;
-            PredictedGenresViewModel.Init(predictedGenresView);
-            PredictedGenresViewModel.RefreshView(ClassificationReport.Screenplay, "Predicted");
+            modelGenresView = (GenresView)ReportView.FindName("ModelGenresView");
+            ModelGenresViewModel = (GenresViewModel)modelGenresView.DataContext;
+            ModelGenresViewModel.Init(modelGenresView, ClassificationReport.Screenplay, "Model");
 
-            actualGenresView = (GenresView)ReportView.FindName("ActualGenresView");
-            ActualGenresViewModel = (GenresViewModel)actualGenresView.DataContext;
-            ActualGenresViewModel.Init(actualGenresView);
-            ActualGenresViewModel.RefreshView(ClassificationReport.Screenplay, "Actual");
+            userGenresView = (GenresView)ReportView.FindName("UserGenresView");
+            UserGenresViewModel = (GenresViewModel)userGenresView.DataContext;
+            UserGenresViewModel.Init(userGenresView, ClassificationReport.Screenplay, "User");
 
             RefreshPieChart();
         }

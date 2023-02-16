@@ -11,10 +11,9 @@ using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class HomeViewModel : INotifyPropertyChanged
+    public class HomeViewModel
     {
         // Fields
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public MainViewModel MainViewModel { get; private set; }

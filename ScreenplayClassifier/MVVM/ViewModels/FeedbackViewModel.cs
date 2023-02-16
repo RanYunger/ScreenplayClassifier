@@ -85,8 +85,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if ((browseViewModel.BrowsedScreenplays.Count > 0) && (CheckedScreenplays.Count > 0))
                         browseViewModel.SelectedScreenplay = browseViewModel.BrowsedScreenplays.IndexOf(CheckedScreenplays[currentOffset]);
 
-                    ModelClassificationGenresViewModel.RefreshView(feedbackedScreenplay, "Model");
-                    UserClassificationGenresViewModel.RefreshView(feedbackedScreenplay, "User");
+                    //ModelClassificationGenresViewModel.RefreshView(feedbackedScreenplay, "Model");
+                    //UserClassificationGenresViewModel.RefreshView(feedbackedScreenplay, "User");
 
                     if (CanAnswerSurvey = CanAnswerSurveys[currentOffset])
                         PrepareSurveyCommand.Execute(null);
@@ -252,7 +252,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get
             {
                 RadioButton yesCorrectRadioButton = null, noCorrectRadioButton = null, yesReadRadioButton = null, noReadRadioButton = null;
-                ScreenplayView screenplayView = null;
                 ScreenplayModel feedbackedScreenplay = null;
 
                 return new Command(() =>
@@ -288,10 +287,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     if (yesReadRadioButton.IsChecked.Value)
                     {
-                        screenplayView = new ScreenplayView();
-                        ((ScreenplayViewModel)screenplayView.DataContext).Init(feedbackedScreenplay.FilePath);
-
-                        screenplayView.Show();
                     }
 
                     CanAnswerSurveys[CurrentOffset] = false;
@@ -380,7 +375,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     MessageBoxResult reclassifyDecision;
 
                     // Validation
-                    foreach (ClassificationModel classification in ClassificationViewModel.ClassifiedScreenplays)
+                    foreach (ReportModel classification in ClassificationViewModel.ClassifiedScreenplays)
                         if (!classification.Screenplay.Isfeedbacked)
                         {
                             MessageBoxHandler.Show("Complete feedback for " + classification.Screenplay.Title, string.Empty, 3,
@@ -395,14 +390,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     CanSubmit = true;
                     CanGoToNext = false;
                     CanGoToLast = false;
-
-                    // Closes an existing ScreenplayView (if there's one)
-                    foreach (Window view in App.Current.Windows)
-                        if (view is ScreenplayView)
-                        {
-                            view.Close();
-                            break;
-                        }
 
                     reclassifyDecision = MessageBox.Show("Would you like to re-classify this batch?", "Classification Complete",
                         MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -469,11 +456,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             modelClassificationGenresView = (GenresView)FeedbackView.FindName("ModelClassificationGenresView");
             ModelClassificationGenresViewModel = (GenresViewModel)modelClassificationGenresView.DataContext;
-            ModelClassificationGenresViewModel.Init(modelClassificationGenresView);
+            //ModelClassificationGenresViewModel.Init(modelClassificationGenresView, sc "Model");
 
             userClassificationGenresView = (GenresView)FeedbackView.FindName("UserClassificationGenresView");
             UserClassificationGenresViewModel = (GenresViewModel)userClassificationGenresView.DataContext;
-            UserClassificationGenresViewModel.Init(userClassificationGenresView);
+            //UserClassificationGenresViewModel.Init(userClassificationGenresView, "User");
 
             FeedbackedScreenplays = new ObservableCollection<ScreenplayModel>();
             CheckedScreenplays = new List<BrowseModel>();
@@ -511,7 +498,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             // Obtains the collection of feedbacked screenplays
             FeedbackedScreenplays.Clear();
             CanAnswerSurveys.Clear();
-            foreach (ClassificationModel classificationReport in ClassificationViewModel.ClassifiedScreenplays)
+            foreach (ReportModel classificationReport in ClassificationViewModel.ClassifiedScreenplays)
             {
                 FeedbackedScreenplays.Add(classificationReport.Screenplay);
                 CanAnswerSurveys.Add(true);
@@ -542,7 +529,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             foreach (BrowseModel checkedScreenplay in CheckedScreenplays)
                 browseViewModel.BrowsedScreenplays.Remove(checkedScreenplay);
 
-            foreach (ClassificationModel report in ClassificationViewModel.ClassifiedScreenplays)
+            foreach (ReportModel report in ClassificationViewModel.ClassifiedScreenplays)
             {
                 reportsViewModel.Reports.Add(report);
                 archivesViewModel.Screenplays.Add(report.Screenplay);

@@ -18,7 +18,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ClassificationViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ObservableCollection<ClassificationModel> classifiedScreenplays;
+        private ObservableCollection<ReportModel> classifiedScreenplays;
         private bool browseComplete, progressComplete, classificationComplete;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -31,7 +31,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ProgressViewModel ProgressViewModel { get; private set; }
         public FeedbackViewModel FeedbackViewModel { get; private set; }
 
-        public ObservableCollection<ClassificationModel> ClassifiedScreenplays
+        public ObservableCollection<ReportModel> ClassifiedScreenplays
         {
             get { return classifiedScreenplays; }
             set
@@ -113,7 +113,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Constructors
         public ClassificationViewModel()
         {
-            ClassifiedScreenplays = new ObservableCollection<ClassificationModel>();
+            ClassifiedScreenplays = new ObservableCollection<ReportModel>();
             BrowseComplete = false;
             ProgressComplete = false;
             ClassificationComplete = false;

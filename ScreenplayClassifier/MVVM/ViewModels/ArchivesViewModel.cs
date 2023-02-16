@@ -96,12 +96,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             UserModel user = MainViewModel.UserToolbarViewModel.User;
             ReportsViewModel reportsViewModel = (ReportsViewModel)MainViewModel.ReportsView.DataContext;
-            ObservableCollection<ClassificationModel> reports = reportsViewModel.Reports;
+            ObservableCollection<ReportModel> reports = reportsViewModel.Reports;
 
             Screenplays = new List<ScreenplayModel>();
             if (user.Role != UserModel.UserRole.GUEST)
             {
-                foreach (ClassificationModel report in reports)
+                foreach (ReportModel report in reports)
                     Screenplays.Add(report.Screenplay);
 
                 Screenplays = Screenplays; // Triggers PropertyChanged event
