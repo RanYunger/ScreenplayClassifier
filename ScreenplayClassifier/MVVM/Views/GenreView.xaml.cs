@@ -16,7 +16,7 @@ namespace ScreenplayClassifier.MVVM.Views
     /// <summary>
     /// Interaction logic for GenreView.xaml
     /// </summary>
-    public partial class GenreView : Window
+    public partial class GenreView : UserControl
     {
         public GenreView()
         {

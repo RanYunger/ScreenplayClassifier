@@ -17,19 +17,19 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <v:ReelView x:Name="ActionReelView" Grid.Row="0" Grid.Column="0"/>
-        <v:ReelView x:Name="AdventureReelView" Grid.Row="0" Grid.Column="1"/>
-        <v:ReelView x:Name="ComedyReelView" Grid.Row="0" Grid.Column="2"/>
-        <v:ReelView x:Name="CrimeReelView" Grid.Row="0" Grid.Column="3"/>
+        <v:ClapperView x:Name="ActionClapperView" Grid.Row="0" Grid.Column="0"/>
+        <v:ClapperView x:Name="AdventureClapperView" Grid.Row="0" Grid.Column="1"/>
+        <v:ClapperView x:Name="ComedyClapperView" Grid.Row="0" Grid.Column="2"/>
+        <v:ClapperView x:Name="CrimeClapperView" Grid.Row="0" Grid.Column="3"/>
 
-        <v:ReelView x:Name="DramaReelView" Grid.Row="1" Grid.Column="0"/>
-        <v:ReelView x:Name="FamilyReelView" Grid.Row="1" Grid.Column="1"/>
-        <v:ReelView x:Name="FantasyReelView" Grid.Row="1" Grid.Column="2"/>
-        <v:ReelView x:Name="HorrorReelView" Grid.Row="1" Grid.Column="3"/>
+        <v:ClapperView x:Name="DramaClapperView" Grid.Row="1" Grid.Column="0"/>
+        <v:ClapperView x:Name="FamilyClapperView" Grid.Row="1" Grid.Column="1"/>
+        <v:ClapperView x:Name="FantasyClapperView" Grid.Row="1" Grid.Column="2"/>
+        <v:ClapperView x:Name="HorrorClapperView" Grid.Row="1" Grid.Column="3"/>
 
-        <v:ReelView x:Name="RomanceReelView" Grid.Row="2" Grid.Column="0"/>
-        <v:ReelView x:Name="SciFiReelView" Grid.Row="2" Grid.Column="1"/>
-        <v:ReelView x:Name="ThrillerReelView" Grid.Row="2" Grid.Column="2"/>
-        <v:ReelView x:Name="WarReelView" Grid.Row="2" Grid.Column="3"/>
+        <v:ClapperView x:Name="RomanceClapperView" Grid.Row="2" Grid.Column="0"/>
+        <v:ClapperView x:Name="SciFiClapperView" Grid.Row="2" Grid.Column="1"/>
+        <v:ClapperView x:Name="ThrillerClapperView" Grid.Row="2" Grid.Column="2"/>
+        <v:ClapperView x:Name="WarClapperView" Grid.Row="2" Grid.Column="3"/>
     </Grid>
 </UserControl>

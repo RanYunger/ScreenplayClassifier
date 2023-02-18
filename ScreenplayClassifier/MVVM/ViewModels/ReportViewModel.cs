@@ -16,7 +16,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ReportViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ReportModel classificationReport;
+        private ReportModel report;
         private SeriesCollection percentageSeries;
         private string screenplayText;
 
@@ -27,15 +27,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public GenresViewModel ModelGenresViewModel { get; private set; }
         public GenresViewModel UserGenresViewModel { get; private set; }
 
-        public ReportModel ClassificationReport
+        public ReportModel Report
         {
-            get { return classificationReport; }
+            get { return report; }
             set
             {
-                classificationReport = value;
+                report = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassificationReport"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("Report"));
             }
         }
 
@@ -79,18 +79,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             GenresView modelGenresView, userGenresView;
 
-            ClassificationReport = classificationReport;
+            Report = classificationReport;
             ScreenplayText = File.ReadAllText(classificationReport.Screenplay.FilePath);
 
             ReportView = reportView;
 
             modelGenresView = (GenresView)ReportView.FindName("ModelGenresView");
             ModelGenresViewModel = (GenresViewModel)modelGenresView.DataContext;
-            ModelGenresViewModel.Init(modelGenresView, ClassificationReport.Screenplay, "Model");
+            ModelGenresViewModel.Init(modelGenresView, Report.Screenplay, "Model");
 
             userGenresView = (GenresView)ReportView.FindName("UserGenresView");
             UserGenresViewModel = (GenresViewModel)userGenresView.DataContext;
-            UserGenresViewModel.Init(userGenresView, ClassificationReport.Screenplay, "User");
+            UserGenresViewModel.Init(userGenresView, Report.Screenplay, "User");
 
             RefreshPieChart();
         }
@@ -108,7 +108,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             // Creates slice for each genre
             foreach (string genreName in JSON.LoadedGenres)
             {
-                decimalPercentage = ClassificationReport.Screenplay.GenrePercentages[genreName];
+                decimalPercentage = Report.Screenplay.GenrePercentages[genreName];
                 if (decimalPercentage > 0)
                 {
                     textualPercentage = decimalPercentage.ToString("0.00");

@@ -17,12 +17,12 @@ namespace ScreenplayClassifier.MVVM.Views
     /// <summary>
     /// Interaction logic for FolderView.xaml
     /// </summary>
-    public partial class ReelView : UserControl
+    public partial class ClapperView : UserControl
     {
-        public ReelView()
+        public ClapperView()
         {
             InitializeComponent();
-            DataContext = new ReelViewModel();
+            DataContext = new ClapperViewModel();
         }
     }
 }
