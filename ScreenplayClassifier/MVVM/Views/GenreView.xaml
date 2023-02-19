@@ -6,12 +6,6 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
-        Style="{StaticResource UserControlStyle}">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Closing">
-            <i:InvokeCommandAction Command="{Binding StopMusicCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -21,12 +15,12 @@
         <StackPanel Grid.Column="0">
             <Canvas Height="400" Width="400" HorizontalAlignment="Center">
                 <Image gif:ImageBehavior.AnimatedSource="{Binding GenreGif}" gif:ImageBehavior.RepeatBehavior="Forever"
-                       Height="400" Width="400">
+                       Height="300" Width="300">
                     <Image.Clip>
                         <EllipseGeometry Center="200,200" RadiusX="200" RadiusY="200"/>
                     </Image.Clip>
                 </Image>
-                <Ellipse Height="400" Width="400">
+                <Ellipse Height="300" Width="300">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="{Binding GenreImage}"/>
                     </Ellipse.Fill>
@@ -59,12 +53,13 @@
         </StackPanel>
         <StackPanel Grid.Column="1">
             <TextBlock Text="{Binding ScreenplaysCountText}" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <DataGrid ItemsSource="{Binding ScreenplaysInGenre}" Height="455" IsReadOnly="True" Margin="10,0,10,0" Style="{StaticResource DataGridStyle}">
+            <DataGrid ItemsSource="{Binding ScreenplaysInGenre}" Height="455" IsReadOnly="True" Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="260" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=UserSubGenre1}" Width="150"
+                    <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="260"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=UserSubGenre2}" Width="150"
+                    <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=OwnerSubGenre1}" Width="150"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                    <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=OwnerSubGenre2}" Width="150"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>

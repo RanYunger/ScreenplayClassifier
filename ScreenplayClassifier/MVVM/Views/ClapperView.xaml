@@ -35,7 +35,8 @@
                     </Style>
                 </Image.Style>
             </Image>
-            <!--<TextBlock x:Name="GenreText" Text="{Binding Genre}" HorizontalAlignment="Center" FontSize="30" Style="{StaticResource TextBlockStyle}"/>-->
+            <TextBlock x:Name="GenreText" Text="{Binding Genre}" HorizontalAlignment="Center" FontSize="30"
+                       Style="{StaticResource TextBlockStyle}"/>
         </StackPanel>
     </Grid>
 </UserControl>

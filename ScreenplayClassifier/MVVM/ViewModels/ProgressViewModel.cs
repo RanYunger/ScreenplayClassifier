@@ -152,8 +152,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 phaseText = value;
 
-                //if (phaseText != string.Empty)
-                //    PhaseGif = new BitmapImage(new Uri(string.Format("{0}{1}.gif", FolderPaths.GIFS, phaseText)));
+                if ((phaseText != string.Empty) && (phaseText != "Classifying"))
+                    App.Current.Dispatcher.Invoke(() => PhaseGif = new BitmapImage(new Uri(string.Format("{0}{1}.gif", FolderPaths.GIFS, phaseText))));
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("PhaseText"));
@@ -180,12 +180,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Initiates the view model.
         /// </summary>
-        /// <param name="classificationViewModel">The view model who manages the classification module</param>
         /// <param name="progressView">The view to obtain controls from</param>
-        public void Init(ClassificationViewModel classificationViewModel, ProgressView progressView)
+        /// <param name="classificationViewModel">The view model who manages the classification module</param>
+        public void Init(ProgressView progressView, ClassificationViewModel classificationViewModel)
         {
-            ClassificationViewModel = classificationViewModel;
             ProgressView = progressView;
+            ClassificationViewModel = classificationViewModel;
         }
 
         /// <summary>
@@ -309,7 +309,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             Thread.Sleep(500);
             CurrentPhase = 2;
             PhaseText = "Done!";
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
 
             // Generates classification report for each screenplay
             deserializedScreenplays = JsonConvert.DeserializeObject<List<ScreenplayModel>>(screenplaysJson);

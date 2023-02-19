@@ -23,7 +23,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private int selectedReport;
         private bool canGoToFirst, canGoToPrevious, canGoToNext, canGoToLast;
 
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -117,7 +116,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 ReportView reportView = (ReportView)ReportsView.FindName("ReportView");
 
-                return new Command(() => { ((ReportViewModel)reportView.DataContext).Init(Reports[SelectedReport], reportView); });
+                return new Command(() =>
+                {
+                    if (Reports.Count > 0)
+                        ((ReportViewModel)reportView.DataContext).Init(reportView, Reports[SelectedReport], false);
+                });
             }
         }
 
@@ -195,9 +198,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Initiates the view model.
         /// </summary>
-        /// <param name="user">The user who authenticated to the system</param>
+        /// <param name="reportsView">The view to obtain controls from</param>
         /// <param name="mainViewModel">The MainView's view model</param>
-        public void Init(ReportsView reportsView, UserModel user, MainViewModel mainViewModel)
+        /// <param name="user">The user who authenticated to the system</param>
+        public void Init(ReportsView reportsView, MainViewModel mainViewModel, UserModel user)
         {
             MainViewModel = mainViewModel;
             ReportsView = reportsView;
@@ -223,7 +227,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 Reports = new ObservableCollection<ReportModel>();
             else
             {
-                JSON.LoadReports();
                 Reports = new ObservableCollection<ReportModel>(JSON.LoadedReports);
 
                 // Members can only view the reports they own

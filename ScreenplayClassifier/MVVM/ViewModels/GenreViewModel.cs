@@ -1,4 +1,5 @@
 ﻿using ScreenplayClassifier.MVVM.Models;
+using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private ObservableCollection<ScreenplayModel> screenplaysInGenre;
         private string genre, screenplaysCountText;
         private bool audioOn;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
+        public GenreView GenreView { get; private set; }
+
         public ImageSource AudioImage
         {
             get { return audioImage; }
@@ -121,6 +125,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
+
         public Command ToggleAudioCommand
         {
             get
@@ -159,10 +164,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Initiates the view model.
         /// </summary>
+        /// <param name="genreView">The view to obtain controls from</param>
         /// <param name="genreName">The genre to be represented by the GenreView</param>
-        /// <param name="mainViewModel">The MainView's view model</param>
-        public void Init(string genreName, ObservableCollection<ScreenplayModel> screenplayClassifiers)
+        /// <param name="screenplayClassifiers">The MainView's view model</param>
+        public void Init(GenreView genreView, string genreName, ObservableCollection<ScreenplayModel> screenplayClassifiers)
         {
+            GenreView = genreView;
+
             Genre = genreName;
             GenreImage = new BitmapImage(new Uri(string.Format(@"{0}{1}.png", FolderPaths.GENREIMAGES, Genre)));
             GenreGif = new BitmapImage(new Uri(string.Format(@"{0}{1}.gif", FolderPaths.GENREGIFS, Genre)));
@@ -170,6 +178,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ScreenplaysInGenre = screenplayClassifiers;
             ScreenplaysCountText = string.Format("{0} Screenplay{1}",
                 ScreenplaysInGenre.Count, ScreenplaysInGenre.Count != 1 ? "s" : string.Empty);
+
 
             audioTimer.Start();
         }

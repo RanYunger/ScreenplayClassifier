@@ -132,11 +132,11 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="400"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                <DataGridTextColumn Header="Genre" Binding="{Binding Path=UserGenre}" Width="110"
+                <DataGridTextColumn Header="Genre" Binding="{Binding Path=OwnerGenre}" Width="110"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=UserSubGenre1}" Width="110"
+                <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=OwnerSubGenre1}" Width="110"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=UserSubGenre2}" Width="110"
+                <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=OwnerSubGenre2}" Width="110"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
             </DataGrid.Columns>
         </DataGrid>

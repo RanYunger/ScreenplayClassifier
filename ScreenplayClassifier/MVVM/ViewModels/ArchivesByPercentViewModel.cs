@@ -29,6 +29,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private ObservableCollection<ScreenplayModel> archives;
         private ObservableCollection<string> genreOptions, subGenre1Options, subGenre2Options;
         private SeriesCollection percentageSeries;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties

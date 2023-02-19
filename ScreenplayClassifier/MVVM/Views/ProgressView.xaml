@@ -21,8 +21,8 @@
                                Foreground="LimeGreen" InnerBackgroundBrush="{StaticResource MainColumnHeaderBackground}" Margin="0,-35,0,0"/>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="{Binding PhaseText}" HorizontalAlignment="Center" FontSize="50" Style="{StaticResource TextBlockStyle}"/>
-            <!--<Image gif:ImageBehavior.AnimatedSource="{Binding PhaseGif}" gif:ImageBehavior.RepeatBehavior="Forever"
-                       Height="200" Width="200">
+            <Image gif:ImageBehavior.AnimatedSource="{Binding PhaseGif}" gif:ImageBehavior.RepeatBehavior="Forever"
+                       Height="150" Width="150">
                 <Image.Style>
                     <Style TargetType="Image">
                         <Style.Triggers>
@@ -38,7 +38,7 @@
                         </Style.Triggers>
                     </Style>
                 </Image.Style>
-            </Image>-->
+            </Image>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel.Style>
                     <Style TargetType="StackPanel">

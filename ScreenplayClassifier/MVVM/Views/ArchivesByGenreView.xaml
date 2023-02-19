@@ -17,6 +17,9 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+
+        <v:GenreView x:Name="GenreView" Grid.RowSpan="4" Grid.ColumnSpan="4" Visibility="Collapsed"/>
+
         <v:ClapperView x:Name="ActionClapperView" Grid.Row="0" Grid.Column="0"/>
         <v:ClapperView x:Name="AdventureClapperView" Grid.Row="0" Grid.Column="1"/>
         <v:ClapperView x:Name="ComedyClapperView" Grid.Row="0" Grid.Column="2"/>

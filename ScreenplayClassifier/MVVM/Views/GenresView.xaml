@@ -47,10 +47,10 @@
                     <Setter Property="VerticalAlignment" Value="Center"/>
                     <Setter Property="FontWeight" Value="Bold"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding CanChoose}" Value="True">
+                        <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
                             <Setter Property="Text" Value="Your Classification"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding CanChoose}" Value="False">
+                        <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
                             <Setter Property="Text" Value="Owner Classification"/>
                         </DataTrigger>
                     </Style.Triggers>
@@ -66,10 +66,10 @@
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="FontWeight" Value="Bold"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding CanChoose}" Value="True">
+                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
                                 <Setter Property="Visibility" Value="Collapsed"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding CanChoose}" Value="False">
+                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -85,10 +85,10 @@
                         <Setter Property="Width" Value="100"/>
                         <Setter Property="Cursor" Value="Hand"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding CanChoose}" Value="True">
+                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding CanChoose}" Value="False">
+                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
                                 <Setter Property="Visibility" Value="Collapsed"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -105,10 +105,10 @@
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="FontWeight" Value="Bold"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding CanChoose}" Value="True">
+                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
                                 <Setter Property="Visibility" Value="Collapsed"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding CanChoose}" Value="False">
+                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -124,10 +124,10 @@
                         <Setter Property="Width" Value="100"/>
                         <Setter Property="Cursor" Value="Hand"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding CanChoose}" Value="True">
+                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding CanChoose}" Value="False">
+                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
                                 <Setter Property="Visibility" Value="Collapsed"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -144,10 +144,10 @@
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="FontWeight" Value="Bold"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding CanChoose}" Value="True">
+                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
                                 <Setter Property="Visibility" Value="Collapsed"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding CanChoose}" Value="False">
+                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -163,10 +163,10 @@
                         <Setter Property="Width" Value="100"/>
                         <Setter Property="Cursor" Value="Hand"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding CanChoose}" Value="True">
+                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding CanChoose}" Value="False">
+                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
                                 <Setter Property="Visibility" Value="Collapsed"/>
                             </DataTrigger>
                         </Style.Triggers>

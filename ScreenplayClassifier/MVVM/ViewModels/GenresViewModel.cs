@@ -20,7 +20,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private ImageSource modelGenreImage, modelSubGenre1Image, modelSubGenre2Image;
         private ImageSource ownerGenreImage, ownerSubGenre1Image, ownerSubGenre2Image;
         private string selectedOwnerGenre, selectedOwnerSubGenre1, selectedOwnerSubGenre2;
-        private bool canChoose;
+        private bool canGiveFeedback;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -250,15 +250,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public bool CanChoose
+        public bool CanGiveFeedback
         {
-            get { return canChoose; }
+            get { return canGiveFeedback; }
             set
             {
-                canChoose = value;
+                canGiveFeedback = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanChoose"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanGiveFeedback"));
             }
         }
 
@@ -274,25 +274,26 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         /// <param name="genresView">The view to obtain controls from</param>
         /// <param name="screenplay">The screenplay to show the genres of</param>
-        /// <param name="canChoose">The indication whether the user can choose genres</param>
-        public void Init(GenresView genresView, ScreenplayModel screenplay, bool canChoose)
+        /// <param name="canGiveFeedback">The indication whether the user can give feedback</param>
+        public void Init(GenresView genresView, ScreenplayModel screenplay, bool canGiveFeedback)
         {
             GenresView = genresView;
+
             Screenplay = screenplay;
-            CanChoose = canChoose;
+            CanGiveFeedback = canGiveFeedback;
 
             ModelGenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.ModelGenre)));
             ModelSubGenre1Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.ModelSubGenre1)));
             ModelSubGenre2Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.ModelSubGenre2)));
 
-            OwnerGenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanChoose ? "Unknown"
+            OwnerGenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanGiveFeedback ? "Unknown"
                 : Screenplay.OwnerGenre)));
-            OwnerSubGenre1Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanChoose ? "Unknown"
+            OwnerSubGenre1Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanGiveFeedback ? "Unknown"
                 : Screenplay.OwnerSubGenre1)));
-            OwnerSubGenre2Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanChoose ? "Unknown"
+            OwnerSubGenre2Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanGiveFeedback ? "Unknown"
                 : Screenplay.OwnerSubGenre2)));
 
-            if (CanChoose)
+            if (CanGiveFeedback)
             {
                 SelectedOwnerGenre = screenplay.OwnerGenre;
                 SelectedOwnerSubGenre1 = screenplay.OwnerSubGenre1;

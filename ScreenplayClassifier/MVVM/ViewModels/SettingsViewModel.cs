@@ -392,8 +392,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             PasswordBox oldPasswordBox = null, newPasswordBox = null, confirmPasswordBox = null;
             TextBox usernameTextBox = null;
 
-            MainViewModel = mainViewModel;
             SettingsView = settingsView;
+            MainViewModel = mainViewModel;
 
             AuthenticatedUsers = authenticatedUsers;
             IsOldPasswordVisible = false;

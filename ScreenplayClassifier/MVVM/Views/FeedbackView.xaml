@@ -10,99 +10,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,50,0">
-            <StackPanel.Style>
-                <Style TargetType="StackPanel">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding CanSubmit}" Value="True">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding CanSubmit}" Value="False">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-            <TextBlock Text="Model Classification" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-            <v:GenresView x:Name="ModelClassificationGenresView" IsEnabled="False"/>
-        </StackPanel>
-        <StackPanel x:Name="SurveyStackPanel" Grid.Row="0" Grid.Column="1">
-            <StackPanel.Style>
-                <Style TargetType="StackPanel">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding CanAnswerSurvey}"  Value="True">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding CanAnswerSurvey}"  Value="False">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-            <TextBlock Text="Classification Survey" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,10" Style="{StaticResource TextBlockStyle}"/>
-            <WrapPanel Margin="0,10,0,10">
-                <TextBlock Text="Is the classification correct?" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                <RadioButton x:Name="YesCorrectRadioButton" Content="Yes" Margin="95,0,10,0" Style="{StaticResource RadioButtonStyle}"/>
-                <RadioButton x:Name="NoCorrectRadioButton" Content="No" Margin="10,0,10,0" Style="{StaticResource RadioButtonStyle}"/>
-            </WrapPanel>
-            <WrapPanel Margin="0,10,0,10">
-                <TextBlock Text="Do you want to read the screenplay?" TextWrapping="Wrap" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                <RadioButton x:Name="YesReadRadioButton" Content="Yes" Margin="10,0,10,0" Style="{StaticResource RadioButtonStyle}"/>
-                <RadioButton x:Name="NoReadRadioButton" Content="No" Margin="10,0,10,0" Style="{StaticResource RadioButtonStyle}"/>
-            </WrapPanel>
-            <Button Command="{Binding SubmitSurveyCommand}" Height="120" Width="120" Margin="0,200,0,0" Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <StackPanel>
-                        <Image Source="/Media/Images/Proceed.png" Height="90" Width="90"/>
-                        <TextBlock Text="Proceed" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-        </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="1" Margin="50,0,0,0">
-            <StackPanel.Style>
-                <Style TargetType="StackPanel">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=SurveyStackPanel, Path=Visibility}" Value="Visible">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding ElementName=SurveyStackPanel, Path=Visibility}" Value="Collapsed"/>
-                                <Condition Binding="{Binding CanSubmit}" Value="True"/>
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </MultiDataTrigger>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding ElementName=SurveyStackPanel, Path=Visibility}" Value="Collapsed"/>
-                                <Condition Binding="{Binding CanSubmit}" Value="False"/>
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </MultiDataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-            <TextBlock Text="Your Classification" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-            <v:GenresView x:Name="UserClassificationGenresView"/>
-        </StackPanel>
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
-            <StackPanel.Style>
-                <Style TargetType="StackPanel">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding CanSubmit}" Value="True">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding CanSubmit}" Value="False">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
+
+        <v:ReportView x:Name="ReportView" Grid.Row="0"/>
+        <StackPanel x:Name="ReviewStackPanel" Grid.Row="0" Visibility="Collapsed">
             <TextBlock Text="Batch Review" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <StackPanel Margin="10">
                 <GroupBox Width="300" HorizontalAlignment="Left" Margin="10" Style="{StaticResource GroupBoxStyle}">
@@ -135,9 +45,10 @@
                         </WrapPanel>
                     </StackPanel>
                 </GroupBox>
-                <DataGrid ItemsSource="{Binding FeedbackedScreenplays}" IsReadOnly="True" Margin="10" Style="{StaticResource DataGridStyle}">
+                <DataGrid ItemsSource="{Binding FeedbackedScreenplays}" IsReadOnly="True" Height="400" Margin="10"
+                          Style="{StaticResource DataGridStyle}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="390"
+                        <DataGridTextColumn Header="Title" Binding="{Binding Path=Screenplay.Title}" Width="880"
                                             HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                         <DataGridTemplateColumn Width="300" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
                             <DataGridTemplateColumn.HeaderTemplate>
@@ -158,11 +69,11 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <WrapPanel>
-                                        <TextBox Text="{Binding Path=ModelGenre}" Width="99" TextAlignment="Center"
+                                        <TextBox Text="{Binding Path=Screenplay.ModelGenre}" Width="99" TextAlignment="Center"
                                                  Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                        <TextBox Text="{Binding Path=ModelSubGenre1}" Width="99" TextAlignment="Center"
+                                        <TextBox Text="{Binding Path=Screenplay.ModelSubGenre1}" Width="99" TextAlignment="Center"
                                                  Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                        <TextBox Text="{Binding Path=ModelSubGenre2}" Width="99" TextAlignment="Center"
+                                        <TextBox Text="{Binding Path=Screenplay.ModelSubGenre2}" Width="99" TextAlignment="Center"
                                                  Style="{StaticResource ReadOnlyTextBoxStyle}"/>
                                     </WrapPanel>
                                 </DataTemplate>
@@ -187,11 +98,11 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <WrapPanel>
-                                        <TextBox Text="{Binding Path=UserGenre}" Width="99" TextAlignment="Center"
+                                        <TextBox Text="{Binding Path=Screenplay.OwnerGenre}" Width="99" TextAlignment="Center"
                                                  Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                        <TextBox Text="{Binding Path=UserSubGenre1}" Width="99" TextAlignment="Center"
+                                        <TextBox Text="{Binding Path=Screenplay.OwnerSubGenre1}" Width="99" TextAlignment="Center"
                                                  Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                        <TextBox Text="{Binding Path=UserSubGenre2}" Width="99" TextAlignment="Center"
+                                        <TextBox Text="{Binding Path=Screenplay.OwnerSubGenre2}" Width="99" TextAlignment="Center"
                                                  Style="{StaticResource ReadOnlyTextBoxStyle}"/>
                                     </WrapPanel>
                                 </DataTemplate>
@@ -201,76 +112,40 @@
                 </DataGrid>
             </StackPanel>
         </StackPanel>
-        <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="10">
-            <Button Command="{Binding GoToFirstCommand}" Height="60" Width="60" IsEnabled="{Binding CanGoToFirst}" Margin="0,0,10,0"
-                    Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <StackPanel>
-                        <Image Source="/Media/Images/First.png" Height="40" Width="40"/>
-                        <TextBlock Text="First" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-            <Button Command="{Binding GoToPreviousCommand}" Height="60" Width="60" IsEnabled="{Binding CanGoToPrevious}" Margin="10,0,10,0"
-                    Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <StackPanel>
-                        <Image Source="/Media/Images/Previous.png" Height="40" Width="40"/>
-                        <TextBlock Text="Previous" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-            <Button Command="{Binding SubmitFeedbackCommand}" Margin="10,0,10,0">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
-                        <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-                        <Setter Property="Width" Value="100"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding CanSubmit}" Value="True">
-                                <Setter Property="Content">
-                                    <Setter.Value>
-                                        <StackPanel>
-                                            <Image Source="/Media/Images/Save.png" Height="60" Width="60"/>
-                                            <TextBlock Text="Submit" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                                        </StackPanel>
-                                    </Setter.Value>
-                                </Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding CanSubmit}" Value="False">
-                                <Setter Property="Content">
-                                    <Setter.Value>
-                                        <StackPanel>
-                                            <Image Source="/Media/Images/Proceed.png" Height="60" Width="60"/>
-                                            <TextBlock Text="Proceed" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                                        </StackPanel>
-                                    </Setter.Value>
-                                </Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Command="{Binding GoToNextCommand}" Height="60" Width="60" IsEnabled="{Binding CanGoToNext}" Margin="10,0,10,0"
-                    Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <StackPanel>
-                        <Image Source="/Media/Images/Next.png" Height="40" Width="40"/>
-                        <TextBlock Text="Next" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-            <Button Command="{Binding GoToLastCommand}" Height="60" Width="60" IsEnabled="{Binding CanGoToLast}" Margin="10,0,0,0"
-                    Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <StackPanel>
-                        <Image Source="/Media/Images/Last.png" Height="40" Width="40"/>
-                        <TextBlock Text="Last" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-        </WrapPanel>
+        <Button Grid.Row="1" Margin="10">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Width" Value="100"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CanSubmit}" Value="True">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <StackPanel>
+                                        <Image Source="/Media/Images/Save.png" Height="60" Width="60"/>
+                                        <TextBlock Text="Submit" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                                    </StackPanel>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Command" Value="{Binding SubmitFeedbackCommand}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CanSubmit}" Value="False">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <StackPanel>
+                                        <Image Source="/Media/Images/Proceed.png" Height="60" Width="60"/>
+                                        <TextBlock Text="Proceed" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                                    </StackPanel>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Command" Value="{Binding ProceedCommand}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </UserControl>

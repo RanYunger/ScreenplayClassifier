@@ -16,6 +16,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Fields
         private ObservableCollection<string> genres;
         private List<ScreenplayModel> screenplays;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -65,8 +66,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <param name="mainViewModel">The MainView's view model</param>
         public void Init(ArchivesView archivesView, MainViewModel mainViewModel)
         {
-            MainViewModel = mainViewModel;
             ArchivesView = archivesView;
+            MainViewModel = mainViewModel;
 
             ArchivesByGenreView = (ArchivesByGenreView)ArchivesView.FindName("ArchivesByGenreView");
             ArchivesByPercentView = (ArchivesByPercentView)ArchivesView.FindName("ArchivesByPercentView");
@@ -74,19 +75,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ((ArchivesByGenreViewModel)ArchivesByGenreView.DataContext).Init(ArchivesByGenreView);
             ((ArchivesByPercentViewModel)ArchivesByPercentView.DataContext).Init(ArchivesByPercentView);
 
-            InitGenres();
+            Genres = new ObservableCollection<string>(JSON.LoadedGenres);
             InitScreenplays();
 
             ((ArchivesByGenreViewModel)ArchivesByGenreView.DataContext).RefreshArchives(Genres, Screenplays);
-        }
-
-        /// <summary>
-        /// Initiates the genres collection.
-        /// </summary>
-        private void InitGenres()
-        {
-            JSON.LoadGenres();
-            Genres = new ObservableCollection<string>(JSON.LoadedGenres);
         }
 
         /// <summary>

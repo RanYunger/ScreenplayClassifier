@@ -23,6 +23,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private string usernameError, passwordError;
         private int attemptsCount;
         private bool canSignin;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties

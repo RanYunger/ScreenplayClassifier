@@ -72,20 +72,21 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Initiates the view model.
         /// </summary>
-        /// <param name="classificationReport">The report to represent in the ReportView</param>
         /// <param name="reportView">The view to obtain controls from</param>
-        public void Init(ReportModel classificationReport, ReportView reportView)
+        /// <param name="report">The report to represent in the ReportView</param>
+        /// <param name="canGiveFeedback">The indication whether the user can give feedback</param>
+        public void Init(ReportView reportView, ReportModel report, bool canGiveFeedback)
         {
             GenresView genresView;
 
-            Report = classificationReport;
-            ScreenplayText = File.ReadAllText(classificationReport.Screenplay.FilePath);
-
             ReportView = reportView;
+
+            Report = report;
+            ScreenplayText = File.ReadAllText(report.Screenplay.FilePath);
 
             genresView = (GenresView)ReportView.FindName("GenresView");
             GenresViewModel = (GenresViewModel)genresView.DataContext;
-            GenresViewModel.Init(genresView, Report.Screenplay, false);
+            GenresViewModel.Init(genresView, Report.Screenplay, canGiveFeedback);
 
             RefreshPieChart();
         }

@@ -17,8 +17,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Fields
         private MediaPlayer mediaPlayer;
         private UserModel user;
-        private Thickness iconStartMargin, iconEndMargin;
-        private Duration animationDuration;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -40,10 +39,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Constructors
         public UserToolbarViewModel()
         {
-            animationDuration = new Duration(TimeSpan.FromSeconds(0.3));
-            iconStartMargin = new Thickness(10, 0, 10, 0);
-            iconEndMargin = new Thickness(10, 150, 10, 0);
-
             mediaPlayer = new MediaPlayer();
             mediaPlayer.Open(new Uri(string.Format("{0}Wilhelm Scream.mp3", FolderPaths.AUDIOS)));
         }
@@ -83,14 +78,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Initiates the view model.
         /// </summary>
-        /// <param name="user">The user who authenticated to the system</param>
         /// <param name="userToolbarView">The view to obtain controls from</param>
         /// <param name="mainViewModel">The MainView's view model</param>
-        public void Init(UserModel user, UserToolbarView userToolbarView, MainViewModel mainViewModel)
+        /// <param name="user">The user who authenticated to the system</param>
+        public void Init(UserToolbarView userToolbarView, MainViewModel mainViewModel, UserModel user)
         {
-            User = user;
             UserToolbarView = userToolbarView;
             MainViewModel = mainViewModel;
+            User = user;
         }
     }
 }

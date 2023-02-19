@@ -19,6 +19,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private ImageSource genreImage;
         private string genre;
         private ObservableCollection<ScreenplayModel> screenplaysInGenre;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -63,16 +64,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command ShowGenreViewCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-
-                });
-            }
-        }
         #endregion
 
         /// <summary>

@@ -99,7 +99,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 }
                 else if (FeedbackViewModel != null)
                 {
-                    FeedbackViewModel.RefreshView();
                     FeedbackViewModel.HideView();
 
                     BrowseComplete = true;
@@ -134,20 +133,20 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ProgressView progressView = null;
             FeedbackView feedbackView = null;
 
-            MainViewModel = mainViewModel;
             ClassificationView = classificationView;
+            MainViewModel = mainViewModel;
 
             browseView = (BrowseView)ClassificationView.FindName("BrowseView");
             BrowseViewModel = (BrowseViewModel)browseView.DataContext;
-            BrowseViewModel.Init(this, browseView);
+            BrowseViewModel.Init(browseView, this);
 
             progressView = (ProgressView)ClassificationView.FindName("ProgressView");
             ProgressViewModel = (ProgressViewModel)progressView.DataContext;
-            ProgressViewModel.Init(this, progressView);
+            ProgressViewModel.Init(progressView, this);
 
             feedbackView = (FeedbackView)ClassificationView.FindName("FeedbackView");
             FeedbackViewModel = (FeedbackViewModel)feedbackView.DataContext;
-            FeedbackViewModel.Init(this, feedbackView);
+            FeedbackViewModel.Init(feedbackView, this);
         }
     }
 }

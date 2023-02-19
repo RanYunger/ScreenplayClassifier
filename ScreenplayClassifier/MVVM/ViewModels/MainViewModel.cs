@@ -58,11 +58,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         JSON.SaveReports(reportsViewModel.Reports);
                         JSON.SaveUsers(settingsViewModel.AuthenticatedUsers);
                     }
-
-                    // Closes any delegate windows opened from the view
-                    foreach (Window view in App.Current.Windows)
-                        if (view is GenreView)
-                            view.Close();
                 });
             }
         }
@@ -84,9 +79,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     break;
                 }
 
+            JSON.LoadGenres();
+            JSON.LoadReports();
+
             userToolbarView = (UserToolbarView)MainView.FindName("UserToolbarView");
             UserToolbarViewModel = (UserToolbarViewModel)userToolbarView.DataContext;
-            UserToolbarViewModel.Init(user, userToolbarView, this);
+            UserToolbarViewModel.Init(userToolbarView, this, user);
 
             HomeView = (HomeView)MainView.FindName("HomeView");
             SettingsView = (SettingsView)MainView.FindName("SettingsView");
@@ -98,7 +96,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ((HomeViewModel)HomeView.DataContext).Init(HomeView, this);
             ((SettingsViewModel)SettingsView.DataContext).Init(SettingsView, this, authenticatedUsers);
             ((AboutViewModel)AboutView.DataContext).Init(AboutView, this);
-            ((ReportsViewModel)ReportsView.DataContext).Init(ReportsView, UserToolbarViewModel.User, this);
+            ((ReportsViewModel)ReportsView.DataContext).Init(ReportsView, this, UserToolbarViewModel.User);
             ((ArchivesViewModel)ArchivesView.DataContext).Init(ArchivesView, this);
             ((ClassificationViewModel)ClassificationView.DataContext).Init(ClassificationView, this);
         }
@@ -121,6 +119,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 view.Visibility = view == viewToShow ? Visibility.Visible : Visibility.Collapsed;
 
             ((AboutViewModel)AboutView.DataContext).IsPlaying = viewToShow == AboutView;
+
+            if (viewToShow == ReportsView)
+                ((ReportsViewModel)ReportsView.DataContext).GoToFirstCommand.Execute(null);
         }
     }
 }

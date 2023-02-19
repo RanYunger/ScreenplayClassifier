@@ -91,8 +91,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <param name="mainViewModel">The MainView's view model</param>
         public void Init(AboutView aboutView, MainViewModel mainViewModel)
         {
-            MainViewModel = mainViewModel;
             AboutView = aboutView;
+            MainViewModel = mainViewModel;
         }
     }
 }

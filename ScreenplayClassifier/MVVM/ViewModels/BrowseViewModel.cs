@@ -249,12 +249,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Initiates the view model.
         /// </summary>
+        /// <param name="browseView">The view to obtain controls from</param>
         /// <param name="classificationViewModel">The view model which manages the classification module</param>
-        /// <param name="browseView">The view to obtain controls from.</param>
-        public void Init(ClassificationViewModel classificationViewModel, BrowseView browseView)
+        public void Init(BrowseView browseView, ClassificationViewModel classificationViewModel)
         {
-            ClassificationViewModel = classificationViewModel;
             BrowseView = browseView;
+            ClassificationViewModel = classificationViewModel;
 
             BrowsedScreenplays = new ObservableCollection<BrowseModel>();
             CheckedScreenplays = new ObservableCollection<BrowseModel>();
