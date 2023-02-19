@@ -28,12 +28,7 @@
 
         <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding ScreenplayText}" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"
                  Margin="10" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-        <StackPanel Grid.Row="2" Grid.Column="1">
-            <TextBlock Text="Model Classification" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-            <v:GenresView x:Name="ModelGenresView" IsEnabled="False"/>
-            <TextBlock Text="Owner Classification" FontSize="30" HorizontalAlignment="Center" Margin="0,30,0,0" Style="{StaticResource TextBlockStyle}"/>
-            <v:GenresView x:Name="UserGenresView" IsEnabled="False"/>
-        </StackPanel>
+        <v:GenresView x:Name="GenresView" Grid.Row="2" Grid.Column="1"/>
         <StackPanel Grid.Row="2" Grid.Column="2">
             <TextBlock Text="Genre Percentages" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="400" Width="400" FontSize="20" Hoverable="True" Margin="10">

@@ -280,9 +280,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     if (yesCorrectRadioButton.IsChecked.Value)
                     {
-                        feedbackedScreenplay.UserGenre = feedbackedScreenplay.ModelGenre;
-                        feedbackedScreenplay.UserSubGenre1 = feedbackedScreenplay.ModelSubGenre1;
-                        feedbackedScreenplay.UserSubGenre2 = feedbackedScreenplay.ModelSubGenre2;
+                        feedbackedScreenplay.OwnerGenre = feedbackedScreenplay.ModelGenre;
+                        feedbackedScreenplay.OwnerSubGenre1 = feedbackedScreenplay.ModelSubGenre1;
+                        feedbackedScreenplay.OwnerSubGenre2 = feedbackedScreenplay.ModelSubGenre2;
                     }
 
                     if (yesReadRadioButton.IsChecked.Value)
@@ -303,8 +303,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     List<ScreenplayModel> screenplays = new List<ScreenplayModel>(FeedbackedScreenplays);
-                    Predicate<ScreenplayModel>[] queries = { s => s.IsClassifiedCorrectly, s => s.ModelGenre == s.UserGenre,
-                        s => s.ModelSubGenre1 == s.UserSubGenre1, s => s.ModelSubGenre2 == s.UserSubGenre2 };
+                    Predicate<ScreenplayModel>[] queries = { s => s.IsClassifiedCorrectly, s => s.ModelGenre == s.OwnerGenre,
+                        s => s.ModelSubGenre1 == s.OwnerSubGenre1, s => s.ModelSubGenre2 == s.OwnerSubGenre2 };
                     int correctClassifications;
                     string formattedText;
                     double percentage;
@@ -482,6 +482,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         /// <summary>
+        /// Shows the view.
+        /// </summary>
+        public void ShowView()
+        {
+            if (FeedbackView != null)
+                App.Current.Dispatcher.Invoke(() => FeedbackView.Visibility = Visibility.Visible);
+        }
+
+        /// <summary>
         /// Refreshes and shows the view.
         /// </summary>
         public void RefreshView()
@@ -505,8 +514,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
 
             GoToFirstCommand.Execute(null);
-
-            App.Current.Dispatcher.Invoke(() => FeedbackView.Visibility = Visibility.Visible);
         }
 
         /// <summary>
@@ -514,7 +521,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void HideView()
         {
-            App.Current.Dispatcher.Invoke(() => FeedbackView.Visibility = Visibility.Collapsed);
+            if (FeedbackView != null)
+                App.Current.Dispatcher.Invoke(() => FeedbackView.Visibility = Visibility.Collapsed);
         }
 
         /// <summary>

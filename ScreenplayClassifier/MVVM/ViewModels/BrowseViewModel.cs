@@ -263,6 +263,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         /// <summary>
+        /// Shows the view.
+        /// </summary>
+        public void ShowView()
+        {
+            if (BrowseView != null)
+                App.Current.Dispatcher.Invoke(() => BrowseView.Visibility = Visibility.Visible);
+        }
+
+        /// <summary>
         /// Refreshes the view.
         /// </summary>
         public void RefreshView()
@@ -273,9 +282,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             CanClear = true;
             CanChoose = BrowsedScreenplays.Count > 0;
             CanActivate = CheckedScreenplays.Count > 0;
-
-            if (BrowseView != null)
-                App.Current.Dispatcher.Invoke(() => BrowseView.Visibility = Visibility.Visible);
         }
 
         /// <summary>

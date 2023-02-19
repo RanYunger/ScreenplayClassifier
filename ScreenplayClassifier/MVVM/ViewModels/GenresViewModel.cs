@@ -16,9 +16,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private ScreenplayModel screenplay;
-        private ObservableCollection<string> genreOptions, subGenre1Options, subGenre2Options;
-        private ImageSource genreImage, subGenre1Image, subGenre2Image;
-        private string selectedGenre, selectedSubGenre1, selectedSubGenre2, genresAffiliation;
+        private ObservableCollection<string> ownerGenreOptions, ownerSubGenre1Options, ownerSubGenre2Options;
+        private ImageSource modelGenreImage, modelSubGenre1Image, modelSubGenre2Image;
+        private ImageSource ownerGenreImage, ownerSubGenre1Image, ownerSubGenre2Image;
+        private string selectedOwnerGenre, selectedOwnerSubGenre1, selectedOwnerSubGenre2;
+        private bool canChoose;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
@@ -36,202 +39,226 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public ObservableCollection<string> GenreOptions
+        public ObservableCollection<string> OwnerGenreOptions
         {
-            get { return genreOptions; }
+            get { return ownerGenreOptions; }
             set
             {
-                genreOptions = value;
+                ownerGenreOptions = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GenreOptions"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerGenreOptions"));
             }
         }
 
-        public ObservableCollection<string> SubGenre1Options
+        public ObservableCollection<string> OwnerSubGenre1Options
         {
-            get { return subGenre1Options; }
+            get { return ownerSubGenre1Options; }
             set
             {
-                subGenre1Options = value;
+                ownerSubGenre1Options = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre1Options"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerSubGenre1Options"));
             }
         }
 
-        public ObservableCollection<string> SubGenre2Options
+        public ObservableCollection<string> OwnerSubGenre2Options
         {
-            get { return subGenre2Options; }
+            get { return ownerSubGenre2Options; }
             set
             {
-                subGenre2Options = value;
+                ownerSubGenre2Options = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre2Options"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerSubGenre2Options"));
             }
         }
 
-        public ImageSource GenreImage
+        public ImageSource ModelGenreImage
         {
-            get { return genreImage; }
+            get { return modelGenreImage; }
             set
             {
-                genreImage = value;
+                modelGenreImage = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GenreImage"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("ModelGenreImage"));
             }
         }
 
-        public ImageSource SubGenre1Image
+        public ImageSource ModelSubGenre1Image
         {
-            get { return subGenre1Image; }
+            get { return modelSubGenre1Image; }
             set
             {
-                subGenre1Image = value;
+                modelSubGenre1Image = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre1Image"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("ModelSubGenre1Image"));
             }
         }
 
-        public ImageSource SubGenre2Image
+        public ImageSource ModelSubGenre2Image
         {
-            get { return subGenre2Image; }
+            get { return modelSubGenre2Image; }
             set
             {
-                subGenre2Image = value;
+                modelSubGenre2Image = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre2Image"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("ModelSubGenre2Image"));
             }
         }
 
-        public string SelectedGenre
+        public ImageSource OwnerGenreImage
         {
-            get { return selectedGenre; }
+            get { return ownerGenreImage; }
             set
             {
-                selectedGenre = value;
+                ownerGenreImage = value;
 
-                if (selectedGenre != null)
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerGenreImage"));
+            }
+        }
+
+        public ImageSource OwnerSubGenre1Image
+        {
+            get { return ownerSubGenre1Image; }
+            set
+            {
+                ownerSubGenre1Image = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerSubGenre1Image"));
+            }
+        }
+
+        public ImageSource OwnerSubGenre2Image
+        {
+            get { return ownerSubGenre2Image; }
+            set
+            {
+                ownerSubGenre2Image = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ownerSubGenre2Image"));
+            }
+        }
+
+        public string SelectedOwnerGenre
+        {
+            get { return selectedOwnerGenre; }
+            set
+            {
+                selectedOwnerGenre = value;
+
+                if (selectedOwnerGenre != null)
                 {
-                    if (GenresAffiliation == "Model")
-                        Screenplay.ModelGenre = selectedGenre;
-                    else
-                        Screenplay.UserGenre = selectedGenre;
+                    Screenplay.OwnerGenre = selectedOwnerGenre;
 
                     // Refreshes the genre image
-                    GenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, GenresAffiliation == "Model" ?
-                        Screenplay.ModelGenre : Screenplay.UserGenre)));
+                    OwnerGenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.OwnerGenre)));
 
                     // Restores options to their default collection
-                    SubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
-                    SubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
+                    OwnerSubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
+                    OwnerSubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
 
                     // Removes selected option from other collections to prevent duplications
-                    SubGenre1Options.Remove(selectedGenre);
-                    SubGenre1Options.Remove(selectedSubGenre2);
-                    SubGenre1Options = SubGenre1Options;
+                    OwnerSubGenre1Options.Remove(selectedOwnerGenre);
+                    OwnerSubGenre1Options.Remove(selectedOwnerSubGenre2);
+                    OwnerSubGenre1Options = OwnerSubGenre1Options;
 
-                    SubGenre2Options.Remove(selectedGenre);
-                    SubGenre2Options.Remove(selectedSubGenre1);
-                    SubGenre2Options = SubGenre2Options;
+                    OwnerSubGenre2Options.Remove(selectedOwnerGenre);
+                    OwnerSubGenre2Options.Remove(selectedOwnerSubGenre1);
+                    OwnerSubGenre2Options = OwnerSubGenre2Options;
                 }
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedGenre"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedOwnerGenre"));
             }
         }
 
-        public string SelectedSubGenre1
+        public string SelectedOwnerSubGenre1
         {
-            get { return selectedSubGenre1; }
+            get { return selectedOwnerSubGenre1; }
             set
             {
                 ObservableCollection<string> selectedOptions = new ObservableCollection<string>(JSON.LoadedGenres);
 
-                selectedSubGenre1 = value;
+                selectedOwnerSubGenre1 = value;
 
-                if (selectedSubGenre1 != null)
+                if (selectedOwnerSubGenre1 != null)
                 {
-                    if (GenresAffiliation == "Model")
-                        Screenplay.ModelSubGenre1 = selectedSubGenre1;
-                    else
-                        Screenplay.UserSubGenre1 = selectedSubGenre1;
+                    Screenplay.OwnerSubGenre1 = selectedOwnerSubGenre1;
 
                     // Refreshes the genre image
-                    SubGenre1Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, GenresAffiliation == "Model" ?
-                        Screenplay.ModelSubGenre1 : Screenplay.UserSubGenre1)));
+                    OwnerSubGenre1Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.OwnerSubGenre1)));
 
                     // Restores options to their default collection
-                    GenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
-                    SubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
+                    OwnerGenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
+                    OwnerSubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
 
                     // Removes selected option from other collections to prevent duplications
-                    GenreOptions.Remove(selectedSubGenre1);
-                    GenreOptions.Remove(selectedSubGenre2);
-                    GenreOptions = GenreOptions;
+                    OwnerGenreOptions.Remove(selectedOwnerSubGenre1);
+                    OwnerGenreOptions.Remove(selectedOwnerSubGenre2);
+                    OwnerGenreOptions = OwnerGenreOptions;
 
-                    SubGenre2Options.Remove(selectedSubGenre1);
-                    SubGenre2Options.Remove(selectedGenre);
-                    SubGenre2Options = SubGenre2Options;
+                    OwnerSubGenre2Options.Remove(selectedOwnerSubGenre1);
+                    OwnerSubGenre2Options.Remove(selectedOwnerGenre);
+                    OwnerSubGenre2Options = OwnerSubGenre2Options;
                 }
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedSubGenre1"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedOwnerSubGenre1"));
             }
         }
 
-        public string SelectedSubGenre2
+        public string SelectedOwnerSubGenre2
         {
-            get { return selectedSubGenre2; }
+            get { return selectedOwnerSubGenre2; }
             set
             {
                 ObservableCollection<string> selectedOptions = new ObservableCollection<string>(JSON.LoadedGenres);
 
-                selectedSubGenre2 = value;
+                selectedOwnerSubGenre2 = value;
 
-                if (selectedSubGenre2 != null)
+                if (selectedOwnerSubGenre2 != null)
                 {
-                    if (GenresAffiliation == "Model")
-                        Screenplay.ModelSubGenre2 = selectedSubGenre2;
-                    else
-                        Screenplay.UserSubGenre2 = selectedSubGenre2;
+                    Screenplay.OwnerSubGenre2 = selectedOwnerSubGenre2;
 
                     // Refreshes the genre image
-                    SubGenre2Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, GenresAffiliation == "Model" ?
-                        Screenplay.ModelSubGenre2 : Screenplay.UserSubGenre2)));
+                    OwnerSubGenre2Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.OwnerSubGenre2)));
 
                     // Restores options to their default collection
-                    GenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
-                    SubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
+                    OwnerGenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
+                    OwnerSubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
 
                     // Removes selected option from other collections to prevent duplications
-                    GenreOptions.Remove(selectedSubGenre2);
-                    GenreOptions.Remove(selectedSubGenre1);
-                    GenreOptions = GenreOptions;
+                    OwnerGenreOptions.Remove(selectedOwnerSubGenre2);
+                    OwnerGenreOptions.Remove(selectedOwnerSubGenre1);
+                    OwnerGenreOptions = OwnerGenreOptions;
 
-                    SubGenre1Options.Remove(selectedSubGenre2);
-                    SubGenre1Options.Remove(selectedGenre);
-                    SubGenre1Options = SubGenre1Options;
+                    OwnerSubGenre1Options.Remove(selectedOwnerSubGenre2);
+                    OwnerSubGenre1Options.Remove(selectedOwnerGenre);
+                    OwnerSubGenre1Options = OwnerSubGenre1Options;
                 }
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedSubGenre2"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedOwnerSubGenre2"));
             }
         }
 
-        public string GenresAffiliation
+        public bool CanChoose
         {
-            get { return genresAffiliation; }
+            get { return canChoose; }
             set
             {
-                genresAffiliation = value;
+                canChoose = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GenresAffiliation"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanChoose"));
             }
         }
 
@@ -246,15 +273,31 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// Initiates the view model.
         /// </summary>
         /// <param name="genresView">The view to obtain controls from</param>
-        public void Init(GenresView genresView, ScreenplayModel screenplay, string affiliation)
+        /// <param name="screenplay">The screenplay to show the genres of</param>
+        /// <param name="canChoose">The indication whether the user can choose genres</param>
+        public void Init(GenresView genresView, ScreenplayModel screenplay, bool canChoose)
         {
             GenresView = genresView;
             Screenplay = screenplay;
-            GenresAffiliation = affiliation;
+            CanChoose = canChoose;
 
-            SelectedGenre = affiliation == "Model" ? screenplay.ModelGenre : screenplay.UserGenre;
-            SelectedSubGenre1 = affiliation == "Model" ? screenplay.ModelSubGenre1 : screenplay.UserSubGenre1;
-            SelectedSubGenre2 = affiliation == "Model" ? screenplay.ModelSubGenre2 : screenplay.UserSubGenre2;
+            ModelGenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.ModelGenre)));
+            ModelSubGenre1Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.ModelSubGenre1)));
+            ModelSubGenre2Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.ModelSubGenre2)));
+
+            OwnerGenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanChoose ? "Unknown"
+                : Screenplay.OwnerGenre)));
+            OwnerSubGenre1Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanChoose ? "Unknown"
+                : Screenplay.OwnerSubGenre1)));
+            OwnerSubGenre2Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanChoose ? "Unknown"
+                : Screenplay.OwnerSubGenre2)));
+
+            if (CanChoose)
+            {
+                SelectedOwnerGenre = screenplay.OwnerGenre;
+                SelectedOwnerSubGenre1 = screenplay.OwnerSubGenre1;
+                SelectedOwnerSubGenre2 = screenplay.OwnerSubGenre2;
+            }
         }
     }
 }

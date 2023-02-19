@@ -24,6 +24,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private System.Timers.Timer durationTimer;
+        private ImageSource phaseGif;
         private TimeSpan duration;
         private int classificationsRequired, classificationsComplete, percent, currentPhase;
         private string classificationsText, durationText, phaseText;
@@ -43,6 +44,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("DurationTimer"));
+            }
+        }
+
+        public ImageSource PhaseGif
+        {
+            get { return phaseGif; }
+            set
+            {
+                phaseGif = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("PhaseGif"));
             }
         }
 
@@ -131,12 +144,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     PropertyChanged(this, new PropertyChangedEventArgs("DurationText"));
             }
         }
+
         public string PhaseText
         {
             get { return phaseText; }
             set
             {
                 phaseText = value;
+
+                //if (phaseText != string.Empty)
+                //    PhaseGif = new BitmapImage(new Uri(string.Format("{0}{1}.gif", FolderPaths.GIFS, phaseText)));
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("PhaseText"));
@@ -169,14 +186,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             ClassificationViewModel = classificationViewModel;
             ProgressView = progressView;
-
-            RefreshView();
         }
 
         /// <summary>
-        /// Refreshes and shows the view.
+        /// Shows the view.
         /// </summary>
-        public void RefreshView()
+        public void ShowView()
+        {
+            if (ProgressView != null)
+                App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Visible);
+        }
+
+        /// <summary>
+        /// Refreshes the view.
+        /// </summary>
+        /// <param name="browsedScreenplays">The screenplays to classify</param>
+        public void RefreshView(ObservableCollection<BrowseModel> browsedScreenplays)
         {
             DurationTimer.Stop();
 
@@ -189,7 +214,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             PhaseText = string.Empty;
 
-            App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Visible);
+            StartClassification(browsedScreenplays);
         }
 
         /// <summary>
@@ -197,7 +222,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void HideView()
         {
-            App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Collapsed);
+            if (ProgressView != null)
+                App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Collapsed);
         }
 
         /// <summary>

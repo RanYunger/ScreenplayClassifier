@@ -24,8 +24,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Properties
         public ReportView ReportView { get; set; }
-        public GenresViewModel ModelGenresViewModel { get; private set; }
-        public GenresViewModel UserGenresViewModel { get; private set; }
+        public GenresViewModel GenresViewModel { get; private set; }
 
         public ReportModel Report
         {
@@ -77,20 +76,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <param name="reportView">The view to obtain controls from</param>
         public void Init(ReportModel classificationReport, ReportView reportView)
         {
-            GenresView modelGenresView, userGenresView;
+            GenresView genresView;
 
             Report = classificationReport;
             ScreenplayText = File.ReadAllText(classificationReport.Screenplay.FilePath);
 
             ReportView = reportView;
 
-            modelGenresView = (GenresView)ReportView.FindName("ModelGenresView");
-            ModelGenresViewModel = (GenresViewModel)modelGenresView.DataContext;
-            ModelGenresViewModel.Init(modelGenresView, Report.Screenplay, "Model");
-
-            userGenresView = (GenresView)ReportView.FindName("UserGenresView");
-            UserGenresViewModel = (GenresViewModel)userGenresView.DataContext;
-            UserGenresViewModel.Init(userGenresView, Report.Screenplay, "User");
+            genresView = (GenresView)ReportView.FindName("GenresView");
+            GenresViewModel = (GenresViewModel)genresView.DataContext;
+            GenresViewModel.Init(genresView, Report.Screenplay, false);
 
             RefreshPieChart();
         }

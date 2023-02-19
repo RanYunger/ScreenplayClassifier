@@ -4,10 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <StackPanel HorizontalAlignment="Center" Visibility="Visible">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="480"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" HorizontalAlignment="Center" Visibility="Visible">
             <TextBlock Text="Screenplays to Classify" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,10">
                 <Button Command="{Binding BrowseScreenplaysCommand}" Height="100" Width="100" IsEnabled="{Binding CanBrowse}"
@@ -58,5 +64,7 @@
                 </Button.Content>
             </Button>
         </StackPanel>
+        <Image Grid.Column="1" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Reading.gif" gif:ImageBehavior.RepeatBehavior="Forever"
+                       Height="500" Width="500"/>
     </Grid>
 </UserControl>

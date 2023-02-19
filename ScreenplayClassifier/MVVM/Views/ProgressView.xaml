@@ -14,13 +14,31 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0" VerticalAlignment="Center">
-            <TextBlock Text="{Binding ClassificationsText}" FontSize="30" Margin="20,0,0,0" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="{Binding DurationText}" FontSize="30" Margin="690,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding ClassificationsText}" FontSize="30" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+            <!--<TextBlock Text="{Binding DurationText}" FontSize="30" Margin="690,0,0,0" Style="{StaticResource TextBlockStyle}"/>-->
         </WrapPanel>
         <rpb:RadialProgressBar x:Name="RadialProgressBar" Grid.Row="1" Value="{Binding Percent}" Height="580" Width="580" ArcWidth="25" 
                                Foreground="LimeGreen" InnerBackgroundBrush="{StaticResource MainColumnHeaderBackground}" Margin="0,-35,0,0"/>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="{Binding PhaseText}" HorizontalAlignment="Center" FontSize="50" Style="{StaticResource TextBlockStyle}"/>
+            <!--<Image gif:ImageBehavior.AnimatedSource="{Binding PhaseGif}" gif:ImageBehavior.RepeatBehavior="Forever"
+                       Height="200" Width="200">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentPhase}" Value="0">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentPhase}" Value="1">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentPhase}" Value="2">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>-->
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel.Style>
                     <Style TargetType="StackPanel">

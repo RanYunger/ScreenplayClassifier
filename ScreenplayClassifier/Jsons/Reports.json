@@ -21,9 +21,9 @@
         "Thriller": 0.0,
         "War": 0.0
       },
-      "UserGenre": "Action",
-      "UserSubGenre1": "Drama",
-      "UserSubGenre2": "Adventure"
+      "OwnerGenre": "Action",
+      "OwnerSubGenre1": "Drama",
+      "OwnerSubGenre2": "Adventure"
     }
   },
   {
@@ -48,9 +48,9 @@
         "Thriller": 20.0,
         "War": 0.0
       },
-      "UserGenre": "Action",
-      "UserSubGenre1": "SciFi",
-      "UserSubGenre2": "Thriller"
+      "OwnerGenre": "Action",
+      "OwnerSubGenre1": "SciFi",
+      "OwnerSubGenre2": "Thriller"
     }
   },
   {
@@ -75,9 +75,9 @@
         "Thriller": 0.0,
         "War": 0.0
       },
-      "UserGenre": "Comedy",
-      "UserSubGenre1": "Adventure",
-      "UserSubGenre2": "Action"
+      "OwnerGenre": "Comedy",
+      "OwnerSubGenre1": "Adventure",
+      "OwnerSubGenre2": "Action"
     }
   }
 ]

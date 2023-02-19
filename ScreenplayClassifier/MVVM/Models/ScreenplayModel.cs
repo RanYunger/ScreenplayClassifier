@@ -12,7 +12,7 @@ namespace ScreenplayClassifier.MVVM.Models
         private Dictionary<string, float> genrePercentages;
         private string filePath, title;
         private string modelGenre, modelSubGenre1, modelSubGenre2;
-        private string userGenre, userSubGenre1, userSubGenre2;
+        private string ownerGenre, ownerSubGenre1, ownerSubGenre2;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -89,50 +89,50 @@ namespace ScreenplayClassifier.MVVM.Models
             }
         }
 
-        public string UserGenre
+        public string OwnerGenre
         {
-            get { return userGenre; }
+            get { return ownerGenre; }
             set
             {
-                userGenre = value;
+                ownerGenre = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("UserGenre"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerGenre"));
             }
         }
 
-        public string UserSubGenre1
+        public string OwnerSubGenre1
         {
-            get { return userSubGenre1; }
+            get { return ownerSubGenre1; }
             set
             {
-                userSubGenre1 = value;
+                ownerSubGenre1 = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("UserSubGenre1"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerSubGenre1"));
             }
         }
 
-        public string UserSubGenre2
+        public string OwnerSubGenre2
         {
-            get { return userSubGenre2; }
+            get { return ownerSubGenre2; }
             set
             {
-                userSubGenre2 = value;
+                ownerSubGenre2 = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("UserSubGenre2"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerSubGenre2"));
             }
         }
 
         public bool Isfeedbacked
         {
-            get { return (UserGenre != "Unknown") && (UserSubGenre1 != "Unknown") && (UserSubGenre2 != "Unknown"); }
+            get { return (OwnerGenre != "Unknown") && (OwnerSubGenre1 != "Unknown") && (OwnerSubGenre2 != "Unknown"); }
         }
 
         public bool IsClassifiedCorrectly
         {
-            get { return (ModelGenre == UserGenre) && (ModelSubGenre1 == UserSubGenre1) && (ModelSubGenre2 == UserSubGenre2); }
+            get { return (ModelGenre == OwnerGenre) && (ModelSubGenre1 == OwnerSubGenre1) && (ModelSubGenre2 == OwnerSubGenre2); }
         }
 
         // Constructors
@@ -149,9 +149,9 @@ namespace ScreenplayClassifier.MVVM.Models
             ModelSubGenre1 = predictedGenres[1];
             ModelSubGenre2 = predictedGenres[2];
 
-            UserGenre = "Unknown";
-            UserSubGenre1 = "Unknown";
-            UserSubGenre2 = "Unknown";
+            OwnerGenre = "Unknown";
+            OwnerSubGenre1 = "Unknown";
+            OwnerSubGenre2 = "Unknown";
         }
     }
 }

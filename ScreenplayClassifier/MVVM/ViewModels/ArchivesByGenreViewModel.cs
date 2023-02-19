@@ -59,7 +59,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             foreach (string genreName in genres)
             {
-                genreScreenplays = screenplays.FindAll(screenplay => screenplay.UserGenre == genreName);
+                genreScreenplays = screenplays.FindAll(screenplay => screenplay.OwnerGenre == genreName);
                 Archives[genreName] = new ObservableCollection<ScreenplayModel>(genreScreenplays);
             }
 

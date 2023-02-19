@@ -52,8 +52,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (browseComplete)
                 {
-                    ProgressViewModel.RefreshView();
-                    ProgressViewModel.StartClassification(BrowseViewModel.CheckedScreenplays);
+                    BrowseViewModel.HideView();
+                    ProgressViewModel.RefreshView(BrowseViewModel.CheckedScreenplays);
+                    ProgressViewModel.ShowView();
                 }
 
                 if (PropertyChanged != null)
@@ -72,8 +73,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     ProgressViewModel.HideView();
                     FeedbackViewModel.RefreshView();
-
-                    //BrowseViewModel.CanChoose = true;
+                    FeedbackViewModel.ShowView();
                 }
 
                 if (PropertyChanged != null)
@@ -90,9 +90,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (classificationComplete)
                 {
-                    BrowseViewModel.RefreshView();
-                    ProgressViewModel.RefreshView();
                     FeedbackViewModel.HideView();
+                    BrowseViewModel.RefreshView();
+                    BrowseViewModel.ShowView();
 
                     BrowseComplete = false;
                     ProgressComplete = false;
