@@ -222,6 +222,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             Duration = TimeSpan.Zero;
 
+            IsThreadAlive = false;
             ClassificationsRequired = 0;
             ClassificationsComplete = 0;
             Percent = 0;
@@ -258,7 +259,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ClassificationsComplete = 0;
 
             PhaseText = "Processing";
-
+            
+            IsThreadAlive = true;
             ClassificationThread = new Thread(() => ClassifyScreenplays(screenplayFilePaths));
             ClassificationThread.Start();
         }
