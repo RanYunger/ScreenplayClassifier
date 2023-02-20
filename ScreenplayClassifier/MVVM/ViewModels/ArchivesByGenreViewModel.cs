@@ -35,6 +35,65 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
+        public Command ShowActionScreenplaysCommand
+        {
+            get { return new Command(() => ShowScreenplays("Action")); }
+        }
+
+        public Command ShowAdventureScreenplaysCommand
+        {
+            get { return new Command(() => ShowScreenplays("Adventure")); }
+        }
+
+        public Command ShowComedyScreenplaysCommand
+        {
+            get { return new Command(() => ShowScreenplays("Comedy")); }
+        }
+
+        public Command ShowCrimeScreenplaysCommand
+        {
+            get { return new Command(() => ShowScreenplays("Crime")); }
+        }
+
+        public Command ShowDramaScreenplaysCommand
+        {
+            get { return new Command(() => ShowScreenplays("Drama")); }
+        }
+
+        public Command ShowFamilyScreenplaysCommand
+        {
+            get { return new Command(() => ShowScreenplays("Family")); }
+        }
+
+        public Command ShowFantasyScreenplaysCommand
+        {
+            get { return new Command(() => ShowScreenplays("Fantasy")); }
+        }
+
+        public Command ShowHorrorScreenplaysCommand
+        {
+            get { return new Command(() => ShowScreenplays("Horror")); }
+        }
+
+        public Command ShowRomanceScreenplaysCommand
+        {
+            get { return new Command(() => ShowScreenplays("Romance")); }
+        }
+
+        public Command ShowSciFiScreenplaysCommand
+        {
+            get { return new Command(() => ShowScreenplays("SciFi")); }
+        }
+
+        public Command ShowThrillerScreenplaysCommand
+        {
+            get { return new Command(() => ShowScreenplays("Thriller")); }
+        }
+
+        public Command ShowWarScreenplaysCommand
+        {
+            get { return new Command(() => ShowScreenplays("War")); }
+        }
         #endregion
 
         /// <summary>
@@ -62,24 +121,23 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 genreScreenplays = screenplays.FindAll(screenplay => screenplay.OwnerGenre == genreName);
                 Archives[genreName] = new ObservableCollection<ScreenplayModel>(genreScreenplays);
             }
-
-            RefreshClapperViews();
         }
 
         /// <summary>
-        /// Refreshes the ClapperViews.
+        /// Shows screenplays of a given genre.
         /// </summary>
-        private void RefreshClapperViews()
+        /// <param name="genre">The screenplay's genre</param>
+        private void ShowScreenplays(string genre)
         {
-            ClapperView clapperView = null;
-            ClapperViewModel clapperViewModel = null;
+            GenreView genreView = null;
 
-            foreach (string genreName in Archives.Keys)
-            {
-                clapperView = (ClapperView)ArchivesByGenreView.FindName(genreName + "ClapperView");
-                clapperViewModel = (ClapperViewModel)clapperView.DataContext;
-                clapperViewModel.Init(genreName, Archives[genreName]);
-            }
+            // Validation
+            if (ArchivesByGenreView == null)
+                return;
+
+            genreView = (GenreView)ArchivesByGenreView.FindName("GenreView");
+
+            ((GenreViewModel)genreView.DataContext).Init(genreView, genre, Archives[genre]);
         }
     }
 }

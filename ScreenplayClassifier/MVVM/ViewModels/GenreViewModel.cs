@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Timers;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -125,6 +126,29 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
+        public Command ShowViewCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    if (GenreView != null)
+                        App.Current.Dispatcher.Invoke(() => GenreView.Visibility = Visibility.Visible);
+                });
+            }
+        }
+
+        public Command HideViewCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    if (GenreView != null)
+                        App.Current.Dispatcher.Invoke(() => GenreView.Visibility = Visibility.Collapsed);
+                });
+            }
+        }
 
         public Command ToggleAudioCommand
         {
@@ -179,8 +203,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ScreenplaysCountText = string.Format("{0} Screenplay{1}",
                 ScreenplaysInGenre.Count, ScreenplaysInGenre.Count != 1 ? "s" : string.Empty);
 
-
             audioTimer.Start();
+
+            ShowViewCommand.Execute(null);
         }
     }
 }

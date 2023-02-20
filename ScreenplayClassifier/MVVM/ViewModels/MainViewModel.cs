@@ -52,6 +52,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     ClassificationViewModel classificationViewModel = (ClassificationViewModel)ClassificationView.DataContext;
                     ReportsViewModel reportsViewModel = (ReportsViewModel)ReportsView.DataContext;
 
+                    // Kills the classification thread (if it's active)
+                    if (classificationViewModel.ProgressViewModel.ClassificationThread != null)
+                        classificationViewModel.ProgressViewModel.IsThreadAlive = false;
+
                     // Guest's changes aren't saved (invisible to the database)
                     if (UserToolbarViewModel.User.Role != UserModel.UserRole.GUEST)
                     {

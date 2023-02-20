@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.RowDefinitions>
@@ -17,22 +18,442 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ShowActionScreenplaysCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Media/Images/Genres/Action.png" Height="150" Width="150">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="150" To="200" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="150" To="200" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="150" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="150" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <TextBlock Text="Action" HorizontalAlignment="Center" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ShowAdventureScreenplaysCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Media/Images/Genres/Adventure.png" Height="150" Width="150">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="150" To="200" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="150" To="200" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="150" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="150" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <TextBlock Text="Adventure" HorizontalAlignment="Center" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="2">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ShowComedyScreenplaysCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Media/Images/Genres/Comedy.png" Height="150" Width="150">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="150" To="200" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="150" To="200" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="150" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="150" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <TextBlock Text="Comedy" HorizontalAlignment="Center" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="3">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ShowCrimeScreenplaysCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Media/Images/Genres/Crime.png" Height="150" Width="150">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="150" To="200" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="150" To="200" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="150" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="150" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <TextBlock Text="Crime" HorizontalAlignment="Center" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ShowDramaScreenplaysCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Media/Images/Genres/Drama.png" Height="150" Width="150">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="150" To="200" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="150" To="200" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="150" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="150" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <TextBlock Text="Drama" HorizontalAlignment="Center" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ShowFamilyScreenplaysCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Media/Images/Genres/Family.png" Height="150" Width="150">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="150" To="200" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="150" To="200" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="150" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="150" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <TextBlock Text="Family" HorizontalAlignment="Center" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="2">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ShowFantasyScreenplaysCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Media/Images/Genres/Fantasy.png" Height="150" Width="150">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="150" To="200" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="150" To="200" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="150" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="150" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <TextBlock Text="Fantasy" HorizontalAlignment="Center" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="3">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ShowHorrorScreenplaysCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Media/Images/Genres/Horror.png" Height="150" Width="150">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="150" To="200" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="150" To="200" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="150" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="150" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <TextBlock Text="Horror" HorizontalAlignment="Center" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="0">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ShowRomanceScreenplaysCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Media/Images/Genres/Romance.png" Height="150" Width="150">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="150" To="200" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="150" To="200" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="150" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="150" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <TextBlock Text="Romance" HorizontalAlignment="Center" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ShowSciFiScreenplaysCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Media/Images/Genres/SciFi.png" Height="150" Width="150">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="150" To="200" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="150" To="200" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="150" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="150" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <TextBlock Text="SciFi" HorizontalAlignment="Center" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="2">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ShowThrillerScreenplaysCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Media/Images/Genres/Thriller.png" Height="150" Width="150">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="150" To="200" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="150" To="200" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="150" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="150" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <TextBlock Text="Thriller" HorizontalAlignment="Center" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="3">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ShowWarScreenplaysCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/Media/Images/Genres/War.png" Height="150" Width="150">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="150" To="200" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="150" To="200" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Height" From="200" To="150" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Width" From="200" To="150" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <TextBlock Text="War" HorizontalAlignment="Center" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
 
         <v:GenreView x:Name="GenreView" Grid.RowSpan="4" Grid.ColumnSpan="4" Visibility="Collapsed"/>
-
-        <v:ClapperView x:Name="ActionClapperView" Grid.Row="0" Grid.Column="0"/>
-        <v:ClapperView x:Name="AdventureClapperView" Grid.Row="0" Grid.Column="1"/>
-        <v:ClapperView x:Name="ComedyClapperView" Grid.Row="0" Grid.Column="2"/>
-        <v:ClapperView x:Name="CrimeClapperView" Grid.Row="0" Grid.Column="3"/>
-
-        <v:ClapperView x:Name="DramaClapperView" Grid.Row="1" Grid.Column="0"/>
-        <v:ClapperView x:Name="FamilyClapperView" Grid.Row="1" Grid.Column="1"/>
-        <v:ClapperView x:Name="FantasyClapperView" Grid.Row="1" Grid.Column="2"/>
-        <v:ClapperView x:Name="HorrorClapperView" Grid.Row="1" Grid.Column="3"/>
-
-        <v:ClapperView x:Name="RomanceClapperView" Grid.Row="2" Grid.Column="0"/>
-        <v:ClapperView x:Name="SciFiClapperView" Grid.Row="2" Grid.Column="1"/>
-        <v:ClapperView x:Name="ThrillerClapperView" Grid.Row="2" Grid.Column="2"/>
-        <v:ClapperView x:Name="WarClapperView" Grid.Row="2" Grid.Column="3"/>
     </Grid>
 </UserControl>

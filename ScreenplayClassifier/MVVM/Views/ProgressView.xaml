@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0" VerticalAlignment="Center">
             <TextBlock Text="{Binding ClassificationsText}" FontSize="30" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <!--<TextBlock Text="{Binding DurationText}" FontSize="30" Margin="690,0,0,0" Style="{StaticResource TextBlockStyle}"/>-->
+            <TextBlock Text="{Binding DurationText}" FontSize="30" Margin="1190,0,0,0" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
         <rpb:RadialProgressBar x:Name="RadialProgressBar" Grid.Row="1" Value="{Binding Percent}" Height="580" Width="580" ArcWidth="25" 
                                Foreground="LimeGreen" InnerBackgroundBrush="{StaticResource MainColumnHeaderBackground}" Margin="0,-35,0,0"/>

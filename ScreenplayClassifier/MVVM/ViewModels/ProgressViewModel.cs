@@ -26,6 +26,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private System.Timers.Timer durationTimer;
         private ImageSource phaseGif;
         private TimeSpan duration;
+        private bool isThreadAlive;
         private int classificationsRequired, classificationsComplete, percent, currentPhase;
         private string classificationsText, durationText, phaseText;
 
@@ -34,6 +35,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
         public ProgressView ProgressView { get; private set; }
+        public Thread ClassificationThread { get; private set; }
 
         public System.Timers.Timer DurationTimer
         {
@@ -69,6 +71,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("Duration"));
+            }
+        }
+
+        public bool IsThreadAlive
+        {
+            get { return isThreadAlive; }
+            set
+            {
+                isThreadAlive = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("IsThreadAlive"));
             }
         }
 
@@ -186,6 +200,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             ProgressView = progressView;
             ClassificationViewModel = classificationViewModel;
+            ClassificationThread = null;
         }
 
         /// <summary>
@@ -244,7 +259,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             PhaseText = "Processing";
 
-            new Thread(() => ClassificationThread(screenplayFilePaths)).Start();
+            ClassificationThread = new Thread(() => ClassifyScreenplays(screenplayFilePaths));
+            ClassificationThread.Start();
         }
 
         /// <summary>
@@ -264,7 +280,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// Classification thread: sends the screenplays to the python classifier for processing.
         /// </summary>
         /// <param name="screenplayFilePaths">The file paths of the screenplays to be processed by the thread</param>
-        private void ClassificationThread(ObservableCollection<string> screenplayFilePaths)
+        private void ClassifyScreenplays(ObservableCollection<string> screenplayFilePaths)
         {
             int progressOutput;
             string scriptPath = FolderPaths.CLASSIFIER + "Loader.py", scriptArgs = string.Join(" ", screenplayFilePaths);
@@ -287,6 +303,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     while (Percent < 100)
                     {
+                        // Validation
+                        if (!IsThreadAlive)
+                            return;
+
                         // Reads progress values printed by the python classifier
                         outputLine = reader.ReadLine();
                         if ((!string.IsNullOrEmpty(outputLine)) && (int.TryParse(outputLine, out progressOutput)))
