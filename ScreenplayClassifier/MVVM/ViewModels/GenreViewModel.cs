@@ -126,30 +126,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command ShowViewCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    if (GenreView != null)
-                        App.Current.Dispatcher.Invoke(() => GenreView.Visibility = Visibility.Visible);
-                });
-            }
-        }
-
-        public Command HideViewCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    if (GenreView != null)
-                        App.Current.Dispatcher.Invoke(() => GenreView.Visibility = Visibility.Collapsed);
-                });
-            }
-        }
-
         public Command ToggleAudioCommand
         {
             get
@@ -204,8 +180,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 ScreenplaysInGenre.Count, ScreenplaysInGenre.Count != 1 ? "s" : string.Empty);
 
             audioTimer.Start();
-
-            ShowViewCommand.Execute(null);
         }
     }
 }

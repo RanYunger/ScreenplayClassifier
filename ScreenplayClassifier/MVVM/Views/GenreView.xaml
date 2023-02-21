@@ -8,45 +8,13 @@
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
         Style="{StaticResource UserControlStyle}">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-        <Button Grid.Row="0" Grid.ColumnSpan="2" Command="{Binding HideViewCommand}" Margin="10" Style="{StaticResource ButtonStyle}">
-            <Button.Content>
-                <StackPanel>
-                    <Image Source="/Media/Images/Back.png" Height="50" Width="50"/>
-                    <TextBlock Text="Back" TextAlignment="Center" FontSize="15" Style="{StaticResource TextBlockStyle}"/>
-                </StackPanel>
-            </Button.Content>
-        </Button>
-        <!--<StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Grid.RowSpan="2" Grid.ColumnSpan="2" gif:ImageBehavior.AnimatedSource="{Binding GenreGif}"
-               gif:ImageBehavior.RepeatBehavior="Forever"/>
-            <Image Source="{Binding GenreImage}" Height="300" Width="300">
-                    <Image.Triggers>
-                        <EventTrigger RoutedEvent="MouseEnter">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Opacity" To="0"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="MouseLeave">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Opacity" To="1"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Image.Triggers>
-                </Image>
-            <TextBlock Text="{Binding Genre}" HorizontalAlignment="Center" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+        
+        <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+            <Image gif:ImageBehavior.AnimatedSource="{Binding GenreGif}" gif:ImageBehavior.RepeatBehavior="Forever"/>
             <Image Source="{Binding AudioImage}" Height="40" Width="40" Cursor="Hand" Margin="10">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
@@ -59,7 +27,7 @@
             <TextBlock Text="{Binding ScreenplaysCountText}" Margin="10" Style="{StaticResource TextBlockStyle}"/>
             <DataGrid ItemsSource="{Binding ScreenplaysInGenre}" Height="450" IsReadOnly="True" Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="260"
+                    <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="350"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                     <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=OwnerSubGenre1}" Width="150"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
@@ -67,6 +35,6 @@
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>-->
+        </StackPanel>
     </Grid>
 </UserControl>

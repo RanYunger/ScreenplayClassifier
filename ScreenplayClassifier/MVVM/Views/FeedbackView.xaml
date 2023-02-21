@@ -54,7 +54,7 @@
                             <DataGridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
                                     <StackPanel>
-                                        <TextBlock Text="Model Prediction" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                                        <TextBlock Text="Model Classification" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                                         <WrapPanel>
                                             <DataGridColumnHeader Content="Genre" Width="99" Style="{StaticResource DataGridSubColumnHeaderStyle}"/>
                                             <DataGridColumnHeader Content="SubGenre 1" Width="99"
@@ -79,11 +79,12 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Your Prediction" Width="300" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
+                        <DataGridTemplateColumn Header="Your Classification" Width="300"
+                                                HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
                             <DataGridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
                                     <StackPanel>
-                                        <TextBlock Text="Your Prediction" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                                        <TextBlock Text="Your Classification" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                                         <WrapPanel>
                                             <DataGridColumnHeader Content="Genre" Width="99" Style="{StaticResource DataGridSubColumnHeaderStyle}"/>
                                             <DataGridColumnHeader Content="SubGenre 1" Width="99"
