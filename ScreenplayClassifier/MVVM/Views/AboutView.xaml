@@ -8,6 +8,8 @@
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <MediaElement x:Name="MediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill"/>
+        <Image Source="/Media/Images/Seats.png" Stretch="Fill"/>
+        <MediaElement x:Name="MediaElement" Height="400" Width="800" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill"
+                      Margin="0,0,0,200"/>
     </Grid>
 </UserControl>

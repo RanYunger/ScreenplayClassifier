@@ -76,6 +76,7 @@
     <None Remove="Media\Images\Next.png" />
     <None Remove="Media\Images\Password.png" />
     <None Remove="Media\Images\Percent.png" />
+    <None Remove="Media\Images\Posters.png" />
     <None Remove="Media\Images\Previous.png" />
     <None Remove="Media\Images\Proceed.png" />
     <None Remove="Media\Images\Projector.png" />
@@ -83,8 +84,12 @@
     <None Remove="Media\Images\Reports.png" />
     <None Remove="Media\Images\Save.png" />
     <None Remove="Media\Images\Search.png" />
+    <None Remove="Media\Images\Seats.png" />
     <None Remove="Media\Images\Signout.png" />
     <None Remove="Media\Images\SingleReel.png" />
+    <None Remove="Media\Images\Ticket.png" />
+    <None Remove="Media\Images\TicketSign.png" />
+    <None Remove="Media\Images\TicketWindow.png" />
     <None Remove="Media\Images\User.png" />
     <None Remove="Media\Images\Username.png" />
     <None Remove="Media\Images\Visible.png" />
@@ -288,6 +293,9 @@
     <Content Include="Media\Images\Percent.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\Posters.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\Previous.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -306,6 +314,9 @@
     <Content Include="Media\Images\Search.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\Seats.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\Signout.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -313,6 +324,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\SingleReel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Ticket.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\TicketSign.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\TicketWindow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\User.png">
