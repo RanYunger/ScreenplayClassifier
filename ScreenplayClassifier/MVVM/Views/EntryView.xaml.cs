@@ -16,12 +16,12 @@ namespace ScreenplayClassifier.MVVM.Views
     /// <summary>
     /// Interaction logic for SignInView.xaml
     /// </summary>
-    public partial class SignInView : Window
+    public partial class EntryView : Window
     {
-        public SignInView()
+        public EntryView()
         {
             InitializeComponent();
-            DataContext = new SignInViewModel();
+            DataContext = new EntryViewModel();
         }
     }
 }

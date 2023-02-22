@@ -16,18 +16,18 @@ using System.Windows.Input;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class SignInViewModel : INotifyPropertyChanged
+    public class EntryViewModel : INotifyPropertyChanged
     {
         // Fields
         private ObservableCollection<UserModel> authenticatedUsers;
         private string usernameError, passwordError;
         private int attemptsCount;
-        private bool canSignin;
+        private bool canSignIn;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
-        public SignInView SignInView { get; private set; }
+        public EntryView EntryView { get; private set; }
 
         public ObservableCollection<UserModel> AuthenticatedUsers
         {
@@ -77,20 +77,20 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public bool CanSignin
+        public bool CanSignIn
         {
-            get { return canSignin; }
+            get { return canSignIn; }
             set
             {
-                canSignin = value;
+                canSignIn = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanSignin"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanSignIn"));
             }
         }
 
         // Constructors
-        public SignInViewModel()
+        public EntryViewModel()
         {
             Init();
         }
@@ -101,7 +101,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
-                TextBox usernameTextBox = (TextBox)SignInView.FindName("UsernameTextBox");
+                TextBox usernameTextBox = (TextBox)EntryView.FindName("UsernameTextBox");
 
                 return new Command(() =>
                 {
@@ -120,7 +120,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
-                TextBox usernameTextBox = (TextBox)SignInView.FindName("UsernameTextBox");
+                TextBox usernameTextBox = (TextBox)EntryView.FindName("UsernameTextBox");
 
                 return new Command(() =>
                 {
@@ -139,8 +139,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
-                TextBox passwordTextBox = (TextBox)SignInView.FindName("PasswordTextBox");
-                PasswordBox passwordBox = (PasswordBox)SignInView.FindName("PasswordBox");
+                TextBox passwordTextBox = (TextBox)EntryView.FindName("PasswordTextBox");
+                PasswordBox passwordBox = (PasswordBox)EntryView.FindName("PasswordBox");
 
                 return new Command(() =>
                 {
@@ -154,8 +154,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
-                TextBox passwordTextBox = (TextBox)SignInView.FindName("PasswordTextBox");
-                PasswordBox passwordBox = (PasswordBox)SignInView.FindName("PasswordBox");
+                TextBox passwordTextBox = (TextBox)EntryView.FindName("PasswordTextBox");
+                PasswordBox passwordBox = (PasswordBox)EntryView.FindName("PasswordBox");
 
                 return new Command(() =>
                 {
@@ -177,14 +177,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public Command SignInCommand
+        public Command EntryCommand
         {
             get
             {
-                TextBox usernameTextBox = (TextBox)SignInView.FindName("UsernameTextBox");
-                PasswordBox passwordBox = (PasswordBox)SignInView.FindName("PasswordBox");
-                WrapPanel usernameErrorWrapPanel = (WrapPanel)SignInView.FindName("UsernameErrorWrapPanel"),
-                    passwordErrorWrapPanel = (WrapPanel)SignInView.FindName("PasswordErrorWrapPanel");
+                TextBox usernameTextBox = (TextBox)EntryView.FindName("UsernameTextBox");
+                PasswordBox passwordBox = (PasswordBox)EntryView.FindName("PasswordBox");
+                WrapPanel usernameErrorWrapPanel = (WrapPanel)EntryView.FindName("UsernameErrorWrapPanel"),
+                    passwordErrorWrapPanel = (WrapPanel)EntryView.FindName("PasswordErrorWrapPanel");
 
                 return new Command(() =>
                 {
@@ -230,7 +230,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     }
                     else if (++AttemptsCount == 3)
                     {
-                        CanSignin = false;
+                        CanSignIn = false;
                         KickUserCommand.Execute(null);
                     }
                 });
@@ -246,12 +246,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
-                TextBox usernameTextBox = (TextBox)SignInView.FindName("UsernameTextBox"),
-                    passwordTextBox = (TextBox)SignInView.FindName("PasswordTextBox");
-                PasswordBox passwordBox = (PasswordBox)SignInView.FindName("PasswordBox");
-                MediaElement kickUserMediaElement = (MediaElement)SignInView.FindName("KickUserMediaElement");
-                WrapPanel usernameErrorWrapPanel = (WrapPanel)SignInView.FindName("UsernameErrorWrapPanel"),
-                    passwordErrorWrapPanel = (WrapPanel)SignInView.FindName("PasswordErrorWrapPanel");
+                TextBox usernameTextBox = (TextBox)EntryView.FindName("UsernameTextBox"),
+                    passwordTextBox = (TextBox)EntryView.FindName("PasswordTextBox");
+                PasswordBox passwordBox = (PasswordBox)EntryView.FindName("PasswordBox");
+                MediaElement kickUserMediaElement = (MediaElement)EntryView.FindName("KickUserMediaElement");
+                WrapPanel usernameErrorWrapPanel = (WrapPanel)EntryView.FindName("UsernameErrorWrapPanel"),
+                    passwordErrorWrapPanel = (WrapPanel)EntryView.FindName("PasswordErrorWrapPanel");
 
                 return new Command(() =>
                 {
@@ -290,9 +290,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             MediaElement kickUserMediaElement = null;
 
             foreach (Window view in App.Current.Windows)
-                if (view is SignInView)
+                if (view is EntryView)
                 {
-                    SignInView = (SignInView)view;
+                    EntryView = (EntryView)view;
                     break;
                 }
 
@@ -303,13 +303,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             UsernameError = string.Empty;
             PasswordError = string.Empty;
 
-            CanSignin = true;
+            CanSignIn = true;
 
-            usernameTextBox = (TextBox)SignInView.FindName("UsernameTextBox");
+            usernameTextBox = (TextBox)EntryView.FindName("UsernameTextBox");
             usernameTextBox.Foreground = Brushes.Gray;
             usernameTextBox.Text = "Username";
 
-            kickUserMediaElement = (MediaElement)SignInView.FindName("KickUserMediaElement");
+            kickUserMediaElement = (MediaElement)EntryView.FindName("KickUserMediaElement");
             kickUserMediaElement.Source = new Uri(FolderPaths.VIDEOS + "You Shall Not Pass.mp4");
         }
 
@@ -322,7 +322,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             App.Current.MainWindow = new MainView();
 
             ((MainViewModel)App.Current.MainWindow.DataContext).Init(user, AuthenticatedUsers);
-            SignInView.Close();
+            EntryView.Close();
 
             App.Current.MainWindow.Show();
         }

@@ -61,7 +61,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    App.Current.MainWindow = new SignInView();
+                    App.Current.MainWindow = new EntryView();
                     App.Current.MainWindow.Show();
 
                     MainViewModel.MainView.Close();
