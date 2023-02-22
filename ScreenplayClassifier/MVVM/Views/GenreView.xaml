@@ -9,12 +9,26 @@
         Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="700"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
-            <Image gif:ImageBehavior.AnimatedSource="{Binding GenreGif}" gif:ImageBehavior.RepeatBehavior="Forever"/>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Margin="10">
+            <TextBlock Text="{Binding Genre}" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding ScreenplaysCountText}" FontSize="15" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+            <DataGrid ItemsSource="{Binding ScreenplaysInGenre}" Height="400" FontSize="15" IsReadOnly="True"
+                      Style="{StaticResource DataGridStyle}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="470"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                    <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=OwnerSubGenre1}" Width="100"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                    <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=OwnerSubGenre2}" Width="100"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
             <Image Source="{Binding AudioImage}" Height="40" Width="40" Cursor="Hand" Margin="10">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
@@ -22,19 +36,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Image>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <TextBlock Text="{Binding ScreenplaysCountText}" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <DataGrid ItemsSource="{Binding ScreenplaysInGenre}" Height="450" IsReadOnly="True" Style="{StaticResource DataGridStyle}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="350"
-                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="SubGenre 1" Binding="{Binding Path=OwnerSubGenre1}" Width="150"
-                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="SubGenre 2" Binding="{Binding Path=OwnerSubGenre2}" Width="150"
-                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <Image gif:ImageBehavior.AnimatedSource="{Binding GenreGif}" gif:ImageBehavior.RepeatBehavior="Forever" Height="390" Stretch="Fill"/>
         </StackPanel>
     </Grid>
 </UserControl>

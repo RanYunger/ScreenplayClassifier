@@ -53,6 +53,23 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         #region Commands
+        public Command StopMusicCommand
+        {
+            get
+            {
+                ArchivesByGenreViewModel archivesByGenreViewModel = null;
+
+                return new Command(() =>
+                {
+                    // Validation
+                    if (ArchivesView == null)
+                        return;
+
+                    archivesByGenreViewModel = (ArchivesByGenreViewModel)ArchivesByGenreView.DataContext;
+                    archivesByGenreViewModel.StopMusicCommand.Execute(null);
+                });
+            }
+        }
         #endregion
 
         // Constructors

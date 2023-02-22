@@ -86,7 +86,6 @@
     <None Remove="Media\Images\Search.png" />
     <None Remove="Media\Images\Seats.png" />
     <None Remove="Media\Images\Signout.png" />
-    <None Remove="Media\Images\SingleReel.png" />
     <None Remove="Media\Images\Ticket.png" />
     <None Remove="Media\Images\TicketSign.png" />
     <None Remove="Media\Images\TicketWindow.png" />
@@ -321,9 +320,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Save.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\SingleReel.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Ticket.png">

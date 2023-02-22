@@ -53,9 +53,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return genreOffset; }
             set
             {
+                string selectedGenre = null;
+
                 genreOffset = value;
 
-                GenreImage = new BitmapImage(new Uri(string.Format("{0}Action.png", FolderPaths.GENREIMAGES)));
+                if (genreOffset != -1)
+                {
+                    selectedGenre = new List<string>(Archives.Keys)[genreOffset];
+
+                    GenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, selectedGenre)));
+                    ShowScreenplays(selectedGenre);
+                }
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("GenreOffset"));
@@ -82,12 +90,52 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
         public Command GoToPreviousCommand
         {
-            get { return new Command(() => GenreOffset = GenreOffset - 1 < 0 ? Archives.Count - 1 : GenreOffset - 1); }
+            get
+            {
+                return new Command(() =>
+                {
+                    // Validation
+                    if (Archives.Count == 0)
+                        return;
+
+                    GenreOffset = GenreOffset - 1 < 0 ? Archives.Count - 1 : GenreOffset - 1;
+                });
+            }
         }
         public Command GoToNextCommand
         {
-            get { return new Command(() => GenreOffset = GenreOffset + 1 > Archives.Count - 1 ? 0 : GenreOffset + 1); }
+            get
+            {
+                return new Command(() =>
+                {
+                    // Validation
+                    if (Archives.Count == 0)
+                        return;
 
+                    GenreOffset = GenreOffset + 1 > Archives.Count - 1 ? 0 : GenreOffset + 1;
+                });
+            }
+        }
+
+        public Command StopMusicCommand
+        {
+            get
+            {
+                GenreView genreView = null;
+                GenreViewModel genreViewModel = null;
+
+                return new Command(() =>
+                {
+                    // Validation
+                    if (ArchivesByGenreView == null)
+                        return;
+
+                    genreView = (GenreView)ArchivesByGenreView.FindName("GenreView");
+                    genreViewModel = (GenreViewModel)genreView.DataContext;
+
+                    genreViewModel.StopMusicCommand.Execute(null);
+                });
+            }
         }
         #endregion
 
@@ -100,7 +148,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ArchivesByGenreView = archivesByGenreView;
 
             Archives = new Dictionary<string, ObservableCollection<ScreenplayModel>>();
-
+            GenreOffset = -1;
         }
 
         /// <summary>
@@ -126,14 +174,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void ShowScreenplays(string genre)
         {
             GenreView genreView = null;
+            GenreViewModel genreViewModel = null;
 
             // Validation
             if (ArchivesByGenreView == null)
                 return;
 
             genreView = (GenreView)ArchivesByGenreView.FindName("GenreView");
+            genreViewModel = (GenreViewModel)genreView.DataContext;
 
-            ((GenreViewModel)genreView.DataContext).Init(genreView, genre, Archives[genre]);
+            genreViewModel.Init(genreView, genre, Archives[genre]);
         }
     }
 }

@@ -42,6 +42,35 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
+        public Command CheckKeyCommand
+        {
+            get
+            {
+                ArchivesViewModel archivesViewModel = null;
+                ArchivesByGenreViewModel archivesByGenreViewModel = null;
+                ArchivesByPercentViewModel archivesByPercentViewModel = null;
+
+                return new Command(() =>
+                {
+                    if (ArchivesView.Visibility == Visibility.Visible)
+                    {
+                        archivesViewModel = (ArchivesViewModel)ArchivesView.DataContext;
+
+                        if (archivesViewModel.ArchivesByGenreView.Visibility == Visibility.Visible)
+                        {
+                            archivesByGenreViewModel = (ArchivesByGenreViewModel)archivesViewModel.ArchivesByGenreView.DataContext;
+                            archivesByGenreViewModel.CheckKeyCommand.Execute(null);
+                        }
+                        else if (archivesViewModel.ArchivesByPercentView.Visibility == Visibility.Visible)
+                        {
+                            archivesByPercentViewModel = (ArchivesByPercentViewModel)archivesViewModel.ArchivesByPercentView.DataContext;
+                            //archivesByPercentViewModel.CheckKeyCommand.Execute(null);
+                        }
+                    }
+                });
+            }
+        }
+
         public Command CloseCommand
         {
             get
@@ -51,6 +80,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     SettingsViewModel settingsViewModel = (SettingsViewModel)SettingsView.DataContext;
                     ClassificationViewModel classificationViewModel = (ClassificationViewModel)ClassificationView.DataContext;
                     ReportsViewModel reportsViewModel = (ReportsViewModel)ReportsView.DataContext;
+
+                    ((ArchivesViewModel)ArchivesView.DataContext).StopMusicCommand.Execute(null);
 
                     // Kills the classification thread (if it's active)
                     if (classificationViewModel.ProgressViewModel.ClassificationThread != null)
@@ -123,6 +154,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 view.Visibility = view == viewToShow ? Visibility.Visible : Visibility.Collapsed;
 
             ((AboutViewModel)AboutView.DataContext).IsPlaying = viewToShow == AboutView;
+
+            if(viewToShow != ArchivesView)
+                ((ArchivesViewModel)ArchivesView.DataContext).StopMusicCommand.Execute(null);
 
             if (viewToShow == ReportsView)
                 ((ReportsViewModel)ReportsView.DataContext).GoToFirstCommand.Execute(null);

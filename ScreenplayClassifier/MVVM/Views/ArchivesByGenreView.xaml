@@ -7,6 +7,48 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <!--TODO: COMPLETE-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <WrapPanel Grid.Row="0" HorizontalAlignment="Center">
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="150" Width="150"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+            <Image Source="/Media/Images/Reel.png" Height="80"/>
+        </WrapPanel>
+        <Image Grid.Row="0" Source="/Media/Images/Previous.png" Height="50" Width="50" Margin="-240,0,0,0">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding GoToPreviousCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
+        <Image Source="{Binding GenreImage}" Height="90" Width="90"/>
+        <Image Grid.Row="0" Source="/Media/Images/Next.png" Height="50" Width="50" Margin="240,0,0,0">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding GoToNextCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
+        <v:GenreView x:Name="GenreView" Grid.Row="1"/>
+
     </Grid>
 </UserControl>
