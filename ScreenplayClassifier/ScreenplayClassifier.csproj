@@ -74,6 +74,7 @@
     <None Remove="Media\Images\Member.png" />
     <None Remove="Media\Images\More.png" />
     <None Remove="Media\Images\Next.png" />
+    <None Remove="Media\Images\Options.png" />
     <None Remove="Media\Images\Password.png" />
     <None Remove="Media\Images\Percent.png" />
     <None Remove="Media\Images\Posters.png" />
@@ -284,6 +285,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Next.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Options.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Password.png">

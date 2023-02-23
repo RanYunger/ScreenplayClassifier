@@ -18,8 +18,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ClassificationViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ObservableCollection<ReportModel> classifiedScreenplays;
-        private bool browseComplete, progressComplete, classificationComplete;
+        private bool browseComplete, progressComplete, feedbackComplete, classificationComplete;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -30,18 +29,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public BrowseViewModel BrowseViewModel { get; private set; }
         public ProgressViewModel ProgressViewModel { get; private set; }
         public FeedbackViewModel FeedbackViewModel { get; private set; }
-
-        public ObservableCollection<ReportModel> ClassifiedScreenplays
-        {
-            get { return classifiedScreenplays; }
-            set
-            {
-                classifiedScreenplays = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassifiedScreenplays"));
-            }
-        }
+        public SummaryViewModel SummaryViewModel { get; private set; }
 
         public bool BrowseComplete
         {
@@ -53,7 +41,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 if (browseComplete)
                 {
                     BrowseViewModel.HideView();
-                    ProgressViewModel.RefreshView(BrowseViewModel.CheckedScreenplays);
+                    ProgressViewModel.RefreshView();
                     ProgressViewModel.ShowView();
                 }
 
@@ -81,6 +69,25 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public bool FeedbackComplete
+        {
+            get { return feedbackComplete; }
+            set
+            {
+                feedbackComplete = value;
+
+                if (feedbackComplete)
+                {
+                    FeedbackViewModel.HideView();
+                    SummaryViewModel.RefreshView();
+                    SummaryViewModel.ShowView();
+                }
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("FeedbackComplete"));
+            }
+        }
+
         public bool ClassificationComplete
         {
             get { return classificationComplete; }
@@ -90,16 +97,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (classificationComplete)
                 {
-                    FeedbackViewModel.HideView();
+                    SummaryViewModel.HideView();
                     BrowseViewModel.RefreshView();
                     BrowseViewModel.ShowView();
 
                     BrowseComplete = false;
                     ProgressComplete = false;
+                    FeedbackComplete = false;
                 }
-                else if (FeedbackViewModel != null)
+                else if (SummaryViewModel != null)
                 {
-                    FeedbackViewModel.HideView();
+                    SummaryViewModel.HideView();
 
                     BrowseComplete = true;
                 }
@@ -112,9 +120,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Constructors
         public ClassificationViewModel()
         {
-            ClassifiedScreenplays = new ObservableCollection<ReportModel>();
             BrowseComplete = false;
             ProgressComplete = false;
+            FeedbackComplete = false;
             ClassificationComplete = false;
         }
 
@@ -132,6 +140,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             BrowseView browseView = null;
             ProgressView progressView = null;
             FeedbackView feedbackView = null;
+            SummaryView summaryView = null;
 
             ClassificationView = classificationView;
             MainViewModel = mainViewModel;
@@ -147,6 +156,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             feedbackView = (FeedbackView)ClassificationView.FindName("FeedbackView");
             FeedbackViewModel = (FeedbackViewModel)feedbackView.DataContext;
             FeedbackViewModel.Init(feedbackView, this);
+
+            summaryView = (SummaryView)ClassificationView.FindName("SummaryView");
+            SummaryViewModel = (SummaryViewModel)summaryView.DataContext;
+            SummaryViewModel.Init(summaryView, this);
         }
     }
 }

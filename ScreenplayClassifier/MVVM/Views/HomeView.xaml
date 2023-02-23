@@ -7,36 +7,34 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <Image Source="/Media/Images/Posters.png" Stretch="Fill"/>
-        <StackPanel VerticalAlignment="Center" Cursor="Hand" Margin="-900,50,50,50">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDown">
-                    <i:InvokeCommandAction Command="{Binding ShowArchivesViewCommand}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <Image Source="/Media/Images/Archives.png" Height="250" Width="250"/>
-            <TextBlock Text="Archives" HorizontalAlignment="Center" FontSize="40" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="Now Playing" HorizontalAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Command="{Binding ShowClassificationViewCommand}" Width="520" Cursor="Hand" Margin="10" Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Media/Images/Classification.png" Height="250" Width="250"/>
+                        <TextBlock Text="Classification" HorizontalAlignment="Center" FontSize="40" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <WrapPanel Margin="10">
+                <Button Command="{Binding ShowArchivesViewCommand}" Width="250" Cursor="Hand" Margin="10" Style="{StaticResource ButtonStyle}">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Media/Images/Archives.png" Height="200" Width="200"/>
+                            <TextBlock Text="Archives" HorizontalAlignment="Center" FontSize="40" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Command="{Binding ShowReportsViewCommand}" Width="250" Cursor="Hand" Margin="10" Style="{StaticResource ButtonStyle}">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Media/Images/Reports.png" Height="200" Width="200"/>
+                            <TextBlock Text="Reports" HorizontalAlignment="Center" FontSize="40" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </WrapPanel>
         </StackPanel>
-        <StackPanel VerticalAlignment="Center" Cursor="Hand" Margin="50">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDown">
-                    <i:InvokeCommandAction Command="{Binding ShowClassificationViewCommand}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <Image Source="/Media/Images/Classification.png" Height="250" Width="250"/>
-            <TextBlock Text="Classification" HorizontalAlignment="Center" FontSize="40" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="Now Playing" HorizontalAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-        </StackPanel>
-        <StackPanel VerticalAlignment="Center" Cursor="Hand" Margin="1000,50,50,50">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDown">
-                    <i:InvokeCommandAction Command="{Binding ShowReportsViewCommand}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <Image Source="/Media/Images/Reports.png" Height="250" Width="250"/>
-            <TextBlock Text="Reports" HorizontalAlignment="Center" FontSize="40" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="Now Playing" HorizontalAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-        </StackPanel>
+        <!--<Image Source="/Media/Images/Posters.png" Stretch="Fill"/>-->
     </Grid>
 </UserControl>

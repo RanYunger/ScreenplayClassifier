@@ -20,5 +20,6 @@
         <v:BrowseView x:Name="BrowseView" Grid.Row="1"/>
         <v:ProgressView x:Name="ProgressView" Grid.Row="1" Visibility="Collapsed"/>
         <v:FeedbackView x:Name="FeedbackView" Grid.Row="1" Visibility="Collapsed"/>
+        <v:SummaryView x:Name="SummaryView" Grid.Row="1" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

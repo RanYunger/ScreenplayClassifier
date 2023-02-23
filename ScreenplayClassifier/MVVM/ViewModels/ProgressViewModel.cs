@@ -215,8 +215,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Refreshes the view.
         /// </summary>
-        /// <param name="browsedScreenplays">The screenplays to classify</param>
-        public void RefreshView(ObservableCollection<BrowseModel> browsedScreenplays)
+        public void RefreshView()
         {
             DurationTimer.Stop();
 
@@ -230,7 +229,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             PhaseText = string.Empty;
 
-            StartClassification(browsedScreenplays);
+            StartClassification(ClassificationViewModel.BrowseViewModel.CheckedScreenplays);
         }
 
         /// <summary>
@@ -339,7 +338,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 classifications.Add(new ReportModel(owner, screenplay));
 
             // Stores the classification results
-            ClassificationViewModel.ClassifiedScreenplays = new ObservableCollection<ReportModel>(classifications);
+            ClassificationViewModel.FeedbackViewModel.FeedbackedScreenplays = new ObservableCollection<ReportModel>(classifications);
             App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
         }
     }

@@ -69,6 +69,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public Command OptionsCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    // TODO: COMPLETE
+                });
+            }
+        }
+
         public Command AboutCommand
         {
             get { return new Command(() => MainViewModel.ShowView(MainViewModel.AboutView)); }

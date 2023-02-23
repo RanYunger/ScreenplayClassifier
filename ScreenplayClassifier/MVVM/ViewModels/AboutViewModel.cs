@@ -42,7 +42,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Constructors
         public AboutViewModel()
         {
-            videoTimer = new Timer(140500);
+            videoTimer = new Timer(141000);
             videoTimer.Elapsed += VideoTimer_Elapsed;
         }
 
