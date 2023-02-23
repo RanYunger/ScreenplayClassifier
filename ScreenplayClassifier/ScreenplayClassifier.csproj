@@ -48,6 +48,7 @@
     <None Remove="Media\Images\Browse.png" />
     <None Remove="Media\Images\Classification.png" />
     <None Remove="Media\Images\Clear.png" />
+    <None Remove="Media\Images\Complete.png" />
     <None Remove="Media\Images\Error.png" />
     <None Remove="Media\Images\Filter.png" />
     <None Remove="Media\Images\First.png" />
@@ -82,6 +83,7 @@
     <None Remove="Media\Images\Proceed.png" />
     <None Remove="Media\Images\Projector.png" />
     <None Remove="Media\Images\Reel.png" />
+    <None Remove="Media\Images\Repeat.png" />
     <None Remove="Media\Images\Reports.png" />
     <None Remove="Media\Images\Save.png" />
     <None Remove="Media\Images\Search.png" />
@@ -212,6 +214,9 @@
     <Content Include="Media\Images\Clear.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\Complete.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\Error.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -309,6 +314,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Reel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Repeat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Reports.png">

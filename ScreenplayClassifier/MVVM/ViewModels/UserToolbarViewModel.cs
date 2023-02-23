@@ -15,7 +15,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class UserToolbarViewModel : INotifyPropertyChanged
     {
         // Fields
-        private MediaPlayer mediaPlayer;
         private UserModel user;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -37,20 +36,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Constructors
-        public UserToolbarViewModel()
-        {
-            mediaPlayer = new MediaPlayer();
-            mediaPlayer.Open(new Uri(string.Format("{0}Wilhelm Scream.mp3", FolderPaths.AUDIOS)));
-        }
+        public UserToolbarViewModel() { }
 
         // Methods
         #region Commands
-        public Command HomeCommand
+        public Command ShowHomeCommand
         {
             get { return new Command(() => MainViewModel.ShowView(MainViewModel.HomeView)); }
         }
 
-        public Command SettingsCommand
+        public Command ShowSettingsCommand
         {
             get { return new Command(() => MainViewModel.ShowView(MainViewModel.SettingsView)); }
         }
@@ -69,7 +64,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public Command OptionsCommand
+        public Command ShowOptionsCommand
         {
             get
             {
@@ -80,7 +75,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public Command AboutCommand
+        public Command ShowAboutCommand
         {
             get { return new Command(() => MainViewModel.ShowView(MainViewModel.AboutView)); }
         }

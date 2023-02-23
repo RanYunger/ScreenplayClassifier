@@ -13,7 +13,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private ObservableCollection<ReportModel> classifiedScreenplays;
-        private string titleText, classificationsText, genreClassificationsText, subGenre1ClassificationsText, subGenre2ClassificationsText;
+        private string titleText, accuracyColor;
+        private double accuracyPercent;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -48,51 +49,34 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public string ClassificationsText
+        public string AccuracyColor
         {
-            get { return classificationsText; }
+            get { return accuracyColor; }
             set
             {
-                classificationsText = value;
+                accuracyColor = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassificationsText"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("AccuracyColor"));
             }
         }
 
-        public string GenreClassificationsText
+        public double AccuracyPercent
         {
-            get { return genreClassificationsText; }
+            get { return accuracyPercent; }
             set
             {
-                genreClassificationsText = value;
+                accuracyPercent = value;
+
+                if ((accuracyPercent >= 0) && (AccuracyPercent < 33.3))
+                    AccuracyColor = "Red";
+                else if ((accuracyPercent >= 33.3) && (AccuracyPercent < 66.6))
+                    AccuracyColor = "Orange";
+                else if ((accuracyPercent >= 66.6) && (AccuracyPercent <= 100))
+                    AccuracyColor = "Green";
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GenreClassificationsText"));
-            }
-        }
-
-        public string SubGenre1ClassificationsText
-        {
-            get { return subGenre1ClassificationsText; }
-            set
-            {
-                subGenre1ClassificationsText = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre1ClassificationsText"));
-            }
-        }
-
-        public string SubGenre2ClassificationsText
-        {
-            get { return subGenre2ClassificationsText; }
-            set
-            {
-                subGenre2ClassificationsText = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre2ClassificationsText"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("AccuracyPercent"));
             }
         }
 
@@ -101,10 +85,29 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command RepeatClassificationCommand
+        public Command ShowInspectionViewCommand
+        {
+            get
+            {
+                InspectionView inspectionView = null;
+
+                return new Command(() =>
+                {
+                    // Validation
+                    if (SummaryView == null)
+                        return;
+
+                    inspectionView = (InspectionView)SummaryView.FindName("InspectionView");
+                    inspectionView.Visibility = Visibility.Visible;
+                });
+            }
+        }
+
+        public Command RerunClassificationCommand
         {
             get { return new Command(() => ClassificationViewModel.ClassificationComplete = false); }
         }
+
         public Command CompleteClassificationCommand
         {
             get
@@ -124,11 +127,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ClassificationViewModel = classificationViewModel;
 
             ClassifiedScreenplays = new ObservableCollection<ReportModel>();
+            AccuracyPercent = 0.0;
             TitleText = string.Empty;
-            ClassificationsText = string.Empty;
-            GenreClassificationsText = string.Empty;
-            SubGenre1ClassificationsText = string.Empty;
-            SubGenre2ClassificationsText = string.Empty;
+            AccuracyColor = string.Empty;
         }
 
         /// <summary>
@@ -145,31 +146,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void RefreshView()
         {
+            InspectionView inspectionView = null;
             List<ScreenplayModel> screenplays = new List<ScreenplayModel>();
-            Predicate<ScreenplayModel>[] queries = { s => s.IsClassifiedCorrectly, s => s.ModelGenre == s.OwnerGenre,
-                        s => s.ModelSubGenre1 == s.OwnerSubGenre1, s => s.ModelSubGenre2 == s.OwnerSubGenre2 };
             int correctClassifications;
-            string formattedText;
-            double percentage;
 
             ClassifiedScreenplays = ClassificationViewModel.FeedbackViewModel.FeedbackedScreenplays;
             foreach (ReportModel reportModel in ClassifiedScreenplays)
                 screenplays.Add(reportModel.Screenplay);
 
-            for (int i = 0; i < queries.Length; i++)
-            {
-                correctClassifications = screenplays.FindAll(queries[i]).Count;
-                percentage = (100.0 * correctClassifications) / screenplays.Count;
-                formattedText = string.Format("{0}/{1} ({2}%)", correctClassifications, screenplays.Count, percentage.ToString("0.00"));
+            correctClassifications = screenplays.FindAll(s => s.IsClassifiedCorrectly).Count;
+            AccuracyPercent = (100.0 * correctClassifications) / screenplays.Count;
 
-                switch (i)
-                {
-                    case 0: ClassificationsText = formattedText; break;
-                    case 1: GenreClassificationsText = formattedText; break;
-                    case 2: SubGenre1ClassificationsText = formattedText; break;
-                    case 3: SubGenre2ClassificationsText = formattedText; break;
-                }
-            }
+            inspectionView = (InspectionView)SummaryView.FindName("InspectionView");
+            ((InspectionViewModel)inspectionView.DataContext).Init(inspectionView, screenplays);
         }
 
         /// <summary>

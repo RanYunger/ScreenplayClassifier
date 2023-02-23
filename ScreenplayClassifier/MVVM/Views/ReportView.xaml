@@ -6,36 +6,22 @@
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="400"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-        <WrapPanel Grid.Row="0" Grid.ColumnSpan="3">
-            <TextBlock Text="Title:" FontSize="30" Margin="10,0,0,0" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="{Binding Path=Report.Screenplay.Title}" FontSize="30" Margin="80,0,0,0" Style="{StaticResource TextBlockStyle}"/>
-        </WrapPanel>
-        <WrapPanel Grid.Row="1" Grid.ColumnSpan="3">
-            <TextBlock Text="Owner:" FontSize="30" Margin="10,0,0,0" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="{Binding Path=Report.Owner.Username}" FontSize="30" Margin="50,0,0,0" Style="{StaticResource TextBlockStyle}"/>
-        </WrapPanel>
-
+        
         <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding ScreenplayText}" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"
                  Margin="10" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
         <v:GenresView x:Name="GenresView" Grid.Row="2" Grid.Column="1"/>
-        <StackPanel Grid.Row="2" Grid.Column="2">
+        <!--<StackPanel Grid.Row="2" Grid.Column="2">
             <TextBlock Text="Genre Percentages" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-            <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="400" Width="400" FontSize="20" Hoverable="True" Margin="10">
+            <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="400" Width="400" FontSize="20" Hoverable="True"
+                          Margin="10">
                 <lvc:PieChart.ChartLegend>
                     <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="20"/>
                 </lvc:PieChart.ChartLegend>
             </lvc:PieChart>
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
 </UserControl>

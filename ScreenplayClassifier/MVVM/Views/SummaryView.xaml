@@ -4,108 +4,52 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
+             xmlns:rpb="http://XamlRadialProgressBar/DotNet"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <StackPanel>
-            <TextBlock Text="{Binding TitleText}" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-            <StackPanel Margin="10">
-                <GroupBox Width="300" HorizontalAlignment="Left" Margin="10" Style="{StaticResource GroupBoxStyle}">
-                    <GroupBox.Header>
-                        <WrapPanel>
-                            <Image Source="/Media/Images/Percent.png" Height="30" Width="30"/>
-                            <TextBlock Text="Accuracy" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                        </WrapPanel>
-                    </GroupBox.Header>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding TitleText}" FontSize="40" HorizontalAlignment="Center" Margin="10"
+                       Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Model Accuracy" TextAlignment="Center" FontSize="30" Margin="10"
+                   Style="{StaticResource TextBlockStyle}"/>
+        <rpb:RadialProgressBar x:Name="RadialProgressBar" Grid.Row="2" Grid.Column="0" Value="{Binding AccuracyPercent}" Height="400" Width="400"
+                                   ArcWidth="25" Foreground="{Binding AccuracyColor}" InnerBackgroundBrush="Transparent"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding ElementName=RadialProgressBar, Path=Value, StringFormat={}{0} %}" FontSize="50"
+                   HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+        <Button Grid.Row="3" Grid.Column="0" Content="Inspect" Command="{Binding ShowInspectionViewCommand}" FontSize="20" Cursor="Hand"
+                Margin="10" Style="{StaticResource ButtonStyle}"/>
+
+        <StackPanel Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" VerticalAlignment="Center">
+            <Button Command="{Binding RerunClassificationCommand}" Width="250" FontSize="20" Cursor="Hand" Margin="10"
+                    Style="{StaticResource ButtonStyle}">
+                <Button.Content>
                     <StackPanel>
-                        <WrapPanel Margin="0,10,0,10">
-                            <TextBlock Text="Classifications:" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                            <TextBlock Text="{Binding ClassificationsText}" FontSize="20" Margin="10,0,0,0"
-                                   Style="{StaticResource TextBlockStyle}"/>
-                        </WrapPanel>
-                        <WrapPanel Margin="0,10,0,10">
-                            <TextBlock Text="Main Genre:" FontSize="15" Style="{StaticResource TextBlockStyle}"/>
-                            <TextBlock Text="{Binding GenreClassificationsText}" FontSize="15" Margin="64,0,0,0"
-                                   Style="{StaticResource TextBlockStyle}"/>
-                        </WrapPanel>
-                        <WrapPanel Margin="0,10,0,10">
-                            <TextBlock Text="SubGenre 1:" FontSize="15" Style="{StaticResource TextBlockStyle}"/>
-                            <TextBlock Text="{Binding SubGenre1ClassificationsText}" FontSize="15" Margin="64,0,0,0"
-                                   Style="{StaticResource TextBlockStyle}"/>
-                        </WrapPanel>
-                        <WrapPanel Margin="0,10,0,10">
-                            <TextBlock Text="SubGenre 2:" FontSize="15" Style="{StaticResource TextBlockStyle}"/>
-                            <TextBlock Text="{Binding SubGenre2ClassificationsText}" FontSize="15" Margin="64,0,0,0"
-                                   Style="{StaticResource TextBlockStyle}"/>
-                        </WrapPanel>
+                        <Image Source="/Media/Images/Repeat.png" Height="50" Width="50"/>
+                        <TextBlock Text="Re-run Classification" TextAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
-                </GroupBox>
-                <DataGrid ItemsSource="{Binding FeedbackedScreenplays}" IsReadOnly="True" Height="400" Margin="10"
-                          Style="{StaticResource DataGridStyle}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Title" Binding="{Binding Path=Screenplay.Title}" Width="880"
-                                            HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                        <DataGridTemplateColumn Width="300" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <TextBlock Text="Model Classification" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                                        <WrapPanel>
-                                            <DataGridColumnHeader Content="Genre" Width="99" Style="{StaticResource DataGridSubColumnHeaderStyle}"/>
-                                            <DataGridColumnHeader Content="SubGenre 1" Width="99"
-                                                                  Style="{StaticResource DataGridSubColumnHeaderStyle}"/>
-                                            <DataGridColumnHeader Content="SubGenre 2" Width="99"
-                                                                  Style="{StaticResource DataGridSubColumnHeaderStyle}"/>
-
-                                        </WrapPanel>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <WrapPanel>
-                                        <TextBox Text="{Binding Path=Screenplay.ModelGenre}" Width="99" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                        <TextBox Text="{Binding Path=Screenplay.ModelSubGenre1}" Width="99" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                        <TextBox Text="{Binding Path=Screenplay.ModelSubGenre2}" Width="99" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Your Classification" Width="300"
-                                                HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <TextBlock Text="Your Classification" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                                        <WrapPanel>
-                                            <DataGridColumnHeader Content="Genre" Width="99" Style="{StaticResource DataGridSubColumnHeaderStyle}"/>
-                                            <DataGridColumnHeader Content="SubGenre 1" Width="99"
-                                                                  Style="{StaticResource DataGridSubColumnHeaderStyle}"/>
-                                            <DataGridColumnHeader Content="SubGenre 2" Width="99"
-                                                                  Style="{StaticResource DataGridSubColumnHeaderStyle}"/>
-
-                                        </WrapPanel>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <WrapPanel>
-                                        <TextBox Text="{Binding Path=Screenplay.OwnerGenre}" Width="99" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                        <TextBox Text="{Binding Path=Screenplay.OwnerSubGenre1}" Width="99" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                        <TextBox Text="{Binding Path=Screenplay.OwnerSubGenre2}" Width="99" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding CompleteClassificationCommand}" Width="250" FontSize="20" Cursor="Hand" Margin="10"
+                    Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Media/Images/Complete.png" Height="50" Width="50"/>
+                        <TextBlock Text="Complete Classification" TextAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
         </StackPanel>
+
+        <v:InspectionView x:Name="InspectionView" Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

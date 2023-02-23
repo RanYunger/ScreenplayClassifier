@@ -80,7 +80,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         private void VideoTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            App.Current.Dispatcher.Invoke(() => MainViewModel.UserToolbarViewModel.HomeCommand.Execute(null));
+            App.Current.Dispatcher.Invoke(() => MainViewModel.UserToolbarViewModel.ShowHomeCommand.Execute(null));
         }
         #endregion
 

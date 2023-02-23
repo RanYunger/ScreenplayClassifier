@@ -17,7 +17,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private ObservableCollection<ReportModel> feedbackedScreenplays;
-        private List<BrowseModel> checkedScreenplays;
+        private ObservableCollection<string> screenplayTitles;
         private int screenplayOffset;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -36,6 +36,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("feedbackedScreenplays"));
+            }
+        }
+
+        public ObservableCollection<string> ScreenplayTitles
+        {
+            get { return screenplayTitles; }
+            set
+            {
+                screenplayTitles = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ScreenplayTitles"));
             }
         }
 
@@ -104,6 +116,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ClassificationViewModel = classificationViewModel;
 
             FeedbackedScreenplays = new ObservableCollection<ReportModel>();
+            ScreenplayTitles = new ObservableCollection<string>();
 
             reportView = (ReportView)FeedbackView.FindName("ReportView");
             ReportViewModel = (ReportViewModel)reportView.DataContext;
@@ -124,6 +137,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void RefreshView()
         {
             ReportView reportView = (ReportView)FeedbackView.FindName("ReportView");
+
+            ScreenplayTitles.Clear();
+            foreach (ReportModel feedbackedScreenplay in FeedbackedScreenplays)
+                ScreenplayTitles.Add(feedbackedScreenplay.Screenplay.Title);
 
             ScreenplayOffset = 0;
 

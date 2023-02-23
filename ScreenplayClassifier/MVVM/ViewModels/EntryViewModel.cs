@@ -177,7 +177,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public Command EntryCommand
+        public Command SignInCommand
         {
             get
             {
