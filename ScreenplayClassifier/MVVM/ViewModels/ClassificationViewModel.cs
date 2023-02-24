@@ -29,7 +29,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public BrowseViewModel BrowseViewModel { get; private set; }
         public ProgressViewModel ProgressViewModel { get; private set; }
         public FeedbackViewModel FeedbackViewModel { get; private set; }
-        public SummaryViewModel SummaryViewModel { get; private set; }
+        public OverviewViewModel OverviewViewModel { get; private set; }
+        public InspectionViewModel InspectionViewModel { get; private set; }
+
 
         public bool BrowseComplete
         {
@@ -79,8 +81,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 if (feedbackComplete)
                 {
                     FeedbackViewModel.HideView();
-                    SummaryViewModel.RefreshView();
-                    SummaryViewModel.ShowView();
+                    OverviewViewModel.RefreshView();
+                    InspectionViewModel.RefreshView();
+                    OverviewViewModel.ShowView();
                 }
 
                 if (PropertyChanged != null)
@@ -97,7 +100,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (classificationComplete)
                 {
-                    SummaryViewModel.HideView();
+                    OverviewViewModel.HideView();
+                    InspectionViewModel.HideView();
                     BrowseViewModel.RefreshView();
                     BrowseViewModel.ShowView();
 
@@ -105,9 +109,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     ProgressComplete = false;
                     FeedbackComplete = false;
                 }
-                else if (SummaryViewModel != null)
+                else if (OverviewViewModel != null)
                 {
-                    SummaryViewModel.HideView();
+                    OverviewViewModel.HideView();
+                    InspectionViewModel.HideView();
 
                     BrowseComplete = true;
                 }
@@ -140,7 +145,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             BrowseView browseView = null;
             ProgressView progressView = null;
             FeedbackView feedbackView = null;
-            SummaryView summaryView = null;
+            OverviewView overviewView = null;
+            InspectionView inspectionView = null;
 
             ClassificationView = classificationView;
             MainViewModel = mainViewModel;
@@ -157,9 +163,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             FeedbackViewModel = (FeedbackViewModel)feedbackView.DataContext;
             FeedbackViewModel.Init(feedbackView, this);
 
-            summaryView = (SummaryView)ClassificationView.FindName("SummaryView");
-            SummaryViewModel = (SummaryViewModel)summaryView.DataContext;
-            SummaryViewModel.Init(summaryView, this);
+            overviewView = (OverviewView)ClassificationView.FindName("OverviewView");
+            OverviewViewModel = (OverviewViewModel)overviewView.DataContext;
+            OverviewViewModel.Init(overviewView, this);
+
+            inspectionView = (InspectionView)ClassificationView.FindName("InspectionView");
+            InspectionViewModel = (InspectionViewModel)inspectionView.DataContext;
+            InspectionViewModel.Init(inspectionView, this);
         }
     }
 }

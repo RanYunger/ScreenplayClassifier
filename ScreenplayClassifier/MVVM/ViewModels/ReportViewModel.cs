@@ -16,8 +16,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ReportViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ReportModel report;
-        private SeriesCollection percentageSeries;
+        private ScreenplayModel screenplay;
         private string screenplayText;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -26,27 +25,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ReportView ReportView { get; set; }
         public GenresViewModel GenresViewModel { get; private set; }
 
-        public ReportModel Report
+        public ScreenplayModel Screenplay
         {
-            get { return report; }
+            get { return screenplay; }
             set
             {
-                report = value;
+                screenplay = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Report"));
-            }
-        }
-
-        public SeriesCollection PercentageSeries
-        {
-            get { return percentageSeries; }
-            set
-            {
-                percentageSeries = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("PercentageSeries"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("Screenplay"));
             }
         }
 
@@ -75,48 +62,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <param name="reportView">The view to obtain controls from</param>
         /// <param name="report">The report to represent in the ReportView</param>
         /// <param name="canGiveFeedback">The indication whether the user can give feedback</param>
-        public void Init(ReportView reportView, ReportModel report, bool canGiveFeedback)
+        public void Init(ReportView reportView, ScreenplayModel screenplay, bool canGiveFeedback)
         {
             GenresView genresView;
 
             ReportView = reportView;
 
-            Report = report;
-            ScreenplayText = File.ReadAllText(report.Screenplay.FilePath);
+            Screenplay = screenplay;
+            ScreenplayText = File.ReadAllText(screenplay.FilePath);
 
             genresView = (GenresView)ReportView.FindName("GenresView");
             GenresViewModel = (GenresViewModel)genresView.DataContext;
-            GenresViewModel.Init(genresView, Report.Screenplay, canGiveFeedback);
-
-            RefreshPieChart();
-        }
-
-        /// <summary>
-        /// Refreshes the pie chart.
-        /// </summary>
-        private void RefreshPieChart()
-        {
-            float decimalPercentage;
-            string textualPercentage;
-
-            PercentageSeries = new SeriesCollection();
-
-            // Creates slice for each genre
-            foreach (string genreName in JSON.LoadedGenres)
-            {
-                decimalPercentage = Report.Screenplay.GenrePercentages[genreName];
-                if (decimalPercentage > 0)
-                {
-                    textualPercentage = decimalPercentage.ToString("0.00");
-                    PercentageSeries.Add(new PieSeries()
-                    {
-                        Title = genreName,
-                        Values = new ChartValues<ObservableValue> { new ObservableValue(double.Parse(textualPercentage)) },
-                        FontSize = 20,
-                        DataLabels = true
-                    });
-                }
-            }
+            GenresViewModel.Init(genresView, Screenplay, canGiveFeedback);
         }
     }
 }

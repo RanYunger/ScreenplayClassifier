@@ -16,7 +16,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class FeedbackViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ObservableCollection<ReportModel> feedbackedScreenplays;
+        private ObservableCollection<ScreenplayModel> feedbackedScreenplays;
         private ObservableCollection<string> screenplayTitles;
         private int screenplayOffset;
 
@@ -27,7 +27,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public FeedbackView FeedbackView { get; private set; }
         public ReportViewModel ReportViewModel { get; private set; }
 
-        public ObservableCollection<ReportModel> FeedbackedScreenplays
+        public ObservableCollection<ScreenplayModel> FeedbackedScreenplays
         {
             get { return feedbackedScreenplays; }
             set
@@ -68,7 +68,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command ProceedCommand
+        public Command GoToNextCommand
         {
             get
             {
@@ -82,13 +82,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if (FeedbackView == null)
                         return;
 
-                    if ((ScreenplayOffset >= 0) && (!FeedbackedScreenplays[ScreenplayOffset].Screenplay.Isfeedbacked))
+                    if ((ScreenplayOffset >= 0) && (!FeedbackedScreenplays[ScreenplayOffset].Isfeedbacked))
                     {
                         MessageBoxHandler.Show("Complete feedback before proceeding", string.Empty, 5, MessageBoxImage.Error);
                         return;
                     }
 
-                    proceedDecision = MessageBox.Show("Once confirmed, your classification cannot be changed", "Are you sure?",
+                    proceedDecision = MessageBox.Show("Once confirmed, your classification cannot be changed.", "Are you sure?",
                         MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (proceedDecision == MessageBoxResult.Yes)
                     {
@@ -115,7 +115,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             FeedbackView = feedbackView;
             ClassificationViewModel = classificationViewModel;
 
-            FeedbackedScreenplays = new ObservableCollection<ReportModel>();
+            FeedbackedScreenplays = new ObservableCollection<ScreenplayModel>();
             ScreenplayTitles = new ObservableCollection<string>();
 
             reportView = (ReportView)FeedbackView.FindName("ReportView");
@@ -139,8 +139,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ReportView reportView = (ReportView)FeedbackView.FindName("ReportView");
 
             ScreenplayTitles.Clear();
-            foreach (ReportModel feedbackedScreenplay in FeedbackedScreenplays)
-                ScreenplayTitles.Add(feedbackedScreenplay.Screenplay.Title);
+            foreach (ScreenplayModel feedbackedScreenplay in FeedbackedScreenplays)
+                ScreenplayTitles.Add(feedbackedScreenplay.Title);
 
             ScreenplayOffset = 0;
 

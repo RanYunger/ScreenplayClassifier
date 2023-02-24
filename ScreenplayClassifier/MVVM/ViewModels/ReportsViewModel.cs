@@ -20,6 +20,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private ObservableCollection<ReportModel> reports;
+        private SeriesCollection percentageSeries;
+        private string screenplayTitle;
         private int selectedReport;
         private bool canGoToFirst, canGoToPrevious, canGoToNext, canGoToLast;
 
@@ -39,6 +41,30 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ClassificationReports"));
+            }
+        }
+
+        public SeriesCollection PercentageSeries
+        {
+            get { return percentageSeries; }
+            set
+            {
+                percentageSeries = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("PercentageSeries"));
+            }
+        }
+
+        public string ScreenplayTitle
+        {
+            get { return screenplayTitle; }
+            set
+            {
+                screenplayTitle = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ScreenplayTitle"));
             }
         }
 
@@ -119,7 +145,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     if (Reports.Count > 0)
-                        ((ReportViewModel)reportView.DataContext).Init(reportView, Reports[SelectedReport], false);
+                    {
+                        ((ReportViewModel)reportView.DataContext).Init(reportView, Reports[SelectedReport].Screenplay, false);
+                        ScreenplayTitle = Reports[SelectedReport].Screenplay.Title;
+                        RefreshPieChart();
+                    }
                 });
             }
         }
@@ -207,6 +237,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ReportsView = reportsView;
 
             InitReports(user);
+            ScreenplayTitle = string.Empty;
             SelectedReport = -1;
 
             CanGoToFirst = false;
@@ -234,6 +265,34 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     memberReports = new List<ReportModel>(Reports).FindAll(report => report.Owner.Username.Equals(user.Username));
                     Reports = new ObservableCollection<ReportModel>(memberReports);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Refreshes the pie chart.
+        /// </summary>
+        private void RefreshPieChart()
+        {
+            float decimalPercentage;
+            string textualPercentage;
+
+            PercentageSeries = new SeriesCollection();
+
+            // Creates slice for each genre
+            foreach (string genreName in JSON.LoadedGenres)
+            {
+                decimalPercentage = Reports[SelectedReport].Screenplay.GenrePercentages[genreName];
+                if (decimalPercentage > 0)
+                {
+                    textualPercentage = decimalPercentage.ToString("0.00");
+                    PercentageSeries.Add(new PieSeries()
+                    {
+                        Title = genreName,
+                        Values = new ChartValues<ObservableValue> { new ObservableValue(double.Parse(textualPercentage)) },
+                        FontSize = 20,
+                        DataLabels = true
+                    });
                 }
             }
         }

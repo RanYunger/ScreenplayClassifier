@@ -18,11 +18,11 @@
         <ListView Grid.RowSpan="2" Grid.Column="0" ItemsSource="{Binding ScreenplayTitles}" SelectedIndex="{Binding ScreenplayOffset}"
                   IsEnabled="False" Margin="10"/>
         <v:ReportView x:Name="ReportView" Grid.Row="0" Grid.Column="1"/>
-        <Button Grid.Row="1" Grid.Column="1" Command="{Binding ProceedCommand}" Margin="10" Style="{StaticResource ButtonStyle}">
+        <Button Grid.Row="1" Grid.Column="1" Command="{Binding GoToNextCommand}" Margin="10" Style="{StaticResource ButtonStyle}">
             <Button.Content>
                 <StackPanel>
-                    <Image Source="/Media/Images/Proceed.png" Height="60" Width="60"/>
-                    <TextBlock Text="Proceed" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    <Image Source="/Media/Images/Next.png" Height="60" Width="60"/>
+                    <TextBlock Text="Next" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                 </StackPanel>
             </Button.Content>
         </Button>

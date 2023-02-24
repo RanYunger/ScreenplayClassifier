@@ -80,8 +80,6 @@
     <None Remove="Media\Images\Percent.png" />
     <None Remove="Media\Images\Posters.png" />
     <None Remove="Media\Images\Previous.png" />
-    <None Remove="Media\Images\Proceed.png" />
-    <None Remove="Media\Images\Projector.png" />
     <None Remove="Media\Images\Reel.png" />
     <None Remove="Media\Images\Repeat.png" />
     <None Remove="Media\Images\Reports.png" />
@@ -94,7 +92,9 @@
     <None Remove="Media\Images\TicketWindow.png" />
     <None Remove="Media\Images\User.png" />
     <None Remove="Media\Images\Username.png" />
+    <None Remove="Media\Images\V.png" />
     <None Remove="Media\Images\Visible.png" />
+    <None Remove="Media\Images\X.png" />
     <None Remove="Media\Videos\About.mp4" />
     <None Remove="Media\Videos\You Shall Not Pass.mp4" />
   </ItemGroup>
@@ -307,12 +307,6 @@
     <Content Include="Media\Images\Previous.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\Proceed.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\Projector.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\Images\Reel.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -349,7 +343,13 @@
     <Content Include="Media\Images\Username.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\V.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\Visible.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\X.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Videos\About.mp4">

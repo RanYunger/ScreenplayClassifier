@@ -130,9 +130,24 @@ namespace ScreenplayClassifier.MVVM.Models
             get { return (OwnerGenre != "Unknown") && (OwnerSubGenre1 != "Unknown") && (OwnerSubGenre2 != "Unknown"); }
         }
 
+        public bool IsGenreClassifiedCorrectly
+        {
+            get { return (ModelGenre != "Unknown") && (ModelGenre == OwnerGenre); }
+        }
+
+        public bool IsSubGenre1ClassifiedCorrectly
+        {
+            get { return (ModelSubGenre1 != "Unknown") && (ModelSubGenre1 == OwnerSubGenre1); }
+        }
+
+        public bool IsSubGenre2ClassifiedCorrectly
+        {
+            get { return (ModelSubGenre2 != "Unknown") && (ModelSubGenre2 == OwnerSubGenre2); }
+        }
+
         public bool IsClassifiedCorrectly
         {
-            get { return (ModelGenre == OwnerGenre) && (ModelSubGenre1 == OwnerSubGenre1) && (ModelSubGenre2 == OwnerSubGenre2); }
+            get { return (IsGenreClassifiedCorrectly) && (IsSubGenre1ClassifiedCorrectly) && (IsSubGenre2ClassifiedCorrectly); }
         }
 
         // Constructors
