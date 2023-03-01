@@ -109,11 +109,20 @@
         <Setter Property="Stroke" Value="Black"/>
         <Setter Property="StrokeThickness" Value="3"/>
     </Style>
-    
+
+    <!--Menu Style-->
+    <Style x:Key="MenuStyle" TargetType="Menu">
+        <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+
     <!--MenuItem Style-->
     <Style x:Key="MenuItemStyle" TargetType="MenuItem">
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Cursor" Value="Hand"/>
     </Style>
     
     <!--PasswordBox Style-->

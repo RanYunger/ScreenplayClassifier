@@ -7,88 +7,60 @@
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              MaxHeight="90" MinWidth="1200" Style="{StaticResource UserToolbarStyle}">
     <Grid>
-        <WrapPanel HorizontalAlignment="Left">
-            <Image>
-                <Image.Style>
-                    <Style TargetType="Image">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding User.Role}" Value="Guest">
-                                <Setter Property="Source" Value="/Media/Images/User.png"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding User.Role}" Value="Member">
-                                <Setter Property="Source" Value="/Media/Images/Member.png"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding User.Role}" Value="Admin">
-                                <Setter Property="Source" Value="/Media/Images/Admin.png"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Image.Style>
-            </Image>
-            <StackPanel>
-                <WrapPanel>
-                    <TextBlock Text="{Binding User.Username}" Margin="0,10,0,0" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBlock Text="{Binding User.Role, StringFormat=[{0}]}" Margin="5,10,0,0" Style="{StaticResource TextBlockStyle}"/>
-                </WrapPanel>
-                <WrapPanel>
-                    <Button Height="40" Width="40" Command="{Binding ShowHomeCommand}" ToolTip="Home" Focusable="False"
-                            Margin="0,15,5,0" Style="{StaticResource ButtonStyle}">
-                        <Button.Content>
-                            <Image Source="/Media/Images/Home.png"/>
-                        </Button.Content>
-                    </Button>
-                    <Button Height="40" Width="40" Command="{Binding ShowSettingsCommand}" ToolTip="Settings" Focusable="False"
-                            Margin="5,15,5,0">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
-                                <Setter Property="FontWeight" Value="Bold"/>
-                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                <Setter Property="Cursor" Value="Hand"/>
-                                <Setter Property="Width" Value="100"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding User.Role}" Value="Guest">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding User.Role}" Value="Member">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding User.Role}" Value="Admin">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Button.Content>
-                            <Image Source="/Media/Images/Gear.png"/>
-                        </Button.Content>
-                    </Button>
-                    <Button Height="40" Width="40" Command="{Binding SignoutCommand}" ToolTip="Sign out" Focusable="False"
-                            Margin="5,15,5,0" Style="{StaticResource ButtonStyle}">
-                        <Button.Content>
-                            <Image Source="/Media/Images/Signout.png"/>
-                        </Button.Content>
-                    </Button>
-                </WrapPanel>
-            </StackPanel>
+        <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
+            <TextBlock Text="{Binding User.Username}" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding User.Role, StringFormat=[{0}]}" FontSize="20" Margin="5,0,0,0" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Screenplay" FontSize="40" Style="{StaticResource TextBlockStyle}"/>
-            <Image x:Name="IconImage" Source="/Media/Images/Icon.png" Height="90" Width="90" Cursor="Hand" Margin="10,0,10,0">
+            <TextBlock Text="Screenplay" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+            <Image x:Name="IconImage" Source="/Media/Images/Icon.png" Height="40" Width="40" Cursor="Hand" ToolTip="Wait, that's clickable?!"
+                   Margin="10,0,10,0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
                         <i:InvokeCommandAction Command="{Binding ShowAboutCommand}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Image>
-            <TextBlock Text="Classifier" FontSize="40" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Classifier" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
-        <Image Source="/Media/Images/Options.png" Height="40" Width="40" HorizontalAlignment="Right" Focusable="False" Margin="0,0,10,0">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDown">
-                    <i:InvokeCommandAction Command="{Binding ShowOptionsCommand}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </Image>
+        <Menu Height="40" Width="40" HorizontalAlignment="Right" Focusable="False" Margin="0,0,10,0" Style="{StaticResource MenuStyle}">
+            <MenuItem Margin="-7,-1,0,0" Style="{StaticResource MenuItemStyle}">
+                <MenuItem.Header>
+                    <Image Source="/Media/Images/Options.png" Height="40" Width="40"/>
+                </MenuItem.Header>
+                <MenuItem Header="Home" Command="{Binding ShowHomeCommand}" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem.Icon>
+                        <Image Source="/Media/Images/Home.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Settings" Command="{Binding ShowSettingsCommand}">
+                    <MenuItem.Style>
+                        <Style TargetType="MenuItem">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding User.Role}" Value="Guest">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding User.Role}" Value="Member">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding User.Role}" Value="Admin">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </MenuItem.Style>
+                    <MenuItem.Icon>
+                        <Image Source="/Media/Images/Gear.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Sign out" Command="{Binding SignoutCommand}" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem.Icon>
+                        <Image Source="/Media/Images/Signout.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
     </Grid>
 </UserControl>
