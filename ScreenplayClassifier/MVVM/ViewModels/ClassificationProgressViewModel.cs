@@ -20,7 +20,7 @@ using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ProgressViewModel : INotifyPropertyChanged
+    public class ClassificationProgressViewModel : INotifyPropertyChanged
     {
         // Fields
         private System.Timers.Timer durationTimer;
@@ -34,7 +34,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
-        public ProgressView ProgressView { get; private set; }
+        public ClassificationProgressView ClassificationProgressView { get; private set; }
         public Thread ClassificationThread { get; private set; }
 
         public System.Timers.Timer DurationTimer
@@ -175,7 +175,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Constructors
-        public ProgressViewModel()
+        public ClassificationProgressViewModel()
         {
             DurationTimer = new System.Timers.Timer();
             DurationTimer.Interval = 1000;
@@ -194,11 +194,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Initiates the view model.
         /// </summary>
-        /// <param name="progressView">The view to obtain controls from</param>
+        /// <param name="classificationProgressView">The view to obtain controls from</param>
         /// <param name="classificationViewModel">The view model who manages the classification module</param>
-        public void Init(ProgressView progressView, ClassificationViewModel classificationViewModel)
+        public void Init(ClassificationProgressView classificationProgressView, ClassificationViewModel classificationViewModel)
         {
-            ProgressView = progressView;
+            ClassificationProgressView = classificationProgressView;
             ClassificationViewModel = classificationViewModel;
             ClassificationThread = null;
         }
@@ -208,8 +208,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void ShowView()
         {
-            if (ProgressView != null)
-                App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Visible);
+            if (ClassificationProgressView != null)
+                App.Current.Dispatcher.Invoke(() => ClassificationProgressView.Visibility = Visibility.Visible);
         }
 
         /// <summary>
@@ -229,7 +229,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             PhaseText = string.Empty;
 
-            StartClassification(ClassificationViewModel.BrowseViewModel.CheckedScreenplays);
+            StartClassification(ClassificationViewModel.ClassificationBrowseViewModel.CheckedScreenplays);
         }
 
         /// <summary>
@@ -237,8 +237,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void HideView()
         {
-            if (ProgressView != null)
-                App.Current.Dispatcher.Invoke(() => ProgressView.Visibility = Visibility.Collapsed);
+            if (ClassificationProgressView != null)
+                App.Current.Dispatcher.Invoke(() => ClassificationProgressView.Visibility = Visibility.Collapsed);
         }
 
         /// <summary>
@@ -333,7 +333,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             // Generates classification report for each screenplay
             deserializedScreenplays = JsonConvert.DeserializeObject<List<ScreenplayModel>>(screenplaysJson);
-            ClassificationViewModel.FeedbackViewModel.FeedbackedScreenplays = new ObservableCollection<ScreenplayModel>(deserializedScreenplays);
+            ClassificationViewModel.ClassificationFeedbackViewModel.FeedbackedScreenplays
+                = new ObservableCollection<ScreenplayModel>(deserializedScreenplays);
             App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
         }
     }

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class FeedbackViewModel : INotifyPropertyChanged
+    public class ClassificationFeedbackViewModel : INotifyPropertyChanged
     {
         // Fields
         private ObservableCollection<ScreenplayModel> feedbackedScreenplays;
@@ -24,7 +24,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
-        public FeedbackView FeedbackView { get; private set; }
+        public ClassificationFeedbackView ClassificationFeedbackView { get; private set; }
         public ReportViewModel ReportViewModel { get; private set; }
 
         public ObservableCollection<ScreenplayModel> FeedbackedScreenplays
@@ -64,7 +64,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Constructors
-        public FeedbackViewModel() { }
+        public ClassificationFeedbackViewModel() { }
 
         // Methods
         #region Commands
@@ -79,7 +79,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     MessageBoxResult proceedDecision;
 
                     // Validation
-                    if (FeedbackView == null)
+                    if (ClassificationFeedbackView == null)
                         return;
 
                     if ((ScreenplayOffset >= 0) && (!FeedbackedScreenplays[ScreenplayOffset].Isfeedbacked))
@@ -92,7 +92,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (proceedDecision == MessageBoxResult.Yes)
                     {
-                        reportView = (ReportView)FeedbackView.FindName("ReportView");
+                        reportView = (ReportView)ClassificationFeedbackView.FindName("ReportView");
 
                         ClassificationViewModel.FeedbackComplete = ++ScreenplayOffset == FeedbackedScreenplays.Count;
                         if (!ClassificationViewModel.FeedbackComplete)
@@ -106,19 +106,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Initiates the view model
         /// </summary>
-        /// <param name="feedbackView">The view to obtain controls from</param>
+        /// <param name="classificationFeedbackView">The view to obtain controls from</param>
         /// <param name="classificationViewModel">The view model which manages the classification module</param>
-        public void Init(FeedbackView feedbackView, ClassificationViewModel classificationViewModel)
+        public void Init(ClassificationFeedbackView classificationFeedbackView, ClassificationViewModel classificationViewModel)
         {
             ReportView reportView = null;
 
-            FeedbackView = feedbackView;
+            ClassificationFeedbackView = classificationFeedbackView;
             ClassificationViewModel = classificationViewModel;
 
             FeedbackedScreenplays = new ObservableCollection<ScreenplayModel>();
             ScreenplayTitles = new ObservableCollection<string>();
 
-            reportView = (ReportView)FeedbackView.FindName("ReportView");
+            reportView = (ReportView)ClassificationFeedbackView.FindName("ReportView");
             ReportViewModel = (ReportViewModel)reportView.DataContext;
         }
 
@@ -127,8 +127,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void ShowView()
         {
-            if (FeedbackView != null)
-                App.Current.Dispatcher.Invoke(() => FeedbackView.Visibility = Visibility.Visible);
+            if (ClassificationFeedbackView != null)
+                App.Current.Dispatcher.Invoke(() => ClassificationFeedbackView.Visibility = Visibility.Visible);
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void RefreshView()
         {
-            ReportView reportView = (ReportView)FeedbackView.FindName("ReportView");
+            ReportView reportView = (ReportView)ClassificationFeedbackView.FindName("ReportView");
 
             ScreenplayTitles.Clear();
             foreach (ScreenplayModel feedbackedScreenplay in FeedbackedScreenplays)
@@ -152,8 +152,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void HideView()
         {
-            if (FeedbackView != null)
-                App.Current.Dispatcher.Invoke(() => FeedbackView.Visibility = Visibility.Collapsed);
+            if (ClassificationFeedbackView != null)
+                App.Current.Dispatcher.Invoke(() => ClassificationFeedbackView.Visibility = Visibility.Collapsed);
         }
     }
 }

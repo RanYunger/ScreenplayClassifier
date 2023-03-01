@@ -4,74 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
-             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="300"/>
-        </Grid.ColumnDefinitions>
 
-        <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+        <WrapPanel Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
             <Image Source="/Media/Images/Reports.png" Height="60" Width="60" Margin="0,0,10,0"/>
             <TextBlock Text="Reports" FontSize="60" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding ScreenplayTitle}" FontSize="40" HorizontalAlignment="Center"
-                   Style="{StaticResource TextBlockStyle}"/>
-        <v:ReportView x:Name="ReportView" Grid.Row="2" Grid.Column="0"/>
-        <StackPanel Grid.Row="2" Grid.Column="1">
-            <TextBlock Text="Genre Percentages" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-            <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="300" Width="300" FontSize="20" Hoverable="True"
-                          Margin="10">
-                <lvc:PieChart.ChartLegend>
-                    <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="20"/>
-                </lvc:PieChart.ChartLegend>
-            </lvc:PieChart>
-        </StackPanel>
 
-        <WrapPanel Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="10">
-            <Button Command="{Binding GoToFirstCommand}" Height="60" Width="60" IsEnabled="{Binding CanGoToFirst}" Margin="0,0,10,0"
-                    Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <StackPanel>
-                        <Image Source="/Media/Images/First.png" Height="40" Width="40"/>
-                        <TextBlock Text="First" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-            <Button Command="{Binding GoToPreviousCommand}" Height="60" Width="60" IsEnabled="{Binding CanGoToPrevious}" Margin="10,0,10,0"
-                    Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <StackPanel>
-                        <Image Source="/Media/Images/Previous.png" Height="40" Width="40"/>
-                        <TextBlock Text="Previous" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-            <Button Command="{Binding GoToNextCommand}" Height="60" Width="60" IsEnabled="{Binding CanGoToNext}" Margin="10,0,10,0"
-                    Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <StackPanel>
-                        <Image Source="/Media/Images/Next.png" Height="40" Width="40"/>
-                        <TextBlock Text="Next" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-            <Button Command="{Binding GoToLastCommand}" Height="60" Width="60" IsEnabled="{Binding CanGoToLast}" Margin="10,0,0,0"
-                    Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <StackPanel>
-                        <Image Source="/Media/Images/Last.png" Height="40" Width="40"/>
-                        <TextBlock Text="Last" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-        </WrapPanel>
+        <v:ReportsSelectionView x:Name="ReportsSelectionView" Grid.Row="1"/>
+        <v:ReportsInspectionView x:Name="ReportsInspectionView" Grid.Row="1" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

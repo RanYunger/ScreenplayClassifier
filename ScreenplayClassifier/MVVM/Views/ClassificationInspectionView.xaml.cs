@@ -17,12 +17,12 @@ namespace ScreenplayClassifier.MVVM.Views
     /// <summary>
     /// Interaction logic for InspectionView.xaml
     /// </summary>
-    public partial class InspectionView : UserControl
+    public partial class ClassificationInspectionView : UserControl
     {
-        public InspectionView()
+        public ClassificationInspectionView()
         {
             InitializeComponent();
-            DataContext = new InspectionViewModel();
+            DataContext = new ClassificationInspectionViewModel();
         }
     }
 }

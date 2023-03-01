@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class InspectionViewModel : INotifyPropertyChanged
+    public class ClassificationInspectionViewModel : INotifyPropertyChanged
     {
         // Fields
         private ObservableCollection<ScreenplayModel> classifiedScreenplays;
@@ -19,8 +19,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
-        public InspectionView InspectionView { get; private set; }
         public ClassificationViewModel ClassificationViewModel { get; private set; }
+        public ClassificationInspectionView ClassificationInspectionView { get; private set; }
 
         public ObservableCollection<ScreenplayModel> ClassifiedScreenplays
         {
@@ -62,7 +62,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Constructors
-        public InspectionViewModel() { }
+        public ClassificationInspectionViewModel() { }
 
         // Methods
         #region Commands
@@ -73,34 +73,34 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     // Validation
-                    if (InspectionView == null)
+                    if (ClassificationInspectionView == null)
                         return;
 
                     HideView();
-                    ClassificationViewModel.OverviewViewModel.ShowView();
+                    ClassificationViewModel.ClassificationOverviewViewModel.ShowView();
                 });
             }
         }
 
         public Command RerunClassificationCommand
         {
-            get { return new Command(() => ClassificationViewModel.OverviewViewModel.RerunClassificationCommand.Execute(null)); }
+            get { return new Command(() => ClassificationViewModel.ClassificationOverviewViewModel.RerunClassificationCommand.Execute(null)); }
         }
 
         public Command CompleteClassificationCommand
         {
-            get { return new Command(() => ClassificationViewModel.OverviewViewModel.CompleteClassificationCommand.Execute(null)); }
+            get { return new Command(() => ClassificationViewModel.ClassificationOverviewViewModel.CompleteClassificationCommand.Execute(null)); }
         }
         #endregion
 
         /// <summary>
         /// Inits the model.
         /// </summary>
-        /// <param name="inspectionView">The view to obtain controls from</param>
+        /// <param name="classificationInspectionView">The view to obtain controls from</param>
         /// <param name="classificationViewModel">The view model which manages the classification module</param>
-        public void Init(InspectionView inspectionView, ClassificationViewModel classificationViewModel)
+        public void Init(ClassificationInspectionView classificationInspectionView, ClassificationViewModel classificationViewModel)
         {
-            InspectionView = inspectionView;
+            ClassificationInspectionView = classificationInspectionView;
             ClassificationViewModel = classificationViewModel;
 
             ClassifiedScreenplays = new ObservableCollection<ScreenplayModel>();
@@ -113,8 +113,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void ShowView()
         {
-            if (InspectionView != null)
-                App.Current.Dispatcher.Invoke(() => InspectionView.Visibility = Visibility.Visible);
+            if (ClassificationInspectionView != null)
+                App.Current.Dispatcher.Invoke(() => ClassificationInspectionView.Visibility = Visibility.Visible);
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             int correctClassifications;
 
-            ClassifiedScreenplays = ClassificationViewModel.FeedbackViewModel.FeedbackedScreenplays;
+            ClassifiedScreenplays = ClassificationViewModel.ClassificationFeedbackViewModel.FeedbackedScreenplays;
 
             correctClassifications = new List<ScreenplayModel>(ClassifiedScreenplays).FindAll(s => s.IsClassifiedCorrectly).Count;
             AccuracyPercent = (100.0 * correctClassifications) / ClassifiedScreenplays.Count;
@@ -135,8 +135,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void HideView()
         {
-            if (InspectionView != null)
-                App.Current.Dispatcher.Invoke(() => InspectionView.Visibility = Visibility.Collapsed);
+            if (ClassificationInspectionView != null)
+                App.Current.Dispatcher.Invoke(() => ClassificationInspectionView.Visibility = Visibility.Collapsed);
         }
     }
 }

@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 namespace ScreenplayClassifier.MVVM.Views
 {
     /// <summary>
-    /// Interaction logic for ArchivesView.xaml
+    /// Interaction logic for ArchivesFilterView.xaml
     /// </summary>
-    public partial class ArchivesView : UserControl
+    public partial class ArchivesFilterView : UserControl
     {
-        public ArchivesView()
+        public ArchivesFilterView()
         {
             InitializeComponent();
-            DataContext = new ArchivesViewModel();
+            DataContext = new ArchivesFilterViewModel();
         }
     }
 }

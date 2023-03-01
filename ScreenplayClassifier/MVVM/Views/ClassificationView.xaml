@@ -17,10 +17,10 @@
             <TextBlock Text="Classification" FontSize="60" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
 
-        <v:BrowseView x:Name="BrowseView" Grid.Row="1"/>
-        <v:ProgressView x:Name="ProgressView" Grid.Row="1" Visibility="Collapsed"/>
-        <v:FeedbackView x:Name="FeedbackView" Grid.Row="1" Visibility="Collapsed"/>
-        <v:OverviewView x:Name="OverviewView" Grid.Row="1" Visibility="Collapsed"/>
-        <v:InspectionView x:Name="InspectionView" Grid.Row="1" Visibility="Collapsed"/>
+        <v:ClassificationBrowseView x:Name="ClassificationBrowseView" Grid.Row="1"/>
+        <v:ClassificationProgressView x:Name="ClassificationProgressView" Grid.Row="1" Visibility="Collapsed"/>
+        <v:ClassificationFeedbackView x:Name="ClassificationFeedbackView" Grid.Row="1" Visibility="Collapsed"/>
+        <v:ClassificationOverviewView x:Name="ClassificationOverviewView" Grid.Row="1" Visibility="Collapsed"/>
+        <v:ClassificationInspectionView x:Name="ClassificationInspectionView" Grid.Row="1" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

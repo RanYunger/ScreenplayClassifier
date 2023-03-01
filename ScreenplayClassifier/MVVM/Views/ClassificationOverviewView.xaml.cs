@@ -17,12 +17,12 @@ namespace ScreenplayClassifier.MVVM.Views
     /// <summary>
     /// Interaction logic for SummaryView.xaml
     /// </summary>
-    public partial class OverviewView : UserControl
+    public partial class ClassificationOverviewView : UserControl
     {
-        public OverviewView()
+        public ClassificationOverviewView()
         {
             InitializeComponent();
-            DataContext = new OverviewViewModel();
+            DataContext = new ClassificationOverviewViewModel();
         }
     }
 }

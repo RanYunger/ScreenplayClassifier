@@ -84,8 +84,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     ((ArchivesViewModel)ArchivesView.DataContext).StopMusicCommand.Execute(null);
 
                     // Kills the classification thread (if it's active)
-                    if (classificationViewModel.ProgressViewModel.ClassificationThread != null)
-                        classificationViewModel.ProgressViewModel.IsThreadAlive = false;
+                    if (classificationViewModel.ClassificationProgressViewModel.ClassificationThread != null)
+                        classificationViewModel.ClassificationProgressViewModel.IsThreadAlive = false;
 
                     // Guest's changes aren't saved (invisible to the database)
                     if (UserToolbarViewModel.User.Role != UserModel.UserRole.GUEST)
@@ -155,11 +155,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             ((AboutViewModel)AboutView.DataContext).IsPlaying = viewToShow == AboutView;
 
-            if(viewToShow != ArchivesView)
-                ((ArchivesViewModel)ArchivesView.DataContext).StopMusicCommand.Execute(null);
-
             if (viewToShow == ReportsView)
-                ((ReportsViewModel)ReportsView.DataContext).GoToFirstCommand.Execute(null);
+                ((ReportsViewModel)ReportsView.DataContext).ReportsSelectionViewModel.RefreshView();
+
+            if (viewToShow != ArchivesView)
+                ((ArchivesViewModel)ArchivesView.DataContext).StopMusicCommand.Execute(null);
         }
     }
 }

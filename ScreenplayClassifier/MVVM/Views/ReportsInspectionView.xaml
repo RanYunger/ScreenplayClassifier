@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="ScreenplayClassifier.MVVM.Views.ReportsInspectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
+             Style="{StaticResource UserControlStyle}">
+    <Grid>
+        <!--<RowDefinition Height="80"/>
+        <WrapPanel Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="10">
+            <Button Command="{Binding GoToFirstCommand}" Height="60" Width="60" IsEnabled="{Binding CanGoToFirst}" Margin="0,0,10,0"
+                    Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Media/Images/First.png" Height="40" Width="40"/>
+                        <TextBlock Text="First" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding GoToPreviousCommand}" Height="60" Width="60" IsEnabled="{Binding CanGoToPrevious}" Margin="10,0,10,0"
+                    Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Media/Images/Previous.png" Height="40" Width="40"/>
+                        <TextBlock Text="Previous" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding GoToNextCommand}" Height="60" Width="60" IsEnabled="{Binding CanGoToNext}" Margin="10,0,10,0"
+                    Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Media/Images/Next.png" Height="40" Width="40"/>
+                        <TextBlock Text="Next" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding GoToLastCommand}" Height="60" Width="60" IsEnabled="{Binding CanGoToLast}" Margin="10,0,0,0"
+                    Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Media/Images/Last.png" Height="40" Width="40"/>
+                        <TextBlock Text="Last" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </WrapPanel>-->
+    </Grid>
+</UserControl>

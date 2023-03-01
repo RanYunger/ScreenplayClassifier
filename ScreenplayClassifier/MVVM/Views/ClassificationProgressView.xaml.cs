@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 namespace ScreenplayClassifier.MVVM.Views
 {
     /// <summary>
-    /// Interaction logic for ArchivesView.xaml
+    /// Interaction logic for ProgressView.xaml
     /// </summary>
-    public partial class ArchivesView : UserControl
+    public partial class ClassificationProgressView : UserControl
     {
-        public ArchivesView()
+        public ClassificationProgressView()
         {
             InitializeComponent();
-            DataContext = new ArchivesViewModel();
+            DataContext = new ClassificationProgressViewModel();
         }
     }
 }

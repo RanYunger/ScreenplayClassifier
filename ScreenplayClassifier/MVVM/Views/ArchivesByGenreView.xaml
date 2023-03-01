@@ -12,7 +12,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <WrapPanel Grid.Row="0" HorizontalAlignment="Center">
+        <!--<WrapPanel Grid.Row="0" HorizontalAlignment="Center">
             <Image Source="/Media/Images/Reel.png" Height="80"/>
             <Image Source="/Media/Images/Reel.png" Height="80"/>
             <Image Source="/Media/Images/Reel.png" Height="80"/>
@@ -47,7 +47,7 @@
                     <i:InvokeCommandAction Command="{Binding GoToNextCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-        </Image>
+        </Image>-->
         <v:GenreView x:Name="GenreView" Grid.Row="1"/>
 
     </Grid>

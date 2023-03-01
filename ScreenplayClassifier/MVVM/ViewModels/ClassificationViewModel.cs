@@ -26,12 +26,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public MainViewModel MainViewModel { get; private set; }
         public ClassificationView ClassificationView { get; private set; }
 
-        public BrowseViewModel BrowseViewModel { get; private set; }
-        public ProgressViewModel ProgressViewModel { get; private set; }
-        public FeedbackViewModel FeedbackViewModel { get; private set; }
-        public OverviewViewModel OverviewViewModel { get; private set; }
-        public InspectionViewModel InspectionViewModel { get; private set; }
-
+        public ClassificationBrowseViewModel ClassificationBrowseViewModel { get; private set; }
+        public ClassificationProgressViewModel ClassificationProgressViewModel { get; private set; }
+        public ClassificationFeedbackViewModel ClassificationFeedbackViewModel { get; private set; }
+        public ClassificationOverviewViewModel ClassificationOverviewViewModel { get; private set; }
+        public ClassificationInspectionViewModel ClassificationInspectionViewModel { get; private set; }
 
         public bool BrowseComplete
         {
@@ -42,9 +41,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (browseComplete)
                 {
-                    BrowseViewModel.HideView();
-                    ProgressViewModel.RefreshView();
-                    ProgressViewModel.ShowView();
+                    ClassificationBrowseViewModel.HideView();
+                    ClassificationProgressViewModel.RefreshView();
+                    ClassificationProgressViewModel.ShowView();
                 }
 
                 if (PropertyChanged != null)
@@ -61,9 +60,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (progressComplete)
                 {
-                    ProgressViewModel.HideView();
-                    FeedbackViewModel.RefreshView();
-                    FeedbackViewModel.ShowView();
+                    ClassificationProgressViewModel.HideView();
+                    ClassificationFeedbackViewModel.RefreshView();
+                    ClassificationFeedbackViewModel.ShowView();
                 }
 
                 if (PropertyChanged != null)
@@ -80,10 +79,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (feedbackComplete)
                 {
-                    FeedbackViewModel.HideView();
-                    OverviewViewModel.RefreshView();
-                    InspectionViewModel.RefreshView();
-                    OverviewViewModel.ShowView();
+                    ClassificationFeedbackViewModel.HideView();
+                    ClassificationOverviewViewModel.RefreshView();
+                    ClassificationInspectionViewModel.RefreshView();
+                    ClassificationOverviewViewModel.ShowView();
                 }
 
                 if (PropertyChanged != null)
@@ -100,19 +99,19 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (classificationComplete)
                 {
-                    OverviewViewModel.HideView();
-                    InspectionViewModel.HideView();
-                    BrowseViewModel.RefreshView();
-                    BrowseViewModel.ShowView();
+                    ClassificationOverviewViewModel.HideView();
+                    ClassificationInspectionViewModel.HideView();
+                    ClassificationBrowseViewModel.RefreshView();
+                    ClassificationBrowseViewModel.ShowView();
 
                     BrowseComplete = false;
                     ProgressComplete = false;
                     FeedbackComplete = false;
                 }
-                else if (OverviewViewModel != null)
+                else if (ClassificationOverviewViewModel != null)
                 {
-                    OverviewViewModel.HideView();
-                    InspectionViewModel.HideView();
+                    ClassificationOverviewViewModel.HideView();
+                    ClassificationInspectionViewModel.HideView();
 
                     BrowseComplete = true;
                 }
@@ -142,34 +141,34 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <param name="mainViewModel">The MainView's view model</param>
         public void Init(ClassificationView classificationView, MainViewModel mainViewModel)
         {
-            BrowseView browseView = null;
-            ProgressView progressView = null;
-            FeedbackView feedbackView = null;
-            OverviewView overviewView = null;
-            InspectionView inspectionView = null;
+            ClassificationBrowseView classificationBrowseView = null;
+            ClassificationProgressView classificationProgressView = null;
+            ClassificationFeedbackView classificationFeedbackView = null;
+            ClassificationOverviewView classificationOverviewView = null;
+            ClassificationInspectionView classificationInspectionView = null;
 
             ClassificationView = classificationView;
             MainViewModel = mainViewModel;
 
-            browseView = (BrowseView)ClassificationView.FindName("BrowseView");
-            BrowseViewModel = (BrowseViewModel)browseView.DataContext;
-            BrowseViewModel.Init(browseView, this);
+            classificationBrowseView = (ClassificationBrowseView)ClassificationView.FindName("ClassificationBrowseView");
+            ClassificationBrowseViewModel = (ClassificationBrowseViewModel)classificationBrowseView.DataContext;
+            ClassificationBrowseViewModel.Init(classificationBrowseView, this);
 
-            progressView = (ProgressView)ClassificationView.FindName("ProgressView");
-            ProgressViewModel = (ProgressViewModel)progressView.DataContext;
-            ProgressViewModel.Init(progressView, this);
+            classificationProgressView = (ClassificationProgressView)ClassificationView.FindName("ClassificationProgressView");
+            ClassificationProgressViewModel = (ClassificationProgressViewModel)classificationProgressView.DataContext;
+            ClassificationProgressViewModel.Init(classificationProgressView, this);
 
-            feedbackView = (FeedbackView)ClassificationView.FindName("FeedbackView");
-            FeedbackViewModel = (FeedbackViewModel)feedbackView.DataContext;
-            FeedbackViewModel.Init(feedbackView, this);
+            classificationFeedbackView = (ClassificationFeedbackView)ClassificationView.FindName("ClassificationFeedbackView");
+            ClassificationFeedbackViewModel = (ClassificationFeedbackViewModel)classificationFeedbackView.DataContext;
+            ClassificationFeedbackViewModel.Init(classificationFeedbackView, this);
 
-            overviewView = (OverviewView)ClassificationView.FindName("OverviewView");
-            OverviewViewModel = (OverviewViewModel)overviewView.DataContext;
-            OverviewViewModel.Init(overviewView, this);
+            classificationOverviewView = (ClassificationOverviewView)ClassificationView.FindName("ClassificationOverviewView");
+            ClassificationOverviewViewModel = (ClassificationOverviewViewModel)classificationOverviewView.DataContext;
+            ClassificationOverviewViewModel.Init(classificationOverviewView, this);
 
-            inspectionView = (InspectionView)ClassificationView.FindName("InspectionView");
-            InspectionViewModel = (InspectionViewModel)inspectionView.DataContext;
-            InspectionViewModel.Init(inspectionView, this);
+            classificationInspectionView = (ClassificationInspectionView)ClassificationView.FindName("ClassificationInspectionView");
+            ClassificationInspectionViewModel = (ClassificationInspectionViewModel)classificationInspectionView.DataContext;
+            ClassificationInspectionViewModel.Init(classificationInspectionView, this);
         }
     }
 }

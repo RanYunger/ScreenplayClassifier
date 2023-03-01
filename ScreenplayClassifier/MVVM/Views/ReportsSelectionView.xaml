@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="ScreenplayClassifier.MVVM.Views.ReportsSelectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             Style="{StaticResource UserControlStyle}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="480"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" HorizontalAlignment="Center" Visibility="Visible">
+            <TextBlock Text="Screenplays to Inspect" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <WrapPanel Margin="10">
+                <Image Source="/Media/Images/Search.png" Height="30" Width="30" Margin="5"/>
+                <TextBox x:Name="TitleTextBox" Width="400" Margin="5" Style="{StaticResource BaseTextBoxStyle}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="GotFocus">
+                            <i:InvokeCommandAction Command="{Binding EnterTitleTextboxCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="LostFocus">
+                            <i:InvokeCommandAction Command="{Binding LeaveTitleTextboxCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding SearchCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+            </WrapPanel>
+            <DataGrid x:Name="BrowsedScreenplaysDataGrid" ItemsSource="{Binding ClassifiedScreenplays}"
+                      SelectedIndex="{Binding SelectedScreenplay}" Height="440" Width="450" IsEnabled="{Binding CanChoose}" SelectionMode="Single"
+                      Margin="10" Style="{StaticResource DataGridStyle}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding CheckSelectionCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, Mode=TwoWay}" Width="50"
+                                            HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Path=ScreenplayFileName}" Width="390" IsReadOnly="True"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Command="{Binding ShowInspectionViewCommand}" Height="110" Width="110" IsEnabled="{Binding CanInspect}"
+                    Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Media/Images/Search.png" Height="70" Width="70"/>
+                        <TextBlock Text="Inspect" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+        <Image Grid.Column="1" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Inspect.gif" gif:ImageBehavior.RepeatBehavior="Forever"
+               Height="500" Width="500"/>
+    </Grid>
+</UserControl>

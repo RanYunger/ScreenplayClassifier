@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 namespace ScreenplayClassifier.MVVM.Views
 {
     /// <summary>
-    /// Interaction logic for BrowseView.xaml
+    /// Interaction logic for ReportsInspection.xaml
     /// </summary>
-    public partial class BrowseView : UserControl
+    public partial class ReportsInspectionView : UserControl
     {
-        public BrowseView()
+        public ReportsInspectionView()
         {
             InitializeComponent();
-            DataContext = new BrowseViewModel();
+            DataContext = new ReportsInspectionViewModel();
         }
     }
 }

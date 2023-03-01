@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class BrowseViewModel : INotifyPropertyChanged
+    public class ClassificationBrowseViewModel : INotifyPropertyChanged
     {
         // Fields
         private ObservableCollection<BrowseModel> browsedScreenplays, checkedScreenplays;
@@ -27,7 +27,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
-        public BrowseView BrowseView { get; private set; }
+        public ClassificationBrowseView ClassificationBrowseView { get; private set; }
 
         public ObservableCollection<BrowseModel> BrowsedScreenplays
         {
@@ -58,20 +58,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return selectedScreenplay; }
             set
             {
-                //FeedbackViewModel feedbackViewModel = null;
-
                 selectedScreenplay = value;
 
                 if (ClassificationViewModel != null)
-                {
-                    // Updates the checked screenplays
                     CheckSelectionCommand.Execute(null);
-
-                    // Updates the shown screenplay
-                    //feedbackViewModel = ClassificationViewModel.FeedbackViewModel;
-                    //if (feedbackViewModel.CheckedOffsets.Contains(selectedScreenplay))
-                    //    feedbackViewModel.CurrentOffset = feedbackViewModel.CheckedOffsets.IndexOf(selectedScreenplay);
-                }
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("SelectedScreenplay"));
@@ -127,7 +117,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Constructors
-        public BrowseViewModel() { }
+        public ClassificationBrowseViewModel() { }
 
         // Methods
         #region Commands
@@ -171,7 +161,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    DataGrid browsedScreenplaysDataGrid = (DataGrid)BrowseView.FindName("BrowsedScreenplaysDataGrid");
+                    DataGrid browsedScreenplaysDataGrid = (DataGrid)ClassificationBrowseView.FindName("BrowsedScreenplaysDataGrid");
 
                     // Checks wether the user as activated deletion
                     if ((Keyboard.IsKeyDown(Key.Back)) || (Keyboard.IsKeyDown(Key.Delete)))
@@ -249,11 +239,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Initiates the view model.
         /// </summary>
-        /// <param name="browseView">The view to obtain controls from</param>
+        /// <param name="classificationBrowseView">The view to obtain controls from</param>
         /// <param name="classificationViewModel">The view model which manages the classification module</param>
-        public void Init(BrowseView browseView, ClassificationViewModel classificationViewModel)
+        public void Init(ClassificationBrowseView classificationBrowseView, ClassificationViewModel classificationViewModel)
         {
-            BrowseView = browseView;
+            ClassificationBrowseView = classificationBrowseView;
             ClassificationViewModel = classificationViewModel;
 
             BrowsedScreenplays = new ObservableCollection<BrowseModel>();
@@ -267,8 +257,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void ShowView()
         {
-            if (BrowseView != null)
-                App.Current.Dispatcher.Invoke(() => BrowseView.Visibility = Visibility.Visible);
+            if (ClassificationBrowseView != null)
+                App.Current.Dispatcher.Invoke(() => ClassificationBrowseView.Visibility = Visibility.Visible);
         }
 
         /// <summary>
@@ -289,8 +279,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void HideView()
         {
-            if (BrowseView != null)
-                App.Current.Dispatcher.Invoke(() => BrowseView.Visibility = Visibility.Collapsed);
+            if (ClassificationBrowseView != null)
+                App.Current.Dispatcher.Invoke(() => ClassificationBrowseView.Visibility = Visibility.Collapsed);
         }
     }
 }
