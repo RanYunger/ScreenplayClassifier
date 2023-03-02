@@ -30,7 +30,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ReportsSelectionViewModel ReportsSelectionViewModel { get; private set; }
         public ReportsInspectionViewModel ReportsInspectionViewModel { get; private set; }
 
-
         public ObservableCollection<ReportModel> Reports
         {
             get { return reports; }

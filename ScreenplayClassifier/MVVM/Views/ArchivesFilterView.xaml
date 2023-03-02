@@ -6,6 +6,7 @@
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             xmlns:nud="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -13,5 +14,104 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <StackPanel Margin="10">
+            <WrapPanel>
+                <StackPanel>
+                    <TextBlock Text="Owner:" FontSize="15" Margin="10,15,10,10" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="Genres:" FontSize="15" Margin="10,15,10,10" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="Percentages:" FontSize="15" Margin="10,15,10,10" Style="{StaticResource TextBlockStyle}"/>
+                </StackPanel>
+                <StackPanel>
+                    <RadioButton Content="All Owners" FontSize="15" Margin="10" Style="{StaticResource RadioButtonStyle}"/>
+                    <ComboBox Width="130" ItemsSource="{Binding GenreOptions}" SelectedValue="{Binding FilteredGenre}" FontSize="15"
+                              Margin="10" Style="{StaticResource ComboBoxStyle}"/>
+                    <WrapPanel>
+                        <nud:NumericUpDown x:Name="FilteredGenreMinPercentageNumericUpDown" MinValue="0"
+                                       MaxValue="{Binding ElementName=FilteredGenreMaxPercentageNumericUpDown, Path=Value}" Width="50"
+                                       HorizontalContentAlignment="Center" FontSize="15" Margin="10">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="ValueChanged">
+                                    <i:InvokeCommandAction Command="{Binding ChangeFilteredGenrePercentageRangeCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </nud:NumericUpDown>
+                        <TextBlock Text="-" Style="{StaticResource TextBlockStyle}"/>
+                        <nud:NumericUpDown x:Name="FilteredGenreMaxPercentageNumericUpDown"
+                                       MinValue="{Binding ElementName=FilteredGenreMinPercentageNumericUpDown, Path=Value}" MaxValue="100"
+                                       Width="50" HorizontalContentAlignment="Center" Cursor="Hand" FontSize="15" Margin="10">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="ValueChanged">
+                                    <i:InvokeCommandAction Command="{Binding ChangeFilteredGenrePercentageRangeCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </nud:NumericUpDown>
+                    </WrapPanel>
+                </StackPanel>
+                <StackPanel>
+                    <RadioButton Content="This Owner:" FontSize="15" Margin="10" Style="{StaticResource RadioButtonStyle}"/>
+                    <ComboBox Width="130" ItemsSource="{Binding SubGenre1Options}" SelectedValue="{Binding FilteredSubGenre1}" FontSize="15"
+                              Margin="10" Style="{StaticResource ComboBoxStyle}"/>
+                    <WrapPanel>
+                        <nud:NumericUpDown x:Name="FilteredSubGenre1MinPercentageNumericUpDown" MinValue="0"
+                                       MaxValue="{Binding ElementName=FilteredSubGenre1MaxPercentageNumericUpDown, Path=Value}" Width="50"
+                                       HorizontalContentAlignment="Center" Cursor="Hand" FontSize="15" Margin="10">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="ValueChanged">
+                                    <i:InvokeCommandAction Command="{Binding ChangeFilteredSubGenre1PercentageRangeCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </nud:NumericUpDown>
+                        <TextBlock Text="-" Style="{StaticResource TextBlockStyle}"/>
+                        <nud:NumericUpDown x:Name="FilteredSubGenre1MaxPercentageNumericUpDown" 
+                                       MinValue="{Binding ElementName=FilteredSubGenre1MinPercentageNumericUpDown, Path=Value}" MaxValue="100"
+                                       Width="50" HorizontalContentAlignment="Center" Cursor="Hand" FontSize="15" Margin="10">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="ValueChanged">
+                                    <i:InvokeCommandAction Command="{Binding ChangeFilteredSubGenre1PercentageRangeCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </nud:NumericUpDown>
+                    </WrapPanel>
+                </StackPanel>
+                <StackPanel>
+                    <ComboBox Width="130" ItemsSource="{Binding Owners}" SelectedValue="{Binding FilteredOwner}" FontSize="15" Margin="6"
+                          Style="{StaticResource ComboBoxStyle}"/>
+                    <ComboBox Width="130" ItemsSource="{Binding SubGenre2Options}" SelectedValue="{Binding FilteredSubGenre2}" FontSize="15"
+                              Margin="10" Style="{StaticResource ComboBoxStyle}"/>
+                    <WrapPanel>
+                        <nud:NumericUpDown x:Name="FilteredSubGenre2MinPercentageNumericUpDown" MinValue="0"
+                                       MaxValue="{Binding ElementName=FilteredSubGenre2MaxPercentageNumericUpDown, Path=Value}" Width="50"
+                                       HorizontalContentAlignment="Center" Cursor="Hand" FontSize="15" Margin="10">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="ValueChanged">
+                                    <i:InvokeCommandAction Command="{Binding ChangeFilteredSubGenre2PercentageRangeCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </nud:NumericUpDown>
+                        <TextBlock Text="-" Style="{StaticResource TextBlockStyle}"/>
+                        <nud:NumericUpDown x:Name="FilteredSubGenre2MaxPercentageNumericUpDown"
+                                       MinValue="{Binding ElementName=FilteredSubGenre2MinPercentageNumericUpDown, Path=Value}" MaxValue="100"
+                                       Width="50" HorizontalContentAlignment="Center" Cursor="Hand" FontSize="15" Margin="10">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="ValueChanged">
+                                    <i:InvokeCommandAction Command="{Binding ChangeFilteredSubGenre2PercentageRangeCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </nud:NumericUpDown>
+                    </WrapPanel>
+                </StackPanel>
+            </WrapPanel>
+            <Button Command="{Binding ShowInspectionViewCommand}" Margin="10" Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Media/Images/Filter.png" Height="70" Width="70"/>
+                        <TextBlock Text="Filter" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+
+        <Image Grid.Column="1" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Filter.gif" gif:ImageBehavior.RepeatBehavior="Forever"
+               Height="500" Width="500"/>
     </Grid>
 </UserControl>

@@ -7,28 +7,17 @@
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
-        <Button Grid.Row="0" Width="60" Command="{Binding ShowSelectionViewCommand}" Margin="10" Style="{StaticResource ButtonStyle}">
-            <Button.Content>
-                <StackPanel>
-                    <Image Source="/Media/Images/Back.png" Height="40" Width="40"/>
-                    <TextBlock Text="Selection" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                </StackPanel>
-            </Button.Content>
-        </Button>
-        <WrapPanel Grid.Row="1" VerticalAlignment="Center">
-            <TextBlock Text="{Binding ScreenplayTitle, StringFormat=Title: {0}}" FontSize="30" Margin="10"
-                       Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="{Binding ScreenplayOwner, StringFormat=Owner: {0}}" FontSize="30" Margin="10"
-                       Style="{StaticResource TextBlockStyle}"/>
+        <WrapPanel Grid.Row="0" VerticalAlignment="Center">
+            <TextBlock Text="{Binding ScreenplayTitle, StringFormat=Title: {0}}" FontSize="20" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding ScreenplayOwner, StringFormat=Owner: {0}}" FontSize="20" Margin="10" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
-        <v:ScreenplayView x:Name="ScreenplayView" Grid.Row="2"/>
-        <WrapPanel Grid.Row="3" HorizontalAlignment="Center" Margin="10">
+        <v:ScreenplayView x:Name="ScreenplayView" Grid.Row="1"/>
+        <WrapPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
             <Button Command="{Binding GoToFirstCommand}" Height="60" Width="60" IsEnabled="{Binding CanGoToFirst}" Margin="0,0,10,0"
                     Style="{StaticResource ButtonStyle}">
                 <Button.Content>
@@ -44,6 +33,14 @@
                     <StackPanel>
                         <Image Source="/Media/Images/Previous.png" Height="40" Width="40"/>
                         <TextBlock Text="Previous" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding ShowSelectionViewCommand}" Height="80" Width="80" Margin="10,0,10,0" Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Media/Images/Back.png" Height="60" Width="60"/>
+                        <TextBlock Text="Selection" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>
             </Button>

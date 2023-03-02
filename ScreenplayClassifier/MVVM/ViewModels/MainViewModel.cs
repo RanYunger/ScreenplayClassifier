@@ -46,27 +46,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
-                ArchivesViewModel archivesViewModel = null;
-                ArchivesByGenreViewModel archivesByGenreViewModel = null;
-                ArchivesByPercentViewModel archivesByPercentViewModel = null;
-
                 return new Command(() =>
                 {
-                    if (ArchivesView.Visibility == Visibility.Visible)
-                    {
-                        archivesViewModel = (ArchivesViewModel)ArchivesView.DataContext;
-
-                        if (archivesViewModel.ArchivesByGenreView.Visibility == Visibility.Visible)
-                        {
-                            archivesByGenreViewModel = (ArchivesByGenreViewModel)archivesViewModel.ArchivesByGenreView.DataContext;
-                            archivesByGenreViewModel.CheckKeyCommand.Execute(null);
-                        }
-                        else if (archivesViewModel.ArchivesByPercentView.Visibility == Visibility.Visible)
-                        {
-                            archivesByPercentViewModel = (ArchivesByPercentViewModel)archivesViewModel.ArchivesByPercentView.DataContext;
-                            //archivesByPercentViewModel.CheckKeyCommand.Execute(null);
-                        }
-                    }
+                    // TODO: COMPLETE
                 });
             }
         }

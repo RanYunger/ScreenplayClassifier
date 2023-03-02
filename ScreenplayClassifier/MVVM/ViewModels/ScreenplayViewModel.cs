@@ -77,11 +77,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// Initiates the view model.
         /// </summary>
         /// <param name="screenplayView">The view to obtain controls from</param>
-        /// <param name="report">The report to represent in the ReportView</param>
+        /// <param name="screenplay">The screenplay to show in the ScreenplayView</param>
         /// <param name="canGiveFeedback">The indication whether the user can give feedback</param>
         public void Init(ScreenplayView screenplayView, ScreenplayModel screenplay, bool canGiveFeedback)
         {
-            GenresView genresView;
+            GenresView genresView = null;
 
             ScreenplayView = screenplayView;
 

@@ -22,8 +22,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Properties
         public MainViewModel MainViewModel { get; private set; }
         public ArchivesView ArchivesView { get; private set; }
-        public ArchivesByGenreView ArchivesByGenreView { get; private set; }
-        public ArchivesByPercentView ArchivesByPercentView { get; private set; }
+        public ArchivesFilterViewModel ArchivesFilterViewModel { get; private set; }
+        public ArchivesInspectionViewModel ArchivesInspectionViewModel { get; private set; }
 
         public ObservableCollection<string> Genres
         {
@@ -44,9 +44,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 screenplays = value;
 
-                ((ArchivesByGenreViewModel)ArchivesByGenreView.DataContext).RefreshArchives(Genres, screenplays);
-                ((ArchivesByPercentViewModel)ArchivesByPercentView.DataContext).RefreshArchives(screenplays);
-
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("Screenplays"));
             }
@@ -57,16 +54,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
-                ArchivesByGenreViewModel archivesByGenreViewModel = null;
-
                 return new Command(() =>
                 {
-                    // Validation
-                    if (ArchivesView == null)
-                        return;
-
-                    archivesByGenreViewModel = (ArchivesByGenreViewModel)ArchivesByGenreView.DataContext;
-                    archivesByGenreViewModel.StopMusicCommand.Execute(null);
+                    // TODO: COMPLETE
                 });
             }
         }
@@ -83,19 +73,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <param name="mainViewModel">The MainView's view model</param>
         public void Init(ArchivesView archivesView, MainViewModel mainViewModel)
         {
+            ArchivesFilterView archivesFilterView = null;
+            ArchivesInspectionView archivesInspectionView = null;
+
             ArchivesView = archivesView;
             MainViewModel = mainViewModel;
-
-            ArchivesByGenreView = (ArchivesByGenreView)ArchivesView.FindName("ArchivesByGenreView");
-            ArchivesByPercentView = (ArchivesByPercentView)ArchivesView.FindName("ArchivesByPercentView");
-
-            ((ArchivesByGenreViewModel)ArchivesByGenreView.DataContext).Init(ArchivesByGenreView);
-            ((ArchivesByPercentViewModel)ArchivesByPercentView.DataContext).Init(ArchivesByPercentView);
 
             Genres = new ObservableCollection<string>(JSON.LoadedGenres);
             InitScreenplays();
 
-            ((ArchivesByGenreViewModel)ArchivesByGenreView.DataContext).RefreshArchives(Genres, Screenplays);
+            archivesFilterView = (ArchivesFilterView)ArchivesView.FindName("ArchivesFilterView");
+            ArchivesFilterViewModel = (ArchivesFilterViewModel)archivesFilterView.DataContext;
+            ArchivesFilterViewModel.Init(archivesFilterView, this);
+
+            archivesInspectionView = (ArchivesInspectionView)ArchivesView.FindName("ArchivesInspectionView");
+            ArchivesInspectionViewModel = (ArchivesInspectionViewModel)archivesInspectionView.DataContext;
+            ArchivesInspectionViewModel.Init(archivesInspectionView, this);
         }
 
         /// <summary>
