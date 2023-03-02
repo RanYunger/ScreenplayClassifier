@@ -13,16 +13,17 @@ using System.Windows;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ReportViewModel : INotifyPropertyChanged
+    public class ScreenplayViewModel : INotifyPropertyChanged
     {
         // Fields
         private ScreenplayModel screenplay;
-        private string screenplayText;
+        private string screenplayContent;
+        private bool isScreenplayContentVisible;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
-        public ReportView ReportView { get; set; }
+        public ScreenplayView ScreenplayView { get; set; }
         public GenresViewModel GenresViewModel { get; private set; }
 
         public ScreenplayModel Screenplay
@@ -37,41 +38,58 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public string ScreenplayText
+        public string ScreenplayContent
         {
-            get { return screenplayText; }
+            get { return screenplayContent; }
             set
             {
-                screenplayText = value;
+                screenplayContent = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("screenplayText"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("ScreenplayContent"));
+            }
+        }
+
+        public bool IsScreenplayContentVisible
+        {
+            get { return isScreenplayContentVisible; }
+            set
+            {
+                isScreenplayContentVisible = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("IsScreenplayContentVisible"));
             }
         }
 
         // Constructors
-        public ReportViewModel() { }
+        public ScreenplayViewModel() { }
 
         // Methods
         #region Commands
+        public Command ToggleContentVisibilityCommand
+        {
+            get { return new Command(() => IsScreenplayContentVisible = !IsScreenplayContentVisible); }
+        }
         #endregion
 
         /// <summary>
         /// Initiates the view model.
         /// </summary>
-        /// <param name="reportView">The view to obtain controls from</param>
+        /// <param name="screenplayView">The view to obtain controls from</param>
         /// <param name="report">The report to represent in the ReportView</param>
         /// <param name="canGiveFeedback">The indication whether the user can give feedback</param>
-        public void Init(ReportView reportView, ScreenplayModel screenplay, bool canGiveFeedback)
+        public void Init(ScreenplayView screenplayView, ScreenplayModel screenplay, bool canGiveFeedback)
         {
             GenresView genresView;
 
-            ReportView = reportView;
+            ScreenplayView = screenplayView;
 
             Screenplay = screenplay;
-            ScreenplayText = File.ReadAllText(screenplay.FilePath);
+            ScreenplayContent = File.ReadAllText(screenplay.FilePath);
+            IsScreenplayContentVisible = false;
 
-            genresView = (GenresView)ReportView.FindName("GenresView");
+            genresView = (GenresView)ScreenplayView.FindName("GenresView");
             GenresViewModel = (GenresViewModel)genresView.DataContext;
             GenresViewModel.Init(genresView, Screenplay, canGiveFeedback);
         }

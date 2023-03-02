@@ -183,7 +183,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     string screenplayPath = string.Empty;
                     OpenFileDialog openFileDialog = new OpenFileDialog()
                     {
-                        Title = "Browse screenplays to classify",
+                        Title = "Screenplay Classifier",
                         DefaultExt = "txt",
                         Filter = "Text files (*.txt)|*.txt|Word Documents (*.docx)|*.docx|All files (*.*)|*.*",
                         Multiselect = true,

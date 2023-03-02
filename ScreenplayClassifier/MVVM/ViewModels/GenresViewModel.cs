@@ -1,4 +1,7 @@
-﻿using ScreenplayClassifier.MVVM.Models;
+﻿using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
+using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
 using System;
@@ -16,8 +19,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private ScreenplayModel screenplay;
+        private SeriesCollection percentageSeries;
         private ObservableCollection<string> ownerGenreOptions, ownerSubGenre1Options, ownerSubGenre2Options;
-        private ImageSource modelGenreImage, modelSubGenre1Image, modelSubGenre2Image;
         private ImageSource ownerGenreImage, ownerSubGenre1Image, ownerSubGenre2Image;
         private string selectedOwnerGenre, selectedOwnerSubGenre1, selectedOwnerSubGenre2;
         private bool canGiveFeedback;
@@ -36,6 +39,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("Screenplay"));
+            }
+        }
+
+        public SeriesCollection PercentageSeries
+        {
+            get { return percentageSeries; }
+            set
+            {
+                percentageSeries = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("PercentageSeries"));
             }
         }
 
@@ -72,42 +87,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("OwnerSubGenre2Options"));
-            }
-        }
-
-        public ImageSource ModelGenreImage
-        {
-            get { return modelGenreImage; }
-            set
-            {
-                modelGenreImage = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ModelGenreImage"));
-            }
-        }
-
-        public ImageSource ModelSubGenre1Image
-        {
-            get { return modelSubGenre1Image; }
-            set
-            {
-                modelSubGenre1Image = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ModelSubGenre1Image"));
-            }
-        }
-
-        public ImageSource ModelSubGenre2Image
-        {
-            get { return modelSubGenre2Image; }
-            set
-            {
-                modelSubGenre2Image = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ModelSubGenre2Image"));
             }
         }
 
@@ -282,10 +261,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             Screenplay = screenplay;
             CanGiveFeedback = canGiveFeedback;
 
-            ModelGenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.ModelGenre)));
-            ModelSubGenre1Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.ModelSubGenre1)));
-            ModelSubGenre2Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.ModelSubGenre2)));
-
             OwnerGenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanGiveFeedback ? "Unknown"
                 : Screenplay.OwnerGenre)));
             OwnerSubGenre1Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanGiveFeedback ? "Unknown"
@@ -293,11 +268,40 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             OwnerSubGenre2Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanGiveFeedback ? "Unknown"
                 : Screenplay.OwnerSubGenre2)));
 
+            RefreshPieChart();
+
             if (CanGiveFeedback)
             {
                 SelectedOwnerGenre = screenplay.OwnerGenre;
                 SelectedOwnerSubGenre1 = screenplay.OwnerSubGenre1;
                 SelectedOwnerSubGenre2 = screenplay.OwnerSubGenre2;
+            }
+        }
+
+        /// <summary>
+        /// Refreshes the pie chart.
+        /// </summary>
+        private void RefreshPieChart()
+        {
+            string[] genres = { Screenplay.ModelGenre, Screenplay.ModelSubGenre1, Screenplay.ModelSubGenre2 };
+            float decimalPercentage;
+            string textualPercentage;
+
+            PercentageSeries = new SeriesCollection();
+
+            // Creates a slice for each genre
+            foreach (string genreName in genres)
+            {
+                decimalPercentage = Screenplay.GenrePercentages[genreName];
+                textualPercentage = decimalPercentage.ToString("0.00");
+
+                PercentageSeries.Add(new PieSeries()
+                {
+                    Title = genreName,
+                    Values = new ChartValues<ObservableValue> { new ObservableValue(double.Parse(textualPercentage)) },
+                    FontSize = 20,
+                    DataLabels = true
+                });
             }
         }
     }

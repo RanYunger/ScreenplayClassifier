@@ -25,7 +25,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
         public ClassificationFeedbackView ClassificationFeedbackView { get; private set; }
-        public ReportViewModel ReportViewModel { get; private set; }
+        public ScreenplayViewModel ScreenplayViewModel { get; private set; }
 
         public ObservableCollection<ScreenplayModel> FeedbackedScreenplays
         {
@@ -72,7 +72,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
-                ReportView reportView = null;
+                ScreenplayView screenplayView = null;
 
                 return new Command(() =>
                 {
@@ -92,11 +92,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (proceedDecision == MessageBoxResult.Yes)
                     {
-                        reportView = (ReportView)ClassificationFeedbackView.FindName("ReportView");
+                        screenplayView = (ScreenplayView)ClassificationFeedbackView.FindName("ScreenplayView");
 
                         ClassificationViewModel.FeedbackComplete = ++ScreenplayOffset == FeedbackedScreenplays.Count;
                         if (!ClassificationViewModel.FeedbackComplete)
-                            ReportViewModel.Init(reportView, FeedbackedScreenplays[ScreenplayOffset], true);
+                            ScreenplayViewModel.Init(screenplayView, FeedbackedScreenplays[ScreenplayOffset], true);
                     }
                 });
             }
@@ -110,7 +110,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <param name="classificationViewModel">The view model which manages the classification module</param>
         public void Init(ClassificationFeedbackView classificationFeedbackView, ClassificationViewModel classificationViewModel)
         {
-            ReportView reportView = null;
+            ScreenplayView screenplayView = null;
 
             ClassificationFeedbackView = classificationFeedbackView;
             ClassificationViewModel = classificationViewModel;
@@ -118,8 +118,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             FeedbackedScreenplays = new ObservableCollection<ScreenplayModel>();
             ScreenplayTitles = new ObservableCollection<string>();
 
-            reportView = (ReportView)ClassificationFeedbackView.FindName("ReportView");
-            ReportViewModel = (ReportViewModel)reportView.DataContext;
+            screenplayView = (ScreenplayView)ClassificationFeedbackView.FindName("ScreenplayView");
+            ScreenplayViewModel = (ScreenplayViewModel)screenplayView.DataContext;
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void RefreshView()
         {
-            ReportView reportView = (ReportView)ClassificationFeedbackView.FindName("ReportView");
+            ScreenplayView screenplayView = (ScreenplayView)ClassificationFeedbackView.FindName("ScreenplayView");
 
             ScreenplayTitles.Clear();
             foreach (ScreenplayModel feedbackedScreenplay in FeedbackedScreenplays)
@@ -144,7 +144,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             ScreenplayOffset = 0;
 
-            ((ReportViewModel)reportView.DataContext).Init(reportView, FeedbackedScreenplays[ScreenplayOffset], true);
+            ((ScreenplayViewModel)screenplayView.DataContext).Init(screenplayView, FeedbackedScreenplays[ScreenplayOffset], true);
         }
 
         /// <summary>

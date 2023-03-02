@@ -9,12 +9,12 @@
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="480"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" HorizontalAlignment="Center" Visibility="Visible">
-            <TextBlock Text="Screenplays to Classify" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Browse Screenplays to Classify" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,10">
                 <Button Command="{Binding BrowseScreenplaysCommand}" Height="100" Width="100" IsEnabled="{Binding CanBrowse}"
                         Style="{StaticResource ButtonStyle}">
@@ -36,10 +36,8 @@
                 </Button>
             </WrapPanel>
             <TextBlock Text="Note: You can choose up to 5 screenplays" FontSize="20" Margin="10,0,0,0" Style="{StaticResource TextBlockStyle}"/>
-            <DataGrid x:Name="BrowsedScreenplaysDataGrid" ItemsSource="{Binding ClassifiedScreenplays}"
-                      SelectedIndex="{Binding SelectedScreenplay}"
-                      Height="350" Width="450" IsEnabled="{Binding CanChoose}" SelectionMode="Single" Margin="10"
-                      Style="{StaticResource DataGridStyle}">
+            <DataGrid x:Name="BrowsedScreenplaysDataGrid" ItemsSource="{Binding BrowsedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}"
+                      Height="350" IsEnabled="{Binding CanChoose}" SelectionMode="Single" Margin="10" Style="{StaticResource DataGridStyle}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
                         <i:InvokeCommandAction Command="{Binding CheckSelectionCommand}"/>
@@ -51,7 +49,7 @@
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, Mode=TwoWay}" Width="50"
                                             HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="Title" Binding="{Binding Path=ScreenplayFileName}" Width="390" IsReadOnly="True"
+                    <DataGridTextColumn Header="Title" Binding="{Binding Path=ScreenplayFileName}" Width="590" IsReadOnly="True"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>

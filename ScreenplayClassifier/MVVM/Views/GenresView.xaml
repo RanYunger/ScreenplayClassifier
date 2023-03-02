@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -14,26 +15,12 @@
 
         <StackPanel Grid.Column="0" Margin="10">
             <TextBlock Text="Model Classification" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-            <WrapPanel VerticalAlignment="Center" Margin="10">
-                <StackPanel>
-                    <TextBlock Text="Main Genre:" FontSize="20" Margin="0,35,0,0" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBlock Text="SubGenre 1:" FontSize="20" Margin="0,85,0,0" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBlock Text="SubGenre 2:" FontSize="20" Margin="0,85,0,0" Style="{StaticResource TextBlockStyle}"/>
-                </StackPanel>
-                <StackPanel>
-                    <TextBlock Text="{Binding Path=Screenplay.ModelGenre}" Width="100" FontSize="20" Margin="10,35,10,0"
-                           Style="{StaticResource TextBlockStyle}"/>
-                    <TextBlock Text="{Binding Path=Screenplay.ModelSubGenre1}" Width="100" FontSize="20" Margin="10,85,10,0"
-                           Style="{StaticResource TextBlockStyle}"/>
-                    <TextBlock Text="{Binding Path=Screenplay.ModelSubGenre2}" Width="100" FontSize="20" Margin="10,85,10,0"
-                           Style="{StaticResource TextBlockStyle}"/>
-                </StackPanel>
-                <StackPanel>
-                    <Image Source="{Binding ModelGenreImage}" Height="100" Width="100"/>
-                    <Image Source="{Binding ModelSubGenre1Image}" Height="100" Width="100" Margin="10"/>
-                    <Image Source="{Binding ModelSubGenre2Image}" Height="100" Width="100"/>
-                </StackPanel>
-            </WrapPanel>
+            <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="350" Width="350" FontSize="20" Hoverable="True"
+                          Margin="10">
+                <lvc:PieChart.ChartLegend>
+                    <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="20"/>
+                </lvc:PieChart.ChartLegend>
+            </lvc:PieChart>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Margin="10">

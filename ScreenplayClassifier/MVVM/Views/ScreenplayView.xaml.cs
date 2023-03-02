@@ -17,12 +17,12 @@ namespace ScreenplayClassifier.MVVM.Views
     /// <summary>
     /// Interaction logic for ReportView.xaml
     /// </summary>
-    public partial class ReportView : UserControl
+    public partial class ScreenplayView : UserControl
     {
-        public ReportView()
+        public ScreenplayView()
         {
             InitializeComponent();
-            DataContext = new ReportViewModel();
+            DataContext = new ScreenplayViewModel();
         }
     }
 }

@@ -196,6 +196,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         return;
 
                     HideView();
+                    ReportsViewModel.ReportsInspectionViewModel.RefreshView();
                     ReportsViewModel.ReportsInspectionViewModel.ShowView();
                 });
             }
