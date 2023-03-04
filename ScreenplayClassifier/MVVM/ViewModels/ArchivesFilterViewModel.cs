@@ -21,17 +21,65 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private Predicate<object> subGenre1Filter, subGenre1PercentageFilter;
         private Predicate<object> subGenre2Filter, subGenre2PercentageFilter;
 
+        private ObservableCollection<string> ownerOptions, genreOptions, subGenre1Options, subGenre2Options;
         private string filteredOwner, filteredGenre, filteredSubGenre1, filteredSubGenre2;
         private int filteredGenreMinPercentage, filteredSubGenre1MinPercentage, filteredSubGenre2MinPercentage;
         private int filteredGenreMaxPercentage, filteredSubGenre1MaxPercentage, filteredSubGenre2MaxPercentage;
-        private ObservableCollection<string> ownerOptions, genreOptions, subGenre1Options, subGenre2Options;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ArchivesViewModel ArchivesViewModel { get; private set; }
-        public ReportsViewModel ReportsViewModel { get; private set; }
         public ArchivesFilterView ArchivesFilterView { get; private set; }
+        public Predicate<object> Filter { get; private set; }
+
+        public ObservableCollection<string> OwnerOptions
+        {
+            get { return ownerOptions; }
+            set
+            {
+                ownerOptions = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerOptions"));
+            }
+        }
+
+        public ObservableCollection<string> GenreOptions
+        {
+            get { return genreOptions; }
+            set
+            {
+                genreOptions = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("GenreOptions"));
+            }
+        }
+
+        public ObservableCollection<string> SubGenre1Options
+        {
+            get { return subGenre1Options; }
+            set
+            {
+                subGenre1Options = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre1Options"));
+            }
+        }
+
+        public ObservableCollection<string> SubGenre2Options
+        {
+            get { return subGenre2Options; }
+            set
+            {
+                subGenre2Options = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre2Options"));
+            }
+        }
 
         public string FilteredOwner
         {
@@ -177,55 +225,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public ObservableCollection<string> OwnerOptions
-        {
-            get { return ownerOptions; }
-            set
-            {
-                ownerOptions = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerOptions"));
-            }
-        }
-
-        public ObservableCollection<string> GenreOptions
-        {
-            get { return genreOptions; }
-            set
-            {
-                genreOptions = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GenreOptions"));
-            }
-        }
-
-        public ObservableCollection<string> SubGenre1Options
-        {
-            get { return subGenre1Options; }
-            set
-            {
-                subGenre1Options = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre1Options"));
-            }
-        }
-
-        public ObservableCollection<string> SubGenre2Options
-        {
-            get { return subGenre2Options; }
-            set
-            {
-                subGenre2Options = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre2Options"));
-            }
-        }
-
         // Constructors
+        public ArchivesFilterViewModel() { }
 
         // Methods
         #region Commands
@@ -278,21 +279,23 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
-                RadioButton allOwnersRadioButton = (RadioButton)ArchivesFilterView.FindName("AllOwnersRadioButton"),
-                    thisOwnerRadioButton = (RadioButton)ArchivesFilterView.FindName("ThisOwnerRadioButton");
+                RadioButton allOwnersRadioButton = null, thisOwnerRadioButton = null;
 
                 return new Command(() =>
                 {
-                    ICollectionView archivesCollectionView;
 
                     // Validation
+                    if (ArchivesFilterView == null)
+                        return;
+
+                    allOwnersRadioButton = (RadioButton)ArchivesFilterView.FindName("AllOwnersRadioButton");
+                    thisOwnerRadioButton = (RadioButton)ArchivesFilterView.FindName("ThisOwnerRadioButton");
+
                     if ((thisOwnerRadioButton.IsChecked.Value) && (string.IsNullOrEmpty(FilteredOwner)))
                     {
                         MessageBoxHandler.Show("Choose an owner to filter by.", string.Empty, 5, MessageBoxImage.Error);
                         return;
                     }
-
-                    archivesCollectionView = CollectionViewSource.GetDefaultView(ReportsViewModel.Reports);
 
                     FilteredOwner = allOwnersRadioButton.IsChecked.Value ? string.Empty : FilteredOwner;
 
@@ -316,7 +319,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     genrePercentageFilter = (o) =>
                     {
-                        ScreenplayModel screenplay = (ScreenplayModel)o;
+                        ScreenplayModel screenplay = ((ReportModel)o).Screenplay;
                         float genrePercentage = screenplay.GenrePercentages[screenplay.OwnerGenre];
 
                         return string.IsNullOrEmpty(FilteredGenre) ? true
@@ -324,7 +327,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     };
                     subGenre1PercentageFilter = (o) =>
                     {
-                        ScreenplayModel screenplay = (ScreenplayModel)o;
+                        ScreenplayModel screenplay = ((ReportModel)o).Screenplay;
                         float subGenre1Percentage = screenplay.GenrePercentages[screenplay.OwnerSubGenre1];
 
                         return string.IsNullOrEmpty(FilteredSubGenre1) ? true
@@ -332,21 +335,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     };
                     subGenre2PercentageFilter = (o) =>
                     {
-                        ScreenplayModel screenplay = (ScreenplayModel)o;
+                        ScreenplayModel screenplay = ((ReportModel)o).Screenplay;
                         float subGenre2Percentage = screenplay.GenrePercentages[screenplay.OwnerSubGenre2];
 
                         return string.IsNullOrEmpty(FilteredSubGenre2) ? true
                             : (subGenre2Percentage >= FilteredSubGenre2MinPercentage) && (subGenre2Percentage <= FilteredSubGenre2MaxPercentage);
                     };
 
-                    // Activates and filters by a combination of all filters
-                    archivesCollectionView.Filter = (o) =>
+                    Filter = (o) =>
                     {
                         return (ownerFilter.Invoke(o)) && (genreFilter.Invoke(o)) && (subGenre1Filter.Invoke(o)) && (subGenre2Filter.Invoke(o))
                             && (genrePercentageFilter.Invoke(o)) && (subGenre1PercentageFilter.Invoke(o)) && (subGenre2PercentageFilter.Invoke(o));
                     };
-                    archivesCollectionView.Refresh();
-                    // TODO: COMPLETE (update ReportsSelectionView.ClassifiedScreenplays + ReportsInspectionView.InspectedReports)
 
                     ShowInspectionViewCommand.Execute(null);
                 });
@@ -357,8 +357,29 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
+                RadioButton allOwnersRadioButton = null;
+                NumericUpDown filteredGenreMinPercentageNumericUpDown = null, filteredGenreMaxPercentageNumericUpDown = null,
+                    filteredSubGenre1MinPercentageNumericUpDown = null, filteredSubGenre1MaxPercentageNumericUpDown = null,
+                    filteredSubGenre2MinPercentageNumericUpDown = null, filteredSubGenre2MaxPercentageNumericUpDown = null;
+
                 return new Command(() =>
                 {
+                    // Validation
+                    if (ArchivesFilterView == null)
+                        return;
+
+                    allOwnersRadioButton = (RadioButton)ArchivesFilterView.FindName("AllOwnersRadioButton");
+                    allOwnersRadioButton.IsChecked = true;
+
+                    filteredGenreMinPercentageNumericUpDown = (NumericUpDown)ArchivesFilterView.FindName("FilteredGenreMinPercentageNumericUpDown");
+                    filteredGenreMaxPercentageNumericUpDown = (NumericUpDown)ArchivesFilterView.FindName("FilteredGenreMaxPercentageNumericUpDown");
+                    filteredSubGenre1MinPercentageNumericUpDown = (NumericUpDown)ArchivesFilterView.FindName("FilteredSubGenre1MinPercentageNumericUpDown");
+                    filteredSubGenre1MaxPercentageNumericUpDown = (NumericUpDown)ArchivesFilterView.FindName("FilteredSubGenre1MaxPercentageNumericUpDown");
+                    filteredSubGenre2MinPercentageNumericUpDown = (NumericUpDown)ArchivesFilterView.FindName("FilteredSubGenre2MinPercentageNumericUpDown");
+                    filteredSubGenre2MaxPercentageNumericUpDown = (NumericUpDown)ArchivesFilterView.FindName("FilteredSubGenre2MaxPercentageNumericUpDown");
+
+                    Filter = (o) => { return true; }; // Default filter
+
                     GenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
                     SubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
                     SubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
@@ -368,12 +389,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     FilteredSubGenre1 = string.Empty;
                     FilteredSubGenre2 = string.Empty;
 
-                    FilteredGenreMinPercentage = 0;
-                    FilteredGenreMaxPercentage = 100;
-                    FilteredSubGenre1MinPercentage = 0;
-                    FilteredSubGenre1MaxPercentage = 100;
-                    FilteredSubGenre2MinPercentage = 0;
-                    FilteredSubGenre2MaxPercentage = 100;
+                    filteredGenreMinPercentageNumericUpDown.Value = FilteredGenreMinPercentage = 0;
+                    filteredGenreMaxPercentageNumericUpDown.Value = FilteredGenreMaxPercentage = 100;
+                    filteredSubGenre1MinPercentageNumericUpDown.Value = FilteredSubGenre1MinPercentage = 0;
+                    filteredSubGenre1MaxPercentageNumericUpDown.Value = FilteredSubGenre1MaxPercentage = 100;
+                    filteredSubGenre2MinPercentageNumericUpDown.Value = FilteredSubGenre2MinPercentage = 0;
+                    filteredSubGenre2MaxPercentageNumericUpDown.Value = FilteredSubGenre2MaxPercentage = 100;
                 });
             }
         }
@@ -384,9 +405,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
+                    //ReportsViewModel reportsViewModel = null;
+
                     // Validation
                     if (ArchivesFilterView == null)
                         return;
+
+                    // TODO: COMPLETE
+                    //reportsViewModel = (ReportsViewModel)ArchivesViewModel.MainViewModel.ReportsView.DataContext;
+                    //reportsViewModel.ReportsSelectionViewModel.RefreshView(Filter, true);
+                    //reportsViewModel.ReportsInspectionViewModel.RefreshView();
 
                     HideView();
                     ArchivesViewModel.ArchivesInspectionViewModel.RefreshView();
@@ -405,6 +433,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             ArchivesFilterView = archivesFilterView;
             ArchivesViewModel = archivesViewModel;
+
+            Filter = (o) => { return true; }; // Default filter
 
             InitOwners();
 

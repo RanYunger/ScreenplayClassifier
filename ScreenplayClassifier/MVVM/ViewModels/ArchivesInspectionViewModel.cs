@@ -155,14 +155,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
+                    // TODO: COMPLETE
                     //MainViewModel mainViewModel = ArchivesViewModel.MainViewModel;
-                    //ReportsViewModel reportsViewModel = ArchivesViewModel.ArchivesFilterViewModel.ReportsViewModel;
+                    //ReportsViewModel reportsViewModel = (ReportsViewModel)mainViewModel.ReportsView.DataContext;
 
                     //HideView();
-                    //mainViewModel.ShowView(mainViewModel.ReportsView);
-                    //reportsViewModel.ReportsSelectionViewModel.RefreshView();
-                    //reportsViewModel.ReportsInspectionViewModel.RefreshView();
+                    //reportsViewModel.ReportsSelectionViewModel.HideView();
                     //reportsViewModel.ReportsInspectionViewModel.ShowView();
+
+                    //mainViewModel.ShowView(mainViewModel.ReportsView);
                 });
             }
         }
@@ -210,14 +211,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 subGenre2Range = new int[] { filterViewModel.FilteredSubGenre2MinPercentage, filterViewModel.FilteredSubGenre2MaxPercentage };
 
             FilteredScreenplays.Clear();
-            foreach (ReportModel report in reportsViewModel.Reports)
-                FilteredScreenplays.Add(new BrowseModel(report.Screenplay.FilePath));
-
+            foreach (BrowseModel classifiedScreenplay in reportsViewModel.ReportsSelectionViewModel.ClassifiedScreenplays)
+                FilteredScreenplays.Add(new BrowseModel(classifiedScreenplay.ScreenplayFilePath));
             CheckedScreenplays.Clear();
 
             OwnerFilterText = string.Format("Owner: {0}", string.IsNullOrEmpty(owner) ? "All Owners" : owner);
-            GenresFilterText = string.Format("Genres: {0} | {1} | {2}", BuildGenreFilterText(genre, genreRange),
-                BuildGenreFilterText(subGenre1, subGenre1Range), BuildGenreFilterText(subGenre2, subGenre2Range));
+            GenresFilterText = string.Format("Genres: Main Genre: {0} | Subgenre 1: {1} | Subgenre 2: {2}",
+                BuildGenreFilterText(genre, genreRange), BuildGenreFilterText(subGenre1, subGenre1Range),
+                BuildGenreFilterText(subGenre2, subGenre2Range));
 
             SelectedScreenplay = -1;
             CanInspect = false;

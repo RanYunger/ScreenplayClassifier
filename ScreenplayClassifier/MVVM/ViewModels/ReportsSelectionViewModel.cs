@@ -218,8 +218,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ClassifiedScreenplays = new ObservableCollection<BrowseModel>();
             CheckedScreenplays = new ObservableCollection<BrowseModel>();
 
-            RefreshView();
-
             titleTextBox = (TextBox)ReportsSelectionView.FindName("TitleTextBox");
             titleTextBox.Foreground = Brushes.Gray;
             titleTextBox.Text = "Title";
@@ -236,18 +234,27 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         /// <summary>
         /// Refreshes the view.
+        /// <param name="filter">The filter predicate</param>
+        /// <param name="isFilteredFromArchives">The indication whether the filter predicate came from the archives module</param>
         /// </summary>
-        public void RefreshView()
+        public void RefreshView(Predicate<object> filter, bool isFilteredFromArchives)
         {
-            ClassifiedScreenplays.Clear();
+            ICollectionView reportsCollectionView = CollectionViewSource.GetDefaultView(ReportsViewModel.Reports);
 
-            if (ReportsViewModel != null)
-                foreach (ReportModel report in ReportsViewModel.Reports)
-                    ClassifiedScreenplays.Add(new BrowseModel(report.Screenplay.FilePath));
+            reportsCollectionView.Filter = filter;
+            reportsCollectionView.Refresh();
+
+            ClassifiedScreenplays.Clear();
+            foreach (ReportModel report in reportsCollectionView)
+                ClassifiedScreenplays.Add(new BrowseModel(report.Screenplay.FilePath) { IsChecked = isFilteredFromArchives });
+            ClassifiedScreenplays = ClassifiedScreenplays;
 
             CheckedScreenplays.Clear();
-            SelectedScreenplay = -1;
-            CanInspect = false;
+            if (isFilteredFromArchives)
+                CheckedScreenplays = new ObservableCollection<BrowseModel>(ClassifiedScreenplays);
+
+            SelectedScreenplay = CheckedScreenplays.Count > 0 ? 0 : -1;
+            CanInspect = CheckedScreenplays.Count > 0;
         }
 
         /// <summary>

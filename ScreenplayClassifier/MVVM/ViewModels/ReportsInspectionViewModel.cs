@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Windows;
+using System.Windows.Data;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
@@ -252,8 +253,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ScreenplayOwner = string.Empty;
             SelectedScreenplay = -1;
 
-            RefreshView();
-
             CanGoToFirst = false;
             CanGoToPrevious = false;
             CanGoToNext = true;
@@ -277,7 +276,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ObservableCollection<BrowseModel> classifiedScreenplays = ReportsViewModel.ReportsSelectionViewModel.ClassifiedScreenplays;
 
             InspectedReports.Clear();
-
             for (int i = 0; i < classifiedScreenplays.Count; i++)
                 if (classifiedScreenplays[i].IsChecked)
                     InspectedReports.Add(ReportsViewModel.Reports[i]);
