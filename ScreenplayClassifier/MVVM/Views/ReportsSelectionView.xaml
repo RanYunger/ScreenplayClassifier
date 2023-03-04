@@ -31,9 +31,8 @@
                     </i:Interaction.Triggers>
                 </TextBox>
             </WrapPanel>
-            <DataGrid x:Name="BrowsedScreenplaysDataGrid" ItemsSource="{Binding ClassifiedScreenplays}"
-                      SelectedIndex="{Binding SelectedScreenplay}" Height="440" IsEnabled="{Binding CanChoose}" SelectionMode="Single"
-                      Margin="10" Style="{StaticResource DataGridStyle}">
+            <DataGrid ItemsSource="{Binding ClassifiedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}" Height="440"
+                      SelectionMode="Single" Margin="10" Style="{StaticResource DataGridStyle}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
                         <i:InvokeCommandAction Command="{Binding CheckSelectionCommand}"/>

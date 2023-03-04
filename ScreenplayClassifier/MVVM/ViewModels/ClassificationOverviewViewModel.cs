@@ -183,14 +183,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 classificationBrowseViewModel.BrowsedScreenplays.Remove(checkedScreenplay);
 
             foreach (ScreenplayModel screenplay in ClassifiedScreenplays)
-            {
                 reportsViewModel.Reports.Add(new ReportModel(owner, screenplay));
-                archivesViewModel.Screenplays.Add(screenplay);
-            }
 
             // Triggers PropertyChanged events
             reportsViewModel.Reports = reportsViewModel.Reports;
-            archivesViewModel.Screenplays = archivesViewModel.Screenplays;
         }
     }
 }

@@ -85,6 +85,7 @@
     <None Remove="Media\Images\Previous.png" />
     <None Remove="Media\Images\Reel.png" />
     <None Remove="Media\Images\Repeat.png" />
+    <None Remove="Media\Images\Report.png" />
     <None Remove="Media\Images\Reports.png" />
     <None Remove="Media\Images\Save.png" />
     <None Remove="Media\Images\Search.png" />
@@ -323,6 +324,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Repeat.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Report.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Reports.png">
