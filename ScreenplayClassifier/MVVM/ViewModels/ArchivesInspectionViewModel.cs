@@ -14,7 +14,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ArchivesInspectionViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ObservableCollection<BrowseModel> filteredScreenplays, checkedScreenplays;
+        private ObservableCollection<SelectionModel> filteredScreenplays, checkedScreenplays;
         private string ownerFilterText, genresFilterText;
         private int selectedScreenplay;
         private bool canInspect;
@@ -25,7 +25,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ArchivesViewModel ArchivesViewModel { get; private set; }
         public ArchivesInspectionView ArchivesInspectionView { get; private set; }
 
-        public ObservableCollection<BrowseModel> FilteredScreenplays
+        public ObservableCollection<SelectionModel> FilteredScreenplays
         {
             get { return filteredScreenplays; }
             set
@@ -37,7 +37,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public ObservableCollection<BrowseModel> CheckedScreenplays
+        public ObservableCollection<SelectionModel> CheckedScreenplays
         {
             get { return checkedScreenplays; }
             set
@@ -111,7 +111,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    BrowseModel chosenScreenplay = null;
+                    SelectionModel chosenScreenplay = null;
 
                     // Validation
                     if ((selectedScreenplay == -1) || (FilteredScreenplays.Count == 0))
@@ -158,21 +158,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     MainViewModel mainViewModel = ArchivesViewModel.MainViewModel;
                     ReportsViewModel reportsViewModel = (ReportsViewModel)mainViewModel.ReportsView.DataContext;
-                    ReportsSelectionViewModel reportsSelectionViewModel = reportsViewModel.ReportsSelectionViewModel;
-                    ReportsInspectionViewModel reportsInspectionViewModel = reportsViewModel.ReportsInspectionViewModel;
 
-                    reportsSelectionViewModel.RefreshView();
+                    reportsViewModel.ReportsInspectionViewModel.RefreshView(FilteredScreenplays);
 
-                    // Marks all filtered screenplays as inspected reports
-                    for (int i = 0; i < reportsSelectionViewModel.ClassifiedScreenplays.Count; i++)
-                        if (IsScreenplayMatchingFilter(reportsSelectionViewModel.ClassifiedScreenplays[i].ScreenplayFileName))
-                            reportsSelectionViewModel.SelectedScreenplay = i; // Triggers CheckSelectionCommand
-
-                    reportsInspectionViewModel.RefreshView();
-
-                    // Manages visibility hirarchy
-                    reportsSelectionViewModel.HideView();
-                    reportsInspectionViewModel.ShowView();
+                    reportsViewModel.ReportsSelectionViewModel.HideView();
+                    reportsViewModel.ReportsInspectionViewModel.ShowView();
                     mainViewModel.ShowView(mainViewModel.ReportsView);
                 });
             }
@@ -189,8 +179,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ArchivesInspectionView = archivesInspectionView;
             ArchivesViewModel = archivesViewModel;
 
-            FilteredScreenplays = new ObservableCollection<BrowseModel>();
-            CheckedScreenplays = new ObservableCollection<BrowseModel>();
+            FilteredScreenplays = new ObservableCollection<SelectionModel>();
+            CheckedScreenplays = new ObservableCollection<SelectionModel>();
 
             RefreshView();
 
@@ -220,7 +210,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             FilteredScreenplays.Clear();
             foreach (ReportModel filteredReport in reportsCollectionView)
-                FilteredScreenplays.Add(new BrowseModel(filteredReport.Screenplay.FilePath));
+                FilteredScreenplays.Add(new SelectionModel(filteredReport.Screenplay.FilePath));
             CheckedScreenplays.Clear();
 
             RefreshFilterTexts();
@@ -245,7 +235,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <returns>True if the screenplay fits the active filter, False otherwise</returns>
         private bool IsScreenplayMatchingFilter(string title)
         {
-            foreach (BrowseModel filteredScreenplay in FilteredScreenplays)
+            foreach (SelectionModel filteredScreenplay in FilteredScreenplays)
                 if (string.Equals(filteredScreenplay.ScreenplayFileName, title))
                     return true;
 

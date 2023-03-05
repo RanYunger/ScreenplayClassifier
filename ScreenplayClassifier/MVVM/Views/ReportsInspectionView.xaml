@@ -36,11 +36,21 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button Command="{Binding ShowSelectionViewCommand}" Height="80" Width="80" Margin="10,0,10,0" Style="{StaticResource ButtonStyle}">
+            <Button Command="{Binding ShowReportsSelectionViewCommand}" Height="80" Width="160" Margin="10,0,10,0"
+                    Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <StackPanel>
-                        <Image Source="/Media/Images/Back.png" Height="60" Width="60"/>
-                        <TextBlock Text="Back" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                        <Image Source="/Media/Images/Back.png" Height="50" Width="50"/>
+                        <TextBlock Text="Reports Selection" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding ShowArchivesIntrospectionViewCommand}" Height="80" Width="160" Margin="10,0,10,0"
+                    Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Media/Images/Back.png" Height="50" Width="50"/>
+                        <TextBlock Text="Archives Introspection" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>
             </Button>

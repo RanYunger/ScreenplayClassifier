@@ -245,11 +245,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// Starts the classification process.
         /// </summary>
         /// <param name="screenplaysToClassify">The screenplays to be processed</param>
-        public void StartClassification(ObservableCollection<BrowseModel> screenplaysToClassify)
+        public void StartClassification(ObservableCollection<SelectionModel> screenplaysToClassify)
         {
             ObservableCollection<string> screenplayFilePaths = new ObservableCollection<string>();
 
-            foreach (BrowseModel browsedScreenplay in screenplaysToClassify)
+            foreach (SelectionModel browsedScreenplay in screenplaysToClassify)
                 screenplayFilePaths.Add(browsedScreenplay.ScreenplayFilePath);
 
             DurationTimer.Start();

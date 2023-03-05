@@ -75,6 +75,20 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         /// <summary>
+        /// Retrieves a report by its screenplay's title.
+        /// </summary>
+        /// <param name="screenplayTitle">The screenplay's title</param>
+        /// <returns>The matching report (if exists), Null otherwise</returns>
+        public ReportModel FindReportByTitle(string screenplayTitle)
+        {
+            foreach (ReportModel report in Reports)
+                if (string.Equals(report.Screenplay.Title, screenplayTitle))
+                    return report;
+
+            return null;
+        }
+
+        /// <summary>
         /// Initiates the reports.
         /// </summary>
         /// <param name="user">The user authenticated to the system</param>

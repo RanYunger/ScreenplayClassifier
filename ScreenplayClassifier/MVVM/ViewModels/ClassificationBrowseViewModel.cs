@@ -19,7 +19,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ClassificationBrowseViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ObservableCollection<BrowseModel> browsedScreenplays, checkedScreenplays;
+        private ObservableCollection<SelectionModel> browsedScreenplays, checkedScreenplays;
         private int selectedScreenplay;
         private bool canBrowse, canClear, canChoose, canActivate;
 
@@ -29,7 +29,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ClassificationViewModel ClassificationViewModel { get; private set; }
         public ClassificationBrowseView ClassificationBrowseView { get; private set; }
 
-        public ObservableCollection<BrowseModel> BrowsedScreenplays
+        public ObservableCollection<SelectionModel> BrowsedScreenplays
         {
             get { return browsedScreenplays; }
             set
@@ -41,7 +41,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public ObservableCollection<BrowseModel> CheckedScreenplays
+        public ObservableCollection<SelectionModel> CheckedScreenplays
         {
             get { return checkedScreenplays; }
             set
@@ -127,7 +127,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    BrowseModel browsedScreenplay = null;
+                    SelectionModel browsedScreenplay = null;
 
                     // Validation
                     if ((!CanBrowse) || (selectedScreenplay == -1) || (BrowsedScreenplays.Count == 0))
@@ -196,7 +196,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     for (int i = 0; i < openFileDialog.FileNames.Length; i++)
                     {
                         screenplayPath = string.Format("\"{0}\"", openFileDialog.FileNames[i]); // for passing paths with spaces
-                        BrowsedScreenplays.Add(new BrowseModel(screenplayPath));
+                        BrowsedScreenplays.Add(new SelectionModel(screenplayPath));
                     }
 
                     CanChoose = BrowsedScreenplays.Count > 0;
@@ -246,8 +246,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ClassificationBrowseView = classificationBrowseView;
             ClassificationViewModel = classificationViewModel;
 
-            BrowsedScreenplays = new ObservableCollection<BrowseModel>();
-            CheckedScreenplays = new ObservableCollection<BrowseModel>();
+            BrowsedScreenplays = new ObservableCollection<SelectionModel>();
+            CheckedScreenplays = new ObservableCollection<SelectionModel>();
 
             RefreshView();
         }

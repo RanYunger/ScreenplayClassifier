@@ -17,7 +17,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Fields
         private Predicate<object> titleFilter;
 
-        private ObservableCollection<BrowseModel> classifiedScreenplays, checkedScreenplays;
+        private ObservableCollection<SelectionModel> classifiedScreenplays, checkedScreenplays;
         private int selectedScreenplay;
         private bool canInspect;
 
@@ -27,7 +27,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ReportsViewModel ReportsViewModel { get; private set; }
         public ReportsSelectionView ReportsSelectionView { get; private set; }
 
-        public ObservableCollection<BrowseModel> ClassifiedScreenplays
+        public ObservableCollection<SelectionModel> ClassifiedScreenplays
         {
             get { return classifiedScreenplays; }
             set
@@ -39,7 +39,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public ObservableCollection<BrowseModel> CheckedScreenplays
+        public ObservableCollection<SelectionModel> CheckedScreenplays
         {
             get { return checkedScreenplays; }
             set
@@ -148,7 +148,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     titleFilter = (o) =>
                     {
                         return (string.IsNullOrEmpty(titleInput.Trim())) || (string.Equals(titleInput, "Title"))
-                            ? true : ((BrowseModel)o).ScreenplayFileName.Contains(titleInput);
+                            ? true : ((SelectionModel)o).ScreenplayFileName.Contains(titleInput);
                     };
                     screenplaysCollectionView.Filter = (o) => { return titleFilter.Invoke(o); };
                     screenplaysCollectionView.Refresh();
@@ -162,7 +162,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    BrowseModel chosenScreenplay = null;
+                    SelectionModel chosenScreenplay = null;
 
                     // Validation
                     if ((SelectedScreenplay == -1) || (ClassifiedScreenplays.Count == 0))
@@ -196,7 +196,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         return;
 
                     HideView();
-                    ReportsViewModel.ReportsInspectionViewModel.RefreshView();
+                    ReportsViewModel.ReportsInspectionViewModel.RefreshView(ClassifiedScreenplays);
                     ReportsViewModel.ReportsInspectionViewModel.ShowView();
                 });
             }
@@ -215,8 +215,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ReportsSelectionView = reportsSelectionView;
             ReportsViewModel = reportsViewModel;
 
-            ClassifiedScreenplays = new ObservableCollection<BrowseModel>();
-            CheckedScreenplays = new ObservableCollection<BrowseModel>();
+            ClassifiedScreenplays = new ObservableCollection<SelectionModel>();
+            CheckedScreenplays = new ObservableCollection<SelectionModel>();
 
             titleTextBox = (TextBox)ReportsSelectionView.FindName("TitleTextBox");
             titleTextBox.Foreground = Brushes.Gray;
@@ -239,7 +239,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             ClassifiedScreenplays.Clear();
             foreach (ReportModel report in ReportsViewModel.Reports)
-                ClassifiedScreenplays.Add(new BrowseModel(report.Screenplay.FilePath));
+                ClassifiedScreenplays.Add(new SelectionModel(report.Screenplay.FilePath));
 
             CheckedScreenplays.Clear();
 

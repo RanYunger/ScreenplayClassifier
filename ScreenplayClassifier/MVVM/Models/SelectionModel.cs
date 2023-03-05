@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ScreenplayClassifier.MVVM.Models
 {
-    public class BrowseModel : INotifyPropertyChanged
+    public class SelectionModel : INotifyPropertyChanged
     {
         // Fields
         private string screenplayFilePath, screenplayFileName;
@@ -53,7 +53,7 @@ namespace ScreenplayClassifier.MVVM.Models
         }
 
         // Constructors
-        public BrowseModel(string screenplayFilePath)
+        public SelectionModel(string screenplayFilePath)
         {
             ScreenplayFilePath = screenplayFilePath;
             ScreenplayFileName = Path.GetFileNameWithoutExtension(screenplayFilePath);

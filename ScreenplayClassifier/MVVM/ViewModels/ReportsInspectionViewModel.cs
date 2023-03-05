@@ -131,22 +131,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command ShowSelectionViewCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    // Validation
-                    if (ReportsInspectionView == null)
-                        return;
-
-                    HideView();
-                    ReportsViewModel.ReportsSelectionViewModel.ShowView();
-                });
-            }
-        }
-
         public Command RefreshScreenplayCommand
         {
             get
@@ -197,6 +181,48 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     }
                     CanGoToNext = InspectedReports.Count > 1;
                     CanGoToLast = InspectedReports.Count > 1;
+                });
+            }
+        }
+
+        public Command ShowReportsSelectionViewCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    // Validation
+                    if (ReportsInspectionView == null)
+                        return;
+
+                    HideView();
+                    ReportsViewModel.ReportsSelectionViewModel.ShowView();
+                });
+            }
+        }
+
+        public Command ShowArchivesIntrospectionViewCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    MainViewModel mainViewModel = null;
+                    ArchivesViewModel archivesViewModel = null;
+
+                    // Validation
+                    if (ReportsInspectionView == null)
+                        return;
+
+                    mainViewModel = ReportsViewModel.MainViewModel;
+                    archivesViewModel = (ArchivesViewModel)mainViewModel.ArchivesView.DataContext;
+
+                    HideView();
+                    archivesViewModel.ArchivesFilterViewModel.HideView();
+                    archivesViewModel.ArchivesInspectionViewModel.RefreshView();
+                    archivesViewModel.ArchivesInspectionViewModel.ShowView();
+
+                    mainViewModel.ShowView(mainViewModel.ArchivesView);
                 });
             }
         }
@@ -270,15 +296,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         /// <summary>
         /// Refreshes the view.
+        /// <param name="selectedReports">The reports selected for inspection</param>
         /// </summary>
-        public void RefreshView()
+        public void RefreshView(ObservableCollection<SelectionModel> selectedReports)
         {
-            ObservableCollection<BrowseModel> classifiedScreenplays = ReportsViewModel.ReportsSelectionViewModel.ClassifiedScreenplays;
-
             InspectedReports.Clear();
-            for (int i = 0; i < classifiedScreenplays.Count; i++)
-                if (classifiedScreenplays[i].IsChecked)
-                    InspectedReports.Add(ReportsViewModel.Reports[i]);
+            foreach (SelectionModel selectedReport in selectedReports)
+                if (selectedReport.IsChecked)
+                    InspectedReports.Add(ReportsViewModel.FindReportByTitle(selectedReport.ScreenplayFileName));
 
             GoToFirstCommand.Execute(null);
         }
