@@ -405,16 +405,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    //ReportsViewModel reportsViewModel = null;
-
                     // Validation
                     if (ArchivesFilterView == null)
                         return;
-
-                    // TODO: COMPLETE
-                    //reportsViewModel = (ReportsViewModel)ArchivesViewModel.MainViewModel.ReportsView.DataContext;
-                    //reportsViewModel.ReportsSelectionViewModel.RefreshView(Filter, true);
-                    //reportsViewModel.ReportsInspectionViewModel.RefreshView();
 
                     HideView();
                     ArchivesViewModel.ArchivesInspectionViewModel.RefreshView();

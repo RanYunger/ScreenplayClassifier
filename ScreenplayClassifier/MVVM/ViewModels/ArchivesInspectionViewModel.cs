@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Windows;
+using System.Windows.Data;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
@@ -155,15 +156,24 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    // TODO: COMPLETE
-                    //MainViewModel mainViewModel = ArchivesViewModel.MainViewModel;
-                    //ReportsViewModel reportsViewModel = (ReportsViewModel)mainViewModel.ReportsView.DataContext;
+                    MainViewModel mainViewModel = ArchivesViewModel.MainViewModel;
+                    ReportsViewModel reportsViewModel = (ReportsViewModel)mainViewModel.ReportsView.DataContext;
+                    ReportsSelectionViewModel reportsSelectionViewModel = reportsViewModel.ReportsSelectionViewModel;
+                    ReportsInspectionViewModel reportsInspectionViewModel = reportsViewModel.ReportsInspectionViewModel;
 
-                    //HideView();
-                    //reportsViewModel.ReportsSelectionViewModel.HideView();
-                    //reportsViewModel.ReportsInspectionViewModel.ShowView();
+                    reportsSelectionViewModel.RefreshView();
 
-                    //mainViewModel.ShowView(mainViewModel.ReportsView);
+                    // Marks all filtered screenplays as inspected reports
+                    for (int i = 0; i < reportsSelectionViewModel.ClassifiedScreenplays.Count; i++)
+                        if (IsScreenplayMatchingFilter(reportsSelectionViewModel.ClassifiedScreenplays[i].ScreenplayFileName))
+                            reportsSelectionViewModel.SelectedScreenplay = i; // Triggers CheckSelectionCommand
+
+                    reportsInspectionViewModel.RefreshView();
+
+                    // Manages visibility hirarchy
+                    reportsSelectionViewModel.HideView();
+                    reportsInspectionViewModel.ShowView();
+                    mainViewModel.ShowView(mainViewModel.ReportsView);
                 });
             }
         }
@@ -203,22 +213,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void RefreshView()
         {
             ReportsViewModel reportsViewModel = (ReportsViewModel)ArchivesViewModel.MainViewModel.ReportsView.DataContext;
-            ArchivesFilterViewModel filterViewModel = ArchivesViewModel.ArchivesFilterViewModel;
-            string owner = filterViewModel.FilteredOwner, genre = filterViewModel.FilteredGenre,
-                subGenre1 = filterViewModel.FilteredSubGenre1, subGenre2 = filterViewModel.FilteredSubGenre2;
-            int[] genreRange = new int[] { filterViewModel.FilteredGenreMinPercentage, filterViewModel.FilteredGenreMaxPercentage },
-                subGenre1Range = new int[] { filterViewModel.FilteredSubGenre1MinPercentage, filterViewModel.FilteredSubGenre1MaxPercentage },
-                subGenre2Range = new int[] { filterViewModel.FilteredSubGenre2MinPercentage, filterViewModel.FilteredSubGenre2MaxPercentage };
+            ICollectionView reportsCollectionView = CollectionViewSource.GetDefaultView(reportsViewModel.Reports);
+
+            reportsCollectionView.Filter = ArchivesViewModel.ArchivesFilterViewModel.Filter;
+            reportsCollectionView.Refresh();
 
             FilteredScreenplays.Clear();
-            foreach (BrowseModel classifiedScreenplay in reportsViewModel.ReportsSelectionViewModel.ClassifiedScreenplays)
-                FilteredScreenplays.Add(new BrowseModel(classifiedScreenplay.ScreenplayFilePath));
+            foreach (ReportModel filteredReport in reportsCollectionView)
+                FilteredScreenplays.Add(new BrowseModel(filteredReport.Screenplay.FilePath));
             CheckedScreenplays.Clear();
 
-            OwnerFilterText = string.Format("Owner: {0}", string.IsNullOrEmpty(owner) ? "All Owners" : owner);
-            GenresFilterText = string.Format("Genres: Main Genre: {0} | Subgenre 1: {1} | Subgenre 2: {2}",
-                BuildGenreFilterText(genre, genreRange), BuildGenreFilterText(subGenre1, subGenre1Range),
-                BuildGenreFilterText(subGenre2, subGenre2Range));
+            RefreshFilterTexts();
 
             SelectedScreenplay = -1;
             CanInspect = false;
@@ -231,6 +236,38 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             if (ArchivesInspectionView != null)
                 App.Current.Dispatcher.Invoke(() => ArchivesInspectionView.Visibility = Visibility.Collapsed);
+        }
+
+        /// <summary>
+        /// Indicates whether a screenplay fits the active filter.
+        /// </summary>
+        /// <param name="title">The screenplay's title</param>
+        /// <returns>True if the screenplay fits the active filter, False otherwise</returns>
+        private bool IsScreenplayMatchingFilter(string title)
+        {
+            foreach (BrowseModel filteredScreenplay in FilteredScreenplays)
+                if (string.Equals(filteredScreenplay.ScreenplayFileName, title))
+                    return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Refreshes the filter texts.
+        /// </summary>
+        private void RefreshFilterTexts()
+        {
+            ArchivesFilterViewModel filterViewModel = ArchivesViewModel.ArchivesFilterViewModel;
+            string owner = filterViewModel.FilteredOwner, genre = filterViewModel.FilteredGenre,
+                subGenre1 = filterViewModel.FilteredSubGenre1, subGenre2 = filterViewModel.FilteredSubGenre2;
+            int[] genreRange = new int[] { filterViewModel.FilteredGenreMinPercentage, filterViewModel.FilteredGenreMaxPercentage },
+                subGenre1Range = new int[] { filterViewModel.FilteredSubGenre1MinPercentage, filterViewModel.FilteredSubGenre1MaxPercentage },
+                subGenre2Range = new int[] { filterViewModel.FilteredSubGenre2MinPercentage, filterViewModel.FilteredSubGenre2MaxPercentage };
+
+            OwnerFilterText = string.Format("Owner: {0}", string.IsNullOrEmpty(owner) ? "All Owners" : owner);
+            GenresFilterText = string.Format("Genres: Main Genre: {0} | Subgenre 1: {1} | Subgenre 2: {2}",
+                BuildGenreFilterText(genre, genreRange), BuildGenreFilterText(subGenre1, subGenre1Range),
+                BuildGenreFilterText(subGenre2, subGenre2Range));
         }
 
         /// <summary>
