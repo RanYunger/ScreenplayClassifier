@@ -15,6 +15,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class UserToolbarViewModel : INotifyPropertyChanged
     {
         // Fields
+        private System.Timers.Timer clapperTimer;
+        private MediaPlayer mediaPlayer;
         private UserModel user;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -36,10 +38,39 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Constructors
-        public UserToolbarViewModel() { }
+        public UserToolbarViewModel()
+        {
+            clapperTimer = new System.Timers.Timer(1100);
+            clapperTimer.Elapsed += ClapperTimer_Elapsed;
+
+            mediaPlayer = new MediaPlayer();
+        }
 
         // Methods
         #region Commands
+        public Command ActivateClapperCommand
+        {
+            get
+            {
+                Image iconImage = null;
+
+                return new Command(() =>
+                {
+                    // Validation
+                    if (UserToolbarView == null)
+                        return;
+
+                    iconImage = (Image)UserToolbarView.FindName("IconImage");
+
+                    clapperTimer.Start();
+                    mediaPlayer.Play();
+                    mediaPlayer.Open(new Uri(string.Format("{0}Clapper.mp3", FolderPaths.AUDIOS)));
+
+                    iconImage.Visibility = Visibility.Collapsed;
+                });
+            }
+        }
+
         public Command ShowHomeCommand
         {
             get { return new Command(() => MainViewModel.ShowView(MainViewModel.HomeView)); }
@@ -48,6 +79,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public Command ShowSettingsCommand
         {
             get { return new Command(() => MainViewModel.ShowView(MainViewModel.SettingsView)); }
+        }
+
+        public Command ShowAboutCommand
+        {
+            get { return new Command(() => MainViewModel.ShowView(MainViewModel.AboutView)); }
         }
 
         public Command SignoutCommand
@@ -64,9 +100,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public Command ShowAboutCommand
+        private void ClapperTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            get { return new Command(() => MainViewModel.ShowView(MainViewModel.AboutView)); }
+            Image iconImage = null;
+
+            App.Current.Dispatcher.Invoke(() => iconImage = (Image)UserToolbarView.FindName("IconImage"));
+            App.Current.Dispatcher.Invoke(() => clapperTimer.Stop());
+            App.Current.Dispatcher.Invoke(() => iconImage.Visibility = Visibility.Visible);
         }
         #endregion
 
@@ -81,6 +121,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             UserToolbarView = userToolbarView;
             MainViewModel = mainViewModel;
             User = user;
+
+            mediaPlayer.Open(new Uri(string.Format("{0}Clapper.mp3", FolderPaths.AUDIOS)));
         }
     }
 }
