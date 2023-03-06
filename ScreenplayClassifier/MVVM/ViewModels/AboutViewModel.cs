@@ -13,7 +13,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class AboutViewModel : INotifyPropertyChanged
     {
         // Fields
-        private Timer videoTimer;
         private bool isPlaying;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -40,11 +39,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Constructors
-        public AboutViewModel()
-        {
-            videoTimer = new Timer(141000);
-            videoTimer.Elapsed += VideoTimer_Elapsed;
-        }
+        public AboutViewModel() { }
 
         // Methods
         #region Commands
@@ -58,7 +53,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     mediaElement.Source = new Uri(FolderPaths.VIDEOS + "About.mp4");
 
-                    videoTimer.Start();
                     mediaElement.Play();
                 });
             }
@@ -70,17 +64,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 MediaElement mediaElement = (MediaElement)AboutView.FindName("MediaElement");
 
-                return new Command(() =>
-                {
-                    videoTimer.Stop();
-                    mediaElement.Stop();
-                });
+                return new Command(() => mediaElement.Stop());
             }
-        }
-
-        private void VideoTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            App.Current.Dispatcher.Invoke(() => MainViewModel.UserToolbarViewModel.ShowHomeCommand.Execute(null));
         }
         #endregion
 

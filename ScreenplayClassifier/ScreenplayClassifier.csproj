@@ -11,6 +11,7 @@
     <None Remove="Jsons\Genres.json" />
     <None Remove="Jsons\Reports.json" />
     <None Remove="Jsons\Users.json" />
+    <None Remove="Media\Audios\Clapper.mp3" />
     <None Remove="Media\Audios\Genres\Action.mp3" />
     <None Remove="Media\Audios\Genres\Adventure.mp3" />
     <None Remove="Media\Audios\Genres\Comedy.mp3" />
@@ -109,6 +110,9 @@
     </Content>
     <Content Include="Jsons\Users.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Audios\Clapper.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Audios\Genres\Action.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

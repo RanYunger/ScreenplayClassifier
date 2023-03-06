@@ -13,14 +13,7 @@
         </WrapPanel>
         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Screenplay" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
-            <Image x:Name="IconImage" Source="/Media/Images/Icon.png" Height="40" Width="40" Cursor="Hand" ToolTip="Wait, that's clickable?!"
-                   Margin="10,0,10,0">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDown">
-                        <i:InvokeCommandAction Command="{Binding ShowAboutCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Image>
+            <Image x:Name="IconImage" Source="/Media/Images/Icon.png" Height="40" Width="40" Cursor="Hand" Margin="10,0,10,0"/>
             <TextBlock Text="Classifier" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
         <Menu Height="40" Width="40" HorizontalAlignment="Right" Focusable="False" Margin="0,0,10,0" Style="{StaticResource MenuStyle}">
@@ -53,6 +46,11 @@
                     </MenuItem.Style>
                     <MenuItem.Icon>
                         <Image Source="/Media/Images/Gear.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="About" Command="{Binding ShowAboutCommand}" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem.Icon>
+                        <Image Source="/Media/Images/Info.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="Sign out" Command="{Binding SignoutCommand}" Style="{StaticResource MenuItemStyle}">
