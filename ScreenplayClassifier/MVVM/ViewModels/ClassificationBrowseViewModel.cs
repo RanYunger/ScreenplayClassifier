@@ -21,7 +21,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Fields
         private ObservableCollection<SelectionModel> browsedScreenplays, checkedScreenplays;
         private int selectedScreenplay;
-        private bool canBrowse, canClear, canChoose, canActivate;
+        private bool canBrowse, canClear, canChoose, canClassify;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -104,15 +104,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public bool CanActivate
+        public bool CanClassify
         {
-            get { return canActivate; }
+            get { return canClassify; }
             set
             {
-                canActivate = value;
+                canClassify = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanActivate"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanClassify"));
             }
         }
 
@@ -150,26 +150,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                             MessageBoxHandler.Show("You can choose up to 5 screenplays", string.Empty, 5, MessageBoxImage.Error);
                     }
 
-                    CanActivate = CheckedScreenplays.Count > 0;
-                });
-            }
-        }
-
-        public Command CheckKeyCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    DataGrid browsedScreenplaysDataGrid = (DataGrid)ClassificationBrowseView.FindName("BrowsedScreenplaysDataGrid");
-
-                    // Checks wether the user as activated deletion
-                    if ((Keyboard.IsKeyDown(Key.Back)) || (Keyboard.IsKeyDown(Key.Delete)))
-                        for (int i = 0; i < browsedScreenplaysDataGrid.Items.Count; i++)
-                            if (browsedScreenplaysDataGrid.SelectedItems.Contains(browsedScreenplaysDataGrid.Items[i]))
-                                BrowsedScreenplays.RemoveAt(i);
-
-                    CanChoose = BrowsedScreenplays.Count > 0;
+                    CanClassify = CheckedScreenplays.Count > 0;
                 });
             }
         }
@@ -200,6 +181,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     }
 
                     CanChoose = BrowsedScreenplays.Count > 0;
+                    CanClear = BrowsedScreenplays.Count > 0;
                 });
             }
         }
@@ -214,12 +196,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     CheckedScreenplays.Clear();
 
                     SelectedScreenplay = -1;
-                    CanActivate = false;
+                    CanClear = false;
+                    CanClassify = false;
                 });
             }
         }
 
-        public Command ActivateClassificationCommand
+        public Command ClassifyCommand
         {
             get
             {
@@ -228,7 +211,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     CanBrowse = false;
                     CanClear = false;
                     CanChoose = false;
-                    CanActivate = false;
+                    CanClassify = false;
 
                     ClassificationViewModel.BrowseComplete = true;
                 });
@@ -269,9 +252,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             CheckedScreenplays.Clear();
             SelectedScreenplay = -1;
             CanBrowse = true;
-            CanClear = true;
+            CanClear = BrowsedScreenplays.Count > 0;
             CanChoose = BrowsedScreenplays.Count > 0;
-            CanActivate = CheckedScreenplays.Count > 0;
+            CanClassify = CheckedScreenplays.Count > 0;
         }
 
         /// <summary>

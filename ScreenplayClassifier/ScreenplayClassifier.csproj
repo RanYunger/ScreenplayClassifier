@@ -42,8 +42,8 @@
     <None Remove="Media\GIFs\Genres\Thriller.gif" />
     <None Remove="Media\GIFs\Genres\War.gif" />
     <None Remove="Media\GIFs\Inspect.gif" />
+    <None Remove="Media\GIFs\Loading.gif" />
     <None Remove="Media\GIFs\Processing.gif" />
-    <None Remove="Media\GIFs\Reading.gif" />
     <None Remove="Media\Images\Activate.png" />
     <None Remove="Media\Images\Admin.png" />
     <None Remove="Media\Images\Archives.png" />
@@ -164,7 +164,7 @@
     <Content Include="Media\GIFs\Inspect.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\GIFs\Processing.gif">
+    <Content Include="Media\GIFs\Loading.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\GIFs\Done!.gif">
@@ -206,7 +206,7 @@
     <Content Include="Media\GIFs\Genres\War.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\GIFs\Reading.gif">
+    <Content Include="Media\GIFs\Processing.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Activate.png">

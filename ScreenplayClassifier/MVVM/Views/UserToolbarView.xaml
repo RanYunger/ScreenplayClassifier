@@ -9,7 +9,7 @@
              MaxHeight="90" MinWidth="1200" Style="{StaticResource UserToolbarStyle}">
     <Grid>
         <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
-            <TextBlock Text="{Binding User.Username}" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding User.Username, StringFormat=Hi\, {0}}" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
             <TextBlock Text="{Binding User.Role, StringFormat=[{0}]}" FontSize="20" Margin="5,0,0,0" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -70,11 +70,11 @@
                         <Image Source="/Media/Images/Gear.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="About" Command="{Binding ShowAboutCommand}" Style="{StaticResource MenuItemStyle}">
+                <!--<MenuItem Header="About" Command="{Binding ShowAboutCommand}" Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>
                         <Image Source="/Media/Images/Info.png"/>
                     </MenuItem.Icon>
-                </MenuItem>
+                </MenuItem>-->
                 <MenuItem Header="Sign out" Command="{Binding SignoutCommand}" Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>
                         <Image Source="/Media/Images/Signout.png"/>

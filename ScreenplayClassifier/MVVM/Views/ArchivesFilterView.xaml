@@ -14,12 +14,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="500"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-        <StackPanel Grid.Column="0" Margin="10">
+        <StackPanel HorizontalAlignment="Center" Margin="10">
             <WrapPanel>
                 <TextBlock Text="Owner:" FontSize="15" Margin="10,15,10,10" Style="{StaticResource TextBlockStyle}"/>
                 <RadioButton x:Name="AllOwnersRadioButton" Content="All Owners" IsChecked="True" FontSize="15" Margin="10"
@@ -126,8 +121,5 @@
                 </Button>
             </WrapPanel>
         </StackPanel>
-
-        <Image Grid.Column="1" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Filter.gif" gif:ImageBehavior.RepeatBehavior="Forever"
-               Height="500" Width="500"/>
     </Grid>
 </UserControl>

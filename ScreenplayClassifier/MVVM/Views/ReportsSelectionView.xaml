@@ -8,15 +8,10 @@
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-        <StackPanel Grid.Column="0" HorizontalAlignment="Center" Visibility="Visible">
-            <TextBlock Text="Screenplays to Inspect" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+        <StackPanel HorizontalAlignment="Center" Visibility="Visible">
+            <TextBlock Text="Which Screenplays Would You Like To Inspect?" FontSize="25" HorizontalAlignment="Center"
+                       Style="{StaticResource TextBlockStyle}"/>
             <WrapPanel Margin="10">
-                <Image Source="/Media/Images/Search.png" Height="30" Width="30" Margin="5"/>
                 <TextBox x:Name="TitleTextBox" Width="590" Margin="5" Style="{StaticResource BaseTextBoxStyle}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="GotFocus">
@@ -30,6 +25,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </TextBox>
+                <Image Source="/Media/Images/Search.png" Height="30" Width="30" Margin="5"/>
             </WrapPanel>
             <DataGrid ItemsSource="{Binding ClassifiedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}" Height="440"
                       SelectionMode="Single" Margin="10" Style="{StaticResource DataGridStyle}">
@@ -55,7 +51,5 @@
                 </Button.Content>
             </Button>
         </StackPanel>
-        <Image Grid.Column="1" gif:ImageBehavior.AnimatedSource="/Media/Gifs/Inspect.gif" gif:ImageBehavior.RepeatBehavior="Forever"
-               Height="500" Width="500"/>
     </Grid>
 </UserControl>

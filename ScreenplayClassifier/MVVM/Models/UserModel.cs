@@ -58,7 +58,7 @@ namespace ScreenplayClassifier.MVVM.Models
         // Constructors
         public UserModel()
         {
-            Username = "Jim";
+            Username = "You";//"Jim";
             Role = UserRole.GUEST;
             Password = string.Empty;
         }

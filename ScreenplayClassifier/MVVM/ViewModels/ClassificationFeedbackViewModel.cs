@@ -88,7 +88,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         return;
                     }
 
-                    proceedDecision = MessageBox.Show("Once confirmed, your classification cannot be changed.", "Are you sure?",
+                    proceedDecision = MessageBox.Show("Are you sure?\nOnce confirmed, your classification cannot be changed.", string.Empty,
                         MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (proceedDecision == MessageBoxResult.Yes)
                     {

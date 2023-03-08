@@ -15,7 +15,7 @@
 
         <StackPanel Grid.Column="0" Margin="10">
             <TextBlock Text="Model Classification" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-            <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="350" Width="350" FontSize="20" Hoverable="True"
+            <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="300" Width="300" FontSize="20" Hoverable="True"
                           Margin="10">
                 <lvc:PieChart.ChartLegend>
                     <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="20"/>

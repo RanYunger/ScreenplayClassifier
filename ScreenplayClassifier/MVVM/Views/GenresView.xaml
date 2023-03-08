@@ -7,7 +7,6 @@
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <v:GenresOverviewView x:Name="GenresOverviewView"/>
-
         <v:GenresInspectionView x:Name="GenresInspectionView" Visibility="Collapsed"/>
     </Grid>
 </UserControl>
