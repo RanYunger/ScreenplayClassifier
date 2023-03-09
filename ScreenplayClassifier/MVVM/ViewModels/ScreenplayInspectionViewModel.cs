@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class GenresInspectionViewModel : INotifyPropertyChanged
+    public class ScreenplayInspectionViewModel : INotifyPropertyChanged
     {
         // Fields
         private ScreenplayModel screenplay;
@@ -20,8 +20,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
-        public GenresViewModel GenresViewModel { get; private set; }
-        public GenresInspectionView GenresInspectionView { get; private set; }
+        public ScreenplayViewModel ScreenplayViewModel { get; private set; }
+        public ScreenplayInspectionView ScreenplayInspectionView { get; private set; }
 
         public ScreenplayModel Screenplay
         {
@@ -48,7 +48,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Constructors
-        public GenresInspectionViewModel() { }
+        public ScreenplayInspectionViewModel() { }
 
         // Methods
         #region Commands
@@ -59,11 +59,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     // Validation
-                    if (GenresInspectionView == null)
+                    if (ScreenplayInspectionView == null)
                         return;
 
                     HideView();
-                    GenresViewModel.GenresOverviewViewModel.ShowView();
+                    ScreenplayViewModel.ScreenplayOverviewViewModel.ShowView();
                 });
             }
         }
@@ -72,13 +72,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Inits the model.
         /// </summary>
-        /// <param name="genresInspectionView">The view to obtain controls from</param>
+        /// <param name="screenplayInspectionView">The view to obtain controls from</param>
         /// <param name="screenplay">The screenplay to show the genres of</param>
-        /// <param name="genresViewModel">The view model which manages the genres view</param>
-        public void Init(GenresInspectionView genresInspectionView, ScreenplayModel screenplay, GenresViewModel genresViewModel)
+        /// <param name="screenplayViewModel">The view model which manages the screenplay view</param>
+        public void Init(ScreenplayInspectionView screenplayInspectionView, ScreenplayModel screenplay, ScreenplayViewModel screenplayViewModel)
         {
-            GenresInspectionView = genresInspectionView;
-            GenresViewModel = genresViewModel;
+            ScreenplayInspectionView = screenplayInspectionView;
+            ScreenplayViewModel = screenplayViewModel;
 
             Screenplay = screenplay;
 
@@ -90,8 +90,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void ShowView()
         {
-            if (GenresInspectionView != null)
-                App.Current.Dispatcher.Invoke(() => GenresInspectionView.Visibility = Visibility.Visible);
+            if (ScreenplayInspectionView != null)
+                App.Current.Dispatcher.Invoke(() => ScreenplayInspectionView.Visibility = Visibility.Visible);
         }
 
         /// <summary>
@@ -99,8 +99,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void HideView()
         {
-            if (GenresInspectionView != null)
-                App.Current.Dispatcher.Invoke(() => GenresInspectionView.Visibility = Visibility.Collapsed);
+            if (ScreenplayInspectionView != null)
+                App.Current.Dispatcher.Invoke(() => ScreenplayInspectionView.Visibility = Visibility.Collapsed);
         }
 
         /// <summary>

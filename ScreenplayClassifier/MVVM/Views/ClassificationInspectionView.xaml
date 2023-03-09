@@ -145,27 +145,29 @@
                 <Button.Content>
                     <StackPanel>
                         <Image Source="/Media/Images/Back.png" Height="100" Width="100"/>
-                        <TextBlock Text="Back" TextAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                        <TextBlock Text="Overview" TextAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>
             </Button>
             <StackPanel VerticalAlignment="Center">
-                <Button Command="{Binding RerunClassificationCommand}" Width="250" FontSize="20" Cursor="Hand" Margin="10"
+                <Button Command="{Binding RerunClassificationCommand}" Width="300" FontSize="20" Cursor="Hand" Margin="10"
                     Style="{StaticResource ButtonStyle}">
                     <Button.Content>
-                        <StackPanel>
+                        <WrapPanel>
+                            <TextBlock Text="Re-run Classification" TextAlignment="Center" FontSize="20" Margin="0,0,40,0"
+                                   Style="{StaticResource TextBlockStyle}"/>
                             <Image Source="/Media/Images/Repeat.png" Height="50" Width="50"/>
-                            <TextBlock Text="Re-run Classification" TextAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                        </StackPanel>
+                        </WrapPanel>
                     </Button.Content>
                 </Button>
-                <Button Command="{Binding CompleteClassificationCommand}" Width="250" FontSize="20" Cursor="Hand" Margin="10"
+                <Button Command="{Binding CompleteClassificationCommand}" Width="300" FontSize="20" Cursor="Hand" Margin="10"
                     Style="{StaticResource ButtonStyle}">
                     <Button.Content>
-                        <StackPanel>
+                        <WrapPanel>
+                            <TextBlock Text="Complete Classification" TextAlignment="Center" FontSize="20" Margin="0,0,10,0"
+                                   Style="{StaticResource TextBlockStyle}"/>
                             <Image Source="/Media/Images/Complete.png" Height="50" Width="50"/>
-                            <TextBlock Text="Complete Classification" TextAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                        </StackPanel>
+                        </WrapPanel>
                     </Button.Content>
                 </Button>
             </StackPanel>

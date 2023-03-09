@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
 
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-            <Image Source="/Media/Images/Gear.png" Height="60" Width="60" Margin="0,0,10,0"/>
+            <Image Source="/Media/Images/Settings.png" Height="60" Width="60" Margin="0,0,10,0"/>
             <TextBlock Text="Settings" FontSize="60" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
 

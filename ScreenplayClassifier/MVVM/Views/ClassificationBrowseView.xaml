@@ -50,7 +50,7 @@
                     Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <StackPanel>
-                        <Image Source="/Media/Images/Next.png" Height="70" Width="70"/>
+                        <Image Source="/Media/Images/Go.png" Height="70" Width="70"/>
                         <TextBlock Text="Classify" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>

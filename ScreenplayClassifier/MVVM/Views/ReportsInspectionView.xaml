@@ -7,36 +7,39 @@
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
 
-        <v:ScreenplayView x:Name="ScreenplayView" Grid.Row="0"/>
-        <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+        <WrapPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+            <Button Command="{Binding ShowReportsSelectionViewCommand}" Height="60" Width="60" Margin="0,0,100,0"
+                    Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Media/Images/Back.png" Height="30" Width="30"/>
+                        <TextBlock Text="Reports" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding ShowArchivesInspectionViewCommand}" Height="60" Width="60" Margin="100,0,0,0"
+                    Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Media/Images/Go.png" Height="30" Width="30"/>
+                        <TextBlock Text="Archives" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </WrapPanel>
+        <v:ScreenplayView x:Name="ScreenplayView" Grid.Row="1"/>
+        <WrapPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
             <Button Command="{Binding GoToPreviousCommand}" Height="60" Width="60" IsEnabled="{Binding CanGoToPrevious}" Margin="10,0,10,0"
                     Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <StackPanel>
-                        <Image Source="/Media/Images/Previous.png" Height="40" Width="40"/>
+                        <Image Source="/Media/Images/Previous.png" Height="30" Width="30"/>
                         <TextBlock Text="Previous" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-            <Button Command="{Binding ShowReportsSelectionViewCommand}" Height="80" Width="160" Margin="10,0,10,0"
-                    Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <StackPanel>
-                        <Image Source="/Media/Images/Back.png" Height="50" Width="50"/>
-                        <TextBlock Text="Reports Selection" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-            <Button Command="{Binding ShowArchivesIntrospectionViewCommand}" Height="80" Width="160" Margin="10,0,10,0"
-                    Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <StackPanel>
-                        <Image Source="/Media/Images/Back.png" Height="50" Width="50"/>
-                        <TextBlock Text="Archives Introspection" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -44,11 +47,12 @@
                     Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <StackPanel>
-                        <Image Source="/Media/Images/Next.png" Height="40" Width="40"/>
+                        <Image Source="/Media/Images/Next.png" Height="30" Width="30"/>
                         <TextBlock Text="Next" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>
             </Button>
         </WrapPanel>
+        
     </Grid>
 </UserControl>

@@ -24,7 +24,7 @@
             <Button.Content>
                 <StackPanel>
                     <Image Source="/Media/Images/Next.png" Height="60" Width="60"/>
-                    <TextBlock Text="Next" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="Next Title" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                 </StackPanel>
             </Button.Content>
         </Button>

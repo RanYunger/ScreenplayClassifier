@@ -58,7 +58,6 @@
     <None Remove="Media\Images\Error.png" />
     <None Remove="Media\Images\Filter.png" />
     <None Remove="Media\Images\First.png" />
-    <None Remove="Media\Images\Gear.png" />
     <None Remove="Media\Images\Genres\Action.png" />
     <None Remove="Media\Images\Genres\Adventure.png" />
     <None Remove="Media\Images\Genres\Comedy.png" />
@@ -72,6 +71,7 @@
     <None Remove="Media\Images\Genres\Thriller.png" />
     <None Remove="Media\Images\Genres\Unknown.png" />
     <None Remove="Media\Images\Genres\War.png" />
+    <None Remove="Media\Images\Go.png" />
     <None Remove="Media\Images\Home.png" />
     <None Remove="Media\Images\Icon.ico" />
     <None Remove="Media\Images\Icon.png" />
@@ -93,6 +93,7 @@
     <None Remove="Media\Images\Save.png" />
     <None Remove="Media\Images\Search.png" />
     <None Remove="Media\Images\Seats.png" />
+    <None Remove="Media\Images\Settings.png" />
     <None Remove="Media\Images\Signout.png" />
     <None Remove="Media\Images\Ticket.png" />
     <None Remove="Media\Images\TicketSign.png" />
@@ -251,7 +252,7 @@
     <Content Include="Media\Images\First.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\Gear.png">
+    <Content Include="Media\Images\Settings.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Genres\Action.png">
@@ -291,6 +292,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Genres\War.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Go.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Home.png">

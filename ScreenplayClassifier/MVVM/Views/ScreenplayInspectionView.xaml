@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ScreenplayClassifier.MVVM.Views.GenresInspectionView"
+﻿<UserControl x:Class="ScreenplayClassifier.MVVM.Views.ScreenplayInspectionView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -14,7 +14,7 @@
 
         <StackPanel Grid.Row="0">
             <TextBlock Text="Genre Percentages" FontSize="30" TextAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <lvc:CartesianChart LegendLocation="Bottom" Height="380" Margin="10" Series="{Binding PercentageSeries}"/>
+            <lvc:CartesianChart LegendLocation="Bottom" Height="250" Width="900" Margin="10" Series="{Binding PercentageSeries}"/>
         </StackPanel>
         
         <Button Grid.Row="1" Command="{Binding ShowOverviewViewCommand}" Height="60" Width="60" Margin="10" Style="{StaticResource ButtonStyle}">

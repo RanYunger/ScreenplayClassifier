@@ -17,14 +17,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private ScreenplayModel screenplay;
-        private string screenplayContent;
-        private bool isScreenplayContentVisible;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ScreenplayView ScreenplayView { get; set; }
-        public GenresViewModel GenresViewModel { get; private set; }
+        public ScreenplayOverviewViewModel ScreenplayOverviewViewModel { get; private set; }
+        public ScreenplayInspectionViewModel ScreenplayInspectionViewModel { get; private set; }
 
         public ScreenplayModel Screenplay
         {
@@ -38,39 +37,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public string ScreenplayContent
-        {
-            get { return screenplayContent; }
-            set
-            {
-                screenplayContent = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ScreenplayContent"));
-            }
-        }
-
-        public bool IsScreenplayContentVisible
-        {
-            get { return isScreenplayContentVisible; }
-            set
-            {
-                isScreenplayContentVisible = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("IsScreenplayContentVisible"));
-            }
-        }
-
         // Constructors
         public ScreenplayViewModel() { }
 
         // Methods
         #region Commands
-        public Command ToggleContentVisibilityCommand
-        {
-            get { return new Command(() => IsScreenplayContentVisible = !IsScreenplayContentVisible); }
-        }
         #endregion
 
         /// <summary>
@@ -81,17 +52,20 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <param name="canGiveFeedback">The indication whether the user can give feedback</param>
         public void Init(ScreenplayView screenplayView, ScreenplayModel screenplay, bool canGiveFeedback)
         {
-            GenresView genresView = null;
-
             ScreenplayView = screenplayView;
 
             Screenplay = screenplay;
-            ScreenplayContent = File.ReadAllText(screenplay.FilePath);
-            IsScreenplayContentVisible = false;
 
-            genresView = (GenresView)ScreenplayView.FindName("GenresView");
-            GenresViewModel = (GenresViewModel)genresView.DataContext;
-            GenresViewModel.Init(genresView, Screenplay, canGiveFeedback);
+            ScreenplayOverviewView screenplayOverviewView = null;
+            ScreenplayInspectionView screenplayInspectionView = null;
+
+            screenplayOverviewView = (ScreenplayOverviewView)ScreenplayView.FindName("ScreenplayOverviewView");
+            ScreenplayOverviewViewModel = (ScreenplayOverviewViewModel)screenplayOverviewView.DataContext;
+            ScreenplayOverviewViewModel.Init(screenplayOverviewView, screenplay, canGiveFeedback, this);
+
+            screenplayInspectionView = (ScreenplayInspectionView)ScreenplayView.FindName("ScreenplayInspectionView");
+            ScreenplayInspectionViewModel = (ScreenplayInspectionViewModel)screenplayInspectionView.DataContext;
+            ScreenplayInspectionViewModel.Init(screenplayInspectionView, screenplay, this);
         }
     }
 }

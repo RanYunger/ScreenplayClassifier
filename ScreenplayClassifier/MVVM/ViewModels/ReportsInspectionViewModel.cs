@@ -17,7 +17,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private ObservableCollection<ReportModel> inspectedReports;
-        private string screenplayTitle, screenplayOwner;
+        private string screenplayOwner;
         private int selectedScreenplay;
         private bool canGoToPrevious, canGoToNext;
 
@@ -36,18 +36,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("InspectedReports"));
-            }
-        }
-
-        public string ScreenplayTitle
-        {
-            get { return screenplayTitle; }
-            set
-            {
-                screenplayTitle = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ScreenplayTitle"));
             }
         }
 
@@ -119,25 +107,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     {
                         ((ScreenplayViewModel)screenplayView.DataContext).Init(screenplayView,
                             InspectedReports[SelectedScreenplay].Screenplay, false);
-                        ScreenplayTitle = InspectedReports[SelectedScreenplay].Screenplay.Title;
                         ScreenplayOwner = InspectedReports[SelectedScreenplay].Owner.Username;
                     }
-                });
-            }
-        }
-
-        public Command GoToPreviousCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    SelectedScreenplay = SelectedScreenplay - 1 <= 0 ? 0 : SelectedScreenplay - 1;
-
-                    if (SelectedScreenplay == 0)
-                        CanGoToPrevious = false;
-
-                    CanGoToNext = InspectedReports.Count > 1;
                 });
             }
         }
@@ -158,7 +129,36 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public Command ShowArchivesIntrospectionViewCommand
+        public Command GoToPreviousCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    SelectedScreenplay = SelectedScreenplay - 1 <= 0 ? 0 : SelectedScreenplay - 1;
+
+                    CanGoToPrevious = (InspectedReports.Count > 1) && (SelectedScreenplay > 0);
+                    CanGoToNext = (InspectedReports.Count > 1) && (SelectedScreenplay < InspectedReports.Count - 1);
+                });
+            }
+        }
+
+        public Command GoToNextCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    SelectedScreenplay = SelectedScreenplay + 1 >= InspectedReports.Count - 1
+                        ? InspectedReports.Count - 1 : SelectedScreenplay + 1;
+
+                    CanGoToPrevious = (InspectedReports.Count > 1) && (SelectedScreenplay > 0);
+                    CanGoToNext = (InspectedReports.Count > 1) && (SelectedScreenplay < InspectedReports.Count - 1);
+                });
+            }
+        }
+
+        public Command ShowArchivesInspectionViewCommand
         {
             get
             {
@@ -183,22 +183,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 });
             }
         }
-
-        public Command GoToNextCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    SelectedScreenplay = SelectedScreenplay + 1 >= InspectedReports.Count - 1
-                        ? InspectedReports.Count - 1 : SelectedScreenplay + 1;
-
-                    CanGoToPrevious = InspectedReports.Count > 1;
-                    if (SelectedScreenplay == InspectedReports.Count - 1)
-                        CanGoToNext = false;
-                });
-            }
-        }
         #endregion
 
         /// <summary>
@@ -212,12 +196,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ReportsViewModel = reportsViewModel;
 
             InspectedReports = new ObservableCollection<ReportModel>();
-            ScreenplayTitle = string.Empty;
             ScreenplayOwner = string.Empty;
             SelectedScreenplay = -1;
 
             CanGoToPrevious = false;
-            CanGoToNext = true;
+            CanGoToNext = false;
         }
 
         /// <summary>
@@ -240,7 +223,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 if (selectedReport.IsChecked)
                     InspectedReports.Add(ReportsViewModel.FindReportByTitle(selectedReport.ScreenplayFileName));
 
-            SelectedScreenplay = 0;
+            SelectedScreenplay = -1;
+
+            GoToNextCommand.Execute(null);
         }
 
         /// <summary>

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
@@ -15,21 +16,21 @@ using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class GenresOverviewViewModel : INotifyPropertyChanged
+    public class ScreenplayOverviewViewModel : INotifyPropertyChanged
     {
         // Fields
         private ScreenplayModel screenplay;
         private SeriesCollection percentageSeries;
         private ObservableCollection<string> ownerGenreOptions, ownerSubGenre1Options, ownerSubGenre2Options;
         private ImageSource ownerGenreImage, ownerSubGenre1Image, ownerSubGenre2Image;
-        private string selectedOwnerGenre, selectedOwnerSubGenre1, selectedOwnerSubGenre2;
-        private bool canGiveFeedback;
+        private string screenplayContent, selectedOwnerGenre, selectedOwnerSubGenre1, selectedOwnerSubGenre2;
+        private bool canGiveFeedback, isScreenplayContentVisible;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
-        public GenresViewModel GenresViewModel { get; private set; }
-        public GenresOverviewView GenresOverviewView { get; private set; }
+        public ScreenplayViewModel ScreenplayViewModel { get; private set; }
+        public ScreenplayOverviewView ScreenplayOverviewView { get; private set; }
 
         public ScreenplayModel Screenplay
         {
@@ -124,6 +125,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ownerSubGenre2Image"));
+            }
+        }
+
+        public string ScreenplayContent
+        {
+            get { return screenplayContent; }
+            set
+            {
+                screenplayContent = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ScreenplayContent"));
             }
         }
 
@@ -242,11 +255,29 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public bool IsScreenplayContentVisible
+        {
+            get { return isScreenplayContentVisible; }
+            set
+            {
+                isScreenplayContentVisible = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("IsScreenplayContentVisible"));
+            }
+        }
+
+
         // Constructors
-        public GenresOverviewViewModel() { }
+        public ScreenplayOverviewViewModel() { }
 
         // Methods
         #region Commands
+        public Command ToggleContentVisibilityCommand
+        {
+            get { return new Command(() => IsScreenplayContentVisible = !IsScreenplayContentVisible); }
+        }
+
         public Command ShowInspectionViewCommand
         {
             get
@@ -254,11 +285,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     // Validation
-                    if (GenresOverviewView == null)
+                    if (ScreenplayOverviewView == null)
                         return;
 
                     HideView();
-                    GenresViewModel.GenresInspectionViewModel.ShowView();
+                    ScreenplayViewModel.ScreenplayInspectionViewModel.ShowView();
                 });
             }
         }
@@ -267,17 +298,20 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Initiates the view model.
         /// </summary>
-        /// <param name="genresOverviewView">The view to obtain controls from</param>
+        /// <param name="screenplayOverviewView">The view to obtain controls from</param>
         /// <param name="screenplay">The screenplay to show the genres of</param>
-        /// <param name="canGiveFeedback">The indication whether the user can give feedback</param>
-        /// <param name="genresViewModel">The view model which manages the genres view</param>
-        public void Init(GenresOverviewView genresOverviewView, ScreenplayModel screenplay, bool canGiveFeedback, GenresViewModel genresViewModel)
+        /// <param name="canFeedback">The indication whether the user can give feedback</param>
+        /// <param name="screenplayViewModel">The view model which manages the screenplay view</param>
+        public void Init(ScreenplayOverviewView screenplayOverviewView, ScreenplayModel screenplay, bool canFeedback,
+            ScreenplayViewModel screenplayViewModel)
         {
-            GenresOverviewView = genresOverviewView;
-            GenresViewModel = genresViewModel;
+            ScreenplayOverviewView = screenplayOverviewView;
+            ScreenplayViewModel = screenplayViewModel;
 
             Screenplay = screenplay;
-            CanGiveFeedback = canGiveFeedback;
+
+            CanGiveFeedback = canFeedback;
+            IsScreenplayContentVisible = canFeedback;
 
             OwnerGenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanGiveFeedback ? "Unknown"
                 : Screenplay.OwnerGenre)));
@@ -287,6 +321,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 : Screenplay.OwnerSubGenre2)));
 
             RefreshPieChart();
+
+            ScreenplayContent = File.ReadAllText(Screenplay.FilePath);
 
             if (CanGiveFeedback)
             {
@@ -301,8 +337,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void ShowView()
         {
-            if (GenresOverviewView != null)
-                App.Current.Dispatcher.Invoke(() => GenresOverviewView.Visibility = Visibility.Visible);
+            if (ScreenplayOverviewView != null)
+                App.Current.Dispatcher.Invoke(() => ScreenplayOverviewView.Visibility = Visibility.Visible);
         }
 
         /// <summary>
@@ -310,8 +346,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void HideView()
         {
-            if (GenresOverviewView != null)
-                App.Current.Dispatcher.Invoke(() => GenresOverviewView.Visibility = Visibility.Collapsed);
+            if (ScreenplayOverviewView != null)
+                App.Current.Dispatcher.Invoke(() => ScreenplayOverviewView.Visibility = Visibility.Collapsed);
         }
 
         /// <summary>

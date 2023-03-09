@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 namespace ScreenplayClassifier.MVVM.Views
 {
     /// <summary>
-    /// Interaction logic for GenresView.xaml
+    /// Interaction logic for ScreenplayView.xaml
     /// </summary>
-    public partial class GenresView : UserControl
+    public partial class ScreenplayOverviewView : UserControl
     {
-        public GenresView()
+        public ScreenplayOverviewView()
         {
             InitializeComponent();
-            DataContext = new GenresViewModel();
+            DataContext = new ScreenplayOverviewViewModel();
         }
     }
 }
