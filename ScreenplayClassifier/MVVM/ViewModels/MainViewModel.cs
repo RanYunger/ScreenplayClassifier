@@ -137,8 +137,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             ((AboutViewModel)AboutView.DataContext).IsPlaying = viewToShow == AboutView;
 
+            if (viewToShow != ArchivesView)
+                ((ArchivesViewModel)ArchivesView.DataContext).ArchivesFilterViewModel.ShowView();
+
             if (viewToShow == ReportsView)
                 ((ReportsViewModel)ReportsView.DataContext).ReportsSelectionViewModel.RefreshView();
+            else
+                ((ReportsViewModel)ReportsView.DataContext).ReportsSelectionViewModel.ShowView();
+
         }
     }
 }

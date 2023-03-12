@@ -239,7 +239,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             ClassifiedScreenplays.Clear();
             foreach (ReportModel report in ReportsViewModel.Reports)
-                ClassifiedScreenplays.Add(new SelectionModel(report.Screenplay.FilePath));
+                ClassifiedScreenplays.Add(new SelectionModel(report.Owner.Username, report.Screenplay.FilePath));
 
             CheckedScreenplays.Clear();
 

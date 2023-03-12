@@ -210,7 +210,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             FilteredScreenplays.Clear();
             foreach (ReportModel filteredReport in reportsCollectionView)
-                FilteredScreenplays.Add(new SelectionModel(filteredReport.Screenplay.FilePath));
+                FilteredScreenplays.Add(new SelectionModel(filteredReport.Owner.Username, filteredReport.Screenplay.FilePath));
             CheckedScreenplays.Clear();
 
             RefreshFilterTexts();
@@ -226,20 +226,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             if (ArchivesInspectionView != null)
                 App.Current.Dispatcher.Invoke(() => ArchivesInspectionView.Visibility = Visibility.Collapsed);
-        }
-
-        /// <summary>
-        /// Indicates whether a screenplay fits the active filter.
-        /// </summary>
-        /// <param name="title">The screenplay's title</param>
-        /// <returns>True if the screenplay fits the active filter, False otherwise</returns>
-        private bool IsScreenplayMatchingFilter(string title)
-        {
-            foreach (SelectionModel filteredScreenplay in FilteredScreenplays)
-                if (string.Equals(filteredScreenplay.ScreenplayFileName, title))
-                    return true;
-
-            return false;
         }
 
         /// <summary>

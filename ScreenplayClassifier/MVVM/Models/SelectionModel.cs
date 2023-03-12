@@ -10,12 +10,24 @@ namespace ScreenplayClassifier.MVVM.Models
     public class SelectionModel : INotifyPropertyChanged
     {
         // Fields
-        private string screenplayFilePath, screenplayFileName;
+        private string ownerName, screenplayFilePath, screenplayFileName;
         private bool isChecked;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
+        public string OwnerName
+        {
+            get { return ownerName; }
+            set
+            {
+                ownerName = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerName"));
+            }
+        }
+
         public string ScreenplayFilePath
         {
             get { return screenplayFilePath; }
@@ -53,8 +65,9 @@ namespace ScreenplayClassifier.MVVM.Models
         }
 
         // Constructors
-        public SelectionModel(string screenplayFilePath)
+        public SelectionModel(string ownerName, string screenplayFilePath)
         {
+            OwnerName = ownerName;
             ScreenplayFilePath = screenplayFilePath;
             ScreenplayFileName = Path.GetFileNameWithoutExtension(screenplayFilePath);
             IsChecked = false;

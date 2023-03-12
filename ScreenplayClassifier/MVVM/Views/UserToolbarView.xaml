@@ -70,11 +70,11 @@
                         <Image Source="/Media/Images/Settings.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="About" Command="{Binding ShowAboutCommand}" Style="{StaticResource MenuItemStyle}">
+                <!--<MenuItem Header="About" Command="{Binding ShowAboutCommand}" Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>
                         <Image Source="/Media/Images/Info.png"/>
                     </MenuItem.Icon>
-                </MenuItem>
+                </MenuItem>-->
                 <MenuItem Header="Sign out" Command="{Binding SignoutCommand}" Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>
                         <Image Source="/Media/Images/Signout.png"/>

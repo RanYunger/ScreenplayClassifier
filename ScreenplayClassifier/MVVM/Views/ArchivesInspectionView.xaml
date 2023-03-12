@@ -28,7 +28,7 @@
 
         <StackPanel Grid.Row="1" Margin="10">
             <DataGrid ItemsSource="{Binding FilteredScreenplays}" SelectedIndex="{Binding SelectedScreenplay}" Height="420" Width="550"
-                      SelectionMode="Single" Margin="10" Style="{StaticResource DataGridStyle}">
+                      CanUserSortColumns="False" SelectionMode="Single" Margin="10" Style="{StaticResource DataGridStyle}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
                         <i:InvokeCommandAction Command="{Binding CheckSelectionCommand}"/>

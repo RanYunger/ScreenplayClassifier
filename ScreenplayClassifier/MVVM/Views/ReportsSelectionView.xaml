@@ -28,7 +28,7 @@
                 <Image Source="/Media/Images/Search.png" Height="30" Width="30" Margin="5"/>
             </WrapPanel>
             <DataGrid ItemsSource="{Binding ClassifiedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}" Height="440"
-                      SelectionMode="Single" Margin="10" Style="{StaticResource DataGridStyle}">
+                      CanUserSortColumns="False" SelectionMode="Single" Margin="10" Style="{StaticResource DataGridStyle}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
                         <i:InvokeCommandAction Command="{Binding CheckSelectionCommand}"/>
@@ -37,7 +37,9 @@
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, Mode=TwoWay}" Width="50"
                                             HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="Title" Binding="{Binding Path=ScreenplayFileName}" Width="590" IsReadOnly="True"
+                    <DataGridTextColumn Header="Title" Binding="{Binding Path=ScreenplayFileName}" Width="440" IsReadOnly="True"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                    <DataGridTextColumn Header="Owner" Binding="{Binding Path=OwnerName}" Width="150" IsReadOnly="True"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>

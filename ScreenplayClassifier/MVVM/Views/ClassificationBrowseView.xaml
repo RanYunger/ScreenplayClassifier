@@ -32,7 +32,8 @@
                 </Button>
             </WrapPanel>
             <DataGrid x:Name="BrowsedScreenplaysDataGrid" ItemsSource="{Binding BrowsedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}"
-                      Height="350" IsEnabled="{Binding CanChoose}" SelectionMode="Single" Margin="10" Style="{StaticResource DataGridStyle}">
+                      Height="350" IsEnabled="{Binding CanChoose}" CanUserSortColumns="False" SelectionMode="Single" Margin="10"
+                      Style="{StaticResource DataGridStyle}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
                         <i:InvokeCommandAction Command="{Binding CheckSelectionCommand}"/>

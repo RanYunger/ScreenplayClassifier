@@ -161,7 +161,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    string screenplayPath = string.Empty;
+                    string ownerName = ClassificationViewModel.MainViewModel.UserToolbarViewModel.User.Username, screenplayPath = string.Empty;
                     OpenFileDialog openFileDialog = new OpenFileDialog()
                     {
                         Title = "Screenplay Classifier",
@@ -177,7 +177,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     for (int i = 0; i < openFileDialog.FileNames.Length; i++)
                     {
                         screenplayPath = string.Format("\"{0}\"", openFileDialog.FileNames[i]); // for passing paths with spaces
-                        BrowsedScreenplays.Add(new SelectionModel(screenplayPath));
+                        BrowsedScreenplays.Add(new SelectionModel(ownerName, screenplayPath));
                     }
 
                     CanChoose = BrowsedScreenplays.Count > 0;
