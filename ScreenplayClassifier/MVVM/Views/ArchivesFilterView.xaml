@@ -21,17 +21,18 @@
                              Style="{StaticResource RadioButtonStyle}"/>
                 <RadioButton x:Name="ThisOwnerRadioButton" Content="This Owner:" FontSize="15" Margin="10"
                              Style="{StaticResource RadioButtonStyle}"/>
-                <ComboBox Width="130" ItemsSource="{Binding OwnerOptions}" SelectedValue="{Binding FilteredOwner}"
+                <ComboBox Width="250" ItemsSource="{Binding OwnerOptions}" SelectedValue="{Binding FilteredOwner}"
                           IsEnabled="{Binding ElementName=ThisOwnerRadioButton,Path=IsChecked}" FontSize="15" Margin="10"
                           Style="{StaticResource ComboBoxStyle}"/>
             </WrapPanel>
             <WrapPanel>
-                <TextBlock Text="Genres" FontSize="15" Margin="10,15,10,10" Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock Text="Genres:" FontSize="15" Margin="10,15,10,10" Style="{StaticResource TextBlockStyle}"/>
                 <StackPanel>
                     <WrapPanel>
                         <TextBlock Text="Main Genre:" FontSize="15" Margin="10,0,10,0" Style="{StaticResource TextBlockStyle}"/>
                         <ComboBox Width="130" ItemsSource="{Binding GenreOptions}" SelectedValue="{Binding FilteredGenre}" FontSize="15"
                               Margin="10" Style="{StaticResource ComboBoxStyle}"/>
+                        <TextBlock Text="Percentage:" FontSize="15" Margin="10,0,10,0" Style="{StaticResource TextBlockStyle}"/>
                         <nud:NumericUpDown x:Name="FilteredGenreMinPercentageNumericUpDown" MinValue="0"
                                        MaxValue="{Binding ElementName=FilteredGenreMaxPercentageNumericUpDown, Path=Value}" Width="50"
                                        HorizontalContentAlignment="Center" FontSize="15" Margin="10">
@@ -56,6 +57,7 @@
                         <TextBlock Text="Subgenre 1:" FontSize="15" Margin="10,0,12,0" Style="{StaticResource TextBlockStyle}"/>
                         <ComboBox Width="130" ItemsSource="{Binding SubGenre1Options}" SelectedValue="{Binding FilteredSubGenre1}" FontSize="15"
                               Margin="10" Style="{StaticResource ComboBoxStyle}"/>
+                        <TextBlock Text="Percentage:" FontSize="15" Margin="10,0,10,0" Style="{StaticResource TextBlockStyle}"/>
                         <nud:NumericUpDown x:Name="FilteredSubGenre1MinPercentageNumericUpDown" MinValue="0"
                                        MaxValue="{Binding ElementName=FilteredSubGenre1MaxPercentageNumericUpDown, Path=Value}" Width="50"
                                        HorizontalContentAlignment="Center" Cursor="Hand" FontSize="15" Margin="10">
@@ -80,6 +82,7 @@
                         <TextBlock Text="Subgenre 2:" FontSize="15" Margin="10,0,12,0" Style="{StaticResource TextBlockStyle}"/>
                         <ComboBox Width="130" ItemsSource="{Binding SubGenre2Options}" SelectedValue="{Binding FilteredSubGenre2}" FontSize="15"
                               Margin="10" Style="{StaticResource ComboBoxStyle}"/>
+                        <TextBlock Text="Percentage:" FontSize="15" Margin="10,0,10,0" Style="{StaticResource TextBlockStyle}"/>
                         <nud:NumericUpDown x:Name="FilteredSubGenre2MinPercentageNumericUpDown" MinValue="0"
                                        MaxValue="{Binding ElementName=FilteredSubGenre2MaxPercentageNumericUpDown, Path=Value}" Width="50"
                                        HorizontalContentAlignment="Center" Cursor="Hand" FontSize="15" Margin="10">

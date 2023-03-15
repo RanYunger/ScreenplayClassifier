@@ -26,7 +26,6 @@
     <None Remove="Media\Audios\Genres\Thriller.mp3" />
     <None Remove="Media\Audios\Genres\War.mp3" />
     <None Remove="Media\Audios\Wilhelm Scream.mp3" />
-    <None Remove="Media\GIFs\Clapper.gif" />
     <None Remove="Media\GIFs\Done!.gif" />
     <None Remove="Media\GIFs\Filter.gif" />
     <None Remove="Media\GIFs\Genres\Action.gif" />
@@ -154,9 +153,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Audios\Genres\War.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\GIFs\Clapper.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\GIFs\Filter.gif">
