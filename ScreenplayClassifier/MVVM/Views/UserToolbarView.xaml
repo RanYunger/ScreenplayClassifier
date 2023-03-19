@@ -24,9 +24,9 @@
             <TextBlock Text="Classifier" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
         <Menu Height="40" Width="40" HorizontalAlignment="Right" Focusable="False" Margin="0,0,10,0" Style="{StaticResource MenuStyle}">
-            <MenuItem Margin="-7,-1,0,0" Style="{StaticResource MenuItemStyle}">
+            <MenuItem Style="{StaticResource MenuItemStyle}">
                 <MenuItem.Header>
-                    <Image Source="/Media/Images/Options.png" Height="40" Width="40"/>
+                    <Image Source="/Media/Images/Options.png" Height="40" Width="40" Margin="-7,0,0,0"/>
                 </MenuItem.Header>
                 <MenuItem Header="Home" Command="{Binding ShowHomeCommand}" Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>

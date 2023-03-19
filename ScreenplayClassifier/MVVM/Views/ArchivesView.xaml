@@ -12,7 +12,7 @@
         </Grid.RowDefinitions>
         
         <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-            <Image Source="/Media/Images/Archives.png" Height="60" Width="60" Margin="0,0,10,0"/>
+            <!--<Image Source="/Media/Images/Archives.png" Height="60" Width="60" Margin="0,0,10,0"/>-->
             <TextBlock Text="Archives" FontSize="60" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
 
