@@ -123,7 +123,7 @@
                         <Button Command="{Binding ChangePasswordCommand}" Margin="10" Style="{StaticResource ButtonStyle}">
                             <Button.Content>
                                 <StackPanel>
-                                    <Image Source="/Media/Images/Save.png" Height="60" Width="60"/>
+                                    <!--<Image Source="/Media/Images/Save.png" Height="60" Width="60"/>-->
                                     <TextBlock Text="Save" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                                 </StackPanel>
                             </Button.Content>

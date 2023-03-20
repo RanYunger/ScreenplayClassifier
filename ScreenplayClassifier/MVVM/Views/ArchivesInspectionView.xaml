@@ -45,7 +45,7 @@
                 <Button Command="{Binding ShowFilterViewCommand}" Height="110" Width="110" Margin="10,0,10,0" Style="{StaticResource ButtonStyle}">
                     <Button.Content>
                         <StackPanel>
-                            <Image Source="/Media/Images/Back.png" Height="70" Width="70"/>
+                            <!--<Image Source="/Media/Images/Back.png" Height="70" Width="70"/>-->
                             <TextBlock Text="Back" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                         </StackPanel>
                     </Button.Content>
@@ -54,7 +54,7 @@
                         Margin="10,0,10,0" Style="{StaticResource ButtonStyle}">
                     <Button.Content>
                         <StackPanel>
-                            <Image Source="/Media/Images/Report.png" Height="70" Width="70"/>
+                            <!--<Image Source="/Media/Images/Report.png" Height="70" Width="70"/>-->
                             <TextBlock Text="Inspect" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                         </StackPanel>
                     </Button.Content>

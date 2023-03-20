@@ -35,7 +35,7 @@
                 <Button.Content>
                     <WrapPanel>
                         <TextBlock Text="Inspect" TextAlignment="Center" Margin="0,0,165,0" Style="{StaticResource TextBlockStyle}"/>
-                        <Image Source="/Media/Images/Search.png" Height="50" Width="50"/>
+                        <!--<Image Source="/Media/Images/Search.png" Height="50" Width="50"/>-->
                     </WrapPanel>
                 </Button.Content>
             </Button>
@@ -45,7 +45,7 @@
                     <WrapPanel>
                         <TextBlock Text="Re-run Classification" TextAlignment="Center" FontSize="20" Margin="0,0,40,0"
                                    Style="{StaticResource TextBlockStyle}"/>
-                        <Image Source="/Media/Images/Repeat.png" Height="50" Width="50"/>
+                        <!--<Image Source="/Media/Images/Repeat.png" Height="50" Width="50"/>-->
                     </WrapPanel>
                 </Button.Content>
             </Button>
@@ -55,7 +55,7 @@
                     <WrapPanel>
                         <TextBlock Text="Complete Classification" TextAlignment="Center" FontSize="20" Margin="0,0,10,0"
                                    Style="{StaticResource TextBlockStyle}"/>
-                        <Image Source="/Media/Images/Complete.png" Height="50" Width="50"/>
+                        <!--<Image Source="/Media/Images/Complete.png" Height="50" Width="50"/>-->
                     </WrapPanel>
                 </Button.Content>
             </Button>

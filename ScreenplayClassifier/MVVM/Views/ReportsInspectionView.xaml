@@ -17,7 +17,7 @@
                     Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <StackPanel>
-                        <Image Source="/Media/Images/Back.png" Height="30" Width="30"/>
+                        <!--<Image Source="/Media/Images/Back.png" Height="30" Width="30"/>-->
                         <TextBlock Text="Reports" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>
@@ -26,7 +26,7 @@
                     Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <StackPanel>
-                        <Image Source="/Media/Images/Go.png" Height="30" Width="30"/>
+                        <!--<Image Source="/Media/Images/Go.png" Height="30" Width="30"/>-->
                         <TextBlock Text="Archives" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>
@@ -38,7 +38,7 @@
                     Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <StackPanel>
-                        <Image Source="/Media/Images/Previous.png" Height="30" Width="30"/>
+                        <!--<Image Source="/Media/Images/Previous.png" Height="30" Width="30"/>-->
                         <TextBlock Text="Previous" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>
@@ -47,7 +47,7 @@
                     Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <StackPanel>
-                        <Image Source="/Media/Images/Next.png" Height="30" Width="30"/>
+                        <!--<Image Source="/Media/Images/Next.png" Height="30" Width="30"/>-->
                         <TextBlock Text="Next" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>

@@ -25,7 +25,7 @@
                 <Button.Content>
                     <WrapPanel>
                         <TextBlock Text="Inspect" TextAlignment="Center" Margin="0,0,10,0" Style="{StaticResource TextBlockStyle}"/>
-                        <Image Source="/Media/Images/Barchart.png" Height="30" Width="30"/>
+                        <!--<Image Source="/Media/Images/Barchart.png" Height="30" Width="30"/>-->
                     </WrapPanel>
                 </Button.Content>
             </Button>
@@ -53,7 +53,7 @@
                 </Button.Style>
                 <Button.Content>
                     <StackPanel>
-                        <Image Height="50" Width="50">
+                        <!--<Image Height="50" Width="50">
                             <Image.Style>
                                 <Style TargetType="Image">
                                     <Style.Triggers>
@@ -66,7 +66,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </Image.Style>
-                        </Image>
+                        </Image>-->
                         <TextBlock TextAlignment="Center">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">

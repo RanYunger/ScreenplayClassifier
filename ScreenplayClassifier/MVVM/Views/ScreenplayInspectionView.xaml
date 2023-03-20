@@ -20,7 +20,7 @@
         <Button Grid.Row="1" Command="{Binding ShowOverviewViewCommand}" Height="60" Width="60" Margin="10" Style="{StaticResource ButtonStyle}">
             <Button.Content>
                 <StackPanel>
-                    <Image Source="/Media/Images/Back.png" Height="40" Width="40"/>
+                    <!--<Image Source="/Media/Images/Back.png" Height="40" Width="40"/>-->
                     <TextBlock Text="Back" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                 </StackPanel>
             </Button.Content>

@@ -144,7 +144,7 @@
             <Button Command="{Binding ShowOverviewViewCommand}" Width="150" Margin="10" Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <StackPanel>
-                        <Image Source="/Media/Images/Back.png" Height="100" Width="100"/>
+                        <!--<Image Source="/Media/Images/Back.png" Height="100" Width="100"/>-->
                         <TextBlock Text="Overview" TextAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>
@@ -156,7 +156,7 @@
                         <WrapPanel>
                             <TextBlock Text="Re-run Classification" TextAlignment="Center" FontSize="20" Margin="0,0,40,0"
                                    Style="{StaticResource TextBlockStyle}"/>
-                            <Image Source="/Media/Images/Repeat.png" Height="50" Width="50"/>
+                            <!--<Image Source="/Media/Images/Repeat.png" Height="50" Width="50"/>-->
                         </WrapPanel>
                     </Button.Content>
                 </Button>
@@ -166,7 +166,7 @@
                         <WrapPanel>
                             <TextBlock Text="Complete Classification" TextAlignment="Center" FontSize="20" Margin="0,0,10,0"
                                    Style="{StaticResource TextBlockStyle}"/>
-                            <Image Source="/Media/Images/Complete.png" Height="50" Width="50"/>
+                            <!--<Image Source="/Media/Images/Complete.png" Height="50" Width="50"/>-->
                         </WrapPanel>
                     </Button.Content>
                 </Button>

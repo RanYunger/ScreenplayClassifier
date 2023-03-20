@@ -109,7 +109,7 @@
                 <Button Command="{Binding FilterArchivesCommand}" Margin="10" Style="{StaticResource ButtonStyle}">
                     <Button.Content>
                         <StackPanel>
-                            <Image Source="/Media/Images/Filter.png" Height="70" Width="70"/>
+                            <!--<Image Source="/Media/Images/Filter.png" Height="70" Width="70"/>-->
                             <TextBlock Text="Filter" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                         </StackPanel>
                     </Button.Content>
@@ -117,7 +117,7 @@
                 <Button Command="{Binding ClearFilterCommand}" Margin="10" Style="{StaticResource ButtonStyle}">
                     <Button.Content>
                         <StackPanel>
-                            <Image Source="/Media/Images/Clear.png" Height="70" Width="70"/>
+                            <!--<Image Source="/Media/Images/Clear.png" Height="70" Width="70"/>-->
                             <TextBlock Text="Clear All" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                         </StackPanel>
                     </Button.Content>
