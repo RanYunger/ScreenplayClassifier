@@ -30,7 +30,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 classifiedScreenplays = value;
 
                 if (classifiedScreenplays.Count > 0)
-                    TitleText = string.Format("Inspect {0}", ClassifiedScreenplays.Count == 1 ? ClassifiedScreenplays[0].Title : "Batch");
+                    TitleText = string.Format("{0} Review", ClassifiedScreenplays.Count == 1 ? ClassifiedScreenplays[0].Title : "Batch");
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("ClassifiedScreenplays"));

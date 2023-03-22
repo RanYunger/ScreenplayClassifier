@@ -7,145 +7,210 @@
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
-            <TextBlock Text="{Binding TitleText}" FontSize="40" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <DataGrid ItemsSource="{Binding ClassifiedScreenplays}" IsReadOnly="True" Height="380" Margin="10"
-                      Style="{StaticResource DataGridStyle}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="890" FontSize="30"
-                                            HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTemplateColumn Header="Model Classification" Width="300" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <WrapPanel>
-                                    <StackPanel>
-                                        <TextBox Text="Main Genre" Width="148" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                        <TextBox Text="SubGenre 1" Width="148" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                        <TextBox Text="SubGenre 2" Width="148" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <TextBox Text="{Binding Path=ModelGenre}" Width="148" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                        <TextBox Text="{Binding Path=ModelSubGenre1}" Width="148" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                        <TextBox Text="{Binding Path=ModelSubGenre2}" Width="148" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                    </StackPanel>
-                                </WrapPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Your Classification" Width="300" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <WrapPanel>
-                                    <StackPanel>
-                                        <TextBox Text="Main Genre" Width="148" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                        <TextBox Text="SubGenre 1" Width="148" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                        <TextBox Text="SubGenre 2" Width="148" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <TextBox Text="{Binding Path=OwnerGenre}" Width="148" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                        <TextBox Text="{Binding Path=OwnerSubGenre1}" Width="148" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                        <TextBox Text="{Binding Path=OwnerSubGenre2}" Width="148" TextAlignment="Center"
-                                                 Style="{StaticResource ReadOnlyTextBoxStyle}"/>
-                                    </StackPanel>
-                                </WrapPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
+        <TextBlock Grid.Row="0" Text="{Binding TitleText}" FontSize="50" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding ClassifiedScreenplays}" IsReadOnly="True" HorizontalAlignment="Center" Margin="10"
+                  Style="{StaticResource DataGridStyle}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Screenplay Title" Binding="{Binding Path=Title}" Width="400"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Model Classification" Width="300" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
                                 <StackPanel>
-                                    <Image Height="15" Width="15">
-                                        <Image.Style>
-                                            <Style TargetType="Image">
+                                    <TextBox Text="Main Genre" Width="148" TextAlignment="Center" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                                    <TextBox Text="SubGenre 1" Width="148" TextAlignment="Center" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                                    <TextBox Text="SubGenre 2" Width="148" TextAlignment="Center" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBox Text="{Binding Path=ModelGenre}" Width="148" TextAlignment="Center">
+                                        <TextBox.Style>
+                                            <Style TargetType="TextBox">
+                                                <Setter Property="IsReadOnly" Value="True"/>
+                                                <Setter Property="IsReadOnlyCaretVisible" Value="True"/>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Path=IsGenreClassifiedCorrectly}" Value="True">
-                                                        <Setter Property="Source" Value="/Media/Images/V.png"/>
+                                                        <Setter Property="Background" Value="Green"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Path=IsGenreClassifiedCorrectly}" Value="False">
-                                                        <Setter Property="Source" Value="/Media/Images/X.png"/>
+                                                        <Setter Property="Background" Value="Red"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
-                                        </Image.Style>
-                                    </Image>
-                                    <Image Height="15" Width="15" Margin="0,8,0,8">
-                                        <Image.Style>
-                                            <Style TargetType="Image">
+                                        </TextBox.Style>
+                                    </TextBox>
+                                    <TextBox Text="{Binding Path=ModelSubGenre1}" Width="148" TextAlignment="Center">
+                                        <TextBox.Style>
+                                            <Style TargetType="TextBox">
+                                                <Setter Property="IsReadOnly" Value="True"/>
+                                                <Setter Property="IsReadOnlyCaretVisible" Value="True"/>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Path=IsSubGenre1ClassifiedCorrectly}" Value="True">
-                                                        <Setter Property="Source" Value="/Media/Images/V.png"/>
+                                                        <Setter Property="Background" Value="Green"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Path=IsSubGenre1ClassifiedCorrectly}" Value="False">
-                                                        <Setter Property="Source" Value="/Media/Images/X.png"/>
+                                                        <Setter Property="Background" Value="Red"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
-                                        </Image.Style>
-                                    </Image>
-                                    <Image Height="15" Width="15">
-                                        <Image.Style>
-                                            <Style TargetType="Image">
+                                        </TextBox.Style>
+                                    </TextBox>
+                                    <TextBox Text="{Binding Path=ModelSubGenre2}" Width="148" TextAlignment="Center">
+                                        <TextBox.Style>
+                                            <Style TargetType="TextBox">
+                                                <Setter Property="IsReadOnly" Value="True"/>
+                                                <Setter Property="IsReadOnlyCaretVisible" Value="True"/>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Path=IsSubGenre2ClassifiedCorrectly}" Value="True">
-                                                        <Setter Property="Source" Value="/Media/Images/V.png"/>
+                                                        <Setter Property="Background" Value="Green"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Path=IsSubGenre2ClassifiedCorrectly}" Value="False">
-                                                        <Setter Property="Source" Value="/Media/Images/X.png"/>
+                                                        <Setter Property="Background" Value="Red"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
-                                        </Image.Style>
-                                    </Image>
+                                        </TextBox.Style>
+                                    </TextBox>
                                 </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-                <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=IsClassifiedCorrectly}" Value="True">
-                                <Setter Property="Background" Value="Green"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Path=IsClassifiedCorrectly}" Value="False">
-                                <Setter Property="Background" Value="White"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </DataGrid.RowStyle>
-            </DataGrid>
-        </StackPanel>
-
-        <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            </WrapPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Your Classification" Width="300" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <StackPanel>
+                                    <TextBox Text="Main Genre" Width="148" TextAlignment="Center" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                                    <TextBox Text="SubGenre 1" Width="148" TextAlignment="Center" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                                    <TextBox Text="SubGenre 2" Width="148" TextAlignment="Center" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBox Text="{Binding Path=OwnerGenre}" Width="148" TextAlignment="Center">
+                                        <TextBox.Style>
+                                            <Style TargetType="TextBox">
+                                                <Setter Property="IsReadOnly" Value="True"/>
+                                                <Setter Property="IsReadOnlyCaretVisible" Value="True"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=IsGenreClassifiedCorrectly}" Value="True">
+                                                        <Setter Property="Background" Value="Green"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=IsGenreClassifiedCorrectly}" Value="False">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBox.Style>
+                                    </TextBox>
+                                    <TextBox Text="{Binding Path=OwnerSubGenre1}" Width="148" TextAlignment="Center">
+                                        <TextBox.Style>
+                                            <Style TargetType="TextBox">
+                                                <Setter Property="IsReadOnly" Value="True"/>
+                                                <Setter Property="IsReadOnlyCaretVisible" Value="True"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=IsSubGenre1ClassifiedCorrectly}" Value="True">
+                                                        <Setter Property="Background" Value="Green"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=IsSubGenre1ClassifiedCorrectly}" Value="False">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBox.Style>
+                                    </TextBox>
+                                    <TextBox Text="{Binding Path=OwnerSubGenre2}" Width="148" TextAlignment="Center">
+                                        <TextBox.Style>
+                                            <Style TargetType="TextBox">
+                                                <Setter Property="IsReadOnly" Value="True"/>
+                                                <Setter Property="IsReadOnlyCaretVisible" Value="True"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=IsSubGenre2ClassifiedCorrectly}" Value="True">
+                                                        <Setter Property="Background" Value="Green"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=IsSubGenre2ClassifiedCorrectly}" Value="False">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBox.Style>
+                                    </TextBox>
+                                </StackPanel>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Image Height="15" Width="15">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=IsGenreClassifiedCorrectly}" Value="True">
+                                                    <Setter Property="Source" Value="/Media/Images/V.png"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=IsGenreClassifiedCorrectly}" Value="False">
+                                                    <Setter Property="Source" Value="/Media/Images/X.png"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                                <Image Height="15" Width="15" Margin="0,8,0,8">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=IsSubGenre1ClassifiedCorrectly}" Value="True">
+                                                    <Setter Property="Source" Value="/Media/Images/V.png"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=IsSubGenre1ClassifiedCorrectly}" Value="False">
+                                                    <Setter Property="Source" Value="/Media/Images/X.png"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                                <Image Height="15" Width="15">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=IsSubGenre2ClassifiedCorrectly}" Value="True">
+                                                    <Setter Property="Source" Value="/Media/Images/V.png"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=IsSubGenre2ClassifiedCorrectly}" Value="False">
+                                                    <Setter Property="Source" Value="/Media/Images/X.png"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <WrapPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding AccuracyPercent, StringFormat={}Model Accuracy: {0} %}" FontSize="50"
                    HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
             <Button Command="{Binding ShowOverviewViewCommand}" Width="150" Margin="10" Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <StackPanel>
-                        <!--<Image Source="/Media/Images/Back.png" Height="100" Width="100"/>-->
-                        <TextBlock Text="Overview" TextAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                        <Image Source="/Media/Images/Back.png" Height="100" Width="100"/>
+                        <TextBlock Text="Back" TextAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -156,7 +221,7 @@
                         <WrapPanel>
                             <TextBlock Text="Re-run Classification" TextAlignment="Center" FontSize="20" Margin="0,0,40,0"
                                    Style="{StaticResource TextBlockStyle}"/>
-                            <!--<Image Source="/Media/Images/Repeat.png" Height="50" Width="50"/>-->
+                            <Image Source="/Media/Images/Repeat.png" Height="50" Width="50"/>
                         </WrapPanel>
                     </Button.Content>
                 </Button>
@@ -166,7 +231,7 @@
                         <WrapPanel>
                             <TextBlock Text="Complete Classification" TextAlignment="Center" FontSize="20" Margin="0,0,10,0"
                                    Style="{StaticResource TextBlockStyle}"/>
-                            <!--<Image Source="/Media/Images/Complete.png" Height="50" Width="50"/>-->
+                            <Image Source="/Media/Images/Complete.png" Height="50" Width="50"/>
                         </WrapPanel>
                     </Button.Content>
                 </Button>

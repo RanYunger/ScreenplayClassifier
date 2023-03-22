@@ -195,7 +195,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     usernameErrorWrapPanel.Visibility = Visibility.Hidden;
                     if (string.IsNullOrEmpty(usernameTextBox.Text))
                     {
-                        UsernameError = "Enter username";
+                        UsernameError = "You must enter username";
                         usernameErrorWrapPanel.Visibility = Visibility.Visible;
                     }
                     else if (!usernameRegex.IsMatch(usernameTextBox.Text))
@@ -208,7 +208,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     passwordErrorWrapPanel.Visibility = Visibility.Hidden;
                     if (string.IsNullOrEmpty(passwordBox.Password))
                     {
-                        PasswordError = "Enter password";
+                        PasswordError = "You must enter password";
                         passwordErrorWrapPanel.Visibility = Visibility.Visible;
                     }
                     else if (!passwordRegex.IsMatch(passwordBox.Password))

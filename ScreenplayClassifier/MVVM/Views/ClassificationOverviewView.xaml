@@ -10,32 +10,24 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="80"/>
-            <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Classification Overview" FontSize="50" HorizontalAlignment="Center" Margin="10"
-                       Style="{StaticResource TextBlockStyle}"/>
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding TitleText}" FontSize="40" HorizontalAlignment="Center" Margin="10"
-                       Style="{StaticResource TextBlockStyle}"/>
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Model Accuracy" TextAlignment="Center" FontSize="30" Margin="10"
-                   Style="{StaticResource TextBlockStyle}"/>
-        <rpb:RadialProgressBar x:Name="RadialProgressBar" Grid.Row="3" Grid.Column="0" Value="{Binding AccuracyPercent}" Height="400" Width="400"
-                               ArcWidth="25" Foreground="{Binding AccuracyColor}" InnerBackgroundBrush="Transparent"/>
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding ElementName=RadialProgressBar, Path=Value, StringFormat={}{0} %}" FontSize="70"
+        <TextBlock Grid.Row="0" Text="{Binding TitleText}" FontSize="50" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Grid.Row="1" Text="Model Accuracy" TextAlignment="Center" FontSize="30" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+        <rpb:RadialProgressBar x:Name="RadialProgressBar" Grid.Row="2" Value="{Binding AccuracyPercent}" Height="400" Width="400"
+                               ArcWidth="25" Foreground="{Binding AccuracyColor}" InnerBackgroundBrush="{StaticResource MainColumnHeaderBackground}"/>
+        <TextBlock Grid.Row="2" Text="{Binding ElementName=RadialProgressBar, Path=Value, StringFormat={}{0} %}" FontSize="70"
                    HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
         
-        <StackPanel Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" VerticalAlignment="Center">
+        <WrapPanel Grid.Row="3" HorizontalAlignment="Center">
             <Button Command="{Binding ShowInspectionViewCommand}" Width="300" FontSize="20" Cursor="Hand" Margin="10"
                     Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <WrapPanel>
                         <TextBlock Text="Inspect" TextAlignment="Center" Margin="0,0,165,0" Style="{StaticResource TextBlockStyle}"/>
-                        <!--<Image Source="/Media/Images/Search.png" Height="50" Width="50"/>-->
+                        <Image Source="/Media/Images/Search.png" Height="50" Width="50"/>
                     </WrapPanel>
                 </Button.Content>
             </Button>
@@ -45,7 +37,7 @@
                     <WrapPanel>
                         <TextBlock Text="Re-run Classification" TextAlignment="Center" FontSize="20" Margin="0,0,40,0"
                                    Style="{StaticResource TextBlockStyle}"/>
-                        <!--<Image Source="/Media/Images/Repeat.png" Height="50" Width="50"/>-->
+                        <Image Source="/Media/Images/Repeat.png" Height="50" Width="50"/>
                     </WrapPanel>
                 </Button.Content>
             </Button>
@@ -55,10 +47,10 @@
                     <WrapPanel>
                         <TextBlock Text="Complete Classification" TextAlignment="Center" FontSize="20" Margin="0,0,10,0"
                                    Style="{StaticResource TextBlockStyle}"/>
-                        <!--<Image Source="/Media/Images/Complete.png" Height="50" Width="50"/>-->
+                        <Image Source="/Media/Images/Complete.png" Height="50" Width="50"/>
                     </WrapPanel>
                 </Button.Content>
             </Button>
-        </StackPanel>
+        </WrapPanel>
     </Grid>
 </UserControl>

@@ -100,7 +100,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     titleTextBox = (TextBox)ReportsSelectionView.FindName("TitleTextBox");
                     usernameInput = titleTextBox.Text;
 
-                    if (string.Equals(usernameInput, "Title"))
+                    if (string.Equals(usernameInput, "Search by name"))
                     {
                         titleTextBox.Foreground = Brushes.Black;
                         titleTextBox.Text = string.Empty;
@@ -128,7 +128,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if (string.IsNullOrEmpty(titleInput))
                     {
                         titleTextBox.Foreground = Brushes.Gray;
-                        titleTextBox.Text = "Title";
+                        titleTextBox.Text = "Search by name";
                     }
                 });
             }
@@ -147,7 +147,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     // Updates and activates the filter
                     titleFilter = (o) =>
                     {
-                        return (string.IsNullOrEmpty(titleInput.Trim())) || (string.Equals(titleInput, "Title"))
+                        return (string.IsNullOrEmpty(titleInput.Trim())) || (string.Equals(titleInput, "Search by name"))
                             ? true : ((SelectionModel)o).ScreenplayFileName.Contains(titleInput);
                     };
                     screenplaysCollectionView.Filter = (o) => { return titleFilter.Invoke(o); };
@@ -220,7 +220,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             titleTextBox = (TextBox)ReportsSelectionView.FindName("TitleTextBox");
             titleTextBox.Foreground = Brushes.Gray;
-            titleTextBox.Text = "Title";
+            titleTextBox.Text = "Search by name";
         }
 
         /// <summary>

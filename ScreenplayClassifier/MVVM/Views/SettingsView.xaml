@@ -8,7 +8,7 @@
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="90"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -17,7 +17,7 @@
             <TextBlock Text="Settings" FontSize="60" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
 
-        <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <WrapPanel Grid.Row="1" HorizontalAlignment="Center">
             <GroupBox FontSize="20" Margin="10"
                   Style="{StaticResource GroupBoxStyle}">
                 <GroupBox.Header>
@@ -28,50 +28,6 @@
                 </GroupBox.Header>
                 <WrapPanel>
                     <StackPanel>
-                        <WrapPanel Margin="5">
-                            <TextBlock Text="Old Password:" Style="{StaticResource TextBlockStyle}"/>
-                            <PasswordBox x:Name="OldPasswordBox" Width="150" MaxLength="9" IsEnabled="False" Margin="30,0,0,0"
-                                     Style="{StaticResource PasswordBoxStyle}"/>
-                            <TextBox x:Name="OldPasswordTextBox" Width="150" Margin="30,0,0,0">
-                                <TextBox.Style>
-                                    <Style TargetType="TextBox">
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                        <Setter Property="IsEnabled" Value="False"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ElementName=OldPasswordBox, Path=Visibility}" Value="Visible">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding ElementName=OldPasswordBox, Path=Visibility}" Value="Collapsed">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
-                            <Image Width="30" Height="30" Cursor="Hand" Margin="10,0,0,0">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="MouseDown">
-                                        <i:InvokeCommandAction Command="{Binding ToggleOldPasswordVisibilityCommand}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                                <Image.Style>
-                                    <Style TargetType="Image">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsOldPasswordVisible}" Value="True">
-                                                <Setter Property="Source" Value="/Media/Images/Invisible.png"/>
-                                                <Setter Property="ToolTip" Value="Hide password"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding IsOldPasswordVisible}" Value="False">
-                                                <Setter Property="Source" Value="/Media/Images/Visible.png"/>
-                                                <Setter Property="ToolTip" Value="Show password"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
-                            </Image>
-                        </WrapPanel>
                         <WrapPanel Margin="5">
                             <TextBlock Text="New Password:" Style="{StaticResource TextBlockStyle}"/>
                             <PasswordBox x:Name="NewPasswordBox" Width="150" MaxLength="9" Margin="20,0,0,0"
@@ -154,7 +110,7 @@
                 </GroupBox.Header>
                 <StackPanel>
                     <WrapPanel Margin="10">
-                        <TextBox x:Name="UsernameTextBox" Width="170" Margin="5" Style="{StaticResource BaseTextBoxStyle}">
+                        <TextBox x:Name="UsernameTextBox" Width="310" MaxLength="16" Margin="5" Style="{StaticResource BaseTextBoxStyle}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="GotFocus">
                                     <i:InvokeCommandAction Command="{Binding EnterUsernameTextboxCommand}"/>
@@ -167,13 +123,13 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </TextBox>
-                        <Image Source="/Media/Images/Search.png" Height="30" Width="30" Margin="5"/>
+                        <Image Source="/Media/Images/Search.png" Height="30" Width="30" Margin="-45,5,5,5"/>
                         <Button Content="Add" Command="{Binding AddMemberCommand}" IsEnabled="{Binding CanAdd}" Margin="5"
                             Style="{StaticResource ButtonStyle}"/>
                         <Button Content="Remove" Command="{Binding RemoveMemberCommand}" IsEnabled="{Binding CanRemove}"
                             Margin="5" Style="{StaticResource ButtonStyle}"/>
                     </WrapPanel>
-                    <DataGrid ItemsSource="{Binding AuthenticatedUsers}" SelectedIndex="{Binding SelectedUser}" Height="170" IsReadOnly="True"
+                    <DataGrid ItemsSource="{Binding AuthenticatedUsers}" SelectedIndex="{Binding SelectedUser}" IsReadOnly="True"
                           SelectionMode="Single" VerticalScrollBarVisibility="Visible" Margin="10,0,10,0" Style="{StaticResource DataGridStyle}">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="50" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
@@ -213,10 +169,10 @@
                                                     <Setter Property="Width" Value="100"/>
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding Role}" Value="Member">
-                                                            <Setter Property="Content" Value="Change To Admin"/>
+                                                            <Setter Property="Content" Value="Change to ADMIN"/>
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding Role}" Value="Admin">
-                                                            <Setter Property="Content" Value="Change To Member"/>
+                                                            <Setter Property="Content" Value="Change to MEMBER"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>

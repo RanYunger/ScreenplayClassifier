@@ -22,7 +22,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         private ObservableCollection<UserModel> authenticatedUsers;
         private int selectedUser;
-        private bool isOldPasswordVisible, isNewPasswordVisible, canAdd, canRemove;
+        private bool isNewPasswordVisible, canAdd, canRemove;
         private string oldPassword, newPassword, confirmedPassword;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -53,18 +53,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("SelectedUser"));
-            }
-        }
-
-        public bool IsOldPasswordVisible
-        {
-            get { return isOldPasswordVisible; }
-            set
-            {
-                isOldPasswordVisible = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("IsOldPasswordVisible"));
             }
         }
 
@@ -145,33 +133,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command ToggleOldPasswordVisibilityCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    PasswordBox oldPasswordBox = (PasswordBox)SettingsView.FindName("OldPasswordBox");
-                    TextBox oldPasswordTextBox = (TextBox)SettingsView.FindName("OldPasswordTextBox");
-
-                    // Changes the password's visibility
-                    IsOldPasswordVisible = !IsOldPasswordVisible;
-
-                    if (IsOldPasswordVisible)
-                    {
-                        oldPasswordTextBox.Text = oldPasswordBox.Password;
-                        oldPasswordTextBox.Visibility = Visibility.Visible;
-                        oldPasswordBox.Visibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        oldPasswordBox.Password = oldPasswordTextBox.Text;
-                        oldPasswordTextBox.Visibility = Visibility.Collapsed;
-                        oldPasswordBox.Visibility = Visibility.Visible;
-                    }
-                });
-            }
-        }
 
         public Command ToggleNewPasswordVisibilityCommand
         {
@@ -208,15 +169,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     Regex passwordRegex = new Regex(JSON.PASSWORDPATTERN);
-                    TextBox oldPasswordTextBox = (TextBox)SettingsView.FindName("OldPasswordTextBox"),
-                        newPasswordTextBox = (TextBox)SettingsView.FindName("NewPasswordTextBox");
-                    PasswordBox oldPasswordBox = (PasswordBox)SettingsView.FindName("OldPasswordBox"),
-                        newPasswordBox = (PasswordBox)SettingsView.FindName("NewPasswordBox"),
+                    TextBox newPasswordTextBox = (TextBox)SettingsView.FindName("NewPasswordTextBox");
+                    PasswordBox newPasswordBox = (PasswordBox)SettingsView.FindName("NewPasswordBox"),
                         confirmPasswordBox = (PasswordBox)SettingsView.FindName("ConfirmPasswordBox");
                     int userOffset = AuthenticatedUsers.IndexOf(MainViewModel.UserToolbarViewModel.User);
 
                     // Obtains the current string representations of both old and new passwords
-                    OldPassword = IsOldPasswordVisible ? oldPasswordTextBox.Text.Trim() : oldPasswordBox.Password.Trim();
+                    OldPassword = MainViewModel.UserToolbarViewModel.User.Password;
                     NewPassword = IsNewPasswordVisible ? newPasswordTextBox.Text.Trim() : newPasswordBox.Password.Trim();
 
                     // Validations
@@ -246,7 +205,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         return;
                     }
 
-                    AuthenticatedUsers[userOffset].Password = oldPasswordBox.Password = oldPasswordTextBox.Text = NewPassword;
+                    AuthenticatedUsers[userOffset].Password = NewPassword;
 
                     newPasswordBox.Clear();
                     newPasswordTextBox.Clear();
@@ -274,7 +233,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     usernameTextBox = (TextBox)SettingsView.FindName("UsernameTextBox");
                     usernameInput = usernameTextBox.Text;
 
-                    if (string.Equals(usernameInput, "Username"))
+                    if (string.Equals(usernameInput, "Search by username"))
                     {
                         usernameTextBox.Foreground = Brushes.Black;
                         usernameTextBox.Text = string.Empty;
@@ -302,7 +261,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if (string.IsNullOrEmpty(usernameInput))
                     {
                         usernameTextBox.Foreground = Brushes.Gray;
-                        usernameTextBox.Text = "Username";
+                        usernameTextBox.Text = "Search by username";
                     }
                 });
             }
@@ -321,7 +280,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     // Updates and activates the filter
                     usernameFilter = (o) =>
                     {
-                        return (string.IsNullOrEmpty(usernameInput.Trim())) || (string.Equals(usernameInput, "Username"))
+                        return (string.IsNullOrEmpty(usernameInput.Trim())) || (string.Equals(usernameInput, "Search by username"))
                             ? true : ((UserModel)o).Username.Contains(usernameInput);
                     };
                     usersCollectionView.Filter = (o) => { return usernameFilter.Invoke(o); };
@@ -389,18 +348,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <param name="authenticatedUsers">List of all users who can authenticate to the system</param>
         public void Init(SettingsView settingsView, MainViewModel mainViewModel, ObservableCollection<UserModel> authenticatedUsers)
         {
-            PasswordBox oldPasswordBox = null, newPasswordBox = null, confirmPasswordBox = null;
+            PasswordBox newPasswordBox = null, confirmPasswordBox = null;
             TextBox usernameTextBox = null;
 
             SettingsView = settingsView;
             MainViewModel = mainViewModel;
 
             AuthenticatedUsers = authenticatedUsers;
-            IsOldPasswordVisible = false;
             IsNewPasswordVisible = false;
-
-            oldPasswordBox = (PasswordBox)SettingsView.FindName("OldPasswordBox");
-            oldPasswordBox.Password = MainViewModel.UserToolbarViewModel.User.Password;
 
             newPasswordBox = (PasswordBox)SettingsView.FindName("NewPasswordBox");
             newPasswordBox.Clear();
@@ -410,7 +365,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             usernameTextBox = (TextBox)SettingsView.FindName("UsernameTextBox");
             usernameTextBox.Foreground = Brushes.Gray;
-            usernameTextBox.Text = "Username";
+            usernameTextBox.Text = "Search by username";
 
             CanAdd = false;
             CanRemove = false;
