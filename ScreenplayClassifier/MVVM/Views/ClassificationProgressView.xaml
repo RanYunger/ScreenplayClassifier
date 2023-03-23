@@ -14,8 +14,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="{Binding ClassificationsText}" FontSize="30" Margin="0,0,80,0" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="{Binding DurationText}" FontSize="30" Margin="80,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding ClassificationsText}" FontSize="30" Margin="0,0,70,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding DurationText}" FontSize="30" Margin="70,0,0,0" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
         <rpb:RadialProgressBar x:Name="RadialProgressBar" Grid.Row="1" Value="{Binding Percent}" Height="580" Width="580" ArcWidth="25" 
                                Foreground="Green" InnerBackgroundBrush="{StaticResource MainColumnHeaderBackground}" Margin="0,-35,0,0"/>
@@ -55,9 +55,8 @@
                         </Style.Triggers>
                     </Style>
                 </StackPanel.Style>
-                <TextBlock Text="{Binding ElementName=RadialProgressBar, Path=Value}" FontSize="50" HorizontalAlignment="Center"
+                <TextBlock Text="{Binding ElementName=RadialProgressBar, Path=Value, StringFormat={}{0} %}" FontSize="50" HorizontalAlignment="Center"
                        Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Text="P E R C E N T" FontSize="40" Style="{StaticResource TextBlockStyle}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

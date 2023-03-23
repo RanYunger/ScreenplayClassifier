@@ -188,50 +188,55 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 return new Command(() =>
                 {
-                    Regex usernameRegex = new Regex(JSON.USERNAMEPATTERN), passwordRegex = new Regex(JSON.PASSWORDPATTERN);
                     UserModel identifiedUser = null;
 
-                    // Validates the input username
+                    UsernameError = string.Empty;
                     usernameErrorWrapPanel.Visibility = Visibility.Hidden;
-                    if (string.IsNullOrEmpty(usernameTextBox.Text))
-                    {
-                        UsernameError = "You must enter username";
-                        usernameErrorWrapPanel.Visibility = Visibility.Visible;
-                    }
-                    else if (!usernameRegex.IsMatch(usernameTextBox.Text))
-                    {
-                        UsernameError = "Invalid username";
-                        usernameErrorWrapPanel.Visibility = Visibility.Visible;
-                    }
 
-                    // Validates the input password
+                    PasswordError = string.Empty;
                     passwordErrorWrapPanel.Visibility = Visibility.Hidden;
+
+                    // Validates input credentials were entered
+                    if ((string.IsNullOrEmpty(usernameTextBox.Text)) || (usernameTextBox.Text == "Username"))
+                    {
+                        UsernameError = "Enter username";
+                        usernameErrorWrapPanel.Visibility = Visibility.Visible;
+                    }
                     if (string.IsNullOrEmpty(passwordBox.Password))
                     {
-                        PasswordError = "You must enter password";
-                        passwordErrorWrapPanel.Visibility = Visibility.Visible;
-                    }
-                    else if (!passwordRegex.IsMatch(passwordBox.Password))
-                    {
-                        PasswordError = "Invalid password";
+                        PasswordError = "Enter password";
                         passwordErrorWrapPanel.Visibility = Visibility.Visible;
                     }
 
+                    // Validates the user's credentials
                     identifiedUser = FindUser(usernameTextBox.Text.Trim());
-                    if (identifiedUser != null)
-                    {
-                        if (!identifiedUser.Password.Equals(passwordBox.Password.Trim()))
-                        {
-                            PasswordError = "Wrong password";
-                            passwordErrorWrapPanel.Visibility = Visibility.Visible;
-                        }
-                        else
-                            OpenMainView(identifiedUser);
-                    }
-                    else if (++AttemptsCount == 3)
+                    if ((identifiedUser == null) && (++AttemptsCount == 3))
                     {
                         CanSignIn = false;
                         KickUserCommand.Execute(null);
+                    }
+                    else if (identifiedUser != null)
+                    {
+                        if (string.IsNullOrEmpty(passwordBox.Password))
+                        {
+                            PasswordError = "Enter password";
+                            passwordErrorWrapPanel.Visibility = Visibility.Visible;
+                        }
+                        else if (identifiedUser.Password.Equals(passwordBox.Password.Trim()))
+                            OpenMainView(identifiedUser);
+                        else
+                        {
+                            if (++AttemptsCount == 3)
+                            {
+                                CanSignIn = false;
+                                KickUserCommand.Execute(null);
+                            }
+                            else
+                            {
+                                PasswordError = "Wrong password";
+                                passwordErrorWrapPanel.Visibility = Visibility.Visible;
+                            }
+                        }
                     }
                 });
             }

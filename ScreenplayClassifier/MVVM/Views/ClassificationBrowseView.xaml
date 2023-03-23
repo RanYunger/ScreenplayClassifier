@@ -9,31 +9,46 @@
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <StackPanel HorizontalAlignment="Center" Visibility="Visible">
-            <TextBlock Text="Which Screenplays Would You Like To Classify?" FontSize="25" HorizontalAlignment="Center"
+            <TextBlock Text="Which screenplays would you like to classify?" FontSize="25" HorizontalAlignment="Center"
                        Style="{StaticResource TextBlockStyle}"/>
             <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,10">
-                <Button Command="{Binding BrowseScreenplaysCommand}" Height="100" Width="100" IsEnabled="{Binding CanBrowse}"
-                        Style="{StaticResource ButtonStyle}">
+                <Button Command="{Binding BrowseScreenplaysCommand}" Width="150" IsEnabled="{Binding CanBrowse}" Style="{StaticResource ButtonStyle}">
                     <Button.Content>
-                        <StackPanel>
-                            <!--<Image Source="/Media/Images/Browse.png" Height="70" Width="70"/>-->
-                            <TextBlock Text="Browse" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                        </StackPanel>
+                        <WrapPanel>
+                            <TextBlock Text="Browse" FontSize="20" TextAlignment="Center" Margin="0,0,40,0" Style="{StaticResource TextBlockStyle}"/>
+                            <Image Source="/Media/Images/Browse.png" Height="30" Width="30"/>
+                        </WrapPanel>
                     </Button.Content>
                 </Button>
-                <Button Command="{Binding ClearScreenplaysCommand}" Height="100" Width="100" IsEnabled="{Binding CanClear}" Margin="10,0,0,0"
-                        Style="{StaticResource ButtonStyle}">
+                <Button x:Name="ClearAllButton" Command="{Binding ClearScreenplaysCommand}" Width="150" Margin="10,0,0,0">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Width" Value="100"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CanSelect}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding CanSelect}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                     <Button.Content>
-                        <StackPanel>
-                            <!--<Image Source="/Media/Images/Clear.png" Height="70" Width="70"/>-->
-                            <TextBlock Text="Clear All" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                        </StackPanel>
+                        <WrapPanel>
+                            <TextBlock Text="Clear All" FontSize="20" TextAlignment="Center" Margin="0,0,30,0" Style="{StaticResource TextBlockStyle}"/>
+                            <Image Source="/Media/Images/Clear.png" Height="30" Width="30"/>
+                        </WrapPanel>
                     </Button.Content>
                 </Button>
             </WrapPanel>
-            <DataGrid x:Name="BrowsedScreenplaysDataGrid" ItemsSource="{Binding BrowsedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}"
-                      Height="350" IsEnabled="{Binding CanChoose}" CanUserSortColumns="False" SelectionMode="Single" Margin="10"
-                      Style="{StaticResource DataGridStyle}">
+            <DataGrid ItemsSource="{Binding BrowsedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}"
+                      Visibility="{Binding ElementName=ClearAllButton, Path=Visibility}" FontSize="20" CanUserSortColumns="False" SelectionMode="Single"
+                      Margin="10" Style="{StaticResource DataGridStyle}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
                         <i:InvokeCommandAction Command="{Binding CheckSelectionCommand}"/>
@@ -41,19 +56,21 @@
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, Mode=TwoWay}" Width="50"
-                                            HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="Title" Binding="{Binding Path=ScreenplayFileName}" Width="590" IsReadOnly="True"
+                                            ElementStyle="{StaticResource BaseCheckBoxStyle}" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
+                    </DataGridCheckBoxColumn>
+                    <DataGridTextColumn Header="Screenplay Name" Binding="{Binding Path=ScreenplayFileName}" Width="590" IsReadOnly="True"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <TextBlock Text="Choose up to 5 screenplays to classify" FontSize="20" Margin="10,0,0,10" Style="{StaticResource TextBlockStyle}"/>
-            <Button Command="{Binding ClassifyCommand}" Height="110" Width="110" IsEnabled="{Binding CanClassify}"
-                    Style="{StaticResource ButtonStyle}">
+            <TextBlock Text="Choose up to 5 screenplays to classify" FontSize="20" 
+                       Visibility="{Binding ElementName=ClearAllButton, Path=Visibility}" Margin="10,0,0,10" Style="{StaticResource TextBlockStyle}"/>
+            <Button Command="{Binding ClassifyCommand}" Width="150" Visibility="{Binding ElementName=ClearAllButton, Path=Visibility}"
+                    IsEnabled="{Binding CanClassify}" Margin="10,0,0,10" Style="{StaticResource ButtonStyle}">
                 <Button.Content>
-                    <StackPanel>
-                        <!--<Image Source="/Media/Images/Go.png" Height="70" Width="70"/>-->
-                        <TextBlock Text="Classify" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
+                    <WrapPanel>
+                        <TextBlock Text="Classify" FontSize="20" TextAlignment="Center" Margin="0,0,40,0" Style="{StaticResource TextBlockStyle}"/>
+                        <Image Source="/Media/Images/Go.png" Height="30" Width="30"/>
+                    </WrapPanel>
                 </Button.Content>
             </Button>
         </StackPanel>

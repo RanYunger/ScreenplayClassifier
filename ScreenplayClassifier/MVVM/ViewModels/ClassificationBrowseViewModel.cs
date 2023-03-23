@@ -21,7 +21,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Fields
         private ObservableCollection<SelectionModel> browsedScreenplays, checkedScreenplays;
         private int selectedScreenplay;
-        private bool canBrowse, canClear, canChoose, canClassify;
+        private bool canBrowse, canClear, canSelect, canClassify;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -92,15 +92,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public bool CanChoose
+        public bool CanSelect
         {
-            get { return canChoose; }
+            get { return canSelect; }
             set
             {
-                canChoose = value;
+                canSelect = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanChoose"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanSelect"));
             }
         }
 
@@ -180,8 +180,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         BrowsedScreenplays.Add(new SelectionModel(ownerName, screenplayPath));
                     }
 
-                    CanChoose = BrowsedScreenplays.Count > 0;
                     CanClear = BrowsedScreenplays.Count > 0;
+                    CanSelect = BrowsedScreenplays.Count > 0;
                 });
             }
         }
@@ -197,6 +197,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     SelectedScreenplay = -1;
                     CanClear = false;
+                    CanSelect = false;
                     CanClassify = false;
                 });
             }
@@ -210,7 +211,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     CanBrowse = false;
                     CanClear = false;
-                    CanChoose = false;
+                    CanSelect = false;
                     CanClassify = false;
 
                     ClassificationViewModel.BrowseComplete = true;
@@ -253,7 +254,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             SelectedScreenplay = -1;
             CanBrowse = true;
             CanClear = BrowsedScreenplays.Count > 0;
-            CanChoose = BrowsedScreenplays.Count > 0;
+            CanSelect = BrowsedScreenplays.Count > 0;
             CanClassify = CheckedScreenplays.Count > 0;
         }
 

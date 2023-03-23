@@ -12,7 +12,7 @@
             <TextBlock Text="Which Screenplays Would You Like To Inspect?" FontSize="25" HorizontalAlignment="Center"
                        Style="{StaticResource TextBlockStyle}"/>
             <WrapPanel Margin="10">
-                <TextBox x:Name="TitleTextBox" Width="630" MaxLength="25" Margin="5" Style="{StaticResource BaseTextBoxStyle}">
+                <TextBox x:Name="TitleTextBox" Width="630" FontSize="20" MaxLength="40" Margin="5" Style="{StaticResource BaseTextBoxStyle}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="GotFocus">
                             <i:InvokeCommandAction Command="{Binding EnterTitleTextboxCommand}"/>
@@ -27,7 +27,7 @@
                 </TextBox>
                 <Image Source="/Media/Images/Search.png" Height="30" Width="30" Margin="-45,5,5,5"/>
             </WrapPanel>
-            <DataGrid ItemsSource="{Binding ClassifiedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}" Height="440"
+            <DataGrid ItemsSource="{Binding ClassifiedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}" Height="500" FontSize="20"
                       CanUserSortColumns="False" SelectionMode="Single" Margin="10" Style="{StaticResource DataGridStyle}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
@@ -36,6 +36,7 @@
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, Mode=TwoWay}" Width="50"
+                                            ElementStyle="{StaticResource BaseCheckBoxStyle}"
                                             HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                     <DataGridTextColumn Header="Screenplay Title" Binding="{Binding Path=ScreenplayFileName}" Width="440" IsReadOnly="True"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
@@ -43,13 +44,12 @@
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Command="{Binding ShowInspectionViewCommand}" Height="110" Width="110" IsEnabled="{Binding CanInspect}"
-                    Style="{StaticResource ButtonStyle}">
+            <Button Command="{Binding ShowInspectionViewCommand}" Width="150" IsEnabled="{Binding CanInspect}" Style="{StaticResource ButtonStyle}">
                 <Button.Content>
-                    <StackPanel>
-                        <!--<Image Source="/Media/Images/Search.png" Height="70" Width="70"/>-->
-                        <TextBlock Text="Inspect" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
+                    <WrapPanel>
+                        <TextBlock Text="Inspect" FontSize="20" TextAlignment="Center" Margin="0,0,40,0" Style="{StaticResource TextBlockStyle}"/>
+                        <Image Source="/Media/Images/Search.png" Height="30" Width="30"/>
+                    </WrapPanel>
                 </Button.Content>
             </Button>
         </StackPanel>

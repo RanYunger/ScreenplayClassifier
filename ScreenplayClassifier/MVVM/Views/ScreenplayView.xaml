@@ -6,14 +6,7 @@
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <TextBlock Grid.Row="0" Text="{Binding Path=Screenplay.Title, StringFormat=Title: {0}}" HorizontalAlignment="Center" FontSize="50"
-                   Margin="10" Style="{StaticResource TextBlockStyle}"/>
-        <v:ScreenplayOverviewView x:Name="ScreenplayOverviewView" Grid.Row="1"/>
-        <v:ScreenplayInspectionView x:Name="ScreenplayInspectionView" Grid.Row="1" Visibility="Collapsed"/>
+        <v:ScreenplayOverviewView x:Name="ScreenplayOverviewView"/>
+        <v:ScreenplayInspectionView x:Name="ScreenplayInspectionView" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

@@ -16,14 +16,8 @@
         <DataGrid Grid.Row="1" ItemsSource="{Binding ClassifiedScreenplays}" IsReadOnly="True" HorizontalAlignment="Center" Margin="10"
                   Style="{StaticResource DataGridStyle}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Screenplay Title" Binding="{Binding Path=Title}" Width="400"
+                <DataGridTextColumn Header="Screenplay Title" Binding="{Binding Path=Title}" Width="400" ElementStyle="{StaticResource TextBlockStyle}"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                            <Setter Property="VerticalAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTemplateColumn Header="Model Classification" Width="300" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
                     <DataGridTemplateColumn.CellTemplate>

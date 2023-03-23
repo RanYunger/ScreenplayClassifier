@@ -7,20 +7,19 @@
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.RowSpan="2" Grid.Column="0">
-            <TextBlock Text="Titles" HorizontalAlignment="Center" FontSize="30" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <ListView ItemsSource="{Binding ScreenplayTitles}" SelectedIndex="{Binding ScreenplayOffset}" IsEnabled="False" Margin="10"/>
-        </StackPanel>
-        <v:ScreenplayView x:Name="ScreenplayView" Grid.Row="0" Grid.Column="1"/>
-        <Button Grid.Row="1" Grid.Column="1" Command="{Binding GoToNextCommand}" Margin="10" Style="{StaticResource ButtonStyle}">
+        <WrapPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Screenplay Names" FontSize="30" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+            <ListView ItemsSource="{Binding ScreenplayTitles}" SelectedIndex="{Binding ScreenplayOffset}" Height="80" IsEnabled="False" Margin="10"/>
+        </WrapPanel>
+        
+        <v:ScreenplayView x:Name="ScreenplayView" Grid.Row="1"/>
+        
+        <Button Grid.Row="2" Command="{Binding GoToNextCommand}" Margin="10" Style="{StaticResource ButtonStyle}">
             <Button.Content>
                 <StackPanel>
                     <!--<Image Source="/Media/Images/Next.png" Height="60" Width="60"/>-->
