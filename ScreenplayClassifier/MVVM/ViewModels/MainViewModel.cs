@@ -144,7 +144,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 ((ReportsViewModel)ReportsView.DataContext).ReportsSelectionViewModel.RefreshView();
             else
                 ((ReportsViewModel)ReportsView.DataContext).ReportsSelectionViewModel.ShowView();
-
         }
     }
 }

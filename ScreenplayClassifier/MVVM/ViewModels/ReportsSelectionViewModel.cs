@@ -15,176 +15,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ReportsSelectionViewModel : INotifyPropertyChanged
     {
         // Fields
-        private Predicate<object> titleFilter;
-
-        private ObservableCollection<SelectionModel> classifiedScreenplays, checkedScreenplays;
-        private int selectedScreenplay;
-        private bool canInspect;
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
-        public ReportsViewModel ReportsViewModel { get; private set; }
         public ReportsSelectionView ReportsSelectionView { get; private set; }
-
-        public ObservableCollection<SelectionModel> ClassifiedScreenplays
-        {
-            get { return classifiedScreenplays; }
-            set
-            {
-                classifiedScreenplays = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassifiedScreenplays"));
-            }
-        }
-
-        public ObservableCollection<SelectionModel> CheckedScreenplays
-        {
-            get { return checkedScreenplays; }
-            set
-            {
-                checkedScreenplays = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CheckedScreenplays"));
-            }
-        }
-
-        public int SelectedScreenplay
-        {
-            get { return selectedScreenplay; }
-            set
-            {
-                selectedScreenplay = value;
-
-                if (ReportsViewModel != null)
-                    CheckSelectionCommand.Execute(null);
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedScreenplay"));
-            }
-        }
-
-        public bool CanInspect
-        {
-            get { return canInspect; }
-            set
-            {
-                canInspect = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanInspect"));
-            }
-        }
+        public ReportsViewModel ReportsViewModel { get; private set; }
+        public ScreenplaysSelectionViewModel ScreenplaysSelectionViewModel { get; private set; }
 
         // Constructors
         public ReportsSelectionViewModel() { }
 
         // Methods
         #region Commands
-        public Command EnterTitleTextboxCommand
-        {
-            get
-            {
-                TextBox titleTextBox = null;
-
-                return new Command(() =>
-                {
-                    string usernameInput = string.Empty;
-
-                    // Validation
-                    if (ReportsSelectionView == null)
-                        return;
-
-                    titleTextBox = (TextBox)ReportsSelectionView.FindName("TitleTextBox");
-                    usernameInput = titleTextBox.Text;
-
-                    if (string.Equals(usernameInput, "Search by name"))
-                    {
-                        titleTextBox.Foreground = Brushes.Black;
-                        titleTextBox.Text = string.Empty;
-                    }
-                });
-            }
-        }
-
-        public Command LeaveTitleTextboxCommand
-        {
-            get
-            {
-                TextBox titleTextBox = null;
-
-                return new Command(() =>
-                {
-                    string titleInput = string.Empty;
-
-                    if (ReportsSelectionView == null)
-                        return;
-
-                    titleTextBox = (TextBox)ReportsSelectionView.FindName("TitleTextBox");
-                    titleInput = titleTextBox.Text;
-
-                    if (string.IsNullOrEmpty(titleInput))
-                    {
-                        titleTextBox.Foreground = Brushes.Gray;
-                        titleTextBox.Text = "Search by name";
-                    }
-                });
-            }
-        }
-
-        public Command SearchCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    TextBox titleTextBox = (TextBox)ReportsSelectionView.FindName("TitleTextBox");
-                    ICollectionView screenplaysCollectionView = CollectionViewSource.GetDefaultView(ClassifiedScreenplays);
-                    string titleInput = titleTextBox.Text;
-
-                    // Updates and activates the filter
-                    titleFilter = (o) =>
-                    {
-                        return (string.IsNullOrEmpty(titleInput.Trim())) || (string.Equals(titleInput, "Search by name"))
-                            ? true : ((SelectionModel)o).ScreenplayFileName.Contains(titleInput);
-                    };
-                    screenplaysCollectionView.Filter = (o) => { return titleFilter.Invoke(o); };
-                    screenplaysCollectionView.Refresh();
-                });
-            }
-        }
-
-        public Command CheckSelectionCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    SelectionModel chosenScreenplay = null;
-
-                    // Validation
-                    if ((SelectedScreenplay == -1) || (ClassifiedScreenplays.Count == 0))
-                        return;
-
-                    chosenScreenplay = ClassifiedScreenplays[SelectedScreenplay];
-                    if (CheckedScreenplays.Contains(chosenScreenplay))
-                    {
-                        chosenScreenplay.IsChecked = false;
-                        CheckedScreenplays.Remove(chosenScreenplay);
-                    }
-                    else
-                    {
-                        chosenScreenplay.IsChecked = true;
-                        CheckedScreenplays.Add(chosenScreenplay);
-                    }
-
-                    CanInspect = CheckedScreenplays.Count > 0;
-                });
-            }
-        }
-
         public Command ShowInspectionViewCommand
         {
             get
@@ -196,7 +38,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         return;
 
                     HideView();
-                    ReportsViewModel.ReportsInspectionViewModel.RefreshView(ClassifiedScreenplays);
+                    ReportsViewModel.ReportsInspectionViewModel.RefreshView(ScreenplaysSelectionViewModel.ClassifiedScreenplays);
                     ReportsViewModel.ReportsInspectionViewModel.ShowView();
                 });
             }
@@ -207,20 +49,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// Initiates the view model.
         /// </summary>
         /// <param name="reportsSelectionView">The view to obtain controls from</param>
-        /// <param name="reportsViewModel">The view model who manages the reports module</param>
+        /// <param name="reportsViewModel">The view model which manages the reports module</param>
         public void Init(ReportsSelectionView reportsSelectionView, ReportsViewModel reportsViewModel)
         {
-            TextBox titleTextBox = null;
+            ScreenplaysSelectionView screenplaysSelectionView = null;
 
             ReportsSelectionView = reportsSelectionView;
+            screenplaysSelectionView = (ScreenplaysSelectionView)ReportsSelectionView.FindName("ScreenplaysSelectionView");
+            ScreenplaysSelectionViewModel = (ScreenplaysSelectionViewModel)screenplaysSelectionView.DataContext;
+            ScreenplaysSelectionViewModel.Init(screenplaysSelectionView);
             ReportsViewModel = reportsViewModel;
-
-            ClassifiedScreenplays = new ObservableCollection<SelectionModel>();
-            CheckedScreenplays = new ObservableCollection<SelectionModel>();
-
-            titleTextBox = (TextBox)ReportsSelectionView.FindName("TitleTextBox");
-            titleTextBox.Foreground = Brushes.Gray;
-            titleTextBox.Text = "Search by name";
         }
 
         /// <summary>
@@ -235,17 +73,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Refreshes the view.
         /// </summary>
-        public void RefreshView()
-        {
-            ClassifiedScreenplays.Clear();
-            foreach (ReportModel report in ReportsViewModel.Reports)
-                ClassifiedScreenplays.Add(new SelectionModel(report.Owner.Username, report.Screenplay.FilePath));
-
-            CheckedScreenplays.Clear();
-
-            SelectedScreenplay = -1;
-            CanInspect = false;
-        }
+        public void RefreshView() { ScreenplaysSelectionViewModel.RefreshView(ReportsViewModel.Reports); }
 
         /// <summary>
         /// Hides the view.

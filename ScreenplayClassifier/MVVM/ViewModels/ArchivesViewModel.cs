@@ -20,7 +20,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public MainViewModel MainViewModel { get; private set; }
         public ArchivesView ArchivesView { get; private set; }
         public ArchivesFilterViewModel ArchivesFilterViewModel { get; private set; }
-        public ArchivesInspectionViewModel ArchivesInspectionViewModel { get; private set; }
+        public ArchivesSelectionViewModel ArchivesInspectionViewModel { get; private set; }
 
         #region Commands
         public Command StopMusicCommand
@@ -47,7 +47,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void Init(ArchivesView archivesView, MainViewModel mainViewModel)
         {
             ArchivesFilterView archivesFilterView = null;
-            ArchivesInspectionView archivesInspectionView = null;
+            ArchivesSelectionView archivesSelectionView = null;
 
             ArchivesView = archivesView;
             MainViewModel = mainViewModel;
@@ -56,9 +56,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ArchivesFilterViewModel = (ArchivesFilterViewModel)archivesFilterView.DataContext;
             ArchivesFilterViewModel.Init(archivesFilterView, this);
 
-            archivesInspectionView = (ArchivesInspectionView)ArchivesView.FindName("ArchivesInspectionView");
-            ArchivesInspectionViewModel = (ArchivesInspectionViewModel)archivesInspectionView.DataContext;
-            ArchivesInspectionViewModel.Init(archivesInspectionView, this);
+            archivesSelectionView = (ArchivesSelectionView)ArchivesView.FindName("ArchivesSelectionView");
+            ArchivesInspectionViewModel = (ArchivesSelectionViewModel)archivesSelectionView.DataContext;
+            ArchivesInspectionViewModel.Init(archivesSelectionView, this);
         }
     }
 }

@@ -78,10 +78,10 @@
                         </WrapPanel>
                         <Button Command="{Binding ChangePasswordCommand}" Margin="10" Style="{StaticResource ButtonStyle}">
                             <Button.Content>
-                                <StackPanel>
-                                    <!--<Image Source="/Media/Images/Save.png" Height="60" Width="60"/>-->
-                                    <TextBlock Text="Save" TextAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                                </StackPanel>
+                                <WrapPanel>
+                                    <TextBlock Text="Save" TextAlignment="Center" Margin="0,0,20,0" Style="{StaticResource TextBlockStyle}"/>
+                                    <Image Source="/Media/Images/Save.png" Height="30" Width="30"/>
+                                </WrapPanel>
                             </Button.Content>
                         </Button>
                     </StackPanel>
@@ -124,10 +124,24 @@
                             </i:Interaction.Triggers>
                         </TextBox>
                         <Image Source="/Media/Images/Search.png" Height="30" Width="30" Margin="-45,5,5,5"/>
-                        <Button Content="Add" Command="{Binding AddMemberCommand}" IsEnabled="{Binding CanAdd}" Margin="5"
-                            Style="{StaticResource ButtonStyle}"/>
-                        <Button Content="Remove" Command="{Binding RemoveMemberCommand}" IsEnabled="{Binding CanRemove}"
-                            Margin="5" Style="{StaticResource ButtonStyle}"/>
+                        <Button Command="{Binding AddMemberCommand}" IsEnabled="{Binding CanAdd}" Width="120" Margin="5"
+                                Style="{StaticResource ButtonStyle}">
+                            <Button.Content>
+                                <WrapPanel>
+                                    <TextBlock Text="Add" FontSize="20" TextAlignment="Center" Margin="0,0,40,0" Style="{StaticResource TextBlockStyle}"/>
+                                    <Image Source="/Media/Images/AddUser.png" Height="30" Width="30"/>
+                                </WrapPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Command="{Binding RemoveMemberCommand}" IsEnabled="{Binding CanRemove}" Width="120" Margin="5"
+                                Style="{StaticResource ButtonStyle}">
+                            <Button.Content>
+                                <WrapPanel>
+                                    <TextBlock Text="Remove" FontSize="20" TextAlignment="Center" Margin="0,0,10,0" Style="{StaticResource TextBlockStyle}"/>
+                                    <Image Source="/Media/Images/RemoveUser.png" Height="30" Width="30"/>
+                                </WrapPanel>
+                            </Button.Content>
+                        </Button>
                     </WrapPanel>
                     <DataGrid ItemsSource="{Binding AuthenticatedUsers}" SelectedIndex="{Binding SelectedUser}" IsReadOnly="True"
                           SelectionMode="Single" VerticalScrollBarVisibility="Visible" Margin="10,0,10,0" Style="{StaticResource DataGridStyle}">
@@ -152,27 +166,27 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Username" Binding="{Binding Path=Username}" Width="175"
+                            <DataGridTextColumn Header="Username" Binding="{Binding Path=Username}" Width="210"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                             <DataGridTextColumn Header="Role" Binding="{Binding Path=Role}" Width="100"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                             <DataGridTemplateColumn Width="200" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Width="200" Command="{Binding ChangeRoleCommand}">
+                                        <Button Command="{Binding ChangeRoleCommand}" Margin="10,0,10,0">
                                             <Button.Style>
                                                 <Style TargetType="Button">
                                                     <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
                                                     <Setter Property="FontWeight" Value="Bold"/>
                                                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                                     <Setter Property="Cursor" Value="Hand"/>
-                                                    <Setter Property="Width" Value="100"/>
+                                                    <Setter Property="Width" Value="150"/>
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding Role}" Value="Member">
-                                                            <Setter Property="Content" Value="Change to ADMIN"/>
+                                                            <Setter Property="Content" Value="Make ADMIN"/>
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding Role}" Value="Admin">
-                                                            <Setter Property="Content" Value="Change to MEMBER"/>
+                                                            <Setter Property="Content" Value="Make MEMBER"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>

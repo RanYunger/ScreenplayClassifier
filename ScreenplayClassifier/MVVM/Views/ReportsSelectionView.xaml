@@ -5,53 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <StackPanel HorizontalAlignment="Center" Visibility="Visible">
-            <TextBlock Text="Which Screenplays Would You Like To Inspect?" FontSize="25" HorizontalAlignment="Center"
-                       Style="{StaticResource TextBlockStyle}"/>
-            <WrapPanel Margin="10">
-                <TextBox x:Name="TitleTextBox" Width="630" FontSize="20" MaxLength="40" Margin="5" Style="{StaticResource BaseTextBoxStyle}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="GotFocus">
-                            <i:InvokeCommandAction Command="{Binding EnterTitleTextboxCommand}"/>
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="LostFocus">
-                            <i:InvokeCommandAction Command="{Binding LeaveTitleTextboxCommand}"/>
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="TextChanged">
-                            <i:InvokeCommandAction Command="{Binding SearchCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </TextBox>
-                <Image Source="/Media/Images/Search.png" Height="30" Width="30" Margin="-45,5,5,5"/>
-            </WrapPanel>
-            <DataGrid ItemsSource="{Binding ClassifiedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}" Height="500" FontSize="20"
-                      CanUserSortColumns="False" SelectionMode="Single" Margin="10" Style="{StaticResource DataGridStyle}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDown">
-                        <i:InvokeCommandAction Command="{Binding CheckSelectionCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, Mode=TwoWay}" Width="50"
-                                            ElementStyle="{StaticResource BaseCheckBoxStyle}"
-                                            HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="Screenplay Title" Binding="{Binding Path=ScreenplayFileName}" Width="440" IsReadOnly="True"
-                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="Owner" Binding="{Binding Path=OwnerName}" Width="150" IsReadOnly="True"
-                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Command="{Binding ShowInspectionViewCommand}" Width="150" IsEnabled="{Binding CanInspect}" Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <WrapPanel>
-                        <TextBlock Text="Inspect" FontSize="20" TextAlignment="Center" Margin="0,0,40,0" Style="{StaticResource TextBlockStyle}"/>
-                        <Image Source="/Media/Images/Search.png" Height="30" Width="30"/>
-                    </WrapPanel>
-                </Button.Content>
-            </Button>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <v:ScreenplaysSelectionView x:Name="ScreenplaysSelectionView" Grid.Row="0"/>
+
+        <Button Grid.Row="1" Command="{Binding ShowInspectionViewCommand}" Width="150" IsEnabled="{Binding Path=ScreenplaysSelectionViewModel.CanInspect}"
+                Margin="0,10,0,10" Style="{StaticResource ButtonStyle}">
+            <Button.Content>
+                <WrapPanel>
+                    <TextBlock Text="Inspect" FontSize="20" TextAlignment="Center" Margin="0,0,40,0" Style="{StaticResource TextBlockStyle}"/>
+                    <Image Source="/Media/Images/Search.png" Height="30" Width="30"/>
+                </WrapPanel>
+            </Button.Content>
+        </Button>
     </Grid>
 </UserControl>

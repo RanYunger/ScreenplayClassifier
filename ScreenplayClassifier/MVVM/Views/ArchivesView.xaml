@@ -17,7 +17,7 @@
         </WrapPanel>
 
         <v:ArchivesFilterView x:Name="ArchivesFilterView" Grid.Row="1"/>
-        <v:ArchivesInspectionView x:Name="ArchivesInspectionView" Grid.Row="1" Visibility="Collapsed"/>
+        <v:ArchivesSelectionView x:Name="ArchivesSelectionView" Grid.Row="1" Visibility="Collapsed"/>
 
     </Grid>
 </UserControl>

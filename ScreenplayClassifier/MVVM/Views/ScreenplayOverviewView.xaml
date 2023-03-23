@@ -16,25 +16,8 @@
         
         <StackPanel Grid.Column="0">
             <TextBlock Text="Content" FontSize="30" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <TextBox Text="{Binding ScreenplayContent}" TextWrapping="Wrap" Height="280" VerticalScrollBarVisibility="Visible" Margin="10">
-                <TextBox.Style>
-                    <Style TargetType="TextBox">
-                        <Setter Property="IsReadOnly" Value="True"/>
-                        <Setter Property="IsReadOnlyCaretVisible" Value="True"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsScreenplayContentVisible}" Value="True">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsScreenplayContentVisible}" Value="False">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBox.Style>
-            </TextBox>
+            <TextBox Text="{Binding ScreenplayContent}" TextWrapping="Wrap" Height="280" VerticalScrollBarVisibility="Visible" Margin="10"
+                     Style="{StaticResource ReadOnlyTextBoxStyle}"/>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Margin="10">

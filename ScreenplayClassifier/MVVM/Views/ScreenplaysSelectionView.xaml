@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="ScreenplayClassifier.MVVM.Views.ScreenplaysSelectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             Style="{StaticResource UserControlStyle}">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center">
+            <TextBlock Text="Which screenplays would you like to inspect?" FontSize="25" HorizontalAlignment="Center"
+                       Style="{StaticResource TextBlockStyle}"/>
+            <WrapPanel Margin="0,10,0,10">
+                <TextBox x:Name="TitleTextBox" Width="840" FontSize="20" MaxLength="40" Style="{StaticResource BaseTextBoxStyle}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="GotFocus">
+                            <i:InvokeCommandAction Command="{Binding EnterTitleTextboxCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="LostFocus">
+                            <i:InvokeCommandAction Command="{Binding LeaveTitleTextboxCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding SearchCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <Image Source="/Media/Images/Search.png" Height="30" Width="30" Margin="-35,5,5,5"/>
+            </WrapPanel>
+            <DataGrid ItemsSource="{Binding ClassifiedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}" Height="530" FontSize="20"
+                      CanUserSortColumns="False" SelectionMode="Single" Style="{StaticResource DataGridStyle}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding CheckSelectionCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, Mode=TwoWay}" Width="50"
+                                            ElementStyle="{StaticResource BaseCheckBoxStyle}"
+                                            HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                    <DataGridTextColumn Header="Screenplay Title" Binding="{Binding Path=ScreenplayFileName}" Width="640" IsReadOnly="True"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                    <DataGridTextColumn Header="Owner" Binding="{Binding Path=OwnerName}" Width="150" IsReadOnly="True"
+                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</UserControl>

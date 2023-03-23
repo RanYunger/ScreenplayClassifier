@@ -24,7 +24,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private ObservableCollection<string> ownerGenreOptions, ownerSubGenre1Options, ownerSubGenre2Options;
         private ImageSource ownerGenreImage, ownerSubGenre1Image, ownerSubGenre2Image;
         private string screenplayContent, selectedOwnerGenre, selectedOwnerSubGenre1, selectedOwnerSubGenre2;
-        private bool canGiveFeedback, isScreenplayContentVisible;
+        private bool canGiveFeedback;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -255,29 +255,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public bool IsScreenplayContentVisible
-        {
-            get { return isScreenplayContentVisible; }
-            set
-            {
-                isScreenplayContentVisible = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("IsScreenplayContentVisible"));
-            }
-        }
-
-
         // Constructors
         public ScreenplayOverviewViewModel() { }
 
         // Methods
         #region Commands
-        public Command ToggleContentVisibilityCommand
-        {
-            get { return new Command(() => IsScreenplayContentVisible = !IsScreenplayContentVisible); }
-        }
-
         public Command ShowInspectionViewCommand
         {
             get
@@ -311,7 +293,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             Screenplay = screenplay;
 
             CanGiveFeedback = canFeedback;
-            IsScreenplayContentVisible = canFeedback;
 
             OwnerGenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanGiveFeedback ? "Unknown"
                 : Screenplay.OwnerGenre)));
@@ -369,11 +350,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 PercentageSeries.Add(new PieSeries()
                 {
+                    Fill = new ImageBrush(new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, genreName)))),
                     Title = genreName,
                     Values = new ChartValues<ObservableValue> { new ObservableValue(double.Parse(textualPercentage)) },
                     FontSize = 20,
-                    DataLabels = true
-                });
+                    //DataLabels = true
+                }) ;
             }
         }
     }

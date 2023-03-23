@@ -11,43 +11,18 @@ using System.Windows.Data;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ArchivesInspectionViewModel : INotifyPropertyChanged
+    public class ArchivesSelectionViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ObservableCollection<SelectionModel> filteredScreenplays, checkedScreenplays;
         private string ownerFilterText, genresFilterText;
-        private int selectedScreenplay;
-        private bool canInspect;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
+        public ArchivesSelectionView ArchivesSelectionView { get; private set; }
         public ArchivesViewModel ArchivesViewModel { get; private set; }
-        public ArchivesInspectionView ArchivesInspectionView { get; private set; }
+        public ScreenplaysSelectionViewModel ScreenplaysSelectionViewModel { get; private set; }
 
-        public ObservableCollection<SelectionModel> FilteredScreenplays
-        {
-            get { return filteredScreenplays; }
-            set
-            {
-                filteredScreenplays = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredScreenplays"));
-            }
-        }
-
-        public ObservableCollection<SelectionModel> CheckedScreenplays
-        {
-            get { return checkedScreenplays; }
-            set
-            {
-                checkedScreenplays = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CheckedScreenplays"));
-            }
-        }
 
         public string OwnerFilterText
         {
@@ -72,76 +47,20 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     PropertyChanged(this, new PropertyChangedEventArgs("GenresFilterText"));
             }
         }
-
-        public int SelectedScreenplay
-        {
-            get { return selectedScreenplay; }
-            set
-            {
-                selectedScreenplay = value;
-
-                if (ArchivesInspectionView != null)
-                    CheckSelectionCommand.Execute(null);
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedScreenplay"));
-            }
-        }
-
-        public bool CanInspect
-        {
-            get { return canInspect; }
-            set
-            {
-                canInspect = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanInspect"));
-            }
-        }
-
+                
         // Constructors
-        public ArchivesInspectionViewModel() { }
+        public ArchivesSelectionViewModel() { }
 
         // Methods
         #region Commands
-        public Command CheckSelectionCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    SelectionModel chosenScreenplay = null;
-
-                    // Validation
-                    if ((selectedScreenplay == -1) || (FilteredScreenplays.Count == 0))
-                        return;
-
-                    chosenScreenplay = FilteredScreenplays[selectedScreenplay];
-                    if (CheckedScreenplays.Contains(chosenScreenplay))
-                    {
-                        chosenScreenplay.IsChecked = false;
-                        CheckedScreenplays.Remove(chosenScreenplay);
-                    }
-                    else
-                    {
-                        chosenScreenplay.IsChecked = true;
-                        CheckedScreenplays.Add(chosenScreenplay);
-                    }
-
-                    CanInspect = CheckedScreenplays.Count > 0;
-                });
-            }
-        }
-
-        public Command ShowFilterViewCommand
+        public Command ShowArchivesFilterViewCommand
         {
             get
             {
                 return new Command(() =>
                 {
                     // Validation
-                    if (ArchivesInspectionView == null)
+                    if (ArchivesSelectionView == null)
                         return;
 
                     HideView();
@@ -159,7 +78,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     MainViewModel mainViewModel = ArchivesViewModel.MainViewModel;
                     ReportsViewModel reportsViewModel = (ReportsViewModel)mainViewModel.ReportsView.DataContext;
 
-                    reportsViewModel.ReportsInspectionViewModel.RefreshView(FilteredScreenplays);
+                    //reportsViewModel.ReportsInspectionViewModel.RefreshView(ScreenplaysSelectionViewModel.FilteredScreenplays);
 
                     reportsViewModel.ReportsSelectionViewModel.HideView();
                     reportsViewModel.ReportsInspectionViewModel.ShowView();
@@ -172,17 +91,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Initiates the view model
         /// </summary>
-        /// <param name="archivesInspectionView">The view to obtain controls from</param>
+        /// <param name="archivesSelectionView">The view to obtain controls from</param>
         /// <param name="archivesViewModel">The view model which manages the archives module</param>
-        public void Init(ArchivesInspectionView archivesInspectionView, ArchivesViewModel archivesViewModel)
+        public void Init(ArchivesSelectionView archivesSelectionView, ArchivesViewModel archivesViewModel)
         {
-            ArchivesInspectionView = archivesInspectionView;
+            ScreenplaysSelectionView screenplaysSelectionView = null;
+
+            ArchivesSelectionView = archivesSelectionView;
+            screenplaysSelectionView = (ScreenplaysSelectionView)ArchivesSelectionView.FindName("ScreenplaysSelectionView");
+            ScreenplaysSelectionViewModel = (ScreenplaysSelectionViewModel)screenplaysSelectionView.DataContext;
+            ScreenplaysSelectionViewModel.Init(screenplaysSelectionView);
             ArchivesViewModel = archivesViewModel;
-
-            FilteredScreenplays = new ObservableCollection<SelectionModel>();
-            CheckedScreenplays = new ObservableCollection<SelectionModel>();
-
-            RefreshView();
 
             OwnerFilterText = string.Empty;
             GenresFilterText = string.Empty;
@@ -193,8 +112,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void ShowView()
         {
-            if (ArchivesInspectionView != null)
-                App.Current.Dispatcher.Invoke(() => ArchivesInspectionView.Visibility = Visibility.Visible);
+            if (ArchivesSelectionView != null)
+                App.Current.Dispatcher.Invoke(() => ArchivesSelectionView.Visibility = Visibility.Visible);
         }
 
         /// <summary>
@@ -208,15 +127,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             reportsCollectionView.Filter = ArchivesViewModel.ArchivesFilterViewModel.Filter;
             reportsCollectionView.Refresh();
 
-            FilteredScreenplays.Clear();
-            foreach (ReportModel filteredReport in reportsCollectionView)
-                FilteredScreenplays.Add(new SelectionModel(filteredReport.Owner.Username, filteredReport.Screenplay.FilePath));
-            CheckedScreenplays.Clear();
+            //ScreenplaysSelectionViewModel.RefreshView(new ObservableCollection<ReportModel>(reportsCollectionView));
 
             RefreshFilterTexts();
-
-            SelectedScreenplay = -1;
-            CanInspect = false;
         }
 
         /// <summary>
@@ -224,8 +137,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void HideView()
         {
-            if (ArchivesInspectionView != null)
-                App.Current.Dispatcher.Invoke(() => ArchivesInspectionView.Visibility = Visibility.Collapsed);
+            if (ArchivesSelectionView != null)
+                App.Current.Dispatcher.Invoke(() => ArchivesSelectionView.Visibility = Visibility.Collapsed);
         }
 
         /// <summary>
