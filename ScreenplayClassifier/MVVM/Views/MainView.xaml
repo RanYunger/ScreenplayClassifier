@@ -8,9 +8,6 @@
         Title="Screenplay Classifier" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowState="Maximized"
         Style="{StaticResource WindowStyle}">
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="KeyDown">
-            <i:InvokeCommandAction Command="{Binding CheckKeyCommand}"/>
-        </i:EventTrigger>
         <i:EventTrigger EventName="Closing">
             <i:InvokeCommandAction Command="{Binding CloseCommand}"/>
         </i:EventTrigger>

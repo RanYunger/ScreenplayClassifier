@@ -181,27 +181,26 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     // Validations
                     if (string.IsNullOrEmpty(NewPassword))
                     {
-                        MessageBoxHandler.Show("Enter new password", string.Empty, 3, MessageBoxImage.Error);
+                        MessageBoxHandler.ShowErrorBox("Enter new password");
                         return;
                     }
 
                     if (!passwordRegex.IsMatch(NewPassword))
                     {
-                        MessageBox.Show("Password must contain 2-3 capital letters followed by 5-6 digits.", "Invalid Password",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBoxHandler.ShowErrorBox("Password must contain 2-3 capital letters followed by 5-6 digits.");
                         return;
                     }
 
                     if (OldPassword.Equals(NewPassword))
                     {
-                        MessageBoxHandler.Show("This is your current password", string.Empty, 3, MessageBoxImage.Error);
+                        MessageBoxHandler.ShowErrorBox("This is your current password");
                         return;
                     }
 
                     ConfirmedPassword = confirmPasswordBox.Password.Trim();
                     if (!ConfirmedPassword.Equals(NewPassword))
                     {
-                        MessageBoxHandler.Show("New password must be confirmed", string.Empty, 3, MessageBoxImage.Error);
+                        MessageBoxHandler.ShowErrorBox("New password must be confirmed");
                         return;
                     }
 
@@ -211,7 +210,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     newPasswordTextBox.Clear();
                     confirmPasswordBox.Clear();
 
-                    MessageBoxHandler.Show("Password changed successfuly", string.Empty, 3, MessageBoxImage.Information);
+                    MessageBoxHandler.ShowInformationBox("Password changed successfuly");
                 });
             }
         }
@@ -312,14 +311,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     if (!usernameRegex.IsMatch(usernameInput))
                     {
-                        MessageBox.Show("Username must contain 2-3 capital words seperated by dots (E.G. Ran.Yunger, Shy.Ohev.Zion)",
-                            "Invalid Username", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBoxHandler.ShowErrorBox("Username must contain 2-3 capital words seperated by dots (E.G. Ran.Yunger, Shy.Ohev.Zion)");
                         return;
                     }
 
                     AuthenticatedUsers.Add(new UserModel(usernameInput, UserModel.UserRole.MEMBER, "ABC123"));
 
-                    MessageBoxHandler.Show(usernameInput + " added successfuly", "Success", 3, MessageBoxImage.Information);
+                    MessageBoxHandler.ShowInformationBox(usernameInput + " added successfuly");
                 });
             }
         }
@@ -330,8 +328,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    MessageBoxResult confirmResult = MessageBox.Show(string.Format("Are you sure you want to remove {0}?",
-                        AuthenticatedUsers[SelectedUser].Username), "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    MessageBoxResult confirmResult = MessageBoxHandler.ShowQuestionBox(string.Format("Are you sure you want to remove {0}?",
+                        AuthenticatedUsers[SelectedUser].Username));
 
                     if (confirmResult == MessageBoxResult.Yes)
                         AuthenticatedUsers.RemoveAt(SelectedUser);

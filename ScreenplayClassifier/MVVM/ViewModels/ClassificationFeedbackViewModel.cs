@@ -84,12 +84,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     if ((ScreenplayOffset >= 0) && (!FeedbackedScreenplays[ScreenplayOffset].Isfeedbacked))
                     {
-                        MessageBoxHandler.Show("Complete feedback before proceeding", string.Empty, 5, MessageBoxImage.Error);
+                        MessageBoxHandler.ShowErrorBox("Complete feedback before proceeding");
                         return;
                     }
 
-                    proceedDecision = MessageBox.Show("Are you sure?\nOnce confirmed, your classification cannot be changed.", string.Empty,
-                        MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    proceedDecision = MessageBoxHandler.ShowQuestionBox("Are you sure?\nOnce confirmed, your classification cannot be changed.");
                     if (proceedDecision == MessageBoxResult.Yes)
                     {
                         screenplayView = (ScreenplayView)ClassificationFeedbackView.FindName("ScreenplayView");

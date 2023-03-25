@@ -42,17 +42,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command CheckKeyCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    // TODO: COMPLETE
-                });
-            }
-        }
-
         public Command CloseCommand
         {
             get

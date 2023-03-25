@@ -147,7 +147,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                             CheckedScreenplays.Add(browsedScreenplay);
                         }
                         else
-                            MessageBoxHandler.Show("You can choose up to 5 screenplays", string.Empty, 5, MessageBoxImage.Error);
+                            MessageBoxHandler.ShowErrorBox("You can choose up to 5 screenplays");
                     }
 
                     CanClassify = CheckedScreenplays.Count > 0;
