@@ -12,7 +12,8 @@
                 <Button.Content>
                     <StackPanel>
                         <!--<Image Source="/Media/Images/Classification.png" Height="250" Width="250"/>-->
-                        <TextBlock Text="Classification" HorizontalAlignment="Center" FontSize="40" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+                        <TextBlock Text="Classification" HorizontalAlignment="Center" FontSize="50" Margin="10"
+                                   Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -21,7 +22,8 @@
                     <Button.Content>
                         <StackPanel>
                             <!--<Image Source="/Media/Images/Archives.png" Height="200" Width="200"/>-->
-                            <TextBlock Text="Archives" HorizontalAlignment="Center" FontSize="40" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBlock Text="Archives" HorizontalAlignment="Center" FontSize="50" Margin="10"
+                                       Style="{StaticResource TextBlockStyle}"/>
                         </StackPanel>
                     </Button.Content>
                 </Button>
@@ -29,7 +31,7 @@
                     <Button.Content>
                         <StackPanel>
                             <!--<Image Source="/Media/Images/Reports.png" Height="200" Width="200"/>-->
-                            <TextBlock Text="Reports" HorizontalAlignment="Center" FontSize="40" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBlock Text="Reports" HorizontalAlignment="Center" FontSize="50" Margin="10" Style="{StaticResource TextBlockStyle}"/>
                         </StackPanel>
                     </Button.Content>
                 </Button>

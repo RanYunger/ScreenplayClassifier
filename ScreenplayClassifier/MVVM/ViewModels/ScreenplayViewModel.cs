@@ -17,6 +17,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private ScreenplayModel screenplay;
+        private string screenplayTitle;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,6 +35,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("Screenplay"));
+            }
+        }
+        public string ScreenplayTitle
+        {
+            get { return screenplayTitle; }
+            set
+            {
+                screenplayTitle = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ScreenplayTitle"));
             }
         }
 
@@ -55,6 +67,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ScreenplayView = screenplayView;
 
             Screenplay = screenplay;
+            ScreenplayTitle = screenplay.Title;
 
             ScreenplayOverviewView screenplayOverviewView = null;
             ScreenplayInspectionView screenplayInspectionView = null;

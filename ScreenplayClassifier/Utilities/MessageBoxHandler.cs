@@ -24,6 +24,7 @@ namespace ScreenplayClassifier.Utilities
         public MessageBoxHandler(string text, string caption, byte timeout, MessageBoxImage image)
         {
             Caption = caption;
+
             if (timeout > 0)
             {
                 timer = new System.Timers.Timer(Convert.ToDouble(timeout * 1000)); // interval in seconds

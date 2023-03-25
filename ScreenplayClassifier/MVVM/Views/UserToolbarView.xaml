@@ -37,6 +37,7 @@
                         <Style TargetType="MenuItem">
                             <Setter Property="VerticalAlignment" Value="Center"/>
                             <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Cursor" Value="Hand"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding User.Role}" Value="Guest">
                                     <Setter Property="Visibility" Value="Collapsed"/>

@@ -14,7 +14,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ArchivesSelectionViewModel : INotifyPropertyChanged
     {
         // Fields
-        private string ownerFilterText, genresFilterText;
+        private string filterText;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -24,30 +24,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ScreenplaysSelectionViewModel ScreenplaysSelectionViewModel { get; private set; }
 
 
-        public string OwnerFilterText
+        public string FilterText
         {
-            get { return ownerFilterText; }
+            get { return filterText; }
             set
             {
-                ownerFilterText = value;
+                filterText = value;
 
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerFilterText"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("FilterText"));
             }
         }
 
-        public string GenresFilterText
-        {
-            get { return genresFilterText; }
-            set
-            {
-                genresFilterText = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GenresFilterText"));
-            }
-        }
-                
         // Constructors
         public ArchivesSelectionViewModel() { }
 
@@ -78,7 +66,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     MainViewModel mainViewModel = ArchivesViewModel.MainViewModel;
                     ReportsViewModel reportsViewModel = (ReportsViewModel)mainViewModel.ReportsView.DataContext;
 
-                    //reportsViewModel.ReportsInspectionViewModel.RefreshView(ScreenplaysSelectionViewModel.FilteredScreenplays);
+                    reportsViewModel.ReportsInspectionViewModel.RefreshView(ScreenplaysSelectionViewModel.ClassifiedScreenplays);
 
                     reportsViewModel.ReportsSelectionViewModel.HideView();
                     reportsViewModel.ReportsInspectionViewModel.ShowView();
@@ -103,8 +91,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ScreenplaysSelectionViewModel.Init(screenplaysSelectionView);
             ArchivesViewModel = archivesViewModel;
 
-            OwnerFilterText = string.Empty;
-            GenresFilterText = string.Empty;
+            FilterText = string.Empty;
         }
 
         /// <summary>
@@ -123,11 +110,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             ReportsViewModel reportsViewModel = (ReportsViewModel)ArchivesViewModel.MainViewModel.ReportsView.DataContext;
             ICollectionView reportsCollectionView = CollectionViewSource.GetDefaultView(reportsViewModel.Reports);
+            ObservableCollection<ReportModel> filteredReports = new ObservableCollection<ReportModel>();
 
             reportsCollectionView.Filter = ArchivesViewModel.ArchivesFilterViewModel.Filter;
             reportsCollectionView.Refresh();
 
-            //ScreenplaysSelectionViewModel.RefreshView(new ObservableCollection<ReportModel>(reportsCollectionView));
+            foreach (ReportModel filteredReport in reportsCollectionView)
+                filteredReports.Add(filteredReport);
+
+            ScreenplaysSelectionViewModel.RefreshView(filteredReports);
 
             RefreshFilterTexts();
         }
@@ -153,9 +144,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 subGenre1Range = new int[] { filterViewModel.FilteredSubGenre1MinPercentage, filterViewModel.FilteredSubGenre1MaxPercentage },
                 subGenre2Range = new int[] { filterViewModel.FilteredSubGenre2MinPercentage, filterViewModel.FilteredSubGenre2MaxPercentage };
 
-            OwnerFilterText = string.Format("Owner: {0}", string.IsNullOrEmpty(owner) ? "All Owners" : owner);
-            GenresFilterText = string.Format("Genres: Main Genre: {0} | Subgenre 1: {1} | Subgenre 2: {2}",
-                BuildGenreFilterText(genre, genreRange), BuildGenreFilterText(subGenre1, subGenre1Range),
+            FilterText = string.Format("Owner: {0} | Main Genre: {1} | Subgenre 1: {2} | Subgenre 2: {3}",
+                string.IsNullOrEmpty(owner) ? "All Owners" : owner,
+                BuildGenreFilterText(genre, genreRange),
+                BuildGenreFilterText(subGenre1, subGenre1Range),
                 BuildGenreFilterText(subGenre2, subGenre2Range));
         }
 

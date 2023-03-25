@@ -123,7 +123,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     Title = genreName,
                     Values = new ChartValues<ObservableValue> { new ObservableValue(double.Parse(textualPercentage)) },
-                    FontSize = 15,
+                    FontSize = 30,
                     ColumnPadding = 30,
                     DataLabels = true
                 });

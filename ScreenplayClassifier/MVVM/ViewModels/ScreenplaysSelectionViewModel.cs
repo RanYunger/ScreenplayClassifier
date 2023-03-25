@@ -186,8 +186,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         /// <summary>
         /// Initiates the view model.
-        /// </summary>
         /// <param name="screenplaySelectionView">The view to obtain controls from</param>
+        /// </summary>
         public void Init(ScreenplaysSelectionView screenplaysSelectionView)
         {
             ScreenplaysSelectionView = screenplaysSelectionView;
@@ -195,7 +195,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         /// <summary>
         /// Refreshes the view.
-        /// <param name="reports">The reports to select from</param>
         /// </summary>
         public void RefreshView(ObservableCollection<ReportModel> reports)
         {

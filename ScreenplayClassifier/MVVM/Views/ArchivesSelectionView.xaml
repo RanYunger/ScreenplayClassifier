@@ -16,15 +16,11 @@
         <GroupBox Grid.Row="0" HorizontalAlignment="Center" FontSize="20" Width="840" Margin="10" Style="{StaticResource GroupBoxStyle}">
             <GroupBox.Header>
                 <WrapPanel>
-                    <Image Source="/Media/Images/Filter.png" Height="30" Width="30"/>
-                    <TextBlock Text="Active Filter" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    <Image Source="/Media/Images/Filter.png" Height="40" Width="40"/>
+                    <TextBlock Text="Active Filter" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
                 </WrapPanel>
             </GroupBox.Header>
-
-            <StackPanel>
-                <TextBlock Text="{Binding OwnerFilterText}" FontSize="15" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Text="{Binding GenresFilterText}" FontSize="15" Style="{StaticResource TextBlockStyle}"/>
-            </StackPanel>
+            <TextBlock Text="{Binding FilterText}" FontSize="15" Style="{StaticResource TextBlockStyle}"/>
         </GroupBox>
 
         <v:ScreenplaysSelectionView x:Name="ScreenplaysSelectionView" Grid.Row="1"/>
@@ -38,8 +34,8 @@
                     </WrapPanel>
                 </Button.Content>
             </Button>
-            <Button Command="{Binding ShowInspectionViewCommand}" Width="150" IsEnabled="{Binding Path=ScreenplaysSelectionViewModel.CanInspect}"
-                    Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
+            <Button Command="{Binding ShowReportsInspectionViewCommand}" Width="150"
+                    IsEnabled="{Binding Path=ScreenplaysSelectionViewModel.CanInspect}" Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <WrapPanel>
                         <TextBlock Text="Inspect" FontSize="20" TextAlignment="Center" Margin="0,0,40,0" Style="{StaticResource TextBlockStyle}"/>

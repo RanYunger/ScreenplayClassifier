@@ -43,7 +43,6 @@
     <None Remove="Media\GIFs\Inspect.gif" />
     <None Remove="Media\GIFs\Loading.gif" />
     <None Remove="Media\GIFs\Processing.gif" />
-    <None Remove="Media\Images\Activate.png" />
     <None Remove="Media\Images\AddUser.png" />
     <None Remove="Media\Images\Admin.png" />
     <None Remove="Media\Images\Archives.png" />
@@ -57,7 +56,6 @@
     <None Remove="Media\Images\Complete.png" />
     <None Remove="Media\Images\Error.png" />
     <None Remove="Media\Images\Filter.png" />
-    <None Remove="Media\Images\First.png" />
     <None Remove="Media\Images\Genres\Action.png" />
     <None Remove="Media\Images\Genres\Adventure.png" />
     <None Remove="Media\Images\Genres\Comedy.png" />
@@ -77,9 +75,7 @@
     <None Remove="Media\Images\Icon.png" />
     <None Remove="Media\Images\Info.png" />
     <None Remove="Media\Images\Invisible.png" />
-    <None Remove="Media\Images\Last.png" />
     <None Remove="Media\Images\Member.png" />
-    <None Remove="Media\Images\More.png" />
     <None Remove="Media\Images\Next.png" />
     <None Remove="Media\Images\Options.png" />
     <None Remove="Media\Images\Password.png" />
@@ -207,9 +203,6 @@
     <Content Include="Media\GIFs\Processing.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\Activate.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\Images\AddUser.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -247,9 +240,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Filter.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\First.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\RemoveUser.png">
@@ -312,13 +302,7 @@
     <Content Include="Media\Images\Info.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\Last.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\Images\Member.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\More.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Next.png">

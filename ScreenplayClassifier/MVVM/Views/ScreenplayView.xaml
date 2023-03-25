@@ -6,7 +6,10 @@
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <v:ScreenplayOverviewView x:Name="ScreenplayOverviewView"/>
-        <v:ScreenplayInspectionView x:Name="ScreenplayInspectionView" Visibility="Collapsed"/>
+        <StackPanel>
+            <TextBlock Text="{Binding ScreenplayTitle}" FontSize="50" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <v:ScreenplayOverviewView x:Name="ScreenplayOverviewView"/>
+            <v:ScreenplayInspectionView x:Name="ScreenplayInspectionView" Visibility="Collapsed"/>
+        </StackPanel>
     </Grid>
 </UserControl>

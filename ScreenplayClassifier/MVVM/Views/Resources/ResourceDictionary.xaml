@@ -137,6 +137,7 @@
     <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
         <Setter Property="Background" Value="{StaticResource GroupBoxBackground}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="Bold"/>
     </Style>
 

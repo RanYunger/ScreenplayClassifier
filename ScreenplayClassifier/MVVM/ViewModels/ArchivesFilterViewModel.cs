@@ -279,24 +279,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             get
             {
-                RadioButton allOwnersRadioButton = null, thisOwnerRadioButton = null;
+                RadioButton allOwnersRadioButton = null;
 
                 return new Command(() =>
                 {
-
                     // Validation
                     if (ArchivesFilterView == null)
                         return;
 
                     allOwnersRadioButton = (RadioButton)ArchivesFilterView.FindName("AllOwnersRadioButton");
-                    thisOwnerRadioButton = (RadioButton)ArchivesFilterView.FindName("ThisOwnerRadioButton");
-
-                    if ((thisOwnerRadioButton.IsChecked.Value) && (string.IsNullOrEmpty(FilteredOwner)))
-                    {
-                        MessageBoxHandler.Show("Choose an owner to filter by.", string.Empty, 5, MessageBoxImage.Error);
-                        return;
-                    }
-
                     FilteredOwner = allOwnersRadioButton.IsChecked.Value ? string.Empty : FilteredOwner;
 
                     // Updates all filters
