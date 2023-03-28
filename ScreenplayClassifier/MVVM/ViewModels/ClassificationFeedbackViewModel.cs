@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -76,7 +75,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 return new Command(() =>
                 {
-                    MessageBoxResult proceedDecision;
+                    bool proceedConfirmation;
 
                     // Validation
                     if (ClassificationFeedbackView == null)
@@ -84,12 +83,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     if ((ScreenplayOffset >= 0) && (!FeedbackedScreenplays[ScreenplayOffset].Isfeedbacked))
                     {
-                        MessageBoxHandler.ShowErrorBox("Complete feedback before proceeding");
+                        MessageBox.ShowError("Complete feedback before proceeding");
                         return;
                     }
 
-                    proceedDecision = MessageBoxHandler.ShowQuestionBox("Are you sure?\nOnce confirmed, your classification cannot be changed.");
-                    if (proceedDecision == MessageBoxResult.Yes)
+                    proceedConfirmation = MessageBox.ShowQuestion("Are you sure?\nOnce confirmed, your classification cannot be changed.");
+                    if (proceedConfirmation)
                     {
                         screenplayView = (ScreenplayView)ClassificationFeedbackView.FindName("ScreenplayView");
 
@@ -127,7 +126,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void ShowView()
         {
             if (ClassificationFeedbackView != null)
-                App.Current.Dispatcher.Invoke(() => ClassificationFeedbackView.Visibility = Visibility.Visible);
+                App.Current.Dispatcher.Invoke(() => ClassificationFeedbackView.Visibility = System.Windows.Visibility.Visible);
         }
 
         /// <summary>
@@ -152,7 +151,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void HideView()
         {
             if (ClassificationFeedbackView != null)
-                App.Current.Dispatcher.Invoke(() => ClassificationFeedbackView.Visibility = Visibility.Collapsed);
+                App.Current.Dispatcher.Invoke(() => ClassificationFeedbackView.Visibility = System.Windows.Visibility.Collapsed);
         }
     }
 }

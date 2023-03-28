@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -149,14 +148,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if (IsNewPasswordVisible)
                     {
                         newPasswordTextBox.Text = newPasswordBox.Password;
-                        newPasswordTextBox.Visibility = Visibility.Visible;
-                        newPasswordBox.Visibility = Visibility.Collapsed;
+                        newPasswordTextBox.Visibility = System.Windows.Visibility.Visible;
+                        newPasswordBox.Visibility = System.Windows.Visibility.Collapsed;
                     }
                     else
                     {
                         newPasswordBox.Password = newPasswordTextBox.Text;
-                        newPasswordTextBox.Visibility = Visibility.Collapsed;
-                        newPasswordBox.Visibility = Visibility.Visible;
+                        newPasswordTextBox.Visibility = System.Windows.Visibility.Collapsed;
+                        newPasswordBox.Visibility = System.Windows.Visibility.Visible;
                     }
                 });
             }
@@ -181,26 +180,26 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     // Validations
                     if (string.IsNullOrEmpty(NewPassword))
                     {
-                        MessageBoxHandler.ShowErrorBox("Enter new password");
+                        MessageBox.ShowError("Enter new password.");
                         return;
                     }
 
                     if (!passwordRegex.IsMatch(NewPassword))
                     {
-                        MessageBoxHandler.ShowErrorBox("Password must contain 2-3 capital letters followed by 5-6 digits.");
+                        MessageBox.ShowError("Password must contain 2-3 capital letters followed by 5-6 digits.");
                         return;
                     }
 
                     if (OldPassword.Equals(NewPassword))
                     {
-                        MessageBoxHandler.ShowErrorBox("This is your current password");
+                        MessageBox.ShowError("This is your current password.");
                         return;
                     }
 
                     ConfirmedPassword = confirmPasswordBox.Password.Trim();
                     if (!ConfirmedPassword.Equals(NewPassword))
                     {
-                        MessageBoxHandler.ShowErrorBox("New password must be confirmed");
+                        MessageBox.ShowError("New password must be confirmed.");
                         return;
                     }
 
@@ -210,7 +209,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     newPasswordTextBox.Clear();
                     confirmPasswordBox.Clear();
 
-                    MessageBoxHandler.ShowInformationBox("Password changed successfuly");
+                    MessageBox.ShowInformation("Password changed successfuly.");
                 });
             }
         }
@@ -311,13 +310,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     if (!usernameRegex.IsMatch(usernameInput))
                     {
-                        MessageBoxHandler.ShowErrorBox("Username must contain 2-3 capital words seperated by dots (E.G. Ran.Yunger, Shy.Ohev.Zion)");
+                        MessageBox.ShowError("Username must contain 2-3 capital words seperated by dots (E.G. Ran.Yunger, Shy.Ohev.Zion)");
                         return;
                     }
 
                     AuthenticatedUsers.Add(new UserModel(usernameInput, UserModel.UserRole.MEMBER, "ABC123"));
 
-                    MessageBoxHandler.ShowInformationBox(usernameInput + " added successfuly");
+                    MessageBox.ShowInformation(usernameInput + " added successfuly");
                 });
             }
         }
@@ -328,10 +327,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    MessageBoxResult confirmResult = MessageBoxHandler.ShowQuestionBox(string.Format("Are you sure you want to remove {0}?",
+                    bool removeConfirmation = MessageBox.ShowQuestion(string.Format("Are you sure you want to remove {0}?",
                         AuthenticatedUsers[SelectedUser].Username));
 
-                    if (confirmResult == MessageBoxResult.Yes)
+                    if (removeConfirmation)
                         AuthenticatedUsers.RemoveAt(SelectedUser);
                 });
             }

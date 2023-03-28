@@ -74,6 +74,7 @@
     <None Remove="Media\Images\Icon.ico" />
     <None Remove="Media\Images\Icon.png" />
     <None Remove="Media\Images\Info.png" />
+    <None Remove="Media\Images\Information.png" />
     <None Remove="Media\Images\Invisible.png" />
     <None Remove="Media\Images\Member.png" />
     <None Remove="Media\Images\Next.png" />
@@ -82,6 +83,7 @@
     <None Remove="Media\Images\Percent.png" />
     <None Remove="Media\Images\Posters.png" />
     <None Remove="Media\Images\Previous.png" />
+    <None Remove="Media\Images\Question.png" />
     <None Remove="Media\Images\Reel.png" />
     <None Remove="Media\Images\RemoveUser.png" />
     <None Remove="Media\Images\Repeat.png" />
@@ -98,6 +100,7 @@
     <None Remove="Media\Images\Username.png" />
     <None Remove="Media\Images\V.png" />
     <None Remove="Media\Images\Visible.png" />
+    <None Remove="Media\Images\Warning.png" />
     <None Remove="Media\Images\X.png" />
     <None Remove="Media\Videos\About.mp4" />
     <None Remove="Media\Videos\You Shall Not Pass.mp4" />
@@ -242,6 +245,12 @@
     <Content Include="Media\Images\Filter.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\Information.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Question.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\RemoveUser.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -363,6 +372,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Visible.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Warning.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\X.png">

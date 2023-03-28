@@ -56,9 +56,10 @@
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, Mode=TwoWay}" Width="50"
-                                            ElementStyle="{StaticResource BaseCheckBoxStyle}" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
+                                            ElementStyle="{StaticResource BaseCheckBoxStyle}"
+                                            HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
                     </DataGridCheckBoxColumn>
-                    <DataGridTextColumn Header="Screenplay Name" Binding="{Binding Path=ScreenplayFileName}" Width="590" IsReadOnly="True"
+                    <DataGridTextColumn Header="Screenplay Title" Binding="{Binding Path=ScreenplayFileName}" Width="590" IsReadOnly="True"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>

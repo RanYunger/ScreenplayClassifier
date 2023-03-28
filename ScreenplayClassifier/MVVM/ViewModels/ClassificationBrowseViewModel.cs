@@ -8,7 +8,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -147,7 +146,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                             CheckedScreenplays.Add(browsedScreenplay);
                         }
                         else
-                            MessageBoxHandler.ShowErrorBox("You can choose up to 5 screenplays");
+                            MessageBox.ShowError("You can choose up to 5 screenplays");
                     }
 
                     CanClassify = CheckedScreenplays.Count > 0;
@@ -242,7 +241,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void ShowView()
         {
             if (ClassificationBrowseView != null)
-                App.Current.Dispatcher.Invoke(() => ClassificationBrowseView.Visibility = Visibility.Visible);
+                App.Current.Dispatcher.Invoke(() => ClassificationBrowseView.Visibility = System.Windows.Visibility.Visible);
         }
 
         /// <summary>
@@ -264,7 +263,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void HideView()
         {
             if (ClassificationBrowseView != null)
-                App.Current.Dispatcher.Invoke(() => ClassificationBrowseView.Visibility = Visibility.Collapsed);
+                App.Current.Dispatcher.Invoke(() => ClassificationBrowseView.Visibility = System.Windows.Visibility.Collapsed);
         }
     }
 }
