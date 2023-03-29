@@ -63,8 +63,8 @@
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <TextBlock Text="Choose up to 5 screenplays to classify" FontSize="20" 
-                       Visibility="{Binding ElementName=ClearAllButton, Path=Visibility}" Margin="10,0,0,10" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding InstructionText}" FontSize="20" Visibility="{Binding ElementName=ClearAllButton, Path=Visibility}"
+                       Margin="10,0,0,10" Style="{StaticResource TextBlockStyle}"/>
             <Button Command="{Binding ClassifyCommand}" Width="150" Visibility="{Binding ElementName=ClearAllButton, Path=Visibility}"
                     IsEnabled="{Binding CanClassify}" Margin="10,0,0,10" Style="{StaticResource ButtonStyle}">
                 <Button.Content>

@@ -22,10 +22,10 @@
             </Image>
             <TextBlock Text="Classifier" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
-        <Menu Height="40" Width="170" HorizontalAlignment="Right" Focusable="False" Margin="0,0,80,0" Style="{StaticResource MenuStyle}">
+        <Menu Height="40" Width="40" HorizontalAlignment="Right" Focusable="False" Margin="0,0,120,0" Style="{StaticResource MenuStyle}">
             <MenuItem Style="{StaticResource MenuItemStyle}">
                 <MenuItem.Header>
-                    <Image Source="/Media/Images/Options.png" Height="40" Width="170" Margin="-7,0,0,0"/>
+                    <Image Source="/Media/Images/Options.png" Height="40" Width="40" Margin="-7,0,0,0"/>
                 </MenuItem.Header>
                 <MenuItem Header="Home" Command="{Binding ShowHomeCommand}" FontSize="20" Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>

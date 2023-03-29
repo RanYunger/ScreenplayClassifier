@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
@@ -120,7 +121,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             ScreenplaysSelectionViewModel.RefreshView(filteredReports);
 
-            RefreshFilterTexts();
+            RefreshFilterText();
         }
 
         /// <summary>
@@ -135,8 +136,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Refreshes the filter texts.
         /// </summary>
-        private void RefreshFilterTexts()
+        private void RefreshFilterText()
         {
+            UserModel user = ArchivesViewModel.MainViewModel.UserToolbarViewModel.User;
             ArchivesFilterViewModel filterViewModel = ArchivesViewModel.ArchivesFilterViewModel;
             string owner = filterViewModel.FilteredOwner, genre = filterViewModel.FilteredGenre,
                 subGenre1 = filterViewModel.FilteredSubGenre1, subGenre2 = filterViewModel.FilteredSubGenre2;
@@ -144,8 +146,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 subGenre1Range = new int[] { filterViewModel.FilteredSubGenre1MinPercentage, filterViewModel.FilteredSubGenre1MaxPercentage },
                 subGenre2Range = new int[] { filterViewModel.FilteredSubGenre2MinPercentage, filterViewModel.FilteredSubGenre2MaxPercentage };
 
-            FilterText = string.Format("Owner: {0} | Main Genre: {1} | Subgenre 1: {2} | Subgenre 2: {3}",
-                string.IsNullOrEmpty(owner) ? "All Owners" : owner,
+            // Builds the filter string 
+            FilterText = string.Empty;
+            if (user.Role == UserModel.UserRole.ADMIN)
+                FilterText = string.Format("Owner: {0} | ", string.IsNullOrEmpty(owner) ? "All Owners" : owner);
+
+            FilterText += string.Format("Main Genre: {0} | Subgenre 1: {1} | Subgenre 2: {2}",
                 BuildGenreFilterText(genre, genreRange),
                 BuildGenreFilterText(subGenre1, subGenre1Range),
                 BuildGenreFilterText(subGenre2, subGenre2Range));

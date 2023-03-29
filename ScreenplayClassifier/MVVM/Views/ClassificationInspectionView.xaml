@@ -103,14 +103,13 @@
                                                 <Setter Property="FontWeight" Value="Bold"/>
                                                 <Setter Property="IsReadOnly" Value="True"/>
                                                 <Setter Property="IsReadOnlyCaretVisible" Value="True"/>
+                                                <Setter Property="Foreground" Value="White"/>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Path=IsGenreClassifiedCorrectly}" Value="True">
                                                         <Setter Property="Background" Value="Green"/>
-                                                        <Setter Property="Foreground" Value="White"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Path=IsGenreClassifiedCorrectly}" Value="False">
                                                         <Setter Property="Background" Value="Red"/>
-                                                        <Setter Property="Foreground" Value="Black"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -122,14 +121,13 @@
                                                 <Setter Property="FontWeight" Value="Bold"/>
                                                 <Setter Property="IsReadOnly" Value="True"/>
                                                 <Setter Property="IsReadOnlyCaretVisible" Value="True"/>
+                                                <Setter Property="Foreground" Value="White"/>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Path=IsSubGenre1ClassifiedCorrectly}" Value="True">
                                                         <Setter Property="Background" Value="Green"/>
-                                                        <Setter Property="Foreground" Value="White"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Path=IsSubGenre1ClassifiedCorrectly}" Value="False">
                                                         <Setter Property="Background" Value="Red"/>
-                                                        <Setter Property="Foreground" Value="Black"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -141,14 +139,13 @@
                                                 <Setter Property="FontWeight" Value="Bold"/>
                                                 <Setter Property="IsReadOnly" Value="True"/>
                                                 <Setter Property="IsReadOnlyCaretVisible" Value="True"/>
+                                                <Setter Property="Foreground" Value="White"/>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Path=IsSubGenre2ClassifiedCorrectly}" Value="True">
                                                         <Setter Property="Background" Value="Green"/>
-                                                        <Setter Property="Foreground" Value="White"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Path=IsSubGenre2ClassifiedCorrectly}" Value="False">
                                                         <Setter Property="Background" Value="Red"/>
-                                                        <Setter Property="Foreground" Value="Black"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -229,14 +226,13 @@
                                                 <Setter Property="FontWeight" Value="Bold"/>
                                                 <Setter Property="IsReadOnly" Value="True"/>
                                                 <Setter Property="IsReadOnlyCaretVisible" Value="True"/>
+                                                <Setter Property="Foreground" Value="White"/>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Path=IsGenreClassifiedCorrectly}" Value="True">
                                                         <Setter Property="Background" Value="Green"/>
-                                                        <Setter Property="Foreground" Value="White"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Path=IsGenreClassifiedCorrectly}" Value="False">
                                                         <Setter Property="Background" Value="Red"/>
-                                                        <Setter Property="Foreground" Value="Black"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -248,14 +244,13 @@
                                                 <Setter Property="FontWeight" Value="Bold"/>
                                                 <Setter Property="IsReadOnly" Value="True"/>
                                                 <Setter Property="IsReadOnlyCaretVisible" Value="True"/>
+                                                <Setter Property="Foreground" Value="White"/>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Path=IsSubGenre1ClassifiedCorrectly}" Value="True">
                                                         <Setter Property="Background" Value="Green"/>
-                                                        <Setter Property="Foreground" Value="White"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Path=IsSubGenre1ClassifiedCorrectly}" Value="False">
                                                         <Setter Property="Background" Value="Red"/>
-                                                        <Setter Property="Foreground" Value="Black"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -267,14 +262,13 @@
                                                 <Setter Property="FontWeight" Value="Bold"/>
                                                 <Setter Property="IsReadOnly" Value="True"/>
                                                 <Setter Property="IsReadOnlyCaretVisible" Value="True"/>
+                                                <Setter Property="Foreground" Value="White"/>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Path=IsSubGenre2ClassifiedCorrectly}" Value="True">
                                                         <Setter Property="Background" Value="Green"/>
-                                                        <Setter Property="Foreground" Value="White"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Path=IsSubGenre2ClassifiedCorrectly}" Value="False">
                                                         <Setter Property="Background" Value="Red"/>
-                                                        <Setter Property="Foreground" Value="Black"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>

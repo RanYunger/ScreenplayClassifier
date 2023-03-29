@@ -13,14 +13,14 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Row="0" HorizontalAlignment="Center" FontSize="20" Width="840" Margin="10" Style="{StaticResource GroupBoxStyle}">
+        <GroupBox Grid.Row="0" HorizontalAlignment="Center" FontSize="20" Margin="10" Style="{StaticResource GroupBoxStyle}">
             <GroupBox.Header>
                 <WrapPanel>
                     <Image Source="/Media/Images/Filter.png" Height="40" Width="40"/>
                     <TextBlock Text="Active Filter" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
                 </WrapPanel>
             </GroupBox.Header>
-            <TextBlock Text="{Binding FilterText}" FontSize="15" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding FilterText}" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
         </GroupBox>
 
         <v:ScreenplaysSelectionView x:Name="ScreenplaysSelectionView" Grid.Row="1"/>

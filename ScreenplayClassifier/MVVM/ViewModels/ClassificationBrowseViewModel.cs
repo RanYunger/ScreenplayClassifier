@@ -21,6 +21,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private ObservableCollection<SelectionModel> browsedScreenplays, checkedScreenplays;
         private int selectedScreenplay;
         private bool canBrowse, canClear, canSelect, canClassify;
+        private string instructionText;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -115,6 +116,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public string InstructionText
+        {
+            get { return instructionText; }
+            set
+            {
+                instructionText = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("InstructionText"));
+            }
+        }
+
         // Constructors
         public ClassificationBrowseViewModel() { }
 
@@ -181,6 +194,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     CanClear = BrowsedScreenplays.Count > 0;
                     CanSelect = BrowsedScreenplays.Count > 0;
+                    InstructionText = string.Format("Choose {0}screenplays to classify", BrowsedScreenplays.Count > 5 ? "up to 5 " : string.Empty);
                 });
             }
         }
