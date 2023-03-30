@@ -17,8 +17,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private Predicate<object> titleFilter;
 
         private ObservableCollection<SelectionModel> classifiedScreenplays, checkedScreenplays;
+        private string noScreenplaysMessage;
         private int selectedScreenplay;
-        private bool canInspect;
+        private bool canSelect, canInspect;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -49,6 +50,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public string NoScreenplaysMessage
+        {
+            get { return noScreenplaysMessage; }
+            set
+            {
+                noScreenplaysMessage = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("NoScreenplaysMessage"));
+            }
+        }
+
         public int SelectedScreenplay
         {
             get { return selectedScreenplay; }
@@ -61,6 +74,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("SelectedScreenplay"));
+            }
+        }
+
+        public bool CanSelect
+        {
+            get { return canSelect; }
+            set
+            {
+                canSelect = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanSelect"));
             }
         }
 
@@ -196,8 +221,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Refreshes the view.
         /// </summary>
-        public void RefreshView(ObservableCollection<ReportModel> reports)
+        public void RefreshView(ObservableCollection<ReportModel> reports, string noResultsMessage)
         {
+            StackPanel selectionStackPanel = null;
             TextBox titleTextBox = null;
 
             ClassifiedScreenplays = new ObservableCollection<SelectionModel>();
@@ -206,8 +232,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             CheckedScreenplays = new ObservableCollection<SelectionModel>();
 
+            NoScreenplaysMessage = noResultsMessage;
             SelectedScreenplay = -1;
+            CanSelect = ClassifiedScreenplays.Count > 0;
             CanInspect = false;
+
+            selectionStackPanel = (StackPanel)ScreenplaysSelectionView.FindName("SelectionStackPanel");
+            selectionStackPanel.Visibility = CanSelect ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
 
             titleTextBox = (TextBox)ScreenplaysSelectionView.FindName("TitleTextBox");
             titleTextBox.Foreground = Brushes.Gray;

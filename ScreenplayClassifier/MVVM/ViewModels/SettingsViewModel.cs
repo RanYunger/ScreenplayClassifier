@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using static ScreenplayClassifier.MVVM.Models.UserModel;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
@@ -21,7 +22,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         private ObservableCollection<UserModel> authenticatedUsers;
         private int selectedUser;
-        private bool isNewPasswordVisible, canAdd, canRemove;
+        private bool isNewPasswordVisible, canAdd, canRemove, canChangeRole;
         private string oldPassword, newPassword, confirmedPassword;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -49,6 +50,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 selectedUser = value;
                 CanRemove = selectedUser != -1;
+                CanChangeRole = selectedUser != -1;
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("SelectedUser"));
@@ -88,6 +90,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("CanRemove"));
+            }
+        }
+
+        public bool CanChangeRole
+        {
+            get { return canChangeRole; }
+            set
+            {
+                canChangeRole = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanChangeRole"));
             }
         }
 
@@ -132,6 +146,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
+        public Command ShowHomeViewCommand
+        {
+            get { return new Command(() => MainViewModel.UserToolbarViewModel.ShowHomeViewCommand.Execute(null)); }
+        }
 
         public Command ToggleNewPasswordVisibilityCommand
         {
@@ -327,11 +345,32 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    bool removeConfirmation = MessageBox.ShowQuestion(string.Format("Are you sure you want to remove {0}?",
-                        AuthenticatedUsers[SelectedUser].Username));
+                bool removeConfirmation = MessageBox.ShowQuestion(string.Format("Are you sure you want to remove {0}?" +
+                    "\nThis action cannot be undone.", AuthenticatedUsers[SelectedUser].Username), true);
 
                     if (removeConfirmation)
                         AuthenticatedUsers.RemoveAt(SelectedUser);
+                });
+            }
+        }
+
+        public Command ChangeRoleCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    UserModel affectedUser = AuthenticatedUsers[selectedUser];
+                    UserRole newRole = affectedUser.Role == UserRole.ADMIN ? UserRole.MEMBER : UserRole.ADMIN;
+                    bool changeConfirmation = MessageBox.ShowQuestion(string.Format("Are you sure you want to change {0}'s role to {1}?", 
+                        affectedUser.Username, newRole), true);
+
+                    // Changes the user's role (if confirmation is given)
+                    if (changeConfirmation)
+                    {
+                        affectedUser.Role = newRole;
+                        MessageBox.ShowInformation(string.Format("{0} has been changed to {1}.", affectedUser.Username, newRole));
+                    }
                 });
             }
         }
@@ -366,6 +405,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             CanAdd = false;
             CanRemove = false;
+            CanChangeRole = false;
         }
     }
 }

@@ -6,7 +6,9 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <StackPanel HorizontalAlignment="Center">
+        <TextBlock FontSize="40" Text="{Binding NoScreenplaysMessage}" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+        <StackPanel x:Name="SelectionStackPanel" HorizontalAlignment="Center">
             <TextBlock Text="Which screenplays would you like to inspect?" FontSize="25" HorizontalAlignment="Center"
                        Style="{StaticResource TextBlockStyle}"/>
             <WrapPanel Margin="0,10,0,10">

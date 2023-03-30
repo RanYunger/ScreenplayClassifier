@@ -38,7 +38,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         return;
 
                     HideView();
-                    ReportsViewModel.ReportsInspectionViewModel.RefreshView(ScreenplaysSelectionViewModel.ClassifiedScreenplays);
+                    ReportsViewModel.ReportsInspectionViewModel.RefreshView(ScreenplaysSelectionViewModel.ClassifiedScreenplays, "Reports");
                     ReportsViewModel.ReportsInspectionViewModel.ShowView();
                 });
             }
@@ -73,7 +73,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Refreshes the view.
         /// </summary>
-        public void RefreshView() { ScreenplaysSelectionViewModel.RefreshView(ReportsViewModel.Reports); }
+        public void RefreshView() { ScreenplaysSelectionViewModel.RefreshView(ReportsViewModel.Reports, "No reports to inspect"); }
 
         /// <summary>
         /// Hides the view.

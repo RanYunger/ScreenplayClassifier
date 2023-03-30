@@ -68,28 +68,5 @@ namespace ScreenplayClassifier.MVVM.Models
             Role = role;
             Password = password;
         }
-
-        // Methods
-        #region Commands
-        [IgnoreDataMember]
-        public Command ChangeRoleCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    UserRole newRole = Role == UserRole.ADMIN ? UserRole.MEMBER : UserRole.ADMIN;
-                    bool changeConfirmation = MessageBox.ShowQuestion(string.Format("Are you sure you want to change {0}'s role?", Username));
-
-                    // Changes the user's role (if confirmation is given)
-                    if (changeConfirmation)
-                    {
-                        Role = newRole;
-                        MessageBox.ShowInformation(string.Format("{0} has been changed to {1}.", Username, Role));
-                    }
-                });
-            }
-        }
-        #endregion
     }
 }

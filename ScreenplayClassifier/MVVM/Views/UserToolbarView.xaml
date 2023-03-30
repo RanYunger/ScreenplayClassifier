@@ -22,17 +22,17 @@
             </Image>
             <TextBlock Text="Classifier" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
-        <Menu Height="40" Width="40" HorizontalAlignment="Right" Focusable="False" Margin="0,0,120,0" Style="{StaticResource MenuStyle}">
+        <Menu Height="40" Width="40" HorizontalAlignment="Right" Focusable="False" Margin="0,0,110,0" Style="{StaticResource MenuStyle}">
             <MenuItem Style="{StaticResource MenuItemStyle}">
                 <MenuItem.Header>
                     <Image Source="/Media/Images/Options.png" Height="40" Width="40" Margin="-7,0,0,0"/>
                 </MenuItem.Header>
-                <MenuItem Header="Home" Command="{Binding ShowHomeCommand}" FontSize="20" Style="{StaticResource MenuItemStyle}">
+                <MenuItem Header="Home" Command="{Binding ShowHomeViewCommand}" FontSize="20" Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>
                         <Image Source="/Media/Images/Home.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Settings" Command="{Binding ShowSettingsCommand}" FontSize="20">
+                <MenuItem Header="Settings" Command="{Binding ShowSettingsViewCommand}" FontSize="20">
                     <MenuItem.Style>
                         <Style TargetType="MenuItem">
                             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -55,7 +55,7 @@
                         <Image Source="/Media/Images/Settings.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <!--<MenuItem Header="About" Command="{Binding ShowAboutCommand}" FontSize="20" Style="{StaticResource MenuItemStyle}">
+                <!--<MenuItem Header="About" Command="{Binding ShowAboutViewCommand}" FontSize="20" Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>
                         <Image Source="/Media/Images/Info.png"/>
                     </MenuItem.Icon>

@@ -9,8 +9,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        
+
         <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
             <!--<Image Source="/Media/Images/Archives.png" Height="60" Width="60" Margin="0,0,10,0"/>-->
             <TextBlock Text="Archives" FontSize="60" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
@@ -18,6 +19,15 @@
 
         <v:ArchivesFilterView x:Name="ArchivesFilterView" Grid.Row="1"/>
         <v:ArchivesSelectionView x:Name="ArchivesSelectionView" Grid.Row="1" Visibility="Collapsed"/>
+
+        <Button Grid.Row="2" Command="{Binding ShowHomeViewCommand}" Width="150" Margin="10" Style="{StaticResource ButtonStyle}">
+            <Button.Content>
+                <WrapPanel>
+                    <TextBlock Text="Back" FontSize="20" Margin="0,0,60,0" Style="{StaticResource TextBlockStyle}"/>
+                    <Image Source="/Media/Images/Back.png" Height="30" Width="30"/>
+                </WrapPanel>
+            </Button.Content>
+        </Button>
 
     </Grid>
 </UserControl>

@@ -43,31 +43,19 @@ namespace ScreenplayClassifier.Utilities
         /// Shows a question message box.
         /// </summary>
         /// <param name="questionText">The question's text</param>
+        /// <param name="hasWarning">The indication whether the question has a warning</param>
         /// <returns>True if the the message box's question was answered with "Yes", False otherwise</returns>
-        public static bool ShowQuestion(string questionText)
+        public static bool ShowQuestion(string questionText, bool hasWarning)
         {
             MessageBoxView messageBox = new MessageBoxView();
 
-            ((MessageBoxViewModel)messageBox.DataContext).Init(messageBox, "Question", questionText);
+            ((MessageBoxViewModel)messageBox.DataContext).Init(messageBox, hasWarning ? "Warning" : "Question", questionText);
 
             // Clears the previous question's result and blocks until the new question is answered
             QuestionResult = MessageBoxResult.None;
             messageBox.ShowDialog();
 
             return QuestionResult == MessageBoxResult.Yes;
-        }
-
-        /// <summary>
-        /// Shows a warning message box.
-        /// </summary>
-        /// <param name="warningText">The warning's text</param>
-        public static void ShowWarning(string warningText)
-        {
-            MessageBoxView messageBox = new MessageBoxView();
-
-            ((MessageBoxViewModel)messageBox.DataContext).Init(messageBox, "Warning", warningText);
-
-            messageBox.Show();
         }
     }
 }

@@ -23,6 +23,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ArchivesSelectionViewModel ArchivesInspectionViewModel { get; private set; }
 
         #region Commands
+        public Command ShowHomeViewCommand
+        {
+            get { return new Command(() => MainViewModel.UserToolbarViewModel.ShowHomeViewCommand.Execute(null)); }
+        }
+
         public Command StopMusicCommand
         {
             get

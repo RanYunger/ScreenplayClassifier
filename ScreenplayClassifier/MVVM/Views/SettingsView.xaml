@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="90"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
@@ -124,61 +125,63 @@
                             </i:Interaction.Triggers>
                         </TextBox>
                         <Image Source="/Media/Images/Search.png" Height="30" Width="30" Margin="-45,5,5,5"/>
-                        <Button Command="{Binding AddMemberCommand}" IsEnabled="{Binding CanAdd}" Width="120" Margin="5"
+                        <Button Command="{Binding AddMemberCommand}" IsEnabled="{Binding CanAdd}" Width="180" Margin="5"
                                 Style="{StaticResource ButtonStyle}">
                             <Button.Content>
                                 <WrapPanel>
-                                    <TextBlock Text="Add" FontSize="20" TextAlignment="Center" Margin="0,0,40,0" Style="{StaticResource TextBlockStyle}"/>
+                                    <TextBlock Text="Add" FontSize="20" TextAlignment="Center" Margin="0,0,100,0" Style="{StaticResource TextBlockStyle}"/>
                                     <Image Source="/Media/Images/AddUser.png" Height="30" Width="30"/>
                                 </WrapPanel>
                             </Button.Content>
                         </Button>
-                        <Button Command="{Binding RemoveMemberCommand}" IsEnabled="{Binding CanRemove}" Width="120" Margin="5"
+                        <Button Command="{Binding RemoveMemberCommand}" IsEnabled="{Binding CanRemove}" Width="180" Margin="5"
                                 Style="{StaticResource ButtonStyle}">
                             <Button.Content>
                                 <WrapPanel>
-                                    <TextBlock Text="Remove" FontSize="20" TextAlignment="Center" Margin="0,0,10,0" Style="{StaticResource TextBlockStyle}"/>
+                                    <TextBlock Text="Remove" FontSize="20" TextAlignment="Center" Margin="0,0,60,0"
+                                               Style="{StaticResource TextBlockStyle}"/>
                                     <Image Source="/Media/Images/RemoveUser.png" Height="30" Width="30"/>
+                                </WrapPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Command="{Binding ChangeRoleCommand}" IsEnabled="{Binding CanChangeRole}" Width="180" Margin="5"
+                                Style="{StaticResource ButtonStyle}">
+                            <Button.Content>
+                                <WrapPanel>
+                                    <TextBlock Text="Change Role" FontSize="20" TextAlignment="Center" Margin="0,0,20,0"
+                                               Style="{StaticResource TextBlockStyle}"/>
+                                    <Image Source="/Media/Images/AddUser.png" Height="30" Width="30"/>
                                 </WrapPanel>
                             </Button.Content>
                         </Button>
                     </WrapPanel>
                     <DataGrid ItemsSource="{Binding AuthenticatedUsers}" SelectedIndex="{Binding SelectedUser}" IsReadOnly="True"
-                          SelectionMode="Single" VerticalScrollBarVisibility="Visible" Margin="10,0,10,0" Style="{StaticResource DataGridStyle}">
+                          SelectionMode="Single" VerticalScrollBarVisibility="Visible" HorizontalAlignment="Center" Margin="10,0,10,0"
+                              Style="{StaticResource DataGridStyle}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Username" Binding="{Binding Path=Username}" Width="210"
+                            <DataGridTextColumn Header="Username" Binding="{Binding Path=Username}" Width="300"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                             <DataGridTextColumn Header="Role" Binding="{Binding Path=Role}" Width="100"
-                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                            <DataGridTemplateColumn Width="200" HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Command="{Binding ChangeRoleCommand}" Margin="10,0,10,0">
-                                            <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
-                                                    <Setter Property="FontWeight" Value="Bold"/>
-                                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                                    <Setter Property="Cursor" Value="Hand"/>
-                                                    <Setter Property="Width" Value="150"/>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Role}" Value="Member">
-                                                            <Setter Property="Content" Value="Make ADMIN"/>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding Role}" Value="Admin">
-                                                            <Setter Property="Content" Value="Make MEMBER"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Button.Style>
-                                        </Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                                                HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
             </GroupBox>
         </WrapPanel>
+
+        <Button Grid.Row="2" Command="{Binding ShowHomeViewCommand}" Width="150" Margin="10" Style="{StaticResource ButtonStyle}">
+            <Button.Content>
+                <WrapPanel>
+                    <TextBlock Text="Back" FontSize="20" Margin="0,0,60,0" Style="{StaticResource TextBlockStyle}"/>
+                    <Image Source="/Media/Images/Back.png" Height="30" Width="30"/>
+                </WrapPanel>
+            </Button.Content>
+        </Button>
     </Grid>
 </UserControl>

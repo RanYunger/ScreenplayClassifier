@@ -12,7 +12,8 @@
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="{Binding TitleText}" FontSize="50" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Grid.Row="0" Text="{Binding TitleText}" FontSize="50" HorizontalAlignment="Center" Margin="10"
+                   Style="{StaticResource TextBlockStyle}"/>
         <DataGrid Grid.Row="1" ItemsSource="{Binding ClassifiedScreenplays}" IsReadOnly="True" HorizontalAlignment="Center" Margin="10"
                   Style="{StaticResource DataGridStyle}">
             <DataGrid.Columns>

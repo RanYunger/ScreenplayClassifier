@@ -17,9 +17,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private ObservableCollection<ReportModel> inspectedReports;
-        private string screenplayOwner;
+        private string parentView, screenplayOwner;
         private int selectedScreenplay;
-        private bool canGoToPrevious, canGoToNext;
+        private bool canFlutter, canGoToPrevious, canGoToNext;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,6 +36,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("InspectedReports"));
+            }
+        }
+
+        public string ParentView
+        {
+            get { return parentView; }
+            set
+            {
+                parentView = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ParentView"));
             }
         }
 
@@ -63,6 +75,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("SelectedScreenplay"));
+            }
+        }
+
+        public bool CanFlutter
+        {
+            get { return canFlutter; }
+            set
+            {
+                canFlutter = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("CanFlutter"));
             }
         }
 
@@ -113,23 +137,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public Command ShowReportsSelectionViewCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    // Validation
-                    if (ReportsInspectionView == null)
-                        return;
-
-                    HideView();
-                    //ReportsViewModel.ReportsSelectionViewModel.RefreshView();
-                    ReportsViewModel.ReportsSelectionViewModel.ShowView();
-                });
-            }
-        }
-
         public Command GoToPreviousCommand
         {
             get
@@ -140,6 +147,40 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     CanGoToPrevious = (InspectedReports.Count > 1) && (SelectedScreenplay > 0);
                     CanGoToNext = (InspectedReports.Count > 1) && (SelectedScreenplay < InspectedReports.Count - 1);
+                });
+            }
+        }
+
+        public Command ShowParentViewCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    MainViewModel mainViewModel = null;
+                    ArchivesViewModel archivesViewModel = null;
+
+                    // Validation
+                    if (ReportsInspectionView == null)
+                        return;
+
+                    HideView();
+
+                    if (ParentView == "Reports")
+                    {
+                        ReportsViewModel.ReportsSelectionViewModel.RefreshView();
+                        ReportsViewModel.ReportsSelectionViewModel.ShowView();
+                    }
+                    else if (ParentView == "Archives")
+                    {
+                        mainViewModel = ReportsViewModel.MainViewModel;
+                        archivesViewModel = (ArchivesViewModel)mainViewModel.ArchivesView.DataContext;
+
+                        archivesViewModel.ArchivesFilterViewModel.HideView();
+                        archivesViewModel.ArchivesInspectionViewModel.RefreshView();
+                        archivesViewModel.ArchivesInspectionViewModel.ShowView();
+                        mainViewModel.ShowView(mainViewModel.ArchivesView);
+                    }
                 });
             }
         }
@@ -155,32 +196,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     CanGoToPrevious = (InspectedReports.Count > 1) && (SelectedScreenplay > 0);
                     CanGoToNext = (InspectedReports.Count > 1) && (SelectedScreenplay < InspectedReports.Count - 1);
-                });
-            }
-        }
-
-        public Command ShowArchivesInspectionViewCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    MainViewModel mainViewModel = null;
-                    ArchivesViewModel archivesViewModel = null;
-
-                    // Validation
-                    if (ReportsInspectionView == null)
-                        return;
-
-                    mainViewModel = ReportsViewModel.MainViewModel;
-                    archivesViewModel = (ArchivesViewModel)mainViewModel.ArchivesView.DataContext;
-
-                    HideView();
-                    archivesViewModel.ArchivesFilterViewModel.HideView();
-                    archivesViewModel.ArchivesInspectionViewModel.RefreshView();
-                    archivesViewModel.ArchivesInspectionViewModel.ShowView();
-
-                    mainViewModel.ShowView(mainViewModel.ArchivesView);
                 });
             }
         }
@@ -200,6 +215,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ScreenplayOwner = string.Empty;
             SelectedScreenplay = -1;
 
+            CanFlutter = false;
             CanGoToPrevious = false;
             CanGoToNext = false;
         }
@@ -216,8 +232,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Refreshes the view.
         /// <param name="selectedReports">The reports selected for inspection</param>
+        /// <param name="parent">The view from which the ReportsInspectionView was called</param>
         /// </summary>
-        public void RefreshView(ObservableCollection<SelectionModel> selectedReports)
+        public void RefreshView(ObservableCollection<SelectionModel> selectedReports, string parent)
         {
             InspectedReports.Clear();
             foreach (SelectionModel selectedReport in selectedReports)
@@ -225,6 +242,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     InspectedReports.Add(ReportsViewModel.FindReportByTitle(selectedReport.ScreenplayFileName));
 
             SelectedScreenplay = -1;
+            ParentView = parent;
+            CanFlutter = InspectedReports.Count > 1;
 
             GoToNextCommand.Execute(null);
         }

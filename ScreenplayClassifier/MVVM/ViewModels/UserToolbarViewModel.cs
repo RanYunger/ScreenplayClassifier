@@ -40,17 +40,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command ShowHomeCommand
+        public Command ShowHomeViewCommand
         {
             get { return new Command(() => MainViewModel.ShowView(MainViewModel.HomeView)); }
         }
 
-        public Command ShowSettingsCommand
+        public Command ShowSettingsViewCommand
         {
             get { return new Command(() => MainViewModel.ShowView(MainViewModel.SettingsView)); }
         }
 
-        public Command ShowAboutCommand
+        public Command ShowAboutViewCommand
         {
             get { return new Command(() => MainViewModel.ShowView(MainViewModel.AboutView)); }
         }

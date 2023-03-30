@@ -67,7 +67,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     MainViewModel mainViewModel = ArchivesViewModel.MainViewModel;
                     ReportsViewModel reportsViewModel = (ReportsViewModel)mainViewModel.ReportsView.DataContext;
 
-                    reportsViewModel.ReportsInspectionViewModel.RefreshView(ScreenplaysSelectionViewModel.ClassifiedScreenplays);
+                    reportsViewModel.ReportsInspectionViewModel.RefreshView(ScreenplaysSelectionViewModel.ClassifiedScreenplays, "Archives");
 
                     reportsViewModel.ReportsSelectionViewModel.HideView();
                     reportsViewModel.ReportsInspectionViewModel.ShowView();
@@ -119,7 +119,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             foreach (ReportModel filteredReport in reportsCollectionView)
                 filteredReports.Add(filteredReport);
 
-            ScreenplaysSelectionViewModel.RefreshView(filteredReports);
+            ScreenplaysSelectionViewModel.RefreshView(filteredReports, "No screenplays matching the criteria");
 
             RefreshFilterText();
         }

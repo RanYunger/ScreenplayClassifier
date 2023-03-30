@@ -17,7 +17,7 @@
             <GroupBox.Header>
                 <WrapPanel>
                     <Image Source="/Media/Images/Filter.png" Height="40" Width="40"/>
-                    <TextBlock Text="Active Filter" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="Filter Criteria" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
                 </WrapPanel>
             </GroupBox.Header>
             <TextBlock Text="{Binding FilterText}" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
@@ -35,7 +35,24 @@
                 </Button.Content>
             </Button>
             <Button Command="{Binding ShowReportsInspectionViewCommand}" Width="150"
-                    IsEnabled="{Binding Path=ScreenplaysSelectionViewModel.CanInspect}" Margin="10,0,0,0" Style="{StaticResource ButtonStyle}">
+                    IsEnabled="{Binding Path=ScreenplaysSelectionViewModel.CanInspect}" Margin="10,0,0,0">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Width" Value="100"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=ScreenplaysSelectionViewModel.CanSelect}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=ScreenplaysSelectionViewModel.CanSelect}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
                 <Button.Content>
                     <WrapPanel>
                         <TextBlock Text="Inspect" FontSize="20" TextAlignment="Center" Margin="0,0,40,0" Style="{StaticResource TextBlockStyle}"/>

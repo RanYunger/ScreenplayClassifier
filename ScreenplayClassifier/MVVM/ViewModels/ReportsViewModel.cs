@@ -47,6 +47,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
+        public Command ShowHomeViewCommand
+        {
+            get { return new Command(() => MainViewModel.UserToolbarViewModel.ShowHomeViewCommand.Execute(null)); }
+        }
         #endregion
 
         /// <summary>
