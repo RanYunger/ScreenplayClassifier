@@ -19,7 +19,7 @@
                 <TextBlock Text="Model Classification" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
                 <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="330" FontSize="20" Hoverable="True" Margin="10">
                     <lvc:PieChart.ChartLegend>
-                        <lvc:DefaultLegend BulletSize="20" TextBlock.FontSize="20"/>
+                        <lvc:DefaultLegend BulletSize="15" HorizontalAlignment="Center" TextBlock.FontSize="15"/>
                     </lvc:PieChart.ChartLegend>
                 </lvc:PieChart>
                 <Button Command="{Binding ShowInspectionViewCommand}" Height="50" Width="210" Style="{StaticResource ButtonStyle}">

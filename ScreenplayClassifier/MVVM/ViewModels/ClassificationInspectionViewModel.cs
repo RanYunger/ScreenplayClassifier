@@ -122,12 +122,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void RefreshView()
         {
-            int correctClassifications;
-
             ClassifiedScreenplays = ClassificationViewModel.ClassificationFeedbackViewModel.FeedbackedScreenplays;
-
-            correctClassifications = new List<ScreenplayModel>(ClassifiedScreenplays).FindAll(s => s.IsClassifiedCorrectly).Count;
-            AccuracyPercent = (100.0 * correctClassifications) / ClassifiedScreenplays.Count;
+            AccuracyPercent = ClassificationViewModel.ClassificationOverviewViewModel.AccuracyPercent;
         }
 
         /// <summary>

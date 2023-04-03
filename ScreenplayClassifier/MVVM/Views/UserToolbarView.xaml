@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              MaxHeight="90" MinWidth="1200" Style="{StaticResource UserToolbarStyle}">
     <Grid>
         <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
@@ -13,13 +14,8 @@
         </WrapPanel>
         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Screenplay" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
-            <Image x:Name="IconImage" Source="/Media/Images/Icon.png" Height="40" Width="40" Margin="10,0,10,0">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDown">
-                        <i:InvokeCommandAction Command="{Binding ActivateClapperCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Image>
+            <Image gif:ImageBehavior.AnimatedSource="/Media/GIFs/Reel.gif" gif:ImageBehavior.RepeatBehavior="Forever" Height="40" Width="40"
+                   Margin="10,0,10,0"/>
             <TextBlock Text="Classifier" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
         <Menu Height="40" Width="40" HorizontalAlignment="Right" Focusable="False" Margin="0,0,110,0" Style="{StaticResource MenuStyle}">

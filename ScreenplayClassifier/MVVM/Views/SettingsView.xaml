@@ -10,7 +10,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="90"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
@@ -130,7 +129,7 @@
                             <Button.Content>
                                 <WrapPanel>
                                     <TextBlock Text="Add" FontSize="20" TextAlignment="Center" Margin="0,0,100,0" Style="{StaticResource TextBlockStyle}"/>
-                                    <Image Source="/Media/Images/AddUser.png" Height="30" Width="30"/>
+                                    <Image Source="/Media/Images/Add.png" Height="30" Width="30"/>
                                 </WrapPanel>
                             </Button.Content>
                         </Button>
@@ -140,7 +139,7 @@
                                 <WrapPanel>
                                     <TextBlock Text="Remove" FontSize="20" TextAlignment="Center" Margin="0,0,60,0"
                                                Style="{StaticResource TextBlockStyle}"/>
-                                    <Image Source="/Media/Images/RemoveUser.png" Height="30" Width="30"/>
+                                    <Image Source="/Media/Images/Remove.png" Height="30" Width="30"/>
                                 </WrapPanel>
                             </Button.Content>
                         </Button>
@@ -150,7 +149,7 @@
                                 <WrapPanel>
                                     <TextBlock Text="Change Role" FontSize="20" TextAlignment="Center" Margin="0,0,20,0"
                                                Style="{StaticResource TextBlockStyle}"/>
-                                    <Image Source="/Media/Images/AddUser.png" Height="30" Width="30"/>
+                                    <Image Source="/Media/Images/Keys.png" Height="30" Width="30"/>
                                 </WrapPanel>
                             </Button.Content>
                         </Button>
@@ -174,14 +173,5 @@
                 </StackPanel>
             </GroupBox>
         </WrapPanel>
-
-        <Button Grid.Row="2" Command="{Binding ShowHomeViewCommand}" Width="150" Margin="10" Style="{StaticResource ButtonStyle}">
-            <Button.Content>
-                <WrapPanel>
-                    <TextBlock Text="Back" FontSize="20" Margin="0,0,60,0" Style="{StaticResource TextBlockStyle}"/>
-                    <Image Source="/Media/Images/Back.png" Height="30" Width="30"/>
-                </WrapPanel>
-            </Button.Content>
-        </Button>
     </Grid>
 </UserControl>

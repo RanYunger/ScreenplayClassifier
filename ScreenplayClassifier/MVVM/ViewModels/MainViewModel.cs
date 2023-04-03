@@ -52,8 +52,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     ClassificationViewModel classificationViewModel = (ClassificationViewModel)ClassificationView.DataContext;
                     ReportsViewModel reportsViewModel = (ReportsViewModel)ReportsView.DataContext;
 
-                    ((ArchivesViewModel)ArchivesView.DataContext).StopMusicCommand.Execute(null);
-
                     // Kills the classification thread (if it's active)
                     if (classificationViewModel.ClassificationProgressViewModel.ClassificationThread != null)
                         classificationViewModel.ClassificationProgressViewModel.IsThreadAlive = false;

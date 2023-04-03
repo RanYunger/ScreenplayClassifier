@@ -155,7 +155,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ClassifiedScreenplays = ClassificationViewModel.ClassificationFeedbackViewModel.FeedbackedScreenplays;
 
             correctClassifications = new List<ScreenplayModel>(ClassifiedScreenplays).FindAll(s => s.IsClassifiedCorrectly).Count;
-            AccuracyPercent = (100.0 * correctClassifications) / ClassifiedScreenplays.Count;
+            AccuracyPercent = double.Parse(((100.0 * correctClassifications) / ClassifiedScreenplays.Count).ToString("0.00"));
 
             ClassificationViewModel.ClassificationInspectionViewModel.Init(inspectionView, ClassificationViewModel);
         }

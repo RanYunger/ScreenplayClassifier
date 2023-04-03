@@ -25,7 +25,7 @@
                     </Style>
                 </MediaElement.Style>
             </MediaElement>
-            <Image Source="/Media/Images/Icon.png" Height="250" Width="250" Margin="10">
+            <Image Source="/Media/Images/Reel.png" Height="250" Width="250" Margin="10">
                 <Image.Style>
                     <Style TargetType="Image">
                         <Style.Triggers>
@@ -40,7 +40,7 @@
                 </Image.Style>
             </Image>
             <WrapPanel HorizontalAlignment="Center" Margin="10">
-                <Image Source="/Media/Images/Username.png" Height="50" Width="50"/>
+                <Image Source="/Media/Images/User.png" Height="50" Width="50"/>
                 <StackPanel>
                     <TextBox x:Name="UsernameTextBox" Width="200" FontSize="20" VerticalAlignment="Top"
                              IsEnabled="{Binding CanSignIn}" Margin="20,0,0,0" Style="{StaticResource BaseTextBoxStyle}">
@@ -95,7 +95,7 @@
                 <Button.Content>
                     <WrapPanel>
                         <TextBlock Text="Sign in" FontSize="20" TextAlignment="Center" Margin="0,0,110,0" Style="{StaticResource TextBlockStyle}"/>
-                        <Image Source="/Media/Images/Go.png" Height="30" Width="30"/>
+                        <Image Source="/Media/Images/SignIn.png" Height="30" Width="30"/>
                     </WrapPanel>
                 </Button.Content>
             </Button>

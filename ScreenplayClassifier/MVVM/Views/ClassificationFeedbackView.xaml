@@ -12,14 +12,11 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
-        <WrapPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Screenplay Titles:" FontSize="30" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <ListView ItemsSource="{Binding ScreenplayTitles}" SelectedIndex="{Binding ScreenplayOffset}" Height="80" Width="500" FontSize="20"
-                      IsEnabled="False" Margin="10"/>
-        </WrapPanel>
-        
+        <TextBlock Text="{Binding NextTitle, StringFormat=Next: {0}}" FontSize="30"  Grid.Row="0" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+
         <v:ScreenplayView x:Name="ScreenplayView" Grid.Row="1"/>
-        
+
         <Button Grid.Row="2" Command="{Binding GoToNextCommand}" Width="130" HorizontalAlignment="Right" Margin="10"
                 Style="{StaticResource ButtonStyle}">
             <Button.Content>

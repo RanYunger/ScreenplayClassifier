@@ -146,11 +146,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command ShowHomeViewCommand
-        {
-            get { return new Command(() => MainViewModel.UserToolbarViewModel.ShowHomeViewCommand.Execute(null)); }
-        }
-
         public Command ToggleNewPasswordVisibilityCommand
         {
             get

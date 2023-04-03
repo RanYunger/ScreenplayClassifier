@@ -18,6 +18,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private ObservableCollection<ScreenplayModel> feedbackedScreenplays;
         private ObservableCollection<string> screenplayTitles;
         private int screenplayOffset;
+        private string nextTitle;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -62,6 +63,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public string NextTitle
+        {
+            get { return nextTitle; }
+            set
+            {
+                nextTitle = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("NextTitle"));
+            }
+        }
+
         // Constructors
         public ClassificationFeedbackViewModel() { }
 
@@ -95,7 +108,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                         ClassificationViewModel.FeedbackComplete = ++ScreenplayOffset == FeedbackedScreenplays.Count;
                         if (!ClassificationViewModel.FeedbackComplete)
+                        {
+                            NextTitle = ScreenplayOffset == ScreenplayTitles.Count - 1 ? "-" : ScreenplayTitles[ScreenplayOffset + 1];
                             ScreenplayViewModel.Init(screenplayView, FeedbackedScreenplays[ScreenplayOffset], true);
+                        }
                     }
                 });
             }
@@ -142,6 +158,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 ScreenplayTitles.Add(feedbackedScreenplay.Title);
 
             ScreenplayOffset = 0;
+            NextTitle = ScreenplayOffset == ScreenplayTitles.Count - 1 ? "-" : ScreenplayTitles[screenplayOffset + 1];
 
             ((ScreenplayViewModel)screenplayView.DataContext).Init(screenplayView, FeedbackedScreenplays[ScreenplayOffset], true);
         }
