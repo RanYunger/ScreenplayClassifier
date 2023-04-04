@@ -38,9 +38,9 @@
                     <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, Mode=TwoWay}" Width="50"
                                             ElementStyle="{StaticResource BaseCheckBoxStyle}"
                                             HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="Screenplay Title" Binding="{Binding Path=ScreenplayFileName}" Width="640" IsReadOnly="True"
+                    <DataGridTextColumn Header="Screenplay Title" Binding="{Binding Path=ScreenplayFileName}" Width="540" IsReadOnly="True"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="Owner" Binding="{Binding Path=OwnerName}" Width="150" IsReadOnly="True"
+                    <DataGridTextColumn Header="Owner" Binding="{Binding Path=OwnerName}" Width="250" IsReadOnly="True"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>

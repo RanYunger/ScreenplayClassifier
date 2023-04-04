@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <Grid.RowDefinitions>
@@ -12,6 +13,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
+
+        <!--TODO: PLACE THE GIF IMAGE SOMEWHERE IN THIS VIEW-->
+        <!--<Image Grid.RowSpan="2" gif:ImageBehavior.AnimatedSource="{Binding GenreGif}" gif:ImageBehavior.RepeatBehavior="Forever" Stretch="Fill"/>-->
 
         <GroupBox Grid.Row="0" HorizontalAlignment="Center" FontSize="20" Margin="10" Style="{StaticResource GroupBoxStyle}">
             <GroupBox.Header>

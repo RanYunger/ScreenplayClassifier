@@ -44,8 +44,6 @@
     <None Remove="Media\Images\About.png" />
     <None Remove="Media\Images\Add.png" />
     <None Remove="Media\Images\Archives.png" />
-    <None Remove="Media\Images\AudioOff.png" />
-    <None Remove="Media\Images\AudioOn.png" />
     <None Remove="Media\Images\Back.png" />
     <None Remove="Media\Images\BarChart.png" />
     <None Remove="Media\Images\Browse.png" />
@@ -55,7 +53,6 @@
     <None Remove="Media\Images\Error.png" />
     <None Remove="Media\Images\Filter.png" />
     <None Remove="Media\Images\Genres\Action.png" />
-    <None Remove="Media\Images\Genres\Adventure.png" />
     <None Remove="Media\Images\Genres\Comedy.png" />
     <None Remove="Media\Images\Genres\Crime.png" />
     <None Remove="Media\Images\Genres\Drama.png" />
@@ -113,6 +110,9 @@
     <Content Include="Media\Audios\Genres\Adventure.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Audios\Genres\Fantasy.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Audios\Genres\Comedy.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -123,9 +123,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Audios\Genres\Family.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Genres\Fantasy.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Audios\Genres\Horror.mp3">
@@ -143,6 +140,9 @@
     <Content Include="Media\Audios\Genres\War.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\GIFs\Genres\Adventure.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\GIFs\Loading.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -152,7 +152,7 @@
     <Content Include="Media\GIFs\Genres\Action.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\GIFs\Genres\Adventure.gif">
+    <Content Include="Media\GIFs\Genres\Fantasy.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\GIFs\Genres\Comedy.gif">
@@ -165,9 +165,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\GIFs\Genres\Family.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\GIFs\Genres\Fantasy.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\GIFs\Genres\Horror.gif">
@@ -200,12 +197,6 @@
     <Content Include="Media\Images\Archives.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\AudioOff.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\AudioOn.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\Images\Back.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -233,7 +224,7 @@
     <Content Include="Media\Images\Genres\Action.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\Genres\Adventure.png">
+    <Content Include="Media\Images\Genres\Fantasy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Genres\Comedy.png">
@@ -246,9 +237,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Genres\Family.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\Genres\Fantasy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Genres\Horror.png">

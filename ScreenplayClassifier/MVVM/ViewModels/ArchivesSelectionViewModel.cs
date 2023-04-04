@@ -9,12 +9,16 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
     public class ArchivesSelectionViewModel : INotifyPropertyChanged
     {
         // Fields
+        private ImageSource genreGif;
+        private MediaPlayer mediaPlayer;
         private string filterText;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -24,6 +28,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ArchivesViewModel ArchivesViewModel { get; private set; }
         public ScreenplaysSelectionViewModel ScreenplaysSelectionViewModel { get; private set; }
 
+        public ImageSource GenreGif
+        {
+            get { return genreGif; }
+            set
+            {
+                genreGif = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("GenreGif"));
+            }
+        }
 
         public string FilterText
         {
@@ -38,10 +53,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Constructors
-        public ArchivesSelectionViewModel() { }
+        public ArchivesSelectionViewModel()
+        {
+            mediaPlayer = new MediaPlayer();
+        }
 
         // Methods
-        #region Commands
+        #region Commands      
+        public Command StopMusicCommand
+        {
+            get { return new Command(() => mediaPlayer.Stop()); }
+        }
+
         public Command ShowArchivesFilterViewCommand
         {
             get
@@ -51,6 +74,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     // Validation
                     if (ArchivesSelectionView == null)
                         return;
+
+                    StopMusicCommand.Execute(null);
 
                     HideView();
                     ArchivesViewModel.ArchivesFilterViewModel.ShowView();
@@ -67,8 +92,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     MainViewModel mainViewModel = ArchivesViewModel.MainViewModel;
                     ReportsViewModel reportsViewModel = (ReportsViewModel)mainViewModel.ReportsView.DataContext;
 
-                    reportsViewModel.ReportsInspectionViewModel.RefreshView(ScreenplaysSelectionViewModel.ClassifiedScreenplays, "Archives");
+                    StopMusicCommand.Execute(null);
 
+                    reportsViewModel.ReportsInspectionViewModel.RefreshView(ScreenplaysSelectionViewModel.ClassifiedScreenplays, "Archives");
                     reportsViewModel.ReportsSelectionViewModel.HideView();
                     reportsViewModel.ReportsInspectionViewModel.ShowView();
                     mainViewModel.ShowView(mainViewModel.ReportsView);
@@ -84,6 +110,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <param name="archivesViewModel">The view model which manages the archives module</param>
         public void Init(ArchivesSelectionView archivesSelectionView, ArchivesViewModel archivesViewModel)
         {
+            StopMusicCommand.Execute(null); // For silent initiation
+
             ScreenplaysSelectionView screenplaysSelectionView = null;
 
             ArchivesSelectionView = archivesSelectionView;
@@ -112,12 +140,21 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ReportsViewModel reportsViewModel = (ReportsViewModel)ArchivesViewModel.MainViewModel.ReportsView.DataContext;
             ICollectionView reportsCollectionView = CollectionViewSource.GetDefaultView(reportsViewModel.Reports);
             ObservableCollection<ReportModel> filteredReports = new ObservableCollection<ReportModel>();
+            string filteredGenre = ArchivesViewModel.ArchivesFilterViewModel.FilteredGenre;
 
             reportsCollectionView.Filter = ArchivesViewModel.ArchivesFilterViewModel.Filter;
             reportsCollectionView.Refresh();
 
             foreach (ReportModel filteredReport in reportsCollectionView)
                 filteredReports.Add(filteredReport);
+
+            if ((!string.IsNullOrEmpty(filteredGenre)) && (filteredReports.Count > 0))
+            {
+                GenreGif = new BitmapImage(new Uri(string.Format(@"{0}{1}.gif", FolderPaths.GENREGIFS, filteredGenre)));
+
+                mediaPlayer.Open(new Uri(string.Format("{0}{1}.mp3", FolderPaths.GENREAUDIOS, filteredGenre)));
+                mediaPlayer.Play();
+            }
 
             ScreenplaysSelectionViewModel.RefreshView(filteredReports, "No screenplays matching the criteria");
 
