@@ -22,7 +22,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private ScreenplayModel screenplay;
         private SeriesCollection percentageSeries;
         private ObservableCollection<string> ownerGenreOptions, ownerSubGenre1Options, ownerSubGenre2Options;
-        private ImageSource ownerGenreImage, ownerSubGenre1Image, ownerSubGenre2Image;
         private string screenplayContent, selectedOwnerGenre, selectedOwnerSubGenre1, selectedOwnerSubGenre2;
         private bool canGiveFeedback;
 
@@ -92,42 +91,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public ImageSource OwnerGenreImage
-        {
-            get { return ownerGenreImage; }
-            set
-            {
-                ownerGenreImage = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerGenreImage"));
-            }
-        }
-
-        public ImageSource OwnerSubGenre1Image
-        {
-            get { return ownerSubGenre1Image; }
-            set
-            {
-                ownerSubGenre1Image = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerSubGenre1Image"));
-            }
-        }
-
-        public ImageSource OwnerSubGenre2Image
-        {
-            get { return ownerSubGenre2Image; }
-            set
-            {
-                ownerSubGenre2Image = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ownerSubGenre2Image"));
-            }
-        }
-
         public string ScreenplayContent
         {
             get { return screenplayContent; }
@@ -150,9 +113,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 if (selectedOwnerGenre != null)
                 {
                     Screenplay.OwnerGenre = selectedOwnerGenre;
-
-                    // Refreshes the genre image
-                    OwnerGenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.OwnerGenre)));
 
                     // Restores options to their default collection
                     OwnerSubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
@@ -186,9 +146,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     Screenplay.OwnerSubGenre1 = selectedOwnerSubGenre1;
 
-                    // Refreshes the genre image
-                    OwnerSubGenre1Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.OwnerSubGenre1)));
-
                     // Restores options to their default collection
                     OwnerGenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
                     OwnerSubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
@@ -220,9 +177,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 if (selectedOwnerSubGenre2 != null)
                 {
                     Screenplay.OwnerSubGenre2 = selectedOwnerSubGenre2;
-
-                    // Refreshes the genre image
-                    OwnerSubGenre2Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.OwnerSubGenre2)));
 
                     // Restores options to their default collection
                     OwnerGenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
@@ -294,13 +248,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             CanGiveFeedback = canFeedback;
 
-            OwnerGenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanGiveFeedback ? "Unknown"
-                : Screenplay.OwnerGenre)));
-            OwnerSubGenre1Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanGiveFeedback ? "Unknown"
-                : Screenplay.OwnerSubGenre1)));
-            OwnerSubGenre2Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanGiveFeedback ? "Unknown"
-                : Screenplay.OwnerSubGenre2)));
-
             RefreshPieChart();
 
             ScreenplayContent = File.ReadAllText(Screenplay.FilePath);
@@ -350,13 +297,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 PercentageSeries.Add(new PieSeries()
                 {
-                    //TODO: SET GENRE IMAGE INSIDE SERIES
-                    //Fill = new ImageBrush(new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, genreName)))),
+                    Fill = new ImageBrush(new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, genreName)))),
                     Title = genreName,
                     Values = new ChartValues<ObservableValue> { new ObservableValue(double.Parse(textualPercentage)) },
-                    FontSize = 20,
+                    FontSize = 30,
+                    Foreground = Brushes.Red,
                     DataLabels = true
-                }) ;
+                });
             }
         }
     }

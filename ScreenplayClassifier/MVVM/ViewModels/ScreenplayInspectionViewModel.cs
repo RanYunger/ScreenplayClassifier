@@ -3,11 +3,14 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
+using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
@@ -121,10 +124,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 PercentageSeries.Add(new ColumnSeries()
                 {
+                    Fill = new ImageBrush(new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, genreName)))),
                     Title = genreName,
                     Values = new ChartValues<ObservableValue> { new ObservableValue(double.Parse(textualPercentage)) },
+                    Width = 30,
                     FontSize = 30,
-                    ColumnPadding = 30,
+                    ColumnPadding = 10,
                     DataLabels = true
                 });
             }

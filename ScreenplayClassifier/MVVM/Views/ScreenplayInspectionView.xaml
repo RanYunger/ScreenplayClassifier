@@ -14,7 +14,8 @@
 
         <StackPanel Grid.Row="0">
             <TextBlock Text="Genre Percentages" FontSize="30" TextAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <lvc:CartesianChart LegendLocation="Bottom" Height="350" Width="800" Margin="10" Series="{Binding PercentageSeries}"/>
+            <lvc:CartesianChart Series="{Binding PercentageSeries}" LegendLocation="Bottom" Height="350" Width="600" FontSize="20"
+                                TextBlock.FontWeight="Bold" Margin="10"/>
         </StackPanel>
         
         <Button Grid.Row="1" Command="{Binding ShowOverviewViewCommand}" Margin="10" Style="{StaticResource ButtonStyle}">

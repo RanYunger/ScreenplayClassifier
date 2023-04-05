@@ -9,17 +9,17 @@
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <WrapPanel HorizontalAlignment="Center">
-            <StackPanel Grid.Column="0">
+            <StackPanel>
                 <TextBlock Text="Content" FontSize="30" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-                <TextBox Text="{Binding ScreenplayContent}" TextWrapping="Wrap" Height="380" Width="660" VerticalScrollBarVisibility="Visible"
+                <TextBox Text="{Binding ScreenplayContent}" TextWrapping="Wrap" Height="380" Width="550" VerticalScrollBarVisibility="Visible"
                          Margin="10" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
             </StackPanel>
-
-            <StackPanel Grid.Column="1" Margin="10">
+            <StackPanel Margin="10">
                 <TextBlock Text="Model Classification" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="330" FontSize="20" Hoverable="True" Margin="10">
+                <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="330" Width="400" FontSize="20" Hoverable="True"
+                              HorizontalAlignment="Center" Margin="10">
                     <lvc:PieChart.ChartLegend>
-                        <lvc:DefaultLegend BulletSize="15" HorizontalAlignment="Center" TextBlock.FontSize="15"/>
+                        <lvc:DefaultLegend BulletSize="30" FontWeight="Bold" HorizontalAlignment="Center" TextBlock.FontSize="20"/>
                     </lvc:PieChart.ChartLegend>
                 </lvc:PieChart>
                 <Button Command="{Binding ShowInspectionViewCommand}" Height="50" Width="210" Style="{StaticResource ButtonStyle}">
@@ -32,8 +32,7 @@
                     </Button.Content>
                 </Button>
             </StackPanel>
-
-            <StackPanel Grid.Column="2" Margin="10">
+            <StackPanel Margin="10">
                 <TextBlock FontSize="30" HorizontalAlignment="Center">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">

@@ -53,6 +53,7 @@
     <None Remove="Media\Images\Error.png" />
     <None Remove="Media\Images\Filter.png" />
     <None Remove="Media\Images\Genres\Action.png" />
+    <None Remove="Media\Images\Genres\Adventure.png" />
     <None Remove="Media\Images\Genres\Comedy.png" />
     <None Remove="Media\Images\Genres\Crime.png" />
     <None Remove="Media\Images\Genres\Drama.png" />
@@ -143,6 +144,9 @@
     <Content Include="Media\GIFs\Genres\Adventure.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\GIFs\Genres\Comedy.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\GIFs\Loading.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -153,9 +157,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\GIFs\Genres\Fantasy.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\GIFs\Genres\Comedy.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\GIFs\Genres\Crime.gif">
@@ -224,7 +225,7 @@
     <Content Include="Media\Images\Genres\Action.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Images\Genres\Fantasy.png">
+    <Content Include="Media\Images\Genres\Adventure.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Genres\Comedy.png">
@@ -237,6 +238,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Genres\Family.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Genres\Fantasy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Genres\Horror.png">

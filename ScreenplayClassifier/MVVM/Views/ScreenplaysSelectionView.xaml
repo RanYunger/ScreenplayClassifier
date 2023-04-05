@@ -4,11 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <TextBlock FontSize="40" Text="{Binding NoScreenplaysMessage}" HorizontalAlignment="Center"
-                   VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock FontSize="40" Text="{Binding NoScreenplaysMessage}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Style="{StaticResource TextBlockStyle}"/>
         <StackPanel x:Name="SelectionStackPanel" HorizontalAlignment="Center">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CanSelect}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CanSelect}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
             <TextBlock Text="Which screenplays would you like to inspect?" FontSize="25" HorizontalAlignment="Center"
                        Style="{StaticResource TextBlockStyle}"/>
             <WrapPanel Margin="0,10,0,10">
@@ -27,23 +40,49 @@
                 </TextBox>
                 <Image Source="/Media/Images/Search.png" Height="30" Width="30" Margin="-35,5,5,5"/>
             </WrapPanel>
-            <DataGrid ItemsSource="{Binding ClassifiedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}" Height="530" FontSize="20"
-                      CanUserSortColumns="False" SelectionMode="Single" Style="{StaticResource DataGridStyle}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDown">
-                        <i:InvokeCommandAction Command="{Binding CheckSelectionCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, Mode=TwoWay}" Width="50"
+            <Canvas Height="530">
+                <Image gif:ImageBehavior.AnimatedSource="{Binding GenreGif}" gif:ImageBehavior.RepeatBehavior="Forever" Height="500" Width="839"
+                       Stretch="Fill" Margin="0,30,0,0"/>
+                <DataGrid ItemsSource="{Binding ClassifiedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}" FontSize="20"
+                      CanUserSortColumns="False" SelectionMode="Single">
+                    <DataGrid.Style>
+                        <Style TargetType="DataGrid">
+                            <Setter Property="AutoGenerateColumns" Value="False"/>
+                            <Setter Property="Background" Value="{StaticResource UserControlBackground}"/>
+                            <Setter Property="CanUserResizeColumns" Value="False"/>
+                            <Setter Property="CanUserReorderColumns" Value="False"/>
+                            <Setter Property="CanUserSortColumns" Value="True"/>
+                            <Setter Property="CanUserAddRows" Value="False"/>
+                            <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
+                            <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsFilteredByGenre}" Value="True">
+                                    <Setter Property="Opacity" Value="0.7"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsFilteredByGenre}" Value="False">
+                                    <Setter Property="Opacity" Value="1.0"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Style>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding CheckSelectionCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, Mode=TwoWay}" Width="50"
                                             ElementStyle="{StaticResource BaseCheckBoxStyle}"
                                             HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="Screenplay Title" Binding="{Binding Path=ScreenplayFileName}" Width="540" IsReadOnly="True"
+                        <DataGridTextColumn Header="Screenplay Title" Binding="{Binding Path=ScreenplayFileName}" Width="540" IsReadOnly="True"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    <DataGridTextColumn Header="Owner" Binding="{Binding Path=OwnerName}" Width="250" IsReadOnly="True"
+                        <DataGridTextColumn Header="Owner" Binding="{Binding Path=OwnerName}" Width="246" IsReadOnly="True"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Canvas>
         </StackPanel>
     </Grid>
 </UserControl>

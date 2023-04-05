@@ -1,5 +1,6 @@
 ﻿using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
+using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
@@ -15,11 +17,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private Predicate<object> titleFilter;
+        private MediaPlayer mediaPlayer;
 
         private ObservableCollection<SelectionModel> classifiedScreenplays, checkedScreenplays;
+        private ImageSource genreGif;
         private string noScreenplaysMessage;
         private int selectedScreenplay;
-        private bool canSelect, canInspect;
+        private bool canSelect, canInspect, isFilteredByGenre;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -47,6 +51,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("CheckedScreenplays"));
+            }
+        }
+
+        public ImageSource GenreGif
+        {
+            get { return genreGif; }
+            set
+            {
+                genreGif = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("GenreGif"));
             }
         }
 
@@ -101,11 +117,31 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public bool IsFilteredByGenre
+        {
+            get { return isFilteredByGenre; }
+            set
+            {
+                isFilteredByGenre = value;
+
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("IsFilteredByGenre"));
+            }
+        }
+
         // Constructors
-        public ScreenplaysSelectionViewModel() { }
+        public ScreenplaysSelectionViewModel()
+        {
+            mediaPlayer = new MediaPlayer();
+        }
 
         // Methods
         #region Commands
+        public Command StopMusicCommand
+        {
+            get { return new Command(() => mediaPlayer.Stop()); }
+        }
+
         public Command EnterTitleTextboxCommand
         {
             get
@@ -215,30 +251,41 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void Init(ScreenplaysSelectionView screenplaysSelectionView)
         {
+            StopMusicCommand.Execute(null); // For silent initiation
+
             ScreenplaysSelectionView = screenplaysSelectionView;
         }
 
         /// <summary>
         /// Refreshes the view.
+        /// <param name="screenplays">The screenplays to show in the view</param>
+        /// <param name="noResultsMessage">The message indicating there are no results to show</param>
+        /// <param name="filteredGenre">The main genre the screenplays are filtered by</param>
         /// </summary>
-        public void RefreshView(ObservableCollection<ReportModel> reports, string noResultsMessage)
+        public void RefreshView(ObservableCollection<ReportModel> screenplays, string noResultsMessage, string filteredGenre)
         {
-            StackPanel selectionStackPanel = null;
             TextBox titleTextBox = null;
 
             ClassifiedScreenplays = new ObservableCollection<SelectionModel>();
-            foreach (ReportModel report in reports)
+            foreach (ReportModel report in screenplays)
                 ClassifiedScreenplays.Add(new SelectionModel(report.Owner.Username, report.Screenplay.FilePath));
 
             CheckedScreenplays = new ObservableCollection<SelectionModel>();
 
             NoScreenplaysMessage = noResultsMessage;
             SelectedScreenplay = -1;
+
+            IsFilteredByGenre = !string.IsNullOrEmpty(filteredGenre);
+            if (IsFilteredByGenre)
+            {
+                GenreGif = new BitmapImage(new Uri(string.Format(@"{0}{1}.gif", FolderPaths.GENREGIFS, filteredGenre)));
+
+                mediaPlayer.Open(new Uri(string.Format("{0}{1}.mp3", FolderPaths.GENREAUDIOS, filteredGenre)));
+                mediaPlayer.Play();
+            }
+
             CanSelect = ClassifiedScreenplays.Count > 0;
             CanInspect = false;
-
-            selectionStackPanel = (StackPanel)ScreenplaysSelectionView.FindName("SelectionStackPanel");
-            selectionStackPanel.Visibility = CanSelect ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
 
             titleTextBox = (TextBox)ScreenplaysSelectionView.FindName("TitleTextBox");
             titleTextBox.Foreground = Brushes.Gray;

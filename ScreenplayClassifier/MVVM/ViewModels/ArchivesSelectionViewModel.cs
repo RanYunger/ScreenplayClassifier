@@ -17,8 +17,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ArchivesSelectionViewModel : INotifyPropertyChanged
     {
         // Fields
-        private ImageSource genreGif;
-        private MediaPlayer mediaPlayer;
         private string filterText;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -27,18 +25,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ArchivesSelectionView ArchivesSelectionView { get; private set; }
         public ArchivesViewModel ArchivesViewModel { get; private set; }
         public ScreenplaysSelectionViewModel ScreenplaysSelectionViewModel { get; private set; }
-
-        public ImageSource GenreGif
-        {
-            get { return genreGif; }
-            set
-            {
-                genreGif = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GenreGif"));
-            }
-        }
 
         public string FilterText
         {
@@ -53,18 +39,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         // Constructors
-        public ArchivesSelectionViewModel()
-        {
-            mediaPlayer = new MediaPlayer();
-        }
+        public ArchivesSelectionViewModel() { }
 
         // Methods
         #region Commands      
-        public Command StopMusicCommand
-        {
-            get { return new Command(() => mediaPlayer.Stop()); }
-        }
-
         public Command ShowArchivesFilterViewCommand
         {
             get
@@ -75,7 +53,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if (ArchivesSelectionView == null)
                         return;
 
-                    StopMusicCommand.Execute(null);
+                    ScreenplaysSelectionViewModel.StopMusicCommand.Execute(null);
 
                     HideView();
                     ArchivesViewModel.ArchivesFilterViewModel.ShowView();
@@ -92,7 +70,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     MainViewModel mainViewModel = ArchivesViewModel.MainViewModel;
                     ReportsViewModel reportsViewModel = (ReportsViewModel)mainViewModel.ReportsView.DataContext;
 
-                    StopMusicCommand.Execute(null);
+                    ScreenplaysSelectionViewModel.StopMusicCommand.Execute(null);
 
                     reportsViewModel.ReportsInspectionViewModel.RefreshView(ScreenplaysSelectionViewModel.ClassifiedScreenplays, "Archives");
                     reportsViewModel.ReportsSelectionViewModel.HideView();
@@ -110,8 +88,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <param name="archivesViewModel">The view model which manages the archives module</param>
         public void Init(ArchivesSelectionView archivesSelectionView, ArchivesViewModel archivesViewModel)
         {
-            StopMusicCommand.Execute(null); // For silent initiation
-
             ScreenplaysSelectionView screenplaysSelectionView = null;
 
             ArchivesSelectionView = archivesSelectionView;
@@ -140,25 +116,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ReportsViewModel reportsViewModel = (ReportsViewModel)ArchivesViewModel.MainViewModel.ReportsView.DataContext;
             ICollectionView reportsCollectionView = CollectionViewSource.GetDefaultView(reportsViewModel.Reports);
             ObservableCollection<ReportModel> filteredReports = new ObservableCollection<ReportModel>();
-            string filteredGenre = ArchivesViewModel.ArchivesFilterViewModel.FilteredGenre;
+            ArchivesFilterViewModel archivesFilterViewModel = ArchivesViewModel.ArchivesFilterViewModel;
+            string genre = archivesFilterViewModel.FilteredGenre, subGenre1 = archivesFilterViewModel.FilteredSubGenre1,
+                subGenre2 = archivesFilterViewModel.FilteredSubGenre2;
+            bool canPlayGif = false;
 
             reportsCollectionView.Filter = ArchivesViewModel.ArchivesFilterViewModel.Filter;
             reportsCollectionView.Refresh();
 
             foreach (ReportModel filteredReport in reportsCollectionView)
                 filteredReports.Add(filteredReport);
+            canPlayGif = (!string.IsNullOrEmpty(genre)) && (string.IsNullOrEmpty(subGenre1)) && (string.IsNullOrEmpty(subGenre2))
+                && (filteredReports.Count > 0);
 
-            if ((!string.IsNullOrEmpty(filteredGenre)) && (filteredReports.Count > 0))
-            {
-                GenreGif = new BitmapImage(new Uri(string.Format(@"{0}{1}.gif", FolderPaths.GENREGIFS, filteredGenre)));
+            ScreenplaysSelectionViewModel.RefreshView(filteredReports, "No screenplays matching the criteria", canPlayGif ? genre : string.Empty);
 
-                mediaPlayer.Open(new Uri(string.Format("{0}{1}.mp3", FolderPaths.GENREAUDIOS, filteredGenre)));
-                mediaPlayer.Play();
-            }
-
-            ScreenplaysSelectionViewModel.RefreshView(filteredReports, "No screenplays matching the criteria");
-
-            RefreshFilterText();
+            RefreshFilterText(archivesFilterViewModel);
         }
 
         /// <summary>
@@ -172,13 +145,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         /// <summary>
         /// Refreshes the filter texts.
+        /// <param name="filterViewModel">The view model which stored the filter criteria</param>
         /// </summary>
-        private void RefreshFilterText()
+        private void RefreshFilterText(ArchivesFilterViewModel filterViewModel)
         {
             UserModel user = ArchivesViewModel.MainViewModel.UserToolbarViewModel.User;
-            ArchivesFilterViewModel filterViewModel = ArchivesViewModel.ArchivesFilterViewModel;
-            string owner = filterViewModel.FilteredOwner, genre = filterViewModel.FilteredGenre,
-                subGenre1 = filterViewModel.FilteredSubGenre1, subGenre2 = filterViewModel.FilteredSubGenre2;
+            string owner = filterViewModel.FilteredOwner;
             int[] genreRange = new int[] { filterViewModel.FilteredGenreMinPercentage, filterViewModel.FilteredGenreMaxPercentage },
                 subGenre1Range = new int[] { filterViewModel.FilteredSubGenre1MinPercentage, filterViewModel.FilteredSubGenre1MaxPercentage },
                 subGenre2Range = new int[] { filterViewModel.FilteredSubGenre2MinPercentage, filterViewModel.FilteredSubGenre2MaxPercentage };
@@ -189,9 +161,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 FilterText = string.Format("Owner: {0} | ", string.IsNullOrEmpty(owner) ? "All Owners" : owner);
 
             FilterText += string.Format("Main Genre: {0} | Subgenre 1: {1} | Subgenre 2: {2}",
-                BuildGenreFilterText(genre, genreRange),
-                BuildGenreFilterText(subGenre1, subGenre1Range),
-                BuildGenreFilterText(subGenre2, subGenre2Range));
+                BuildGenreFilterText(filterViewModel.FilteredGenre, genreRange),
+                BuildGenreFilterText(filterViewModel.FilteredSubGenre1, subGenre1Range),
+                BuildGenreFilterText(filterViewModel.FilteredSubGenre2, subGenre2Range));
         }
 
         /// <summary>

@@ -73,7 +73,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Refreshes the view.
         /// </summary>
-        public void RefreshView() { ScreenplaysSelectionViewModel.RefreshView(ReportsViewModel.Reports, "No reports to inspect"); }
+        public void RefreshView() { ScreenplaysSelectionViewModel.RefreshView(ReportsViewModel.Reports, "No reports to inspect", string.Empty); }
 
         /// <summary>
         /// Hides the view.

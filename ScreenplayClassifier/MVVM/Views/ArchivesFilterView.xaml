@@ -42,7 +42,7 @@
                 </GroupBox.Style>
                 <GroupBox.Header>
                     <WrapPanel>
-                        <Image Source="/Media/Images/Username.png" Height="40" Width="40"/>
+                        <Image Source="/Media/Images/User.png" Height="40" Width="40"/>
                         <TextBlock Text="Owner" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
                     </WrapPanel>
                 </GroupBox.Header>
@@ -77,7 +77,7 @@
                 <GroupBox Margin="10">
                     <GroupBox.Header>
                         <WrapPanel>
-                            <Image Source="/Media/Images/Icon.png" Height="40" Width="40"/>
+                            <Image Source="/Media/Images/Keys.png" Height="40" Width="40"/>
                             <TextBlock Text="Genres" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
                         </WrapPanel>
                     </GroupBox.Header>
@@ -104,7 +104,7 @@
                 <GroupBox Margin="10" Style="{StaticResource GroupBoxStyle}">
                     <GroupBox.Header>
                         <WrapPanel>
-                            <Image Source="/Media/Images/Percent.png" Height="40" Width="40"/>
+                            <Image Source="/Media/Images/Percentage.png" Height="40" Width="40"/>
                             <TextBlock Text="Percentages" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
                         </WrapPanel>
                     </GroupBox.Header>
