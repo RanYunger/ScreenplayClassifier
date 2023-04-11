@@ -284,7 +284,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void ClassifyScreenplays(ObservableCollection<string> screenplayFilePaths)
         {
             int progressOutput;
-            string scriptPath = FolderPaths.CLASSIFIER + "Loader.py", scriptArgs = string.Join(" ", screenplayFilePaths);
+            string scriptPath = FolderPaths.CLASSIFIER + "Main.py", scriptArgs = string.Join(" ", screenplayFilePaths);
             string outputLine = string.Empty, screenplaysJson = string.Empty;
             UserModel owner = ClassificationViewModel.MainViewModel.UserToolbarViewModel.User;
             List<ScreenplayModel> deserializedScreenplays;

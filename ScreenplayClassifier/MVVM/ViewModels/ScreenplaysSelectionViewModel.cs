@@ -272,7 +272,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             CheckedScreenplays = new ObservableCollection<SelectionModel>();
 
-            NoScreenplaysMessage = noResultsMessage;
+            NoScreenplaysMessage = ClassifiedScreenplays.Count > 0 ? string.Empty : noResultsMessage;
             SelectedScreenplay = -1;
 
             IsFilteredByGenre = !string.IsNullOrEmpty(filteredGenre);

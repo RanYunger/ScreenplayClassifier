@@ -1,60 +1,78 @@
 # Imports
-import json
-
-import pandas, os, pathlib, sys
-
-from Classifier import *
-from TextProcessor import *
+import math
+import time
+import pandas
+import Constants
+import multiprocessing
+from pathlib import Path
+from datetime import datetime
+from ScriptInfo import ScriptInfo
+from ScreenplayProcessor import extract_features
+from concurrent.futures import ThreadPoolExecutor
 
 # Methods
-def read_train_screenplays():
-    screenplays_directory = f"./TrainScreenplays/"
-    file_paths = os.listdir(screenplays_directory)
-    screenplays_dict = {}
+def load_screenplay(file_path):
+    # Loads and processes a screenplay by its file path
+    screenplay_title = Path(file_path).stem
+    screenplay_text = open(file_path, "r", encoding="utf8").read()
+    screenplay_features = extract_features(screenplay_title, screenplay_text)
 
-    # Builds a dictionary of screenplay text by its title
-    for file_path in file_paths:
-        screenplay_title = pathlib.Path(file_path).stem
-        screenplay_text = open(f"{screenplays_directory}{file_path}", "r", encoding="utf8").read()
-        screenplays_dict[screenplay_title] = process_text(screenplay_text)
+    time.sleep(0.01)
 
-    return pandas.DataFrame({"Title": screenplays_dict.keys(), "Text": screenplays_dict.values()})
+    return screenplay_features
 
-def read_test_screenplays(file_paths):
-    screenplays_dict = {}
+def load_train_screenplays():
+    Constants.classifier_path.mkdir(parents=True, exist_ok=True)
 
-    # Builds a dictionary of screenplay text by its title
-    for file_path in file_paths:
-        screenplay_title = pathlib.Path(file_path).stem
-        screenplay_text = open(file_path, "r", encoding="utf8").read()
-        screenplays_dict[screenplay_title] = screenplay_text #process_text(screenplay_text)
+    if not Path.exists(Constants.train_screenplays_directory):
+        raise FileNotFoundError("TrainScreenplays directory not found.")
 
-    return pandas.DataFrame({"Title": screenplays_dict.keys(), "Text": screenplays_dict.values()})
+    train_screenplays_paths = Constants.train_screenplays_paths
 
-def read_genres():
-    genre_labels = json.load(open("Jsons/Genres.json"))
-    info_ds = pandas.read_json("Movie Script Info.json")
-    genres_dict = {}
+    if Path.exists(Constants.train_csv_path):
+        trained_screenplays_titles = pandas.read_csv(Constants.train_csv_path, usecols=["Title"]).Title
+        trained_screenplays_paths = map(lambda title: Constants.train_screenplays_directory / f"{title}.txt",
+                                        trained_screenplays_titles)
+        train_screenplays_paths = list(filter(lambda path: path not in trained_screenplays_paths,
+                                              train_screenplays_paths))
 
-    # Builds a dictionary of screenplay genres by its title
-    for offset, info in info_ds.iterrows():
-        genres_dict[info["title"]] = info["genres"]
+    batch_size = multiprocessing.cpu_count()
+    batch_count = math.ceil(len(train_screenplays_paths) / batch_size)
+    print(f"{datetime.now()}: Processing begun.")
 
-    return pandas.DataFrame({"Title": genres_dict.keys(), "Actual Genres": genres_dict.values()})
+    with ThreadPoolExecutor(batch_size) as executor:
+        for i in range(batch_count):
+            limit = min((i + 1) * batch_size, len(train_screenplays_paths))
+            file_paths_batch = train_screenplays_paths[i * batch_size:limit]
 
-# Main
-if __name__ == "__main__":
-    # Loads model variables from pickle and trains them (if necessary)
-    model_variables = train()
+            screenplay_threads = [executor.submit(load_screenplay, file_path) for file_path in file_paths_batch]
+            screenplays_batch = [thread.result() for thread in screenplay_threads]
 
-    # Classifies test screenplays
-    classifications = classify(model_variables, sys.argv[1:])
+            screenplays_batch = pandas.DataFrame(screenplays_batch)
+            screenplays_batch.to_csv(Constants.train_csv_path,
+                                     mode="a",
+                                     index=False,
+                                     header=not Constants.train_csv_path.exists())
 
-    """
-    OUTPUT EXAMPLE:
-    Title               |   GenrePercentages        
-    "american psycho"       {"Action"   : 23.67, "Adventure": 12.92 ... }
-    """
+            print(f"{datetime.now()}: screenplays records were written to csv file.")
 
-    # Prints classifications to process
-    print(classifications.to_json(orient="records", indent=4))
+    pandas.read_csv(Constants.train_csv_path).merge(load_genres()).to_csv(Constants.train_csv_path, index=False)
+
+    print(f"{datetime.now()}: Processing ended.")
+
+def load_test_screenplays(file_paths):
+    # Loads and processes each screenplay
+    batch_size = len(file_paths)
+
+    with ThreadPoolExecutor(batch_size) as executor:
+        screenplay_threads = [executor.submit(load_screenplay, file_path) for file_path in file_paths]
+        screenplay_records = [thread.result() for thread in screenplay_threads]
+
+    return pandas.DataFrame(screenplay_records)
+
+def load_genres():
+    movie_info = ScriptInfo.schema().loads(Constants.movie_info_path.read_text(), many=True)
+
+    genres_dict = {screenplay_info.title: list(screenplay_info.genres) for screenplay_info in movie_info}
+
+    return pandas.DataFrame({"Title": genres_dict.keys(), "Genres": genres_dict.values()})

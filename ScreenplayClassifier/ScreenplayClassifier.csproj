@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Classifier\Classifier.py" />
+    <None Remove="Classifier\Constants.py" />
+    <None Remove="Classifier\Loader.py" />
+    <None Remove="Classifier\Main.py" />
+    <None Remove="Classifier\Model.pkl" />
+    <None Remove="Classifier\ScreenplayProcessor.py" />
+    <None Remove="Classifier\ScriptInfo.py" />
+    <None Remove="Classifier\Train.csv" />
     <None Remove="Jsons\Genres.json" />
     <None Remove="Jsons\Reports.json" />
     <None Remove="Jsons\Users.json" />
@@ -96,6 +104,30 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Classifier\Classifier.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Classifier\Constants.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Classifier\Loader.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Classifier\Main.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Classifier\Model.pkl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Classifier\ScreenplayProcessor.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Classifier\ScriptInfo.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Classifier\Train.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Jsons\Reports.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -141,22 +173,28 @@
     <Content Include="Media\Audios\Genres\War.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\GIFs\Genres\Action.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\GIFs\Genres\Adventure.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\GIFs\Genres\Comedy.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\GIFs\Genres\Fantasy.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\GIFs\Genres\Romance.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\GIFs\Genres\Thriller.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\GIFs\Loading.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\GIFs\Done!.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\GIFs\Genres\Action.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\GIFs\Genres\Fantasy.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\GIFs\Genres\Crime.gif">
@@ -171,13 +209,7 @@
     <Content Include="Media\GIFs\Genres\Horror.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\GIFs\Genres\Romance.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\GIFs\Genres\SciFi.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\GIFs\Genres\Thriller.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\GIFs\Genres\War.gif">
@@ -381,21 +413,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Classifier\Classifier.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Classifier\Movie Script Info.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Classifier\Pickle">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Classifier\Loader.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Classifier\TextProcessor.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="DLLs\LiveCharts.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
