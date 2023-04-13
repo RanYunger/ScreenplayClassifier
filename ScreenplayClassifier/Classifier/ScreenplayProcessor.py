@@ -1,15 +1,15 @@
 # Imports
+import random
 import re
 import spacy
 import datetime
 import Constants
 from textblob import TextBlob
 from nltk.corpus import stopwords
-from transformers import pipeline
 
 # Globals
-emotions_pipeline = pipeline("text-classification", model="bhadresh-savani/distilbert-base-uncased-emotion", top_k=100)
-zero_shot_pipeline = pipeline("zero-shot-classification", model="oigele/Fb_improved_zeroshot")
+# emotions_pipeline = pipeline("text-classification", model="bhadresh-savani/distilbert-base-uncased-emotion", top_k=100)
+# zero_shot_pipeline = pipeline("zero-shot-classification", model="oigele/Fb_improved_zeroshot")
 entities_pipeline = spacy.load("en_core_web_sm")
 
 times_of_day = ["Daytime", "Nighttime"]
@@ -28,7 +28,11 @@ protagonist_roles_dict = {
     "Thriller": "Detective/Spy",
     "War": "Soldier"
 }
-emotion_labels = ["Anger", "Fear", "Joy", "Love", "Sadness", "Surprise"]
+emotions = {
+    "Positive": ["Joy", "Love"],
+    "Neutral": ["Anger", "Surprise"],
+    "Negative": ["Sadness", "Fear"]
+}
 
 # Methods
 def get_dominant_time_of_day(text):
@@ -90,10 +94,11 @@ def get_protagonist_role(text):
     actions = " ".join([str(sentence) for sentence in blob.sentences if sentence.startswith(protagonist + " ")])
 
     # Predicts the protagonist's role by his/her actions
-    action_genres = ["Drama"] if len(actions) == 0 or protagonist == "UNKNOWN" \
-        else zero_shot_pipeline(actions, Constants.genre_labels, multi_label=True)["labels"]
+    actions_genre = "Drama" if len(actions) == 0 or protagonist == "UNKNOWN"\
+        else Constants.genre_labels[random.randrange(len(Constants.genre_labels))]
+    # else zero_shot_pipeline(actions, Constants.genre_labels, multi_label=True)["labels"]
 
-    return {"Protagonist Roles": protagonist_roles_dict[action_genres[0]]}
+    return {"Protagonist Roles": protagonist_roles_dict[actions_genre]}
 
 def get_protagonist(text):
     # Extracts character names from text
@@ -116,14 +121,22 @@ def get_protagonist(text):
 
 def get_emotions(text):
     # Organizes emotions and their percentages in dictionary
-    emotions_scores = sum(emotions_pipeline(text, truncation=True), [])  # Flattens the list
-    keys = [emotion_label for emotion_label in emotion_labels]
-    emotion_scores_dict = {key: 0 for key in keys}
+    emotion_labels = sum([emotion for emotion in emotions.values()], []) # Flattens the list
+    sentiment_polarity = TextBlob(text).sentiment.polarity
+    sentiment_label = "Positive" if sentiment_polarity > 0 else "Neutral" if sentiment_polarity == 0 else "Negative"
+    emotion_scores = [random.uniform(0.5, 1) if emotion in emotions[sentiment_label] else random.uniform(0, 0.5)
+                      for emotion in emotion_labels]
 
-    for emotion in emotions_scores:
-        emotion_scores_dict[emotion["label"].capitalize()] = emotion["score"]
+    return dict(zip(emotion_labels, emotion_scores))
 
-    return emotion_scores_dict
+    # emotions_scores = sum(emotions_pipeline(text, truncation=True), [])  # Flattens the list
+    # keys = [emotion_label for emotion_label in emotion_labels]
+    # emotion_scores_dict = {key: 0 for key in keys}
+    #
+    # for emotion in emotions_scores:
+    #     emotion_scores_dict[emotion["label"].capitalize()] = emotion["score"]
+    #
+    # return emotion_scores_dict
 
 def extract_features(screenplay_title, screenplay_text):
     # Extracts features by the screenplay text

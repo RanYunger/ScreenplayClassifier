@@ -4,7 +4,7 @@ import numpy
 import pandas
 import pickle
 
-from sklearn.ensemble import BaggingClassifier
+from sklearn.ensemble import VotingClassifier
 
 import Constants
 from Loader import load_test_screenplays
@@ -35,7 +35,7 @@ def encode(screenplays):
 
 def get_optimal_amount_of_estimators(x, t, base_estimator):
     hyper_parameters = {"n_estimators": list(range(10, 21)), "bootstrap": [True, False]}
-    gridSearch = GridSearchCV(BaggingClassifier(base_estimator=base_estimator, random_state=42), hyper_parameters,
+    gridSearch = GridSearchCV(VotingClassifier(base_estimator=base_estimator, random_state=42), hyper_parameters,
                               scoring="neg_log_loss").fit(x, t)
 
     return gridSearch.best_params_["n_estimators"], gridSearch.best_params_["bootstrap"]
@@ -51,10 +51,6 @@ def create_model():
 
     # Builds classifier and predicts its accuracy score (current best: SVC - 0.1441)
     base_estimator = MultiOutputClassifier(SVC(probability=True)).fit(x_train, t_train)
-    # TODO: IMPROVE BASE ESTIMATOR USING HYPER_PARAMETERS & ENSEMBLES
-    # best_amount_of_estimators, using_bootstrap = get_optimal_amount_of_estimators(x_train, t_train, base_estimator)
-    # ensembles_classifier = BaggingClassifier(base_estimator=base_estimator, n_estimators=best_amount_of_estimators,
-    #                                          bootstrap=using_bootstrap, random_state=1).fit(x_train, t_train)
     classifier = base_estimator
 
     t_predictions = classifier.predict(x_validation)
