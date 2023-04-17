@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
-        Title="Screenplay Classifier" Height="650" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="Screenplay Classifier" Height="700" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#392C2B"
         Style="{StaticResource WindowStyle}">
     <Grid>
         <StackPanel HorizontalAlignment="Stretch">
-            <TextBlock FontSize="40" Text="Sign In" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <Image Source="/Media/Images/TicketSign.png" Margin="10"/>
             <MediaElement x:Name="KickUserMediaElement" Height="250" Width="350" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill"
                           Margin="10">
                 <MediaElement.Style>
@@ -25,7 +25,7 @@
                     </Style>
                 </MediaElement.Style>
             </MediaElement>
-            <Image Source="/Media/Images/Reel.png" Height="250" Width="250" Margin="10">
+            <Image Source="/Media/Images/Icon.png" Height="250" Width="250" Stretch="Fill" Margin="10">
                 <Image.Style>
                     <Style TargetType="Image">
                         <Style.Triggers>
@@ -39,11 +39,11 @@
                     </Style>
                 </Image.Style>
             </Image>
-            <WrapPanel HorizontalAlignment="Center" Margin="10">
-                <Image Source="/Media/Images/User.png" Height="50" Width="50"/>
-                <StackPanel>
+            <StackPanel HorizontalAlignment="Center" Margin="10">
+                <WrapPanel>
+                    <Image Source="/Media/Images/User.png" Height="30" Width="30"/>
                     <TextBox x:Name="UsernameTextBox" Width="200" FontSize="20" VerticalAlignment="Top"
-                             IsEnabled="{Binding CanSignIn}" Margin="20,0,0,0" Style="{StaticResource BaseTextBoxStyle}">
+                             IsEnabled="{Binding CanSignIn}" Margin="10,0,0,0" Style="{StaticResource BaseTextBoxStyle}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="GotFocus">
                                 <i:InvokeCommandAction Command="{Binding EnterUsernameTextboxCommand}"/>
@@ -56,19 +56,19 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </TextBox>
-                    <WrapPanel x:Name="UsernameErrorWrapPanel" Visibility="Hidden">
-                        <Image Source="/Media/Images/Error.png" Height="30" Width="30" HorizontalAlignment="Left" Margin="20,5,0,0"/>
-                        <TextBlock Text="{Binding UsernameError}" FontSize="20" Foreground="DarkRed" Margin="10,0,0,0"
+                </WrapPanel>
+                <WrapPanel x:Name="UsernameErrorWrapPanel" Visibility="Hidden">
+                    <Image Source="/Media/Images/Error.png" Height="30" Width="30" HorizontalAlignment="Left" Margin="0,5,0,0"/>
+                    <TextBlock Text="{Binding UsernameError}" FontSize="20" Foreground="IndianRed" Margin="10,0,0,0"
                                    Style="{StaticResource TextBlockStyle}"/>
-                    </WrapPanel>
-                </StackPanel>
-            </WrapPanel>
-            <WrapPanel HorizontalAlignment="Center" Margin="10">
-                <Image Source="/Media/Images/Password.png" Height="50" Width="50"/>
-                <StackPanel>
+                </WrapPanel>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Margin="10">
+                <WrapPanel>
+                    <Image Source="/Media/Images/Password.png" Height="30" Width="30"/>
                     <Grid>
                         <PasswordBox x:Name="PasswordBox" Width="200" FontSize="20" MaxLength="9" VerticalAlignment="Top"
-                                 IsEnabled="{Binding CanSignIn}" Margin="20,0,0,0" Style="{StaticResource PasswordBoxStyle}">
+                                 IsEnabled="{Binding CanSignIn}" Margin="10,0,0,0" Style="{StaticResource PasswordBoxStyle}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="LostFocus">
                                     <i:InvokeCommandAction Command="{Binding LeavePasswordTextboxCommand}"/>
@@ -76,7 +76,7 @@
                             </i:Interaction.Triggers>
                         </PasswordBox>
                         <TextBox x:Name="PasswordTextBox" Text="Password" Width="200" FontSize="20" Foreground="Gray"
-                                 VerticalAlignment="Top" IsEnabled="{Binding CanSignIn}" Margin="20,0,0,0" Style="{StaticResource BaseTextBoxStyle}">
+                                 VerticalAlignment="Top" IsEnabled="{Binding CanSignIn}" Margin="10,0,0,0" Style="{StaticResource BaseTextBoxStyle}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="GotFocus">
                                     <i:InvokeCommandAction Command="{Binding EnterPasswordTextboxCommand}"/>
@@ -84,13 +84,14 @@
                             </i:Interaction.Triggers>
                         </TextBox>
                     </Grid>
-                    <WrapPanel x:Name="PasswordErrorWrapPanel" Visibility="Hidden">
-                        <Image Source="/Media/Images/Error.png" Height="30" Width="30" HorizontalAlignment="Left" Margin="20,5,0,0"/>
-                        <TextBlock Text="{Binding PasswordError}" FontSize="20" Foreground="DarkRed" Margin="10,0,0,0"
+                </WrapPanel>
+                <WrapPanel x:Name="PasswordErrorWrapPanel" Visibility="Hidden">
+                    <Image Source="/Media/Images/Error.png" Height="30" Width="30" HorizontalAlignment="Left" Margin="0,5,0,0"/>
+                    <TextBlock Text="{Binding PasswordError}" FontSize="20" Foreground="IndianRed" Margin="10,0,0,0"
                                    Style="{StaticResource TextBlockStyle}"/>
-                    </WrapPanel>
-                </StackPanel>
-            </WrapPanel>
+                </WrapPanel>
+            </StackPanel>
+
             <Button Command="{Binding SignInCommand}" IsEnabled="{Binding CanSignIn}" Width="220" Margin="10" Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <WrapPanel>

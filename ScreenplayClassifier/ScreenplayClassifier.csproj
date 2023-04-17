@@ -13,6 +13,7 @@
     <None Remove="Classifier\Movie Script Info.json" />
     <None Remove="Classifier\Pickle" />
     <None Remove="Classifier\TextProcessor.py" />
+    <None Remove="Icon.ico" />
     <None Remove="Jsons\Genres.json" />
     <None Remove="Jsons\Reports.json" />
     <None Remove="Jsons\Users.json" />
@@ -45,7 +46,6 @@
     <None Remove="Media\GIFs\Genres\War.gif" />
     <None Remove="Media\GIFs\Loading.gif" />
     <None Remove="Media\GIFs\Processing.gif" />
-    <None Remove="Media\GIFs\Reel.gif" />
     <None Remove="Media\Images\About.png" />
     <None Remove="Media\Images\Add.png" />
     <None Remove="Media\Images\Archives.png" />
@@ -73,6 +73,7 @@
     <None Remove="Media\Images\Go.png" />
     <None Remove="Media\Images\Home.png" />
     <None Remove="Media\Images\Icon.ico" />
+    <None Remove="Media\Images\Icon.png" />
     <None Remove="Media\Images\Information.png" />
     <None Remove="Media\Images\Invisible.png" />
     <None Remove="Media\Images\Keys.png" />
@@ -80,9 +81,9 @@
     <None Remove="Media\Images\Options.png" />
     <None Remove="Media\Images\Password.png" />
     <None Remove="Media\Images\Percentage.png" />
+    <None Remove="Media\Images\Posters.png" />
     <None Remove="Media\Images\Previous.png" />
     <None Remove="Media\Images\Question.png" />
-    <None Remove="Media\Images\Reel.png" />
     <None Remove="Media\Images\Remove.png" />
     <None Remove="Media\Images\Repeat.png" />
     <None Remove="Media\Images\Reports.png" />
@@ -91,6 +92,7 @@
     <None Remove="Media\Images\Settings.png" />
     <None Remove="Media\Images\SignIn.png" />
     <None Remove="Media\Images\SignOut.png" />
+    <None Remove="Media\Images\TicketSign.png" />
     <None Remove="Media\Images\User.png" />
     <None Remove="Media\Images\V.png" />
     <None Remove="Media\Images\Visible.png" />
@@ -114,6 +116,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Classifier\TextProcessor.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Jsons\Reports.json">
@@ -206,9 +211,6 @@
     <Content Include="Media\GIFs\Processing.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\GIFs\Reel.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\Images\About.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -287,6 +289,12 @@
     <Content Include="Media\Images\Home.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\Icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\Information.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -305,13 +313,13 @@
     <Content Include="Media\Images\Percentage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\Images\Posters.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Media\Images\Previous.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Question.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\Icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Remove.png">
@@ -336,6 +344,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\SignOut.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\TicketSign.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\User.png">
@@ -392,12 +403,6 @@
     <Reference Include="System.Windows.Interactivity">
       <HintPath>DLLs\System.Windows.Interactivity.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Media\Images\Reel.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
