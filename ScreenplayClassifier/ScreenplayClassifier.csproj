@@ -77,6 +77,7 @@
     <None Remove="Media\Images\Information.png" />
     <None Remove="Media\Images\Invisible.png" />
     <None Remove="Media\Images\Keys.png" />
+    <None Remove="Media\Images\Logo.png" />
     <None Remove="Media\Images\Next.png" />
     <None Remove="Media\Images\Options.png" />
     <None Remove="Media\Images\Password.png" />
@@ -299,6 +300,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Keys.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Next.png">

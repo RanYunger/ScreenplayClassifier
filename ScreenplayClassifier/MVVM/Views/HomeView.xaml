@@ -7,7 +7,6 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <Image Source="/Media/Images/Posters.png" Stretch="Fill"/>
         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Command="{Binding ShowArchivesViewCommand}" Height="400" Width="325" Cursor="Hand" Margin="0,-15,150,0"
                     Style="{StaticResource ButtonStyle}">

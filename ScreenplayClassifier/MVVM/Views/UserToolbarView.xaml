@@ -5,11 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             MaxHeight="90" MinWidth="1200" Style="{StaticResource UserToolbarStyle}">
+             MaxHeight="90" MinWidth="1200" Background="#392C2B" Style="{StaticResource UserToolbarStyle}">
     <Grid>
         <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
-            <TextBlock Text="{Binding User.Username, StringFormat=Hi\, {0}}" FontSize="20" Margin="80,0,0,0" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="{Binding User.Role, StringFormat=[{0}]}" FontSize="20" Margin="5,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding User.Username, StringFormat=Hi\, {0}}" FontSize="20" Foreground="{StaticResource ButtonBackground}"
+                       Margin="80,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding User.Role, StringFormat=[{0}]}" FontSize="20" Foreground="{StaticResource ButtonBackground}" Margin="5,0,0,0"
+                       Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image Source="/Media/Images/Icon.png" Height="50" Width="50" Cursor="Hand" Margin="10,0,10,0">
@@ -19,10 +21,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Image>
-            <StackPanel>
-                <TextBlock Text="Screenplay" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Text="Classifier" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
-            </StackPanel>
+            <Image Source="/Media/Images/Logo.png" Height="50"/>
         </WrapPanel>
         <Menu Height="40" Width="40" HorizontalAlignment="Right" Focusable="False" Margin="0,0,110,0" Style="{StaticResource MenuStyle}">
             <MenuItem Style="{StaticResource MenuItemStyle}">
