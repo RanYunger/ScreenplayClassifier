@@ -3,25 +3,23 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
+using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Data;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ReportsInspectionViewModel : INotifyPropertyChanged
+    public class ReportsInspectionViewModel : PropertyChangeNotifier
     {
         // Fields
         private ObservableCollection<ReportModel> inspectedReports;
         private string parentView, screenplayOwner;
         private int selectedScreenplay;
         private bool canFlutter, canGoToPrevious, canGoToNext;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ReportsViewModel ReportsViewModel { get; private set; }
@@ -34,8 +32,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 inspectedReports = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("InspectedReports"));
+                NotifyPropertyChange();
             }
         }
 
@@ -46,8 +43,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 parentView = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ParentView"));
+                NotifyPropertyChange();
             }
         }
 
@@ -58,8 +54,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 screenplayOwner = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("screenplayOwner"));
+                NotifyPropertyChange();
             }
         }
 
@@ -73,8 +68,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 if (selectedScreenplay != -1)
                     RefreshScreenplayCommand.Execute(null);
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedScreenplay"));
+                NotifyPropertyChange();
             }
         }
 
@@ -85,8 +79,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 canFlutter = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanFlutter"));
+                NotifyPropertyChange();
             }
         }
 
@@ -97,8 +90,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 canGoToPrevious = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanGoToPrevious"));
+                NotifyPropertyChange();
             }
         }
 
@@ -109,8 +101,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 canGoToNext = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanGoToNext"));
+                NotifyPropertyChange();
             }
         }
 
@@ -234,10 +225,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <param name="selectedReports">The reports selected for inspection</param>
         /// <param name="parent">The view from which the ReportsInspectionView was called</param>
         /// </summary>
-        public void RefreshView(ObservableCollection<SelectionModel> selectedReports, string parent)
+        public void RefreshView(ObservableCollection<SelectionEntryModel> selectedReports, string parent)
         {
             InspectedReports.Clear();
-            foreach (SelectionModel selectedReport in selectedReports)
+            foreach (SelectionEntryModel selectedReport in selectedReports)
                 if (selectedReport.IsChecked)
                     InspectedReports.Add(ReportsViewModel.FindReportByTitle(selectedReport.ScreenplayFileName));
 

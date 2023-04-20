@@ -5,7 +5,6 @@ using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,7 +12,7 @@ using System.Windows.Data;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ArchivesFilterViewModel : INotifyPropertyChanged
+    public class ArchivesFilterViewModel : PropertyChangeNotifier
     {
         // Fields
         private Predicate<object> ownerFilter;
@@ -25,8 +24,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private string filteredOwner, filteredGenre, filteredSubGenre1, filteredSubGenre2;
         private int filteredGenreMinPercentage, filteredSubGenre1MinPercentage, filteredSubGenre2MinPercentage;
         private int filteredGenreMaxPercentage, filteredSubGenre1MaxPercentage, filteredSubGenre2MaxPercentage;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ArchivesViewModel ArchivesViewModel { get; private set; }
@@ -40,8 +37,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 ownerOptions = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerOptions"));
+                NotifyPropertyChange();
             }
         }
 
@@ -52,8 +48,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 genreOptions = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GenreOptions"));
+                NotifyPropertyChange();
             }
         }
 
@@ -64,8 +59,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 subGenre1Options = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre1Options"));
+                NotifyPropertyChange();
             }
         }
 
@@ -76,8 +70,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 subGenre2Options = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SubGenre2Options"));
+                NotifyPropertyChange();
             }
         }
 
@@ -88,8 +81,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 filteredOwner = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredOwner"));
+                NotifyPropertyChange();
             }
         }
 
@@ -108,8 +100,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 SubGenre2Options.Remove(filteredGenre);
                 SubGenre2Options.Remove(FilteredSubGenre1);
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredGenre"));
+                NotifyPropertyChange();
             }
         }
 
@@ -128,8 +119,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 SubGenre2Options.Remove(filteredSubGenre1);
                 SubGenre2Options.Remove(FilteredGenre);
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre1"));
+                NotifyPropertyChange();
             }
         }
 
@@ -148,8 +138,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 SubGenre1Options.Remove(filteredSubGenre2);
                 SubGenre1Options.Remove(FilteredGenre);
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre2"));
+                NotifyPropertyChange();
             }
         }
 
@@ -160,8 +149,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 filteredGenreMinPercentage = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredGenreMinPercentage"));
+                NotifyPropertyChange();
             }
         }
 
@@ -172,8 +160,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 filteredSubGenre1MinPercentage = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre1MinPercentage"));
+                NotifyPropertyChange();
             }
         }
 
@@ -184,8 +171,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 filteredSubGenre2MinPercentage = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre2MinPercentage"));
+                NotifyPropertyChange();
             }
         }
 
@@ -196,8 +182,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 filteredGenreMaxPercentage = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredGenreMaxPercentage"));
+                NotifyPropertyChange();
             }
         }
 
@@ -208,8 +193,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 filteredSubGenre1MaxPercentage = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre1MaxPercentage"));
+                NotifyPropertyChange();
             }
         }
 
@@ -220,8 +204,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 filteredSubGenre2MaxPercentage = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilteredSubGenre2MaxPercentage"));
+                NotifyPropertyChange();
             }
         }
 

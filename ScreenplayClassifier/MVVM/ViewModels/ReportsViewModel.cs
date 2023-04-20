@@ -7,7 +7,6 @@ using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,12 +15,10 @@ using System.Windows.Media;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ReportsViewModel : INotifyPropertyChanged
+    public class ReportsViewModel : PropertyChangeNotifier
     {
         // Fields
         private ObservableCollection<ReportModel> reports;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public MainViewModel MainViewModel { get; private set; }
@@ -37,8 +34,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 reports = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassificationReports"));
+                NotifyPropertyChange();
             }
         }
 

@@ -4,7 +4,6 @@ using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,15 +11,13 @@ using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ClassificationFeedbackViewModel : INotifyPropertyChanged
+    public class ClassificationFeedbackViewModel : PropertyChangeNotifier
     {
         // Fields
         private ObservableCollection<ScreenplayModel> feedbackedScreenplays;
         private ObservableCollection<string> screenplayTitles;
         private int screenplayOffset;
         private string nextTitle;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
@@ -34,8 +31,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 feedbackedScreenplays = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("feedbackedScreenplays"));
+                NotifyPropertyChange();
             }
         }
 
@@ -46,8 +42,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 screenplayTitles = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ScreenplayTitles"));
+                NotifyPropertyChange();
             }
         }
 
@@ -58,8 +53,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 screenplayOffset = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ScreenplayOffset"));
+                NotifyPropertyChange();
             }
         }
 
@@ -70,8 +64,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 nextTitle = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("NextTitle"));
+                NotifyPropertyChange();
             }
         }
 

@@ -6,20 +6,17 @@ using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Windows;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ScreenplayViewModel : INotifyPropertyChanged
+    public class ScreenplayViewModel : PropertyChangeNotifier
     {
         // Fields
         private ScreenplayModel screenplay;
         private string screenplayTitle;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ScreenplayView ScreenplayView { get; set; }
@@ -33,8 +30,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 screenplay = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Screenplay"));
+                NotifyPropertyChange();
             }
         }
         public string ScreenplayTitle
@@ -44,8 +40,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 screenplayTitle = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ScreenplayTitle"));
+                NotifyPropertyChange();
             }
         }
 

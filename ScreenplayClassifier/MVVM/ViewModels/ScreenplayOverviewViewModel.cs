@@ -7,7 +7,6 @@ using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -16,7 +15,7 @@ using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ScreenplayOverviewViewModel : INotifyPropertyChanged
+    public class ScreenplayOverviewViewModel : PropertyChangeNotifier
     {
         // Fields
         private ScreenplayModel screenplay;
@@ -24,8 +23,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private ObservableCollection<string> ownerGenreOptions, ownerSubGenre1Options, ownerSubGenre2Options;
         private string screenplayContent, selectedOwnerGenre, selectedOwnerSubGenre1, selectedOwnerSubGenre2;
         private bool canGiveFeedback;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ScreenplayViewModel ScreenplayViewModel { get; private set; }
@@ -38,8 +35,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 screenplay = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Screenplay"));
+                NotifyPropertyChange();
             }
         }
 
@@ -50,8 +46,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 percentageSeries = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("PercentageSeries"));
+                NotifyPropertyChange();
             }
         }
 
@@ -62,8 +57,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 ownerGenreOptions = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerGenreOptions"));
+                NotifyPropertyChange();
             }
         }
 
@@ -74,8 +68,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 ownerSubGenre1Options = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerSubGenre1Options"));
+                NotifyPropertyChange();
             }
         }
 
@@ -86,8 +79,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 ownerSubGenre2Options = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerSubGenre2Options"));
+                NotifyPropertyChange();
             }
         }
 
@@ -98,8 +90,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 screenplayContent = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ScreenplayContent"));
+                NotifyPropertyChange();
             }
         }
 
@@ -128,8 +119,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     OwnerSubGenre2Options = OwnerSubGenre2Options;
                 }
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedOwnerGenre"));
+                NotifyPropertyChange();
             }
         }
 
@@ -160,8 +150,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     OwnerSubGenre2Options = OwnerSubGenre2Options;
                 }
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedOwnerSubGenre1"));
+                NotifyPropertyChange();
             }
         }
 
@@ -192,8 +181,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     OwnerSubGenre1Options = OwnerSubGenre1Options;
                 }
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedOwnerSubGenre2"));
+                NotifyPropertyChange();
             }
         }
 
@@ -204,8 +192,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 canGiveFeedback = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanGiveFeedback"));
+                NotifyPropertyChange();
             }
         }
 

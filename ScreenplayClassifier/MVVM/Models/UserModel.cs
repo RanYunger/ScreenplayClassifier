@@ -1,13 +1,12 @@
 ﻿using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text;
 
 namespace ScreenplayClassifier.MVVM.Models
 {
-    public class UserModel : INotifyPropertyChanged
+    public class UserModel : PropertyChangeNotifier
     {
         // Enums
         public enum UserRole { GUEST, MEMBER, ADMIN };
@@ -15,7 +14,6 @@ namespace ScreenplayClassifier.MVVM.Models
         // Fields
         private string username, password;
         private UserRole role;
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public string Username
@@ -25,8 +23,7 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 username = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Username"));
+                NotifyPropertyChange();
             }
         }
 
@@ -37,8 +34,7 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 role = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Role"));
+                NotifyPropertyChange();
             }
         }
 
@@ -49,8 +45,7 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 password = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Password"));
+                NotifyPropertyChange();
             }
         }
 

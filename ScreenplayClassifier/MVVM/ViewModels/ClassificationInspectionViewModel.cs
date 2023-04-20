@@ -1,22 +1,20 @@
 ﻿using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
+using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Text;
 using System.Windows;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ClassificationInspectionViewModel : INotifyPropertyChanged
+    public class ClassificationInspectionViewModel : PropertyChangeNotifier
     {
         // Fields
         private ObservableCollection<ScreenplayModel> classifiedScreenplays;
         private string titleText;
         private double accuracyPercent;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
@@ -32,8 +30,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 if (classifiedScreenplays.Count > 0)
                     TitleText = string.Format("{0} Review", ClassifiedScreenplays.Count == 1 ? ClassifiedScreenplays[0].Title : "Batch");
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassifiedScreenplays"));
+                NotifyPropertyChange();
             }
         }
 
@@ -44,8 +41,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 titleText = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("TitleText"));
+                NotifyPropertyChange();
             }
         }
 
@@ -56,8 +52,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 accuracyPercent = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("AccuracyPercent"));
+                NotifyPropertyChange();
             }
         }
 

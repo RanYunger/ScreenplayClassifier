@@ -5,7 +5,6 @@ using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Windows.Controls;
@@ -15,41 +14,36 @@ using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ClassificationBrowseViewModel : INotifyPropertyChanged
+    public class ClassificationBrowseViewModel : PropertyChangeNotifier
     {
         // Fields
-        private ObservableCollection<SelectionModel> browsedScreenplays, checkedScreenplays;
+        private ObservableCollection<SelectionEntryModel> browsedScreenplays, checkedScreenplays;
         private int selectedScreenplay;
         private bool canBrowse, canClear, canSelect, canClassify;
-        private string instructionText;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
         public ClassificationBrowseView ClassificationBrowseView { get; private set; }
 
-        public ObservableCollection<SelectionModel> BrowsedScreenplays
+        public ObservableCollection<SelectionEntryModel> BrowsedScreenplays
         {
             get { return browsedScreenplays; }
             set
             {
                 browsedScreenplays = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("BrowsedScreenplays"));
+                NotifyPropertyChange();
             }
         }
 
-        public ObservableCollection<SelectionModel> CheckedScreenplays
+        public ObservableCollection<SelectionEntryModel> CheckedScreenplays
         {
             get { return checkedScreenplays; }
             set
             {
                 checkedScreenplays = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CheckedScreenplays"));
+                NotifyPropertyChange();
             }
         }
 
@@ -63,8 +57,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 if (ClassificationViewModel != null)
                     CheckSelectionCommand.Execute(null);
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedScreenplay"));
+                NotifyPropertyChange();
             }
         }
 
@@ -75,8 +68,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 canBrowse = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanBrowse"));
+                NotifyPropertyChange();
             }
         }
 
@@ -87,8 +79,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 canClear = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanClear"));
+                NotifyPropertyChange();
             }
         }
 
@@ -99,8 +90,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 canSelect = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanSelect"));
+                NotifyPropertyChange();
             }
         }
 
@@ -111,20 +101,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 canClassify = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanClassify"));
-            }
-        }
-
-        public string InstructionText
-        {
-            get { return instructionText; }
-            set
-            {
-                instructionText = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("InstructionText"));
+                NotifyPropertyChange();
             }
         }
 
@@ -139,7 +116,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    SelectionModel browsedScreenplay = null;
+                    SelectionEntryModel browsedScreenplay = null;
 
                     // Validation
                     if ((!CanBrowse) || (selectedScreenplay == -1) || (BrowsedScreenplays.Count == 0))
@@ -153,13 +130,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     }
                     else
                     {
-                        if (CheckedScreenplays.Count < 5)
-                        {
-                            browsedScreenplay.IsChecked = true;
-                            CheckedScreenplays.Add(browsedScreenplay);
-                        }
-                        else
-                            MessageBox.ShowError("You can choose up to 5 screenplays");
+                        browsedScreenplay.IsChecked = true;
+                        CheckedScreenplays.Add(browsedScreenplay);
                     }
 
                     CanClassify = CheckedScreenplays.Count > 0;
@@ -189,12 +161,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     for (int i = 0; i < openFileDialog.FileNames.Length; i++)
                     {
                         screenplayPath = string.Format("\"{0}\"", openFileDialog.FileNames[i]); // for passing paths with spaces
-                        BrowsedScreenplays.Add(new SelectionModel(ownerName, screenplayPath));
+                        BrowsedScreenplays.Add(new SelectionEntryModel(ownerName, screenplayPath));
                     }
 
                     CanClear = BrowsedScreenplays.Count > 0;
                     CanSelect = BrowsedScreenplays.Count > 0;
-                    InstructionText = string.Format("Choose {0}screenplays to classify", BrowsedScreenplays.Count > 5 ? "up to 5 " : string.Empty);
                 });
             }
         }
@@ -243,8 +214,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ClassificationBrowseView = classificationBrowseView;
             ClassificationViewModel = classificationViewModel;
 
-            BrowsedScreenplays = new ObservableCollection<SelectionModel>();
-            CheckedScreenplays = new ObservableCollection<SelectionModel>();
+            BrowsedScreenplays = new ObservableCollection<SelectionEntryModel>();
+            CheckedScreenplays = new ObservableCollection<SelectionEntryModel>();
 
             RefreshView();
         }

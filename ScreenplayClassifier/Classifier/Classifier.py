@@ -1,47 +1,70 @@
 # Imports
-import os, time, pandas, pickle
+import time
+import numpy
+import pandas
+import pickle
+import constants
 
-from pathlib import Path
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score
 from sklearn.multiclass import OneVsRestClassifier
+from sklearn.tree import DecisionTreeClassifier
+from loader import load_test_screenplays
 from sklearn.preprocessing import MultiLabelBinarizer
+from sklearn.model_selection import train_test_split
 
-from Loader import *
-from TextProcessor import *
-
-# Globals
-default_binarizer   = MultiLabelBinarizer()
-default_vectorizer  = TfidfVectorizer(max_df=0.8, max_features=10000)
-default_classifier  = OneVsRestClassifier(LogisticRegression())
 
 # Methods
-def load_pickle():
-    pickle_file = open(Path.cwd() / "Classifier/Pickle", "rb")
-    loaded_binarizer, loaded_vectorizer, loaded_classifier = pickle.load(pickle_file)
+def load_model():
+    # Validates existence of pickle file
+    if not constants.MODEL_PICKLE_PATH.exists():
+        return create_model()
+
+    # Reads model variables from pickle file
+    pickle_file = open(constants.MODEL_PICKLE_PATH, "rb")
+    model = pickle.load(pickle_file)
     pickle_file.close()
 
-    binarizer = loaded_binarizer if loaded_vectorizer is not None else default_binarizer
-    vectorizer = loaded_vectorizer if loaded_vectorizer is not None else default_vectorizer
-    classifier = loaded_classifier if loaded_classifier is not None else default_classifier
+    return model
 
-    return [binarizer, vectorizer, classifier]
 
-def save_pickle(binarizer, vectorizer, classifier):
-    # Validation
-    saved_binarizer = binarizer if binarizer is not None else default_binarizer
-    saved_vectorizer = vectorizer if vectorizer is not None else default_vectorizer
-    saved_classifier = classifier if classifier is not None else default_classifier
-
-    pickle_file = open(Path.cwd() / "Classifier/Pickle", "wb")
-    pickle.dump([saved_binarizer, saved_vectorizer, saved_classifier], pickle_file)
+def save_model(model):
+    # Writes model variables to pickle file
+    pickle_file = open(constants.MODEL_PICKLE_PATH, "wb")
+    pickle.dump(model, pickle_file)
     pickle_file.close()
+
+
+def create_model():
+    # Converts the genres of each screenplay into a list
+    train_screenplays = pandas.read_csv(constants.TRAIN_CSV_PATH, dtype={"Filename": str, "Title": str})
+    train_screenplays["Genres"] = [eval(genres) for genres in train_screenplays["Genres"]]
+
+    # Splits the data into labels (t) and features (x)
+    t = MultiLabelBinarizer().fit_transform(train_screenplays["Genres"])
+    x = train_screenplays.drop(["Title", "Filename", "Genres"], axis=1)
+
+    # Creates a classification model and prints its accuracy score
+    classifier = OneVsRestClassifier(DecisionTreeClassifier(max_depth=constants.DECISION_TREE_DEPTH))
+
+    if constants.DATA_SPLIT:
+        x_train, x_validation, t_train, t_validation = train_test_split(x, t, test_size=0.2, random_state=1)
+
+        classifier.fit(x_train, t_train)
+        score = classifier.score(x_validation, t_validation)
+    else:
+        classifier.fit(x, t)
+        score = classifier.score(x, t)
+
+    print("Accuracy: {:.4f}".format(score))
+
+    # Saves the model to file
+    save_model(classifier)
+
+    return classifier
+
 
 def probabilities_to_percentages(probabilities):
-    genre_labels = json.load(open("Jsons/Genres.json"))
-    probabilities_dict = dict(zip(genre_labels, probabilities))
+    # Creates a sorted probabilities dictionary
+    probabilities_dict = dict(zip(constants.GENRE_LABELS, probabilities))
     probabilities_dict = dict(sorted(probabilities_dict.items(), key=lambda item: item[1], reverse=True))
     sum_of_probabilities = sum(probabilities)
     percentages_dict = {}
@@ -52,49 +75,25 @@ def probabilities_to_percentages(probabilities):
 
     return percentages_dict
 
-def train():
-    # Loads classifier's variables from file
-    binarizer, vectorizer, classifier = load_pickle()
 
-    # If training is required
-    if (binarizer == default_binarizer) or (vectorizer == default_vectorizer) or (classifier == default_classifier):
-        train_screenplays = pandas.merge(read_train_screenplays(), read_genres(), on="Title")
-
-        binarizer.fit(train_screenplays["Actual Genres"])
-        y = binarizer.transform(train_screenplays["Actual Genres"])
-
-        x_train, x_validation, y_train, y_validation = train_test_split(train_screenplays["Text"], y, test_size=0.2,
-                                                                        random_state=42)
-
-        x_train_tfidf = vectorizer.fit_transform(x_train)
-        x_validation_tfidf = vectorizer.transform(x_validation)
-
-        classifier.fit(x_train_tfidf, y_train)
-
-        y_probabilities = classifier.predict_proba(x_validation_tfidf)
-
-    return [binarizer, vectorizer, classifier]
-
-def classify(classifier_variables, file_paths):
-    test_screenplays = read_test_screenplays(file_paths)
-    binarizer, vectorizer, classifier = classifier_variables
+def classify(file_paths):
+    # Loads test screenplays and classification model
+    test_screenplays = load_test_screenplays(file_paths)
+    model = load_model()
     classifications_dict = {}
     classifications_complete = 0
 
-    for offset, test_screenplay in test_screenplays.iterrows():
-        test_vector = vectorizer.transform([test_screenplay["Text"]])
-        test_probabilities = sum(classifier.predict_proba(test_vector).tolist(), []) # Flattens the list
-        test_percentages = probabilities_to_percentages(test_probabilities)
+    # Classifies the test screenplays
+    for offset, screenplay in test_screenplays.iterrows():
+        features_vector = [feature[0] for feature in numpy.array(screenplay[1:]).reshape(-1, 1)]
+        genre_probabilities = model.predict_proba([features_vector])[0]
+        classifications_dict[file_paths[offset]] = probabilities_to_percentages(genre_probabilities)
 
-        classifications_dict[file_paths[offset]] = test_percentages
-
+        # Prints progress (for GUI to update progress)
         classifications_complete += 1
         print(classifications_complete)
 
-        time.sleep(0.5) # Sleep for 0.5 seconds
-
-    # Saves classifier's variables to file
-    save_pickle(binarizer, vectorizer, classifier)
+        time.sleep(0.5)  # seconds
 
     return pandas.DataFrame({"FilePath": classifications_dict.keys(),
                              "GenrePercentages": classifications_dict.values()})

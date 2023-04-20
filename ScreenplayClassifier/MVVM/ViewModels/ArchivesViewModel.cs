@@ -4,17 +4,15 @@ using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ArchivesViewModel : INotifyPropertyChanged
+    public class ArchivesViewModel : PropertyChangeNotifier
     {
         // Fields
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public MainViewModel MainViewModel { get; private set; }

@@ -15,7 +15,7 @@ using static ScreenplayClassifier.MVVM.Models.UserModel;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class SettingsViewModel : INotifyPropertyChanged
+    public class SettingsViewModel : PropertyChangeNotifier
     {
         // Fields
         private Predicate<object> usernameFilter;
@@ -24,8 +24,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private int selectedUser;
         private bool isNewPasswordVisible, canAdd, canRemove, canChangeRole;
         private string oldPassword, newPassword, confirmedPassword;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public MainViewModel MainViewModel { get; private set; }
@@ -38,8 +36,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 authenticatedUsers = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("AuthenticatedUsers"));
+                NotifyPropertyChange();
             }
         }
 
@@ -52,8 +49,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 CanRemove = selectedUser != -1;
                 CanChangeRole = selectedUser != -1;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedUser"));
+                NotifyPropertyChange();
             }
         }
 
@@ -64,8 +60,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 isNewPasswordVisible = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("IsNewPasswordVisible"));
+                NotifyPropertyChange();
             }
         }
 
@@ -76,8 +71,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 canAdd = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanAdd"));
+                NotifyPropertyChange();
             }
         }
 
@@ -88,8 +82,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 canRemove = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanRemove"));
+                NotifyPropertyChange();
             }
         }
 
@@ -100,8 +93,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 canChangeRole = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanChangeRole"));
+                NotifyPropertyChange();
             }
         }
 
@@ -112,8 +104,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 oldPassword = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("OldPassword"));
+                NotifyPropertyChange();
             }
         }
 
@@ -124,8 +115,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 newPassword = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("NewPassword"));
+                NotifyPropertyChange();
             }
         }
 
@@ -136,8 +126,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 confirmedPassword = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ConfirmedPassword"));
+                NotifyPropertyChange();
             }
         }
 

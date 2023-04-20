@@ -41,41 +41,20 @@
                 <Image Source="/Media/Images/Search.png" Height="30" Width="30" Margin="-35,5,5,5"/>
             </WrapPanel>
             <Canvas Height="530">
-                <Image gif:ImageBehavior.AnimatedSource="{Binding GenreGif}" gif:ImageBehavior.RepeatBehavior="Forever" Height="500" Width="839"
-                       Stretch="Fill" Margin="0,30,0,0"/>
-                <DataGrid ItemsSource="{Binding ClassifiedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}" FontSize="20"
-                      CanUserSortColumns="False" SelectionMode="Single">
-                    <DataGrid.Style>
-                        <Style TargetType="DataGrid">
-                            <Setter Property="AutoGenerateColumns" Value="False"/>
-                            <Setter Property="Background" Value="{StaticResource UserControlBackground}"/>
-                            <Setter Property="CanUserResizeColumns" Value="False"/>
-                            <Setter Property="CanUserReorderColumns" Value="False"/>
-                            <Setter Property="CanUserSortColumns" Value="True"/>
-                            <Setter Property="CanUserAddRows" Value="False"/>
-                            <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
-                            <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsFilteredByGenre}" Value="True">
-                                    <Setter Property="Opacity" Value="0.7"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding IsFilteredByGenre}" Value="False">
-                                    <Setter Property="Opacity" Value="1.0"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGrid.Style>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding CheckSelectionCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                <Image gif:ImageBehavior.AnimatedSource="{Binding GenreGif}" Height="530" Width="839" Stretch="Fill"/>
+                <DataGrid ItemsSource="{Binding ClassifiedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}" MaxHeight="480" FontSize="20"
+                      CanUserSortColumns="False" Style="{StaticResource DataGridStyle}">
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, Mode=TwoWay}" Width="50"
-                                            ElementStyle="{StaticResource BaseCheckBoxStyle}"
-                                            HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
+                        <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, UpdateSourceTrigger=PropertyChanged}" Width="50"
+                                                ElementStyle="{StaticResource BaseCheckBoxStyle}"
+                                                HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
+                            <DataGridCheckBoxColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <!--{Binding RelativeSource Mode=FindAncestor, AncestorType=v:ScreenplaysSelectionView}, Path=AllSelected}-->
+                                    <CheckBox IsChecked="{Binding Path=AllSelected}" Style="{StaticResource BaseCheckBoxStyle}"/>
+                                </DataTemplate>
+                            </DataGridCheckBoxColumn.HeaderTemplate>
+                        </DataGridCheckBoxColumn>
                         <DataGridTextColumn Header="Screenplay Title" Binding="{Binding Path=ScreenplayFileName}" Width="540" IsReadOnly="True"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                         <DataGridTextColumn Header="Owner" Binding="{Binding Path=OwnerName}" Width="246" IsReadOnly="True"

@@ -47,8 +47,8 @@
                 </Button>
             </WrapPanel>
             <DataGrid ItemsSource="{Binding BrowsedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}"
-                      Visibility="{Binding ElementName=ClearAllButton, Path=Visibility}" FontSize="20" CanUserSortColumns="False" SelectionMode="Single"
-                      Margin="10" Style="{StaticResource DataGridStyle}">
+                      Visibility="{Binding ElementName=ClearAllButton, Path=Visibility}" MaxHeight="480" FontSize="20" CanUserSortColumns="False"
+                      SelectionMode="Single" Margin="10" Style="{StaticResource DataGridStyle}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
                         <i:InvokeCommandAction Command="{Binding CheckSelectionCommand}"/>
@@ -63,7 +63,7 @@
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <TextBlock Text="{Binding InstructionText}" FontSize="20" Visibility="{Binding ElementName=ClearAllButton, Path=Visibility}"
+            <TextBlock Text="Choose screenplays to classify" FontSize="20" Visibility="{Binding ElementName=ClearAllButton, Path=Visibility}"
                        Margin="10,0,0,10" Style="{StaticResource TextBlockStyle}"/>
             <Button Command="{Binding ClassifyCommand}" Width="150" Visibility="{Binding ElementName=ClearAllButton, Path=Visibility}"
                     IsEnabled="{Binding CanClassify}" Margin="10,0,0,10" Style="{StaticResource ButtonStyle}">

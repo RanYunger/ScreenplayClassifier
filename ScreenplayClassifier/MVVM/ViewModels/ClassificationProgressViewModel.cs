@@ -6,21 +6,19 @@ using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
-using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ClassificationProgressViewModel : INotifyPropertyChanged
+    public class ClassificationProgressViewModel : PropertyChangeNotifier
     {
         // Fields
         private System.Timers.Timer durationTimer;
@@ -29,8 +27,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private bool isThreadAlive;
         private int classificationsRequired, classificationsComplete, percent, currentPhase;
         private string classificationsText, durationText, phaseText;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
@@ -44,8 +40,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 durationTimer = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("DurationTimer"));
+                NotifyPropertyChange();
             }
         }
 
@@ -56,8 +51,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 phaseGif = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("PhaseGif"));
+                NotifyPropertyChange();
             }
         }
 
@@ -69,8 +63,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 duration = value;
                 DurationText = duration.ToString();
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Duration"));
+                NotifyPropertyChange();
             }
         }
 
@@ -81,8 +74,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 isThreadAlive = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("IsThreadAlive"));
+                NotifyPropertyChange();
             }
         }
 
@@ -93,8 +85,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 classificationsRequired = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassificationsRequired"));
+                NotifyPropertyChange();
             }
         }
 
@@ -106,8 +97,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 classificationsComplete = value;
                 ClassificationsText = string.Format("Classified: {0}/{1}", classificationsComplete, ClassificationsRequired);
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassificationsComplete"));
+                NotifyPropertyChange();
             }
         }
 
@@ -118,8 +108,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 percent = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Percent"));
+                NotifyPropertyChange();
             }
         }
 
@@ -130,8 +119,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 currentPhase = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CurrentPhase"));
+                NotifyPropertyChange();
             }
         }
 
@@ -142,8 +130,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 classificationsText = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassificationsText"));
+                NotifyPropertyChange();
             }
         }
 
@@ -154,8 +141,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 durationText = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("DurationText"));
+                NotifyPropertyChange();
             }
         }
 
@@ -167,10 +153,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 phaseText = value;
 
                 if ((phaseText != string.Empty) && (phaseText != "Classifying"))
-                    App.Current.Dispatcher.Invoke(() => PhaseGif = new BitmapImage(new Uri(string.Format("{0}{1}.gif", FolderPaths.GIFS, phaseText))));
+                    App.Current.Dispatcher.Invoke(() => PhaseGif = new BitmapImage(new Uri(string.Format("{0}{1}.gif",
+                        FolderPaths.GIFS, phaseText))));
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("PhaseText"));
+                NotifyPropertyChange();
             }
         }
 
@@ -209,7 +195,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void ShowView()
         {
             if (ClassificationProgressView != null)
-                App.Current.Dispatcher.Invoke(() => ClassificationProgressView.Visibility = Visibility.Visible);
+                App.Current.Dispatcher.Invoke(() => ClassificationProgressView.Visibility = System.Windows.Visibility.Visible);
         }
 
         /// <summary>
@@ -238,18 +224,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void HideView()
         {
             if (ClassificationProgressView != null)
-                App.Current.Dispatcher.Invoke(() => ClassificationProgressView.Visibility = Visibility.Collapsed);
+                App.Current.Dispatcher.Invoke(() => ClassificationProgressView.Visibility = System.Windows.Visibility.Collapsed);
         }
 
         /// <summary>
         /// Starts the classification process.
         /// </summary>
         /// <param name="screenplaysToClassify">The screenplays to be processed</param>
-        public void StartClassification(ObservableCollection<SelectionModel> screenplaysToClassify)
+        public void StartClassification(ObservableCollection<SelectionEntryModel> screenplaysToClassify)
         {
             ObservableCollection<string> screenplayFilePaths = new ObservableCollection<string>();
 
-            foreach (SelectionModel browsedScreenplay in screenplaysToClassify)
+            foreach (SelectionEntryModel browsedScreenplay in screenplaysToClassify)
                 screenplayFilePaths.Add(browsedScreenplay.ScreenplayFilePath);
 
             DurationTimer.Start();
@@ -258,7 +244,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ClassificationsComplete = 0;
 
             PhaseText = "Processing";
-            
+
             IsThreadAlive = true;
             ClassificationThread = new Thread(() => ClassifyScreenplays(screenplayFilePaths));
             ClassificationThread.Start();
@@ -284,7 +270,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void ClassifyScreenplays(ObservableCollection<string> screenplayFilePaths)
         {
             int progressOutput;
-            string scriptPath = FolderPaths.CLASSIFIER + "Loader.py", scriptArgs = string.Join(" ", screenplayFilePaths); // Main.py
+            string scriptPath = FolderPaths.CLASSIFIER + "main.py", scriptArgs = string.Join(" ", screenplayFilePaths);
             string outputLine = string.Empty, screenplaysJson = string.Empty;
             UserModel owner = ClassificationViewModel.MainViewModel.UserToolbarViewModel.User;
             List<ScreenplayModel> deserializedScreenplays;
@@ -309,13 +295,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                         // Reads progress values printed by the python classifier
                         outputLine = reader.ReadLine();
-                        if ((!string.IsNullOrEmpty(outputLine)) && (int.TryParse(outputLine, out progressOutput)))
+                        if (!string.IsNullOrEmpty(outputLine))
                         {
-                            CurrentPhase = 1;
-                            PhaseText = "Classifying";
+                            if (int.TryParse(outputLine, out progressOutput))
+                            {
+                                CurrentPhase = 1;
+                                PhaseText = "Classifying";
 
-                            ClassificationsComplete = progressOutput;
-                            Percent = (ClassificationsComplete * 100) / classificationsRequired;
+                                ClassificationsComplete = progressOutput;
+                                Percent = (ClassificationsComplete * 100) / classificationsRequired;
+                            }
+                            else
+                            {
+                                App.Current.Dispatcher.Invoke(() => MessageBox.ShowError(outputLine));
+                                App.Current.Dispatcher.Invoke(() => DurationTimer.Stop());
+                                IsThreadAlive = false;
+                            }
                         }
 
                         Thread.Sleep(500);
@@ -326,16 +321,20 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 }
             }
 
-            Thread.Sleep(500);
-            CurrentPhase = 2;
-            PhaseText = "Done!";
-            Thread.Sleep(1700);
+            if (Percent >= 100)
+            {
+                Thread.Sleep(500);
+                CurrentPhase = 2;
+                PhaseText = "Done!";
+                DurationTimer.Stop();
+                Thread.Sleep(1700);
 
-            // Generates classification report for each screenplay
-            deserializedScreenplays = JsonConvert.DeserializeObject<List<ScreenplayModel>>(screenplaysJson);
-            ClassificationViewModel.ClassificationFeedbackViewModel.FeedbackedScreenplays
-                = new ObservableCollection<ScreenplayModel>(deserializedScreenplays);
-            App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
+                // Generates classification report for each screenplay
+                deserializedScreenplays = JsonConvert.DeserializeObject<List<ScreenplayModel>>(screenplaysJson);
+                ClassificationViewModel.ClassificationFeedbackViewModel.FeedbackedScreenplays
+                    = new ObservableCollection<ScreenplayModel>(deserializedScreenplays);
+                App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
+            }
         }
     }
 }

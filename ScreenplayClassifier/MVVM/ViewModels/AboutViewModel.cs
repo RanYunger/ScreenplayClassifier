@@ -2,7 +2,6 @@
 using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text;
 using System.Timers;
 using System.Windows.Controls;
@@ -10,12 +9,10 @@ using System.Windows.Media;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class AboutViewModel : INotifyPropertyChanged
+    public class AboutViewModel : PropertyChangeNotifier
     {
         // Fields
         private bool isPlaying;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public MainViewModel MainViewModel { get; private set; }
@@ -33,8 +30,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 else
                     InterruptVideoCommand.Execute(null);
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("IsPlaying"));
+                NotifyPropertyChange();
             }
         }
 

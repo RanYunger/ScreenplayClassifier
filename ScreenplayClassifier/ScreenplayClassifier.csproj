@@ -8,11 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Classifier\Classifier.py" />
-    <None Remove="Classifier\Loader.py" />
-    <None Remove="Classifier\Movie Script Info.json" />
-    <None Remove="Classifier\Pickle" />
-    <None Remove="Classifier\TextProcessor.py" />
+    <None Remove="Classifier\classifier.py" />
+    <None Remove="Classifier\constants.py" />
+    <None Remove="Classifier\loader.py" />
+    <None Remove="Classifier\main.py" />
+    <None Remove="Classifier\Model.pkl" />
+    <None Remove="Classifier\screenplay_processor.py" />
+    <None Remove="Classifier\script_info.py" />
+    <None Remove="Classifier\Train.csv" />
     <None Remove="Icon.ico" />
     <None Remove="Jsons\Genres.json" />
     <None Remove="Jsons\Reports.json" />
@@ -82,7 +85,6 @@
     <None Remove="Media\Images\Options.png" />
     <None Remove="Media\Images\Password.png" />
     <None Remove="Media\Images\Percentage.png" />
-    <None Remove="Media\Images\Posters.png" />
     <None Remove="Media\Images\Previous.png" />
     <None Remove="Media\Images\Question.png" />
     <None Remove="Media\Images\Remove.png" />
@@ -104,19 +106,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Classifier\Classifier.py">
+    <Content Include="Classifier\classifier.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Classifier\Loader.py">
+    <Content Include="Classifier\constants.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Classifier\Movie Script Info.json">
+    <Content Include="Classifier\loader.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Classifier\Pickle">
+    <Content Include="Classifier\main.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Classifier\TextProcessor.py">
+    <Content Include="Classifier\Model.pkl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Classifier\screenplay_processor.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Classifier\script_info.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Classifier\Train.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico">
@@ -315,9 +326,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Percentage.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\Posters.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Previous.png">

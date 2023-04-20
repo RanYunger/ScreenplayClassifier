@@ -3,7 +3,6 @@ using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,13 +11,11 @@ using System.Windows.Media.Animation;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class UserToolbarViewModel : INotifyPropertyChanged
+    public class UserToolbarViewModel : PropertyChangeNotifier
     {
         // Fields
         private MediaPlayer mediaPlayer;
         private UserModel user;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public UserToolbarView UserToolbarView { get; set; }
@@ -31,8 +28,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 user = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("User"));
+                NotifyPropertyChange();
             }
         }
 

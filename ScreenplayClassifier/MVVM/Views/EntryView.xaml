@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
-        Title="Screenplay Classifier" Height="700" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#392C2B"
-        Style="{StaticResource WindowStyle}">
+        Title="Screenplay Classifier" Height="700" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Style="{StaticResource EntryWindowStyle}">
     <Grid>
         <StackPanel HorizontalAlignment="Stretch">
             <Image Source="/Media/Images/TicketSign.png" Margin="10"/>

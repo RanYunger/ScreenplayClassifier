@@ -1,7 +1,6 @@
 ﻿using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
 using System;
-using System.ComponentModel;
 using System.Numerics;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,7 +10,7 @@ using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class HomeViewModel
+    public class HomeViewModel : PropertyChangeNotifier
     {
         // Fields
 

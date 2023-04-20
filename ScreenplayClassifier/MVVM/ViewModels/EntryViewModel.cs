@@ -16,15 +16,13 @@ using System.Windows.Input;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class EntryViewModel : INotifyPropertyChanged
+    public class EntryViewModel : PropertyChangeNotifier
     {
         // Fields
         private ObservableCollection<UserModel> authenticatedUsers;
         private string usernameError, passwordError;
         private int attemptsCount;
         private bool canSignIn;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public EntryView EntryView { get; private set; }
@@ -36,8 +34,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 authenticatedUsers = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("AuthenticatedUsers"));
+                NotifyPropertyChange();
             }
         }
 
@@ -48,8 +45,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 usernameError = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("UsernameError"));
+                NotifyPropertyChange();
             }
         }
 
@@ -60,8 +56,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 passwordError = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("PasswordError"));
+                NotifyPropertyChange();
             }
         }
 
@@ -72,8 +67,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 attemptsCount = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("AttemptsCount"));
+                NotifyPropertyChange();
             }
         }
 
@@ -84,8 +78,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 canSignIn = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanSignIn"));
+                NotifyPropertyChange();
             }
         }
 

@@ -13,44 +13,30 @@ using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ScreenplaysSelectionViewModel : INotifyPropertyChanged
+    public class ScreenplaysSelectionViewModel : PropertyChangeNotifier
     {
         // Fields
         private Predicate<object> titleFilter;
         private MediaPlayer mediaPlayer;
 
-        private ObservableCollection<SelectionModel> classifiedScreenplays, checkedScreenplays;
+        private ObservableCollection<SelectionEntryModel> classifiedScreenplays;
         private ImageSource genreGif;
         private string noScreenplaysMessage;
         private int selectedScreenplay;
-        private bool canSelect, canInspect, isFilteredByGenre;
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        private bool? allSelected;
+        private bool allSelectedChanging, canSelect, canInspect, isFilteredByGenre;
 
         // Properties
         public ScreenplaysSelectionView ScreenplaysSelectionView { get; private set; }
 
-        public ObservableCollection<SelectionModel> ClassifiedScreenplays
+        public ObservableCollection<SelectionEntryModel> ClassifiedScreenplays
         {
             get { return classifiedScreenplays; }
             set
             {
                 classifiedScreenplays = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassifiedScreenplays"));
-            }
-        }
-
-        public ObservableCollection<SelectionModel> CheckedScreenplays
-        {
-            get { return checkedScreenplays; }
-            set
-            {
-                checkedScreenplays = value;
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CheckedScreenplays"));
+                NotifyPropertyChange();
             }
         }
 
@@ -61,8 +47,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 genreGif = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GenreGif"));
+                NotifyPropertyChange();
             }
         }
 
@@ -73,8 +58,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 noScreenplaysMessage = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("NoScreenplaysMessage"));
+                NotifyPropertyChange();
             }
         }
 
@@ -85,11 +69,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 selectedScreenplay = value;
 
-                if (selectedScreenplay != -1)
-                    CheckSelectionCommand.Execute(null);
-
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("SelectedScreenplay"));
+                NotifyPropertyChange();
             }
         }
 
@@ -100,8 +80,34 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 canSelect = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanSelect"));
+                NotifyPropertyChange();
+            }
+        }
+
+        public bool? AllSelected
+        {
+            get { return allSelected; }
+            set
+            {
+                // Validation - value change will cause a cascade of changes
+                if (allSelected == value)
+                    return;
+
+                allSelected = value;
+                AllSelectedChanged(); // Set all other CheckBoxes
+
+                NotifyPropertyChange();
+            }
+        }
+
+        public bool AllSelectedChanging
+        {
+            get { return allSelectedChanging; }
+            set
+            {
+                allSelectedChanging = value;
+
+                NotifyPropertyChange();
             }
         }
 
@@ -112,8 +118,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 canInspect = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CanInspect"));
+                NotifyPropertyChange();
             }
         }
 
@@ -124,8 +129,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 isFilteredByGenre = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("IsFilteredByGenre"));
+                NotifyPropertyChange();
             }
         }
 
@@ -207,39 +211,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     titleFilter = (o) =>
                     {
                         return (string.IsNullOrEmpty(titleInput.Trim())) || (string.Equals(titleInput, "Search screenplay by title"))
-                            ? true : ((SelectionModel)o).ScreenplayFileName.Contains(titleInput);
+                            ? true : ((SelectionEntryModel)o).ScreenplayFileName.Contains(titleInput);
                     };
                     screenplaysCollectionView.Filter = (o) => { return titleFilter.Invoke(o); };
                     screenplaysCollectionView.Refresh();
-                });
-            }
-        }
-
-        public Command CheckSelectionCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    SelectionModel chosenScreenplay = null;
-
-                    // Validation
-                    if ((SelectedScreenplay == -1) || (ClassifiedScreenplays.Count == 0))
-                        return;
-
-                    chosenScreenplay = ClassifiedScreenplays[SelectedScreenplay];
-                    if (CheckedScreenplays.Contains(chosenScreenplay))
-                    {
-                        chosenScreenplay.IsChecked = false;
-                        CheckedScreenplays.Remove(chosenScreenplay);
-                    }
-                    else
-                    {
-                        chosenScreenplay.IsChecked = true;
-                        CheckedScreenplays.Add(chosenScreenplay);
-                    }
-
-                    CanInspect = CheckedScreenplays.Count > 0;
                 });
             }
         }
@@ -266,11 +241,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             TextBox titleTextBox = null;
 
-            ClassifiedScreenplays = new ObservableCollection<SelectionModel>();
+            ClassifiedScreenplays = new ObservableCollection<SelectionEntryModel>();
             foreach (ReportModel report in screenplays)
-                ClassifiedScreenplays.Add(new SelectionModel(report.Owner.Username, report.Screenplay.FilePath));
+                ClassifiedScreenplays.Add(new SelectionEntryModel(report.Owner.Username, report.Screenplay.FilePath));
 
-            CheckedScreenplays = new ObservableCollection<SelectionModel>();
+            // Listens to changes. 
+            // If you add/remove items, don't forgat to add/remove the event handlers too
+            foreach (SelectionEntryModel entry in ClassifiedScreenplays)
+                entry.PropertyChanged += EntryPropertyChanged;
 
             NoScreenplaysMessage = ClassifiedScreenplays.Count > 0 ? string.Empty : noResultsMessage;
             SelectedScreenplay = -1;
@@ -290,6 +268,58 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             titleTextBox = (TextBox)ScreenplaysSelectionView.FindName("TitleTextBox");
             titleTextBox.Foreground = Brushes.Gray;
             titleTextBox.Text = "Search screenplay by title";
+        }
+
+        private void EntryPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            // Re-checks only if the IsChecked property changed
+            if (args.PropertyName == nameof(SelectionEntryModel.IsChecked))
+                RecheckAllSelected();
+        }
+
+        private void AllSelectedChanged()
+        {
+            // Validation (Has this change been caused by some other change?)
+            if (allSelectedChanging)
+                return;
+
+            try
+            {
+                allSelectedChanging = true;
+
+                if (AllSelected.HasValue)
+                    foreach (SelectionEntryModel entry in ClassifiedScreenplays)
+                        entry.IsChecked = AllSelected.Value;
+            }
+            finally { AllSelectedChanging = false; }
+        }
+
+        private void RecheckAllSelected()
+        {
+            List<SelectionEntryModel> entriesList = null;
+
+            // Validation (Has this change been caused by some other change?)
+            if (AllSelectedChanging)
+                return;
+
+            try
+            {
+                entriesList = new List<SelectionEntryModel>(ClassifiedScreenplays);
+
+                AllSelectedChanging = true;
+
+                if (entriesList.TrueForAll(entry => entry.IsChecked))
+                    AllSelected = true;
+                else if (entriesList.TrueForAll(entry => !entry.IsChecked))
+                    AllSelected = false;
+                else
+                    AllSelected = null;
+            }
+            finally
+            {
+                AllSelectedChanging = false;
+                CanInspect = entriesList.Exists(entry => entry.IsChecked);
+            }
         }
     }
 }

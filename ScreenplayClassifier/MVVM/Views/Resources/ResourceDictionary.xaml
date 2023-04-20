@@ -3,6 +3,7 @@
                     xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
     
     <!--Backgrounds-->
+    <SolidColorBrush x:Key="EntryWindowBackground" Color="#392C2B"/>
     <SolidColorBrush x:Key="WindowBackground" Color="Gray"/>
     <SolidColorBrush x:Key="UserControlBackground" Color="DarkGray"/>
     <SolidColorBrush x:Key="GroupBoxBackground" Color="Transparent"/>
@@ -13,6 +14,11 @@
     <!--Components Style-->  
     
     <!--Window Style-->
+    <Style x:Key="EntryWindowStyle" TargetType="Window">
+        <Setter Property="Background" Value="{StaticResource EntryWindowBackground}"/>
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+    
     <Style x:Key="WindowStyle" TargetType="Window">
         <Setter Property="Background" Value="{StaticResource WindowBackground}"/>
         <Setter Property="FontSize" Value="14"/>
@@ -20,7 +26,7 @@
 
     <!--UserToolbar Style-->
     <Style x:Key="UserToolbarStyle" TargetType="UserControl">
-        <Setter Property="Background" Value="{StaticResource UserControlBackground}"/>
+        <Setter Property="Background" Value="{StaticResource EntryWindowBackground}"/>
     </Style>
 
     <!--UserControl Style-->
@@ -48,6 +54,7 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Cursor" Value="Hand"/>
     </Style>
     <Style x:Key="FrozenCheckBoxStyle" TargetType="CheckBox" BasedOn="{StaticResource BaseCheckBoxStyle}">
         <Setter Property="IsEnabled" Value="False"/>
@@ -139,9 +146,10 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Cursor" Value="Hand"/>
     </Style>
 
-    <!--RadioButton Style-->
+    <!--Slider Style-->
     <Style x:Key="SliderStyle" TargetType="Slider">
         <Setter Property="Minimum" Value="0"/>
         <Setter Property="IsSnapToTickEnabled" Value="True"/>
@@ -167,6 +175,7 @@
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Pen"/>
     </Style>
     <Style x:Key="ReadOnlyTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxStyle}">
         <Setter Property="IsReadOnly" Value="True"/>

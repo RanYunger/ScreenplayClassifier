@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             MaxHeight="90" MinWidth="1200" Background="#392C2B" Style="{StaticResource UserToolbarStyle}">
+             MaxHeight="90" MinWidth="1200" Style="{StaticResource UserToolbarStyle}">
     <Grid>
         <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
             <TextBlock Text="{Binding User.Username, StringFormat=Hi\, {0}}" FontSize="20" Foreground="{StaticResource ButtonBackground}"
@@ -56,11 +56,11 @@
                         <Image Source="/Media/Images/Settings.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <!--<MenuItem Header="About" Command="{Binding ShowAboutViewCommand}" FontSize="20" Style="{StaticResource MenuItemStyle}">
+                <MenuItem Header="About" Command="{Binding ShowAboutViewCommand}" FontSize="20" Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>
-                        <Image Source="/Media/Images/Info.png"/>
+                        <Image Source="/Media/Images/About.png"/>
                     </MenuItem.Icon>
-                </MenuItem>-->
+                </MenuItem>
                 <MenuItem Header="Sign out" Command="{Binding SignoutCommand}" FontSize="20" Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>
                         <Image Source="/Media/Images/Signout.png"/>

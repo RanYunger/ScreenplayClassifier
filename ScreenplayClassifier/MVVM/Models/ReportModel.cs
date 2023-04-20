@@ -3,7 +3,6 @@ using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -13,13 +12,11 @@ using System.Windows;
 
 namespace ScreenplayClassifier.MVVM.Models
 {
-    public class ReportModel : INotifyPropertyChanged
+    public class ReportModel : PropertyChangeNotifier
     {
         // Fields
         private UserModel owner;
         private ScreenplayModel screenplay;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
 
@@ -30,8 +27,7 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 owner = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Owner"));
+                NotifyPropertyChange();
             }
         }
 
@@ -42,8 +38,7 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 screenplay = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Screenplay"));
+                NotifyPropertyChange();
             }
         }
 

@@ -5,7 +5,6 @@ using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Timers;
@@ -15,12 +14,10 @@ using System.Windows.Input;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ClassificationViewModel : INotifyPropertyChanged
+    public class ClassificationViewModel : PropertyChangeNotifier
     {
         // Fields
         private bool browseComplete, progressComplete, feedbackComplete, classificationComplete;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public MainViewModel MainViewModel { get; private set; }
@@ -46,8 +43,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     ClassificationProgressViewModel.ShowView();
                 }
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("BrowseComplete"));
+                NotifyPropertyChange();
             }
         }
 
@@ -65,8 +61,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     ClassificationFeedbackViewModel.ShowView();
                 }
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ProgressComplete"));
+                NotifyPropertyChange();
             }
         }
 
@@ -85,8 +80,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     ClassificationOverviewViewModel.ShowView();
                 }
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FeedbackComplete"));
+                NotifyPropertyChange();
             }
         }
 
@@ -116,8 +110,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     BrowseComplete = true;
                 }
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassificationComplete"));
+                NotifyPropertyChange();
             }
         }
 

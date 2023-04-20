@@ -1,22 +1,20 @@
 ﻿using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
+using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Text;
 using System.Windows;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ClassificationOverviewViewModel : INotifyPropertyChanged
+    public class ClassificationOverviewViewModel : PropertyChangeNotifier
     {
         // Fields
         private ObservableCollection<ScreenplayModel> classifiedScreenplays;
         private string titleText, accuracyColor;
         private double accuracyPercent;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
@@ -32,8 +30,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 if (classifiedScreenplays.Count > 0)
                     TitleText = string.Format("{0} Review", ClassifiedScreenplays.Count == 1 ? ClassifiedScreenplays[0].Title : "Batch");
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ClassifiedScreenplays"));
+                NotifyPropertyChange();
             }
         }
 
@@ -44,8 +41,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 titleText = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("TitleText"));
+                NotifyPropertyChange();
             }
         }
 
@@ -56,8 +52,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 accuracyColor = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("AccuracyColor"));
+                NotifyPropertyChange();
             }
         }
 
@@ -75,8 +70,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 else if ((accuracyPercent >= 66.6) && (AccuracyPercent <= 100))
                     AccuracyColor = "Green";
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("AccuracyPercent"));
+                NotifyPropertyChange();
             }
         }
 
@@ -179,7 +173,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ReportsViewModel reportsViewModel = (ReportsViewModel)ClassificationViewModel.MainViewModel.ReportsView.DataContext;
             ArchivesViewModel archivesViewModel = (ArchivesViewModel)ClassificationViewModel.MainViewModel.ArchivesView.DataContext;
 
-            foreach (SelectionModel checkedScreenplay in classificationBrowseViewModel.CheckedScreenplays)
+            foreach (SelectionEntryModel checkedScreenplay in classificationBrowseViewModel.CheckedScreenplays)
                 classificationBrowseViewModel.BrowsedScreenplays.Remove(checkedScreenplay);
 
             foreach (ScreenplayModel screenplay in ClassifiedScreenplays)

@@ -1,20 +1,18 @@
-﻿using System;
+﻿using ScreenplayClassifier.Utilities;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Text;
 
 namespace ScreenplayClassifier.MVVM.Models
 {
-    public class ScreenplayModel : INotifyPropertyChanged
+    public class ScreenplayModel : PropertyChangeNotifier
     {
         // Fields
         private Dictionary<string, float> genrePercentages;
         private string filePath, title;
         private string modelGenre, modelSubGenre1, modelSubGenre2;
         private string ownerGenre, ownerSubGenre1, ownerSubGenre2;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public Dictionary<string, float> GenrePercentages
@@ -24,8 +22,7 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 genrePercentages = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("GenrePercentages"));
+                NotifyPropertyChange();
             }
         }
 
@@ -36,8 +33,7 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 filePath = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilePath"));
+                NotifyPropertyChange();
             }
         }
 
@@ -48,8 +44,7 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 title = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Title"));
+                NotifyPropertyChange();
             }
         }
 
@@ -60,8 +55,7 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 modelGenre = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ModelGenre"));
+                NotifyPropertyChange();
             }
         }
 
@@ -72,8 +66,7 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 modelSubGenre1 = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ModelSubGenre1"));
+                NotifyPropertyChange();
             }
         }
 
@@ -84,8 +77,7 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 modelSubGenre2 = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ModelSubGenre2"));
+                NotifyPropertyChange();
             }
         }
 
@@ -96,8 +88,7 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 ownerGenre = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerGenre"));
+                NotifyPropertyChange();
             }
         }
 
@@ -108,8 +99,7 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 ownerSubGenre1 = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerSubGenre1"));
+                NotifyPropertyChange();
             }
         }
 
@@ -120,8 +110,7 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 ownerSubGenre2 = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("OwnerSubGenre2"));
+                NotifyPropertyChange();
             }
         }
 

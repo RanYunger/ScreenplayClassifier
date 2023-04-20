@@ -14,12 +14,10 @@ using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ArchivesSelectionViewModel : INotifyPropertyChanged
+    public class ArchivesSelectionViewModel : PropertyChangeNotifier
     {
         // Fields
         private string filterText;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ArchivesSelectionView ArchivesSelectionView { get; private set; }
@@ -33,8 +31,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 filterText = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("FilterText"));
+                NotifyPropertyChange();
             }
         }
 

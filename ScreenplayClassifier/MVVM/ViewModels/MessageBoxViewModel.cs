@@ -2,18 +2,15 @@
 using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text;
 using System.Windows.Media;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class MessageBoxViewModel : INotifyPropertyChanged
+    public class MessageBoxViewModel : PropertyChangeNotifier
     {
         // Fields
         private string messageType, messageText;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public MessageBoxView MessageBoxView { get; private set; }
@@ -25,8 +22,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 messageType = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("MessageType"));
+                NotifyPropertyChange();
             }
         }
 
@@ -37,8 +33,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 messageText = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("MessageText"));
+                NotifyPropertyChange();
             }
         }
 

@@ -1,9 +1,9 @@
 ﻿using ScreenplayClassifier.MVVM.Models;
 using ScreenplayClassifier.MVVM.Views;
+using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,10 +12,9 @@ using System.Windows.Media;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ReportsSelectionViewModel : INotifyPropertyChanged
+    public class ReportsSelectionViewModel : PropertyChangeNotifier
     {
         // Fields
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ReportsSelectionView ReportsSelectionView { get; private set; }

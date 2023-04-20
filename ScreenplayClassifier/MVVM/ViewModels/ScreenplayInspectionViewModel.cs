@@ -6,7 +6,6 @@ using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
@@ -14,13 +13,11 @@ using System.Windows.Media.Imaging;
 
 namespace ScreenplayClassifier.MVVM.ViewModels
 {
-    public class ScreenplayInspectionViewModel : INotifyPropertyChanged
+    public class ScreenplayInspectionViewModel : PropertyChangeNotifier
     {
         // Fields
         private ScreenplayModel screenplay;
         private SeriesCollection percentageSeries;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Properties
         public ScreenplayViewModel ScreenplayViewModel { get; private set; }
@@ -33,8 +30,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 screenplay = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Screenplay"));
+                NotifyPropertyChange();
             }
         }
 
@@ -45,8 +41,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 percentageSeries = value;
 
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("PercentageSeries"));
+                NotifyPropertyChange();
             }
         }
 
