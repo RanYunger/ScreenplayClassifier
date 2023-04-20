@@ -173,8 +173,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ReportsViewModel reportsViewModel = (ReportsViewModel)ClassificationViewModel.MainViewModel.ReportsView.DataContext;
             ArchivesViewModel archivesViewModel = (ArchivesViewModel)ClassificationViewModel.MainViewModel.ArchivesView.DataContext;
 
-            foreach (SelectionEntryModel checkedScreenplay in classificationBrowseViewModel.CheckedScreenplays)
-                classificationBrowseViewModel.BrowsedScreenplays.Remove(checkedScreenplay);
+            foreach (SelectionEntryModel checkedScreenplay in classificationBrowseViewModel.ScreenplaysSelectionViewModel.SelectionEntries)
+                classificationBrowseViewModel.ScreenplaysSelectionViewModel.SelectionEntries.Remove(checkedScreenplay);
 
             foreach (ScreenplayModel screenplay in ClassifiedScreenplays)
                 reportsViewModel.Reports.Add(new ReportModel(owner, screenplay));

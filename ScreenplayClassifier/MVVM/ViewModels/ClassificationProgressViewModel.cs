@@ -215,7 +215,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             PhaseText = string.Empty;
 
-            StartClassification(ClassificationViewModel.ClassificationBrowseViewModel.CheckedScreenplays);
+            StartClassification(ClassificationViewModel.ClassificationBrowseViewModel.ScreenplaysSelectionViewModel.SelectionEntries);
         }
 
         /// <summary>

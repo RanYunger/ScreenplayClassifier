@@ -37,7 +37,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         return;
 
                     HideView();
-                    ReportsViewModel.ReportsInspectionViewModel.RefreshView(ScreenplaysSelectionViewModel.ClassifiedScreenplays, "Reports");
+                    ReportsViewModel.ReportsInspectionViewModel.RefreshView(ScreenplaysSelectionViewModel.SelectionEntries, "Reports");
                     ReportsViewModel.ReportsInspectionViewModel.ShowView();
                 });
             }

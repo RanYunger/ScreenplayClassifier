@@ -95,7 +95,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     ClassificationOverviewViewModel.HideView();
                     ClassificationInspectionViewModel.HideView();
-                    ClassificationBrowseViewModel.RefreshView();
                     ClassificationBrowseViewModel.ShowView();
 
                     BrowseComplete = false;

@@ -69,7 +69,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     ScreenplaysSelectionViewModel.StopMusicCommand.Execute(null);
 
-                    reportsViewModel.ReportsInspectionViewModel.RefreshView(ScreenplaysSelectionViewModel.ClassifiedScreenplays, "Archives");
+                    reportsViewModel.ReportsInspectionViewModel.RefreshView(ScreenplaysSelectionViewModel.SelectionEntries, "Archives");
                     reportsViewModel.ReportsSelectionViewModel.HideView();
                     reportsViewModel.ReportsInspectionViewModel.ShowView();
                     mainViewModel.ShowView(mainViewModel.ReportsView);

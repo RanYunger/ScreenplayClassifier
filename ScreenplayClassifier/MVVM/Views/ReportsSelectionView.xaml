@@ -12,10 +12,15 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
-        <v:ScreenplaysSelectionView x:Name="ScreenplaysSelectionView" Grid.Row="0"/>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center">
+            <TextBlock Text="Which screenplays would you like to inspect?" FontSize="25" HorizontalAlignment="Center"
+                       Style="{StaticResource TextBlockStyle}"/>
+            <v:ScreenplaysSelectionView x:Name="ScreenplaysSelectionView" Grid.Row="0" Margin="10"/>
+            <TextBlock Text="Choose screenplays to inspect" FontSize="20" Margin="10,0,0,10" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
 
         <Button Grid.Row="1" Command="{Binding ShowInspectionViewCommand}" Width="150"
-                IsEnabled="{Binding Path=ScreenplaysSelectionViewModel.CanInspect}" Margin="0,10,0,10">
+                IsEnabled="{Binding Path=ScreenplaysSelectionViewModel.HasSelections}" Margin="0,10,0,10">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
@@ -24,10 +29,10 @@
                     <Setter Property="Cursor" Value="Hand"/>
                     <Setter Property="Width" Value="100"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=ScreenplaysSelectionViewModel.CanSelect}" Value="True">
+                        <DataTrigger Binding="{Binding Path=ScreenplaysSelectionViewModel.HasSelections}" Value="True">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=ScreenplaysSelectionViewModel.CanSelect}" Value="False">
+                        <DataTrigger Binding="{Binding Path=ScreenplaysSelectionViewModel.HasSelections}" Value="False">
                             <Setter Property="Visibility" Value="Collapsed"/>
                         </DataTrigger>
                     </Style.Triggers>

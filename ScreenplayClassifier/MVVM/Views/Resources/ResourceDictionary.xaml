@@ -138,6 +138,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="PasswordChar" Value="*"/>
         <Setter Property="MaxLength" Value="8"/>
+        <Setter Property="Cursor" Value="Pen"/>
     </Style>
 
     <!--RadioButton Style-->

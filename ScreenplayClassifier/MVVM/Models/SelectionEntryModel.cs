@@ -52,7 +52,7 @@ namespace ScreenplayClassifier.MVVM.Models
             get { return isChecked; }
             set
             {
-                // Validation - change can cause a cascade of changes
+                // Validation - value change will cause a cascade of changes
                 if (isChecked == value)
                     return;
 

@@ -8,11 +8,11 @@
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <StackPanel HorizontalAlignment="Center" Visibility="Visible">
+        <StackPanel HorizontalAlignment="Center">
             <TextBlock Text="Which screenplays would you like to classify?" FontSize="25" HorizontalAlignment="Center"
                        Style="{StaticResource TextBlockStyle}"/>
             <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,10">
-                <Button Command="{Binding BrowseScreenplaysCommand}" Width="150" IsEnabled="{Binding CanBrowse}" Style="{StaticResource ButtonStyle}">
+                <Button Command="{Binding BrowseScreenplaysCommand}" Width="150" Style="{StaticResource ButtonStyle}">
                     <Button.Content>
                         <WrapPanel>
                             <TextBlock Text="Browse" FontSize="20" TextAlignment="Center" Margin="0,0,40,0" Style="{StaticResource TextBlockStyle}"/>
@@ -29,10 +29,10 @@
                             <Setter Property="Cursor" Value="Hand"/>
                             <Setter Property="Width" Value="100"/>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding CanSelect}" Value="True">
+                                <DataTrigger Binding="{Binding Path=ScreenplaysSelectionViewModel.HasEntries}" Value="True">
                                     <Setter Property="Visibility" Value="Visible"/>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding CanSelect}" Value="False">
+                                <DataTrigger Binding="{Binding Path=ScreenplaysSelectionViewModel.HasEntries}" Value="False">
                                     <Setter Property="Visibility" Value="Collapsed"/>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -46,27 +46,11 @@
                     </Button.Content>
                 </Button>
             </WrapPanel>
-            <DataGrid ItemsSource="{Binding BrowsedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}"
-                      Visibility="{Binding ElementName=ClearAllButton, Path=Visibility}" MaxHeight="480" FontSize="20" CanUserSortColumns="False"
-                      SelectionMode="Single" Margin="10" Style="{StaticResource DataGridStyle}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDown">
-                        <i:InvokeCommandAction Command="{Binding CheckSelectionCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, Mode=TwoWay}" Width="50"
-                                            ElementStyle="{StaticResource BaseCheckBoxStyle}"
-                                            HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
-                    </DataGridCheckBoxColumn>
-                    <DataGridTextColumn Header="Screenplay Title" Binding="{Binding Path=ScreenplayFileName}" Width="590" IsReadOnly="True"
-                                        HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <v:ScreenplaysSelectionView x:Name="ScreenplaysSelectionView" Margin="10"/>
             <TextBlock Text="Choose screenplays to classify" FontSize="20" Visibility="{Binding ElementName=ClearAllButton, Path=Visibility}"
                        Margin="10,0,0,10" Style="{StaticResource TextBlockStyle}"/>
             <Button Command="{Binding ClassifyCommand}" Width="150" Visibility="{Binding ElementName=ClearAllButton, Path=Visibility}"
-                    IsEnabled="{Binding CanClassify}" Margin="10,0,0,10" Style="{StaticResource ButtonStyle}">
+                    IsEnabled="{Binding Path=ScreenplaysSelectionViewModel.HasSelections}" Margin="10,0,0,10" Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <WrapPanel>
                         <TextBlock Text="Classify" FontSize="20" TextAlignment="Center" Margin="0,0,40,0" Style="{StaticResource TextBlockStyle}"/>

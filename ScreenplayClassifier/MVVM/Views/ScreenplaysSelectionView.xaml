@@ -13,17 +13,15 @@
             <StackPanel.Style>
                 <Style TargetType="StackPanel">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding CanSelect}" Value="True">
+                        <DataTrigger Binding="{Binding HasEntries}" Value="True">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding CanSelect}" Value="False">
+                        <DataTrigger Binding="{Binding HasEntries}" Value="False">
                             <Setter Property="Visibility" Value="Collapsed"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </StackPanel.Style>
-            <TextBlock Text="Which screenplays would you like to inspect?" FontSize="25" HorizontalAlignment="Center"
-                       Style="{StaticResource TextBlockStyle}"/>
             <WrapPanel Margin="0,10,0,10">
                 <TextBox x:Name="TitleTextBox" Width="840" FontSize="20" MaxLength="40" Style="{StaticResource BaseTextBoxStyle}">
                     <i:Interaction.Triggers>
@@ -45,13 +43,13 @@
                 <DataGrid ItemsSource="{Binding ClassifiedScreenplays}" SelectedIndex="{Binding SelectedScreenplay}" MaxHeight="480" FontSize="20"
                       CanUserSortColumns="False" Style="{StaticResource DataGridStyle}">
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, UpdateSourceTrigger=PropertyChanged}" Width="50"
+                        <DataGridCheckBoxColumn Binding="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" Width="50"
                                                 ElementStyle="{StaticResource BaseCheckBoxStyle}"
                                                 HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
                             <DataGridCheckBoxColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <!--{Binding RelativeSource Mode=FindAncestor, AncestorType=v:ScreenplaysSelectionView}, Path=AllSelected}-->
-                                    <CheckBox IsChecked="{Binding Path=AllSelected}" Style="{StaticResource BaseCheckBoxStyle}"/>
+                                    <CheckBox IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}},
+                                        Path=DataContext.AllSelected, Mode=TwoWay}" Style="{StaticResource BaseCheckBoxStyle}"/>
                                 </DataTemplate>
                             </DataGridCheckBoxColumn.HeaderTemplate>
                         </DataGridCheckBoxColumn>
