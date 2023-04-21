@@ -21,7 +21,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         private ObservableCollection<SelectionEntryModel> selectionEntries;
         private ImageSource genreGif;
-        private string noScreenplaysMessage;
+        private string noScreenplaysMessage, selectionGoal;
         private int selectedScreenplay;
         private bool allSelected, allSelectedChanging, hasEntries, hasSelections, isFilteredByGenre;
 
@@ -56,6 +56,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             set
             {
                 noScreenplaysMessage = value;
+
+                NotifyPropertyChange();
+            }
+        }
+
+        public string SelectionGoal
+        {
+            get { return selectionGoal; }
+            set
+            {
+                selectionGoal = value;
 
                 NotifyPropertyChange();
             }
@@ -250,10 +261,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Refreshes the view.
         /// <param name="screenplays">The screenplays to show in the view</param>
+        /// <param name="selectionGoal">The goad this view is used for: classify / inspect</param>
         /// <param name="noResultsMessage">The message indicating there are no results to show</param>
-        /// <param name="filteredGenre">The main genre the screenplays are filtered by</param>
         /// </summary>
-        public void RefreshView(ObservableCollection<ReportModel> screenplays, string noResultsMessage, string filteredGenre)
+        public void RefreshView(ObservableCollection<ReportModel> screenplays, string selectionGoal, string noResultsMessage)
         {
             TextBox titleTextBox = null;
 
@@ -265,17 +276,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             foreach (SelectionEntryModel entry in SelectionEntries)
                 entry.PropertyChanged += EntryPropertyChanged;
 
+            SelectionGoal = selectionGoal;
             NoScreenplaysMessage = SelectionEntries.Count > 0 ? string.Empty : noResultsMessage;
             SelectedScreenplay = -1;
 
-            IsFilteredByGenre = !string.IsNullOrEmpty(filteredGenre);
-            if (IsFilteredByGenre)
-            {
-                GenreGif = new BitmapImage(new Uri(string.Format(@"{0}{1}.gif", FolderPaths.GENREGIFS, filteredGenre)));
+            //IsFilteredByGenre = !string.IsNullOrEmpty(filteredGenre);
+            //if (IsFilteredByGenre)
+            //{
+            //    GenreGif = new BitmapImage(new Uri(string.Format(@"{0}{1}.gif", FolderPaths.GENREGIFS, filteredGenre)));
 
-                mediaPlayer.Open(new Uri(string.Format("{0}{1}.mp3", FolderPaths.GENREAUDIOS, filteredGenre)));
-                mediaPlayer.Play();
-            }
+            //    mediaPlayer.Open(new Uri(string.Format("{0}{1}.mp3", FolderPaths.GENREAUDIOS, filteredGenre)));
+            //    mediaPlayer.Play();
+            //}
 
             HasEntries = SelectionEntries.Count > 0;
             HasSelections = false;

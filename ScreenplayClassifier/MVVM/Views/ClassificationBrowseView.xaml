@@ -9,8 +9,6 @@
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <StackPanel HorizontalAlignment="Center">
-            <TextBlock Text="Which screenplays would you like to classify?" FontSize="25" HorizontalAlignment="Center"
-                       Style="{StaticResource TextBlockStyle}"/>
             <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,10">
                 <Button Command="{Binding BrowseScreenplaysCommand}" Width="150" Style="{StaticResource ButtonStyle}">
                     <Button.Content>
@@ -47,8 +45,6 @@
                 </Button>
             </WrapPanel>
             <v:ScreenplaysSelectionView x:Name="ScreenplaysSelectionView" Margin="10"/>
-            <TextBlock Text="Choose screenplays to classify" FontSize="20" Visibility="{Binding ElementName=ClearAllButton, Path=Visibility}"
-                       Margin="10,0,0,10" Style="{StaticResource TextBlockStyle}"/>
             <Button Command="{Binding ClassifyCommand}" Width="150" Visibility="{Binding ElementName=ClearAllButton, Path=Visibility}"
                     IsEnabled="{Binding Path=ScreenplaysSelectionViewModel.HasSelections}" Margin="10,0,0,10" Style="{StaticResource ButtonStyle}">
                 <Button.Content>

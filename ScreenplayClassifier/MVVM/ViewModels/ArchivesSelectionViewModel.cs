@@ -126,7 +126,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             canPlayGif = (!string.IsNullOrEmpty(genre)) && (string.IsNullOrEmpty(subGenre1)) && (string.IsNullOrEmpty(subGenre2))
                 && (filteredReports.Count > 0);
 
-            ScreenplaysSelectionViewModel.RefreshView(filteredReports, "No screenplays matching the criteria", canPlayGif ? genre : string.Empty);
+            ScreenplaysSelectionViewModel.RefreshView(filteredReports, "inspect", "No screenplays matching the criteria");
 
             RefreshFilterText(archivesFilterViewModel);
         }

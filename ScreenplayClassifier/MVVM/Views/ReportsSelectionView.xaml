@@ -12,12 +12,7 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" HorizontalAlignment="Center">
-            <TextBlock Text="Which screenplays would you like to inspect?" FontSize="25" HorizontalAlignment="Center"
-                       Style="{StaticResource TextBlockStyle}"/>
-            <v:ScreenplaysSelectionView x:Name="ScreenplaysSelectionView" Grid.Row="0" Margin="10"/>
-            <TextBlock Text="Choose screenplays to inspect" FontSize="20" Margin="10,0,0,10" Style="{StaticResource TextBlockStyle}"/>
-        </StackPanel>
+        <v:ScreenplaysSelectionView x:Name="ScreenplaysSelectionView" Grid.Row="0" HorizontalAlignment="Center"/>
 
         <Button Grid.Row="1" Command="{Binding ShowInspectionViewCommand}" Width="150"
                 IsEnabled="{Binding Path=ScreenplaysSelectionViewModel.HasSelections}" Margin="0,10,0,10">
