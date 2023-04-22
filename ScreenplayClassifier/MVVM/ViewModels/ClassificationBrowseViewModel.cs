@@ -34,12 +34,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
+                    string ownerName = string.Empty, screenplayPath = string.Empty;
+                    ObservableCollection<SelectionEntryModel> selectionEntries = null;
+                    OpenFileDialog openFileDialog;
+
                     // Validation
                     if (ClassificationBrowseView == null)
                         return;
 
-                    string ownerName = ClassificationViewModel.MainViewModel.UserToolbarViewModel.User.Username, screenplayPath = string.Empty;
-                    OpenFileDialog openFileDialog = new OpenFileDialog()
+                    ownerName = ClassificationViewModel.MainViewModel.UserToolbarViewModel.User.Username;
+                    selectionEntries = new ObservableCollection<SelectionEntryModel>();
+
+                    openFileDialog = new OpenFileDialog()
                     {
                         Title = "Screenplay Classifier",
                         DefaultExt = "txt",
@@ -47,24 +53,23 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         Multiselect = true,
                         InitialDirectory = Environment.CurrentDirectory
                     };
-
                     openFileDialog.ShowDialog();
 
-                    // Adds each browsed screenplay to collection
+                    // Adds a selection entry for each browsed screenplay
                     for (int i = 0; i < openFileDialog.FileNames.Length; i++)
                     {
                         screenplayPath = string.Format("\"{0}\"", openFileDialog.FileNames[i]); // for passing paths with spaces
-
-                        // TODO: FIX (SelectionEntries is null for some reason)
-                        ScreenplaysSelectionViewModel.SelectionEntries.Add(new SelectionEntryModel(ownerName, screenplayPath));
+                        selectionEntries.Add(new SelectionEntryModel(ownerName, screenplayPath));
                     }
+
+                    ScreenplaysSelectionViewModel.RefreshView(selectionEntries, "classify", string.Empty);
                 });
             }
         }
 
         public Command ClearScreenplaysCommand
         {
-            get { return new Command(() => ScreenplaysSelectionViewModel.SelectionEntries.Clear()); }
+            get { return new Command(() => ScreenplaysSelectionViewModel.ClearEntries()); }
         }
 
         public Command ClassifyCommand
@@ -87,6 +92,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             screenplaysSelectionView = (ScreenplaysSelectionView)classificationBrowseView.FindName("ScreenplaysSelectionView");
             ScreenplaysSelectionViewModel = (ScreenplaysSelectionViewModel)screenplaysSelectionView.DataContext;
+            ScreenplaysSelectionViewModel.Init(screenplaysSelectionView);
         }
 
         /// <summary>

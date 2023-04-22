@@ -23,7 +23,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private ImageSource genreGif;
         private string noScreenplaysMessage, selectionGoal;
         private int selectedScreenplay;
-        private bool allSelected, allSelectedChanging, hasEntries, hasSelections, isFilteredByGenre;
+        private bool? allSelected;
+        private bool allSelectedChanging, hasEntries, hasSelections, isFilteredByGenre;
 
         // Properties
         public ScreenplaysSelectionView ScreenplaysSelectionView { get; private set; }
@@ -83,34 +84,27 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public bool AllSelected
+        public bool? AllSelected
         {
             get { return allSelected; }
             set
             {
-                // Validation - value change will cause a cascade of changes
+                // Validation (property changes only if a different value is assigned)
                 if (allSelected == value)
                     return;
 
                 allSelected = value;
 
-                // Validation (Has this change been caused by some other change?)
-                if (AllSelectedChanging)
-                    return;
-
                 // Sets all the other Checkboxes
-                try
-                {
-                    AllSelectedChanging = true;
+                AllSelectedChanging = true;
 
+                if (allSelected != null)
                     foreach (SelectionEntryModel entry in SelectionEntries)
-                        entry.IsChecked = allSelected;
-                }
-                finally
-                {
-                    AllSelectedChanging = false;
-                    HasSelections = new List<SelectionEntryModel>(selectionEntries).Exists(entry => entry.IsChecked);
-                }
+                        entry.IsChecked = allSelected.Value;
+
+                AllSelectedChanging = false;
+
+                HasSelections = new List<SelectionEntryModel>(selectionEntries).Exists(entry => entry.IsChecked);
 
                 NotifyPropertyChange();
             }
@@ -256,28 +250,37 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             StopMusicCommand.Execute(null); // For silent initiation
 
             ScreenplaysSelectionView = screenplaysSelectionView;
+
+            SelectionEntries = new ObservableCollection<SelectionEntryModel>();
+
+            SelectionGoal = "classify";
+            NoScreenplaysMessage = string.Empty;
+
+            SelectedScreenplay = -1;
+
+            AllSelected = false;
+            AllSelectedChanging = false;
+            HasEntries = false;
+            HasSelections = false;
         }
 
         /// <summary>
         /// Refreshes the view.
-        /// <param name="screenplays">The screenplays to show in the view</param>
+        /// <param name="entries">The screenplay entires to show in the view</param>
         /// <param name="selectionGoal">The goad this view is used for: classify / inspect</param>
         /// <param name="noResultsMessage">The message indicating there are no results to show</param>
         /// </summary>
-        public void RefreshView(ObservableCollection<ReportModel> screenplays, string selectionGoal, string noResultsMessage)
+        public void RefreshView(ObservableCollection<SelectionEntryModel> entries, string selectionGoal, string noResultsMessage)
         {
             TextBox titleTextBox = null;
 
-            SelectionEntries = new ObservableCollection<SelectionEntryModel>();
-            foreach (ReportModel report in screenplays)
-                SelectionEntries.Add(new SelectionEntryModel(report.Owner.Username, report.Screenplay.FilePath));
-
-            // Listens to changes in IsChecked property
-            foreach (SelectionEntryModel entry in SelectionEntries)
-                entry.PropertyChanged += EntryPropertyChanged;
+            if (string.Equals(selectionGoal, "inspect"))
+                ClearEntries();
+            foreach (SelectionEntryModel entry in entries)
+                AddEntry(entry);
 
             SelectionGoal = selectionGoal;
-            NoScreenplaysMessage = SelectionEntries.Count > 0 ? string.Empty : noResultsMessage;
+            NoScreenplaysMessage = HasEntries ? string.Empty : noResultsMessage;
             SelectedScreenplay = -1;
 
             //IsFilteredByGenre = !string.IsNullOrEmpty(filteredGenre);
@@ -289,12 +292,48 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             //    mediaPlayer.Play();
             //}
 
-            HasEntries = SelectionEntries.Count > 0;
-            HasSelections = false;
-
             titleTextBox = (TextBox)ScreenplaysSelectionView.FindName("TitleTextBox");
             titleTextBox.Foreground = Brushes.Gray;
             titleTextBox.Text = "Search screenplay by title";
+        }
+
+        /// <summary>
+        /// Adds an entry to the entries collection.
+        /// </summary>
+        /// <param name="entry">The entry to add</param>
+        public void AddEntry(SelectionEntryModel entry)
+        {
+            if (AllSelected != null)
+                entry.IsChecked = AllSelected.Value;
+
+            // Listens to changes in IsChecked property
+            entry.PropertyChanged += EntryPropertyChanged;
+
+            SelectionEntries.Add(entry);
+
+            HasEntries = true;
+            HasSelections = new List<SelectionEntryModel>(selectionEntries).Exists(entry => entry.IsChecked);
+        }
+
+        /// <summary>
+        /// Removes an entry to the entries collection.
+        /// </summary>
+        /// <param name="entry">The entry to remove</param>
+        public void RemoveEntry(SelectionEntryModel entry)
+        {
+            SelectionEntries.Remove(entry);
+
+            HasEntries = SelectionEntries.Count > 0;
+            HasSelections = new List<SelectionEntryModel>(selectionEntries).Exists(entry => entry.IsChecked);
+        }
+
+        /// <summary>
+        /// Clears the entries collection.
+        /// </summary>
+        public void ClearEntries()
+        {
+            while (HasEntries)
+                RemoveEntry(SelectionEntries[0]);
         }
 
         /// <summary>
@@ -308,21 +347,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             if (AllSelectedChanging)
                 return;
 
-            try
-            {
-                AllSelectedChanging = true;
+            AllSelectedChanging = true;
 
-                entriesList = new List<SelectionEntryModel>(SelectionEntries);
-                if (entriesList.TrueForAll(entry => entry.IsChecked))
-                    AllSelected = true;
-                else if (entriesList.TrueForAll(entry => !entry.IsChecked))
-                    AllSelected = false;
-            }
-            finally
-            {
-                AllSelectedChanging = false;
-                HasSelections = entriesList.Exists(entry => entry.IsChecked);
-            }
+            entriesList = new List<SelectionEntryModel>(SelectionEntries);
+            if (entriesList.TrueForAll(entry => entry.IsChecked))
+                AllSelected = true;
+            else if (entriesList.TrueForAll(entry => !entry.IsChecked))
+                AllSelected = false;
+            else
+                AllSelected = null;
+
+            AllSelectedChanging = false;
         }
 
         private void EntryPropertyChanged(object sender, PropertyChangedEventArgs args)
@@ -330,6 +365,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             // Re-checks only if the IsChecked property changed
             if (args.PropertyName == nameof(SelectionEntryModel.IsChecked))
                 RecheckAllSelected();
+
+            HasSelections = new List<SelectionEntryModel>(selectionEntries).Exists(entry => entry.IsChecked);
         }
     }
 }

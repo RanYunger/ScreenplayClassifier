@@ -112,23 +112,23 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             ReportsViewModel reportsViewModel = (ReportsViewModel)ArchivesViewModel.MainViewModel.ReportsView.DataContext;
             ICollectionView reportsCollectionView = CollectionViewSource.GetDefaultView(reportsViewModel.Reports);
-            ObservableCollection<ReportModel> filteredReports = new ObservableCollection<ReportModel>();
-            ArchivesFilterViewModel archivesFilterViewModel = ArchivesViewModel.ArchivesFilterViewModel;
-            string genre = archivesFilterViewModel.FilteredGenre, subGenre1 = archivesFilterViewModel.FilteredSubGenre1,
-                subGenre2 = archivesFilterViewModel.FilteredSubGenre2;
-            bool canPlayGif = false;
+            ObservableCollection<SelectionEntryModel> selectionEntries = new ObservableCollection<SelectionEntryModel>();
+            string genre = ArchivesViewModel.ArchivesFilterViewModel.FilteredGenre,
+                subGenre1 = ArchivesViewModel.ArchivesFilterViewModel.FilteredSubGenre1,
+                subGenre2 = ArchivesViewModel.ArchivesFilterViewModel.FilteredSubGenre2;
+            //bool canPlayGif = false;
 
             reportsCollectionView.Filter = ArchivesViewModel.ArchivesFilterViewModel.Filter;
             reportsCollectionView.Refresh();
 
             foreach (ReportModel filteredReport in reportsCollectionView)
-                filteredReports.Add(filteredReport);
-            canPlayGif = (!string.IsNullOrEmpty(genre)) && (string.IsNullOrEmpty(subGenre1)) && (string.IsNullOrEmpty(subGenre2))
-                && (filteredReports.Count > 0);
+                selectionEntries.Add(new SelectionEntryModel(filteredReport.Owner.Username, filteredReport.Screenplay.FilePath));
+            //canPlayGif = (!string.IsNullOrEmpty(genre)) && (string.IsNullOrEmpty(subGenre1)) && (string.IsNullOrEmpty(subGenre2))
+            //    && (selectionEntries.Count > 0);
 
-            ScreenplaysSelectionViewModel.RefreshView(filteredReports, "inspect", "No screenplays matching the criteria");
+            ScreenplaysSelectionViewModel.RefreshView(selectionEntries, "inspect", "No screenplays matching the criteria");
 
-            RefreshFilterText(archivesFilterViewModel);
+            RefreshFilterText(ArchivesViewModel.ArchivesFilterViewModel);
         }
 
         /// <summary>

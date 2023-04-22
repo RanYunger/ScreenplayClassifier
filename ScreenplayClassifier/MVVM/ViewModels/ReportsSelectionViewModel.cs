@@ -72,7 +72,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <summary>
         /// Refreshes the view.
         /// </summary>
-        public void RefreshView() { ScreenplaysSelectionViewModel.RefreshView(ReportsViewModel.Reports, "inspect", "No Reports to inspect"); }
+        public void RefreshView()
+        {
+            ObservableCollection<SelectionEntryModel> selectionEntries = new ObservableCollection<SelectionEntryModel>();
+
+            foreach (ReportModel report in ReportsViewModel.Reports)
+                selectionEntries.Add(new SelectionEntryModel(report.Owner.Username, report.Screenplay.FilePath));
+
+            ScreenplaysSelectionViewModel.RefreshView(selectionEntries, "inspect", "No Reports to inspect");
+        }
 
         /// <summary>
         /// Hides the view.
