@@ -17,14 +17,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private Predicate<object> titleFilter;
-        private MediaPlayer mediaPlayer;
 
         private ObservableCollection<SelectionEntryModel> selectionEntries;
-        private ImageSource genreGif;
         private string noScreenplaysMessage, selectionGoal;
         private int selectedScreenplay;
         private bool? allSelected;
-        private bool allSelectedChanging, hasEntries, hasSelections, isFilteredByGenre;
+        private bool allSelectedChanging, hasEntries, hasSelections;
 
         // Properties
         public ScreenplaysSelectionView ScreenplaysSelectionView { get; private set; }
@@ -35,17 +33,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             set
             {
                 selectionEntries = value;
-
-                NotifyPropertyChange();
-            }
-        }
-
-        public ImageSource GenreGif
-        {
-            get { return genreGif; }
-            set
-            {
-                genreGif = value;
 
                 NotifyPropertyChange();
             }
@@ -143,30 +130,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
-        public bool IsFilteredByGenre
-        {
-            get { return isFilteredByGenre; }
-            set
-            {
-                isFilteredByGenre = value;
-
-                NotifyPropertyChange();
-            }
-        }
-
         // Constructors
-        public ScreenplaysSelectionViewModel()
-        {
-            mediaPlayer = new MediaPlayer();
-        }
+        public ScreenplaysSelectionViewModel() { }
 
         // Methods
         #region Commands
-        public Command StopMusicCommand
-        {
-            get { return new Command(() => mediaPlayer.Stop()); }
-        }
-
         public Command EnterTitleTextboxCommand
         {
             get
@@ -247,13 +215,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void Init(ScreenplaysSelectionView screenplaysSelectionView)
         {
-            StopMusicCommand.Execute(null); // For silent initiation
-
             ScreenplaysSelectionView = screenplaysSelectionView;
 
             SelectionEntries = new ObservableCollection<SelectionEntryModel>();
 
-            SelectionGoal = "classify";
+            SelectionGoal = string.Empty;
             NoScreenplaysMessage = string.Empty;
 
             SelectedScreenplay = -1;
@@ -282,15 +248,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             SelectionGoal = selectionGoal;
             NoScreenplaysMessage = HasEntries ? string.Empty : noResultsMessage;
             SelectedScreenplay = -1;
-
-            //IsFilteredByGenre = !string.IsNullOrEmpty(filteredGenre);
-            //if (IsFilteredByGenre)
-            //{
-            //    GenreGif = new BitmapImage(new Uri(string.Format(@"{0}{1}.gif", FolderPaths.GENREGIFS, filteredGenre)));
-
-            //    mediaPlayer.Open(new Uri(string.Format("{0}{1}.mp3", FolderPaths.GENREAUDIOS, filteredGenre)));
-            //    mediaPlayer.Play();
-            //}
 
             titleTextBox = (TextBox)ScreenplaysSelectionView.FindName("TitleTextBox");
             titleTextBox.Foreground = Brushes.Gray;

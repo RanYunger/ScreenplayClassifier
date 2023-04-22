@@ -17,7 +17,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class ArchivesSelectionViewModel : PropertyChangeNotifier
     {
         // Fields
+        private MediaPlayer mediaPlayer;
         private string filterText;
+        private bool isFilteredByGenre, isPlayingMedia;
 
         // Properties
         public ArchivesSelectionView ArchivesSelectionView { get; private set; }
@@ -35,11 +37,79 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public bool IsFilteredByGenre
+        {
+            get { return isFilteredByGenre; }
+            set
+            {
+                isFilteredByGenre = value;
+
+                NotifyPropertyChange();
+            }
+        }
+
+        public bool IsPlayingMedia
+        {
+            get { return isPlayingMedia; }
+            set
+            {
+                MediaElement genreMediaElement = null;
+
+                // Validation
+                if (ArchivesSelectionView == null)
+                    return;
+
+                genreMediaElement = (MediaElement)ArchivesSelectionView.FindName("GenreMediaElement");
+
+                isPlayingMedia = value;
+
+                if (isPlayingMedia)
+                {
+                    genreMediaElement.Play();
+                    mediaPlayer.Play();
+                }
+                else
+                {
+                    genreMediaElement.Pause();
+                    mediaPlayer.Pause();
+                }
+
+                NotifyPropertyChange();
+            }
+        }
+
         // Constructors
-        public ArchivesSelectionViewModel() { }
+        public ArchivesSelectionViewModel()
+        {
+            mediaPlayer = new MediaPlayer();
+        }
 
         // Methods
         #region Commands      
+        public Command ToggleMediaStateCommand
+        {
+            get { return new Command(() => IsPlayingMedia = !IsPlayingMedia); }
+        }
+
+        public Command RestartVideoCommand
+        {
+            get
+            {
+                MediaElement genreMediaElement = null;
+
+                return new Command(() =>
+                {
+
+                    // Validation
+                    if (ArchivesSelectionView == null)
+                        return;
+
+                    genreMediaElement = (MediaElement)ArchivesSelectionView.FindName("GenreMediaElement");
+                    genreMediaElement.Position = TimeSpan.Zero;
+                });
+            }
+        }
+
         public Command ShowArchivesFilterViewCommand
         {
             get
@@ -50,7 +120,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if (ArchivesSelectionView == null)
                         return;
 
-                    ScreenplaysSelectionViewModel.StopMusicCommand.Execute(null);
+                    IsPlayingMedia = false;
 
                     HideView();
                     ArchivesViewModel.ArchivesFilterViewModel.ShowView();
@@ -67,7 +137,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     MainViewModel mainViewModel = ArchivesViewModel.MainViewModel;
                     ReportsViewModel reportsViewModel = (ReportsViewModel)mainViewModel.ReportsView.DataContext;
 
-                    ScreenplaysSelectionViewModel.StopMusicCommand.Execute(null);
+                    IsPlayingMedia = false;
 
                     reportsViewModel.ReportsInspectionViewModel.RefreshView(ScreenplaysSelectionViewModel.SelectionEntries, "Archives");
                     reportsViewModel.ReportsSelectionViewModel.HideView();
@@ -94,6 +164,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ArchivesViewModel = archivesViewModel;
 
             FilterText = string.Empty;
+            IsFilteredByGenre = false;
+            IsPlayingMedia = false;
         }
 
         /// <summary>
@@ -113,22 +185,18 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ReportsViewModel reportsViewModel = (ReportsViewModel)ArchivesViewModel.MainViewModel.ReportsView.DataContext;
             ICollectionView reportsCollectionView = CollectionViewSource.GetDefaultView(reportsViewModel.Reports);
             ObservableCollection<SelectionEntryModel> selectionEntries = new ObservableCollection<SelectionEntryModel>();
-            string genre = ArchivesViewModel.ArchivesFilterViewModel.FilteredGenre,
-                subGenre1 = ArchivesViewModel.ArchivesFilterViewModel.FilteredSubGenre1,
-                subGenre2 = ArchivesViewModel.ArchivesFilterViewModel.FilteredSubGenre2;
-            //bool canPlayGif = false;
 
             reportsCollectionView.Filter = ArchivesViewModel.ArchivesFilterViewModel.Filter;
             reportsCollectionView.Refresh();
 
             foreach (ReportModel filteredReport in reportsCollectionView)
                 selectionEntries.Add(new SelectionEntryModel(filteredReport.Owner.Username, filteredReport.Screenplay.FilePath));
-            //canPlayGif = (!string.IsNullOrEmpty(genre)) && (string.IsNullOrEmpty(subGenre1)) && (string.IsNullOrEmpty(subGenre2))
-            //    && (selectionEntries.Count > 0);
 
             ScreenplaysSelectionViewModel.RefreshView(selectionEntries, "inspect", "No screenplays matching the criteria");
 
             RefreshFilterText(ArchivesViewModel.ArchivesFilterViewModel);
+
+            CheckFilter();
         }
 
         /// <summary>
@@ -138,6 +206,31 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             if (ArchivesSelectionView != null)
                 App.Current.Dispatcher.Invoke(() => ArchivesSelectionView.Visibility = Visibility.Collapsed);
+        }
+
+        /// <summary>
+        /// Checks whether the archives are filtered by main genre only, and if so, plays the genre's video and audio.
+        /// </summary>
+        private void CheckFilter()
+        {
+            MediaElement genreMediaElement = null;
+            string genre = ArchivesViewModel.ArchivesFilterViewModel.FilteredGenre,
+                subGenre1 = ArchivesViewModel.ArchivesFilterViewModel.FilteredSubGenre1,
+                subGenre2 = ArchivesViewModel.ArchivesFilterViewModel.FilteredSubGenre2;
+
+            IsFilteredByGenre = (!string.IsNullOrEmpty(genre)) && (string.IsNullOrEmpty(subGenre1)) && (string.IsNullOrEmpty(subGenre2))
+                && (ScreenplaysSelectionViewModel.HasEntries);
+            if (IsFilteredByGenre)
+            {
+                genreMediaElement = (MediaElement)ArchivesSelectionView.FindName("GenreMediaElement");
+                genreMediaElement.Source = new Uri(string.Format("{0}{1}.mp4", FolderPaths.GENREVIDEOS, genre));
+                genreMediaElement.Play();
+
+                mediaPlayer.Open(new Uri(string.Format("{0}{1}.mp3", FolderPaths.GENREAUDIOS, genre)));
+                mediaPlayer.Play();
+
+                IsPlayingMedia = true;
+            }
         }
 
         /// <summary>

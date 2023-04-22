@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              Style="{StaticResource UserControlStyle}">
     <Grid>
         <TextBlock FontSize="40" Text="{Binding NoScreenplaysMessage}" HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -54,30 +53,41 @@
                 </TextBox>
                 <Image Source="/Media/Images/Search.png" Height="30" Width="30" Margin="-35,5,5,5"/>
             </WrapPanel>
-            <Canvas Height="530">
-                <Image gif:ImageBehavior.AnimatedSource="{Binding GenreGif}" Height="530" Width="839" Stretch="Fill"/>
-                <DataGrid ItemsSource="{Binding SelectionEntries}" SelectedIndex="{Binding SelectedScreenplay}" MaxHeight="480" FontSize="20"
+            <DataGrid ItemsSource="{Binding SelectionEntries}" SelectedIndex="{Binding SelectedScreenplay}" MaxHeight="420" FontSize="20"
                       CanUserSortColumns="False" Style="{StaticResource DataGridStyle}">
-                    <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Binding="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" Width="50"
-                                                ElementStyle="{StaticResource BaseCheckBoxStyle}"
-                                                HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
-                            <DataGridCheckBoxColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <CheckBox IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}},
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Binding="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" Width="50"
+                                            ElementStyle="{StaticResource BaseCheckBoxStyle}"
+                                            HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}">
+                        <DataGridCheckBoxColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}},
                                         Path=DataContext.AllSelected, Mode=TwoWay}" Style="{StaticResource BaseCheckBoxStyle}"/>
-                                </DataTemplate>
-                            </DataGridCheckBoxColumn.HeaderTemplate>
-                        </DataGridCheckBoxColumn>
-                        <DataGridTextColumn Header="Screenplay Title" Binding="{Binding Path=ScreenplayFileName}" Width="540" IsReadOnly="True"
+                            </DataTemplate>
+                        </DataGridCheckBoxColumn.HeaderTemplate>
+                    </DataGridCheckBoxColumn>
+                    <DataGridTextColumn Header="Screenplay Title" Binding="{Binding Path=ScreenplayFileName}" Width="540" IsReadOnly="True"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                        <DataGridTextColumn Header="Owner" Binding="{Binding Path=OwnerName}" Width="246" IsReadOnly="True"
+                    <DataGridTextColumn Header="Owner" Binding="{Binding Path=OwnerName}" Width="246" IsReadOnly="True"
                                         HeaderStyle="{StaticResource DataGridMainColumnHeaderStyle}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Canvas>
-            <TextBlock Text="{Binding SelectionGoal, StringFormat=Choose screenplays to {0}}" FontSize="20" Margin="10,0,0,10"
-                       Style="{StaticResource TextBlockStyle}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <WrapPanel Margin="0,10,0,10">
+                <WrapPanel.Style>
+                    <Style TargetType="WrapPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasEntries}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding HasEntries}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </WrapPanel.Style>
+                <TextBlock Text="Choose screenplays to " FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock Text="{Binding SelectionGoal}" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+            </WrapPanel>
         </StackPanel>
     </Grid>
 </UserControl>
