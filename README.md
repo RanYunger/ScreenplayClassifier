@@ -29,30 +29,24 @@ A C# + Python-based project to learn, predict and classify screenplays to 12 fil
 ## Screenshots
 Sign in:
 
-![image](https://user-images.githubusercontent.com/62587988/213988101-cb8f91d0-75a6-47c0-b2ed-dd2bde7dcb43.png)
+
 
 Main Menu:
 
-![image](https://user-images.githubusercontent.com/62587988/213484637-bee63130-2ac2-44b8-8c82-a43b2a88ef1f.png)
+
 
 Classification Process:
 
-![image](https://user-images.githubusercontent.com/62587988/213484678-8f0341ff-96b1-4dfd-921d-fd7168bce720.png)
 
-![image](https://user-images.githubusercontent.com/62587988/215251515-695c24d2-843e-4da5-a25c-67f8d617cd17.png)
-
-![image](https://user-images.githubusercontent.com/62587988/213484787-4afc027a-2cfb-4463-a381-c3e6b26975a2.png)
 
 Archives:
 
-![image](https://user-images.githubusercontent.com/62587988/213724233-bcd55b55-a3ad-499f-8ee7-a67162ccfee0.png)
 
-![image](https://user-images.githubusercontent.com/62587988/213484893-81228576-7a16-41ad-9a64-c289f0da7abd.png)
 
 Reports:
 
-![image](https://user-images.githubusercontent.com/62587988/213484968-c7bf4207-92fa-4712-b256-da710dc37c6b.png)
+
 
 Settings:
 
-![image](https://user-images.githubusercontent.com/62587988/213485006-b9300ae8-3256-46e0-bec0-dcf527d266a9.png)
+
