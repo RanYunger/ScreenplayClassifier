@@ -308,7 +308,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                             else
                             {
                                 App.Current.Dispatcher.Invoke(() => MessageBox.ShowError(outputLine));
-                                App.Current.Dispatcher.Invoke(() => DurationTimer.Stop());
                                 IsThreadAlive = false;
                             }
                         }
@@ -321,12 +320,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 }
             }
 
+            DurationTimer.Stop();
+
             if (Percent >= 100)
             {
                 Thread.Sleep(500);
                 CurrentPhase = 2;
                 PhaseText = "Done!";
-                DurationTimer.Stop();
                 Thread.Sleep(1700);
 
                 // Generates classification report for each screenplay
@@ -335,6 +335,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     = new ObservableCollection<ScreenplayModel>(deserializedScreenplays);
                 App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
             }
+            else
+                App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ClassificationComplete = true);
         }
     }
 }

@@ -99,11 +99,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 return new Command(() =>
                 {
-
                     // Validation
                     if (ArchivesSelectionView == null)
                         return;
 
+                    // Restarts the video
                     genreMediaElement = (MediaElement)ArchivesSelectionView.FindName("GenreMediaElement");
                     genreMediaElement.Position = TimeSpan.Zero;
                 });

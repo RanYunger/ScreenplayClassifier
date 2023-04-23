@@ -41,8 +41,8 @@
                     </Style>
                 </StackPanel.Style>
                 <TextBlock Text="{Binding Path=ArchivesViewModel.ArchivesFilterViewModel.FilteredGenre}" FontSize="50" HorizontalAlignment="Center"
-                           Margin="10" Style="{StaticResource TextBlockStyle}"/>
-                <Ellipse Height="90" Width="90" Cursor="Hand">
+                           Style="{StaticResource TextBlockStyle}"/>
+                <Ellipse Height="90" Width="90" Cursor="Hand" Margin="10">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding ToggleMediaStateCommand}"/>
@@ -69,8 +69,7 @@
                         </Style>
                     </Ellipse.Style>
                 </Ellipse>
-                <MediaElement x:Name="GenreMediaElement" Height="580" Width="600" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill"
-                              Margin="10">
+                <MediaElement x:Name="GenreMediaElement" Height="580" Width="600" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MediaEnded">
                             <i:InvokeCommandAction Command="{Binding RestartVideoCommand}"/>

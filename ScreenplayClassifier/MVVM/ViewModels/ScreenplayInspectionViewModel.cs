@@ -122,8 +122,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     Fill = new ImageBrush(new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, genreName)))),
                     Title = genreName,
                     Values = new ChartValues<ObservableValue> { new ObservableValue(double.Parse(textualPercentage)) },
-                    Width = 30,
-                    FontSize = 30,
+                    FontSize = 20,
                     ColumnPadding = 10,
                     DataLabels = true
                 });

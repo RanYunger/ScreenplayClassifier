@@ -14,7 +14,8 @@
 
         <StackPanel Grid.Row="0">
             <TextBlock Text="Genre Percentages" FontSize="30" TextAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-            <lvc:CartesianChart Series="{Binding PercentageSeries}" LegendLocation="Bottom" Height="350" Width="600" FontSize="20"
+            <!--TODO: CHANGE BULLET SIZE-->
+            <lvc:CartesianChart Series="{Binding PercentageSeries}" LegendLocation="Bottom" Height="350" Width="1200" FontSize="20"
                                 TextBlock.FontWeight="Bold" Margin="10"/>
         </StackPanel>
         
