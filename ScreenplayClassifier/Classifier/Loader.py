@@ -79,7 +79,7 @@ def load_train_screenplays():
 
 def load_test_screenplays(file_paths):
     # Loads the test screenplays using thread for each screenplay
-    batch_size = len(file_paths)
+    batch_size = multiprocessing.cpu_count()
 
     with ThreadPoolExecutor(batch_size) as executor:
         screenplay_threads = [executor.submit(load_screenplay, file_path) for file_path in file_paths]

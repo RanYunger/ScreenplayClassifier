@@ -41,6 +41,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
+        public Command ShowHomeViewCommand
+        {
+            get { return new Command(() => ShowView(HomeView)); }
+        }
+
         public Command CloseCommand
         {
             get

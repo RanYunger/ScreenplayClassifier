@@ -184,6 +184,15 @@
         </StackPanel>
 
         <WrapPanel Grid.Row="3" HorizontalAlignment="Center" Margin="10">
+            <Button Command="{Binding Path=ArchivesViewModel.MainViewModel.ShowHomeViewCommand}" Width="150" Margin="0,10,0,10"
+                    Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <WrapPanel>
+                        <TextBlock Text="Back" FontSize="20" TextAlignment="Center" Margin="0,0,70,0" Style="{StaticResource TextBlockStyle}"/>
+                        <Image Source="/Media/Images/Back.png" Height="30" Width="30"/>
+                    </WrapPanel>
+                </Button.Content>
+            </Button>
             <Button Command="{Binding FilterArchivesCommand}" Width="150" Margin="10" Style="{StaticResource ButtonStyle}">
                 <Button.Content>
                     <WrapPanel>

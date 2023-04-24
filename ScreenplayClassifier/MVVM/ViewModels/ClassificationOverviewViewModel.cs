@@ -169,18 +169,24 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void UpdateModules()
         {
             UserModel owner = ClassificationViewModel.MainViewModel.UserToolbarViewModel.User;
-            ClassificationBrowseViewModel classificationBrowseViewModel = ClassificationViewModel.ClassificationBrowseViewModel;
+            ScreenplaysSelectionViewModel screenplaysSelectionViewModel = ClassificationViewModel.ClassificationBrowseViewModel.ScreenplaysSelectionViewModel;
             ReportsViewModel reportsViewModel = (ReportsViewModel)ClassificationViewModel.MainViewModel.ReportsView.DataContext;
             ArchivesViewModel archivesViewModel = (ArchivesViewModel)ClassificationViewModel.MainViewModel.ArchivesView.DataContext;
+            SelectionEntryModel selectionEntry;
 
-            foreach (SelectionEntryModel checkedScreenplay in classificationBrowseViewModel.ScreenplaysSelectionViewModel.SelectionEntries)
-                classificationBrowseViewModel.ScreenplaysSelectionViewModel.SelectionEntries.Remove(checkedScreenplay);
+            // Removes classified screenplays from selection options
+            for (int i = 0; i < screenplaysSelectionViewModel.SelectionEntries.Count; i++)
+            {
+                selectionEntry = screenplaysSelectionViewModel.SelectionEntries[i];
+                if (selectionEntry.IsChecked)
+                    screenplaysSelectionViewModel.RemoveEntry(selectionEntry);
+            }
 
-            foreach (ScreenplayModel screenplay in ClassifiedScreenplays)
-                reportsViewModel.Reports.Add(new ReportModel(owner, screenplay));
+            // Creates a report for each classified screenplay
+            foreach(ScreenplayModel classifiedScreenplay in ClassifiedScreenplays)
+                reportsViewModel.Reports.Add(new ReportModel(owner, classifiedScreenplay));
 
-            // Triggers PropertyChanged events
-            reportsViewModel.Reports = reportsViewModel.Reports;
+            reportsViewModel.Reports = reportsViewModel.Reports; // triggers PropertyChanged events
         }
     }
 }

@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -279,6 +280,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void RemoveEntry(SelectionEntryModel entry)
         {
             SelectionEntries.Remove(entry);
+
+            RecheckAllSelected();
 
             HasEntries = SelectionEntries.Count > 0;
             HasSelections = new List<SelectionEntryModel>(selectionEntries).Exists(entry => entry.IsChecked);

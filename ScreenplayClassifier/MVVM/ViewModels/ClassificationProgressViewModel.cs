@@ -203,6 +203,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void RefreshView()
         {
+            ClassificationBrowseViewModel classificationBrowseViewModel = ClassificationViewModel.ClassificationBrowseViewModel;
+            ObservableCollection<SelectionEntryModel> selectionEntries = classificationBrowseViewModel.ScreenplaysSelectionViewModel.SelectionEntries,
+                checkedScreenplays = new ObservableCollection<SelectionEntryModel>();
+
             DurationTimer.Stop();
 
             Duration = TimeSpan.Zero;
@@ -215,7 +219,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             PhaseText = string.Empty;
 
-            StartClassification(ClassificationViewModel.ClassificationBrowseViewModel.ScreenplaysSelectionViewModel.SelectionEntries);
+            foreach (SelectionEntryModel entry in selectionEntries)
+                if (entry.IsChecked)
+                    checkedScreenplays.Add(entry);
+
+            StartClassification(checkedScreenplays);
         }
 
         /// <summary>
@@ -291,7 +299,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     {
                         // Validation
                         if (!IsThreadAlive)
-                            return;
+                            break;
 
                         // Reads progress values printed by the python classifier
                         outputLine = reader.ReadLine();
@@ -336,7 +344,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ProgressComplete = true);
             }
             else
+            {
+                HideView();
                 App.Current.Dispatcher.Invoke(() => ClassificationViewModel.ClassificationComplete = true);
+            }
         }
     }
 }

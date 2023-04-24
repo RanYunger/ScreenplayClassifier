@@ -115,14 +115,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             foreach (string genreName in Screenplay.GenrePercentages.Keys)
             {
                 decimalPercentage = Screenplay.GenrePercentages[genreName];
-                textualPercentage = decimalPercentage.ToString("0.00");
+                textualPercentage = decimalPercentage.ToString("0.0");
 
                 PercentageSeries.Add(new ColumnSeries()
                 {
                     Fill = new ImageBrush(new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, genreName)))),
                     Title = genreName,
                     Values = new ChartValues<ObservableValue> { new ObservableValue(double.Parse(textualPercentage)) },
-                    FontSize = 20,
+                    FontSize = 15,
                     ColumnPadding = 10,
                     DataLabels = true
                 });

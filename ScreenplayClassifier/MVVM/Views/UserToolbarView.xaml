@@ -28,11 +28,6 @@
                 <MenuItem.Header>
                     <Image Source="/Media/Images/Options.png" Height="40" Width="40" Margin="-7,0,0,0"/>
                 </MenuItem.Header>
-                <MenuItem Header="Home" Command="{Binding ShowHomeViewCommand}" FontSize="20" Style="{StaticResource MenuItemStyle}">
-                    <MenuItem.Icon>
-                        <Image Source="/Media/Images/Home.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
                 <MenuItem Header="Settings" Command="{Binding ShowSettingsViewCommand}" FontSize="20">
                     <MenuItem.Style>
                         <Style TargetType="MenuItem">

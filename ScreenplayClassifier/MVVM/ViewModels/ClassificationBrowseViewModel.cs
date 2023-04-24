@@ -69,7 +69,16 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         public Command ClearScreenplaysCommand
         {
-            get { return new Command(() => ScreenplaysSelectionViewModel.ClearEntries()); }
+            get
+            {
+                return new Command(() =>
+                {
+                    bool clearConfirmation = MessageBox.ShowQuestion("Are you sure you want to proceed?", false);
+
+                    if (clearConfirmation)
+                        ScreenplaysSelectionViewModel.ClearEntries();
+                });
+            }
         }
 
         public Command ClassifyCommand

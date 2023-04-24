@@ -70,6 +70,15 @@
                     </WrapPanel>
                 </Button.Content>
             </Button>
+            <Button Command="{Binding Path=ClassificationViewModel.MainViewModel.ShowHomeViewCommand}" Width="150" Margin="10"
+                    Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <WrapPanel>
+                        <TextBlock Text="Back" FontSize="20" TextAlignment="Center" Margin="0,0,70,0" Style="{StaticResource TextBlockStyle}"/>
+                        <Image Source="/Media/Images/Back.png" Height="30" Width="30"/>
+                    </WrapPanel>
+                </Button.Content>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

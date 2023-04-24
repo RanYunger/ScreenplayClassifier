@@ -53,8 +53,8 @@
                 </TextBox>
                 <Image Source="/Media/Images/Search.png" Height="30" Width="30" Margin="-35,5,5,5"/>
             </WrapPanel>
-            <DataGrid ItemsSource="{Binding SelectionEntries}" SelectedIndex="{Binding SelectedScreenplay}" MaxHeight="420" FontSize="20"
-                      CanUserSortColumns="False" Style="{StaticResource DataGridStyle}">
+            <DataGrid x:Name="SelectionDataGrid" ItemsSource="{Binding SelectionEntries}" SelectedIndex="{Binding SelectedScreenplay}" MaxHeight="390"
+                      FontSize="20" CanUserSortColumns="False" Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn Binding="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" Width="50"
                                             ElementStyle="{StaticResource BaseCheckBoxStyle}"

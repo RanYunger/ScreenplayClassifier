@@ -25,5 +25,6 @@ if __name__ == "__main__":
             """
     except Exception as ex:
         message = str(ex)
-        message = message[message.index("]") + 2:] # Slices the [Error No. X] section
+        if "[Errno" in message:
+            message = message[message.index("]") + 2:]
         print(message)
