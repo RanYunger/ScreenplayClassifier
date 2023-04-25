@@ -86,7 +86,6 @@
     <None Remove="Media\Images\SignIn.png" />
     <None Remove="Media\Images\SignOut.png" />
     <None Remove="Media\Images\TicketSign.png" />
-    <None Remove="Media\Images\Trash.png" />
     <None Remove="Media\Images\User.png" />
     <None Remove="Media\Images\V.png" />
     <None Remove="Media\Images\Visible.png" />
@@ -332,9 +331,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\TicketSign.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\Trash.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\User.png">
