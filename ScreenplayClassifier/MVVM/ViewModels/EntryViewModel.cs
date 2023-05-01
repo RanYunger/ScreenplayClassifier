@@ -284,6 +284,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         public void Init()
         {
+            //JSON.InitMongoDBServer();
+
             TextBox usernameTextBox = null;
             MediaElement kickUserMediaElement = null;
 

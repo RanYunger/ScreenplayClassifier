@@ -384,8 +384,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         return;
 
                     HideView();
-                    ArchivesViewModel.ArchivesInspectionViewModel.RefreshView();
-                    ArchivesViewModel.ArchivesInspectionViewModel.ShowView();
+                    ArchivesViewModel.ArchivesSelectionViewModel.RefreshView();
+                    ArchivesViewModel.ArchivesSelectionViewModel.ShowView();
                 });
             }
         }

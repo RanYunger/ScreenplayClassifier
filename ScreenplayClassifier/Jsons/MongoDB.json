@@ -1,0 +1,4 @@
+﻿{
+  "ConnectionString": "mongodb+srv://ScreenplayAdmin:mrirHwZ9V6ykEQs7@cluster0.ynsicx7.mongodb.net/?retryWrites=true&w=majority",
+  "DatabaseName": "screenplay-classifier-db"
+}

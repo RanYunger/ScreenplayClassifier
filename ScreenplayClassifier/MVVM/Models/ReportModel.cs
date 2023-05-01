@@ -1,4 +1,5 @@
-﻿using ScreenplayClassifier.MVVM.ViewModels;
+﻿using MongoDB.Bson;
+using ScreenplayClassifier.MVVM.ViewModels;
 using ScreenplayClassifier.MVVM.Views;
 using ScreenplayClassifier.Utilities;
 using System;
@@ -19,6 +20,7 @@ namespace ScreenplayClassifier.MVVM.Models
         private ScreenplayModel screenplay;
 
         // Properties
+        //public ObjectId Id { get; set; }
 
         public UserModel Owner
         {
@@ -48,9 +50,5 @@ namespace ScreenplayClassifier.MVVM.Models
             Owner = owner;
             Screenplay = screenplay;
         }
-
-        // Methods
-        #region Commands
-        #endregion
     }
 }

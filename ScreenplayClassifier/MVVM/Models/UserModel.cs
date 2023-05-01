@@ -1,4 +1,5 @@
-﻿using ScreenplayClassifier.Utilities;
+﻿using MongoDB.Bson;
+using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -16,6 +17,8 @@ namespace ScreenplayClassifier.MVVM.Models
         private UserRole role;
 
         // Properties
+        //public ObjectId Id { get; set; }
+
         public string Username
         {
             get { return username; }
@@ -52,7 +55,7 @@ namespace ScreenplayClassifier.MVVM.Models
         // Constructors
         public UserModel()
         {
-            Username = "You";//"Jim";
+            Username = "You";
             Role = UserRole.GUEST;
             Password = string.Empty;
         }

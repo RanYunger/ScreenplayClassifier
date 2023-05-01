@@ -53,8 +53,14 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     SettingsViewModel settingsViewModel = (SettingsViewModel)SettingsView.DataContext;
+                    ArchivesViewModel archivesViewModel = (ArchivesViewModel)ArchivesView.DataContext;
                     ClassificationViewModel classificationViewModel = (ClassificationViewModel)ClassificationView.DataContext;
                     ReportsViewModel reportsViewModel = (ReportsViewModel)ReportsView.DataContext;
+                    AboutViewModel aboutViewModel = (AboutViewModel)AboutView.DataContext;
+
+                    // Stops any sound
+                    aboutViewModel.IsPlaying = false;
+                    archivesViewModel.ArchivesSelectionViewModel.IsPlayingMedia = false;
 
                     // Kills the classification thread (if it's active)
                     if (classificationViewModel.ClassificationProgressViewModel.ClassificationThread != null)

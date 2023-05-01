@@ -168,8 +168,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         archivesViewModel = (ArchivesViewModel)mainViewModel.ArchivesView.DataContext;
 
                         archivesViewModel.ArchivesFilterViewModel.HideView();
-                        archivesViewModel.ArchivesInspectionViewModel.RefreshView();
-                        archivesViewModel.ArchivesInspectionViewModel.ShowView();
+                        archivesViewModel.ArchivesSelectionViewModel.RefreshView();
+                        archivesViewModel.ArchivesSelectionViewModel.ShowView();
                         mainViewModel.ShowView(mainViewModel.ArchivesView);
                     }
                 });

@@ -18,7 +18,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public MainViewModel MainViewModel { get; private set; }
         public ArchivesView ArchivesView { get; private set; }
         public ArchivesFilterViewModel ArchivesFilterViewModel { get; private set; }
-        public ArchivesSelectionViewModel ArchivesInspectionViewModel { get; private set; }
+        public ArchivesSelectionViewModel ArchivesSelectionViewModel { get; private set; }
 
         #region Commands
         #endregion
@@ -45,8 +45,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ArchivesFilterViewModel.Init(archivesFilterView, this);
 
             archivesSelectionView = (ArchivesSelectionView)ArchivesView.FindName("ArchivesSelectionView");
-            ArchivesInspectionViewModel = (ArchivesSelectionViewModel)archivesSelectionView.DataContext;
-            ArchivesInspectionViewModel.Init(archivesSelectionView, this);
+            ArchivesSelectionViewModel = (ArchivesSelectionViewModel)archivesSelectionView.DataContext;
+            ArchivesSelectionViewModel.Init(archivesSelectionView, this);
         }
     }
 }

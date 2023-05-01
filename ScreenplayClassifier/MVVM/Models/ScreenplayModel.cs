@@ -1,4 +1,5 @@
-﻿using ScreenplayClassifier.Utilities;
+﻿using MongoDB.Bson;
+using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +16,8 @@ namespace ScreenplayClassifier.MVVM.Models
         private string ownerGenre, ownerSubGenre1, ownerSubGenre2;
 
         // Properties
+        //public ObjectId Id { get; set; }
+
         public Dictionary<string, float> GenrePercentages
         {
             get { return genrePercentages; }

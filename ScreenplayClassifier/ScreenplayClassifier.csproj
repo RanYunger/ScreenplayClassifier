@@ -402,6 +402,7 @@
     <PackageReference Include="Dirkster.NumericUpDownLib" Version="3.2.0" />
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="MongoDB.Driver" Version="2.19.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
     <PackageReference Include="XamlRadialProgressBar" Version="1.0.3" />
@@ -426,6 +427,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Jsons\MongoDB.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MongoDB.json</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="DLLs\LiveCharts.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -446,6 +455,10 @@
     </None>
     <None Update="DLLs\XamlRadialProgressBar.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Jsons\MongoDB.json">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MongoDB.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
