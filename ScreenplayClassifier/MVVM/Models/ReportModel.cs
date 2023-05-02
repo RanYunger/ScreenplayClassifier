@@ -1,7 +1,4 @@
 ﻿using MongoDB.Bson;
-using ScreenplayClassifier.MVVM.ViewModels;
-using ScreenplayClassifier.MVVM.Views;
-using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,7 +17,7 @@ namespace ScreenplayClassifier.MVVM.Models
         private ScreenplayModel screenplay;
 
         // Properties
-        //public ObjectId Id { get; set; }
+        public ObjectId Id { get; set; }
 
         public UserModel Owner
         {

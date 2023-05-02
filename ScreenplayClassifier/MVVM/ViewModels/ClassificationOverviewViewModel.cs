@@ -171,7 +171,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             UserModel owner = ClassificationViewModel.MainViewModel.UserToolbarViewModel.User;
             ScreenplaysSelectionViewModel screenplaysSelectionViewModel = ClassificationViewModel.ClassificationBrowseViewModel.ScreenplaysSelectionViewModel;
             ReportsViewModel reportsViewModel = (ReportsViewModel)ClassificationViewModel.MainViewModel.ReportsView.DataContext;
-            ArchivesViewModel archivesViewModel = (ArchivesViewModel)ClassificationViewModel.MainViewModel.ArchivesView.DataContext;
+            List<ReportModel> createdReports = new List<ReportModel>();
             SelectionEntryModel selectionEntry;
 
             // Removes classified screenplays from selection options
@@ -183,8 +183,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
 
             // Creates a report for each classified screenplay
-            foreach(ScreenplayModel classifiedScreenplay in ClassifiedScreenplays)
-                reportsViewModel.Reports.Add(new ReportModel(owner, classifiedScreenplay));
+            foreach (ScreenplayModel classifiedScreenplay in ClassifiedScreenplays)
+            {
+                createdReports.Add(new ReportModel(owner, classifiedScreenplay));
+                reportsViewModel.Reports.Add(createdReports[createdReports.Count - 1]);
+            }
+
+            MONGO.AddReports(createdReports);
 
             reportsViewModel.Reports = reportsViewModel.Reports; // triggers PropertyChanged events
         }

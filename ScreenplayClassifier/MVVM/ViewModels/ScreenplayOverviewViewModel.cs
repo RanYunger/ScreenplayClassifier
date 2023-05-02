@@ -106,8 +106,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     Screenplay.OwnerGenre = selectedOwnerGenre;
 
                     // Restores options to their default collection
-                    OwnerSubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
-                    OwnerSubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
+                    OwnerSubGenre1Options = new ObservableCollection<string>(MONGO.Genres);
+                    OwnerSubGenre2Options = new ObservableCollection<string>(MONGO.Genres);
 
                     // Removes selected option from other collections to prevent duplications
                     OwnerSubGenre1Options.Remove(selectedOwnerGenre);
@@ -128,7 +128,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return selectedOwnerSubGenre1; }
             set
             {
-                ObservableCollection<string> selectedOptions = new ObservableCollection<string>(JSON.LoadedGenres);
+                ObservableCollection<string> selectedOptions = new ObservableCollection<string>(MONGO.Genres);
 
                 selectedOwnerSubGenre1 = value;
 
@@ -137,8 +137,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     Screenplay.OwnerSubGenre1 = selectedOwnerSubGenre1;
 
                     // Restores options to their default collection
-                    OwnerGenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
-                    OwnerSubGenre2Options = new ObservableCollection<string>(JSON.LoadedGenres);
+                    OwnerGenreOptions = new ObservableCollection<string>(MONGO.Genres);
+                    OwnerSubGenre2Options = new ObservableCollection<string>(MONGO.Genres);
 
                     // Removes selected option from other collections to prevent duplications
                     OwnerGenreOptions.Remove(selectedOwnerSubGenre1);
@@ -159,7 +159,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             get { return selectedOwnerSubGenre2; }
             set
             {
-                ObservableCollection<string> selectedOptions = new ObservableCollection<string>(JSON.LoadedGenres);
+                ObservableCollection<string> selectedOptions = new ObservableCollection<string>(MONGO.Genres);
 
                 selectedOwnerSubGenre2 = value;
 
@@ -168,8 +168,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     Screenplay.OwnerSubGenre2 = selectedOwnerSubGenre2;
 
                     // Restores options to their default collection
-                    OwnerGenreOptions = new ObservableCollection<string>(JSON.LoadedGenres);
-                    OwnerSubGenre1Options = new ObservableCollection<string>(JSON.LoadedGenres);
+                    OwnerGenreOptions = new ObservableCollection<string>(MONGO.Genres);
+                    OwnerSubGenre1Options = new ObservableCollection<string>(MONGO.Genres);
 
                     // Removes selected option from other collections to prevent duplications
                     OwnerGenreOptions.Remove(selectedOwnerSubGenre2);

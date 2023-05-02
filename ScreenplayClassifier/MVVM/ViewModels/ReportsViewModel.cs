@@ -59,7 +59,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ReportsView = reportsView;
             MainViewModel = mainViewModel;
 
-            InitReports(user);
+            Reports = MONGO.LoadReports(user);
 
             reportsSelectionView = (ReportsSelectionView)ReportsView.FindName("ReportsSelectionView");
             ReportsSelectionViewModel = (ReportsSelectionViewModel)reportsSelectionView.DataContext;
@@ -82,29 +82,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     return report;
 
             return null;
-        }
-
-        /// <summary>
-        /// Initiates the reports.
-        /// </summary>
-        /// <param name="user">The user authenticated to the system</param>
-        private void InitReports(UserModel user)
-        {
-            List<ReportModel> memberReports;
-
-            if (user.Role == UserModel.UserRole.GUEST)
-                Reports = new ObservableCollection<ReportModel>();
-            else
-            {
-                Reports = new ObservableCollection<ReportModel>(JSON.LoadedReports);
-
-                // Members can only view the reports they own
-                if (user.Role == UserModel.UserRole.MEMBER)
-                {
-                    memberReports = new List<ReportModel>(Reports).FindAll(report => report.Owner.Username.Equals(user.Username));
-                    Reports = new ObservableCollection<ReportModel>(memberReports);
-                }
-            }
         }
     }
 }

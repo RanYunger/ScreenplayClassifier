@@ -169,7 +169,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    Regex passwordRegex = new Regex(JSON.PASSWORDPATTERN);
+                    Regex passwordRegex = new Regex(PASSWORDPATTERN);
                     TextBox newPasswordTextBox = (TextBox)SettingsView.FindName("NewPasswordTextBox");
                     PasswordBox newPasswordBox = (PasswordBox)SettingsView.FindName("NewPasswordBox"),
                         confirmPasswordBox = (PasswordBox)SettingsView.FindName("ConfirmPasswordBox");
@@ -206,6 +206,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     }
 
                     AuthenticatedUsers[userOffset].Password = NewPassword;
+                    MONGO.UpdateUser(AuthenticatedUsers[userOffset]);
 
                     newPasswordBox.Clear();
                     newPasswordTextBox.Clear();
@@ -306,7 +307,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    Regex usernameRegex = new Regex(JSON.USERNAMEPATTERN);
+                    Regex usernameRegex = new Regex(USERNAMEPATTERN);
                     TextBox usernameTextBox = (TextBox)SettingsView.FindName("UsernameTextBox");
                     string usernameInput = usernameTextBox.Text;
 
@@ -316,7 +317,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         return;
                     }
 
-                    AuthenticatedUsers.Add(new UserModel(usernameInput, UserModel.UserRole.MEMBER, "ABC123"));
+                    AuthenticatedUsers.Add(new UserModel(usernameInput, UserRole.MEMBER, "ABC123"));
+                    MONGO.AddUser(new UserModel(usernameInput, UserRole.MEMBER, "ABC123"));
 
                     MessageBox.ShowInformation(usernameInput + " added successfuly");
                 });
@@ -333,7 +335,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     "\nThis action cannot be undone.", AuthenticatedUsers[SelectedUser].Username), true);
 
                     if (removeConfirmation)
+                    {
+                        MONGO.RemoveUser(AuthenticatedUsers[SelectedUser]);
                         AuthenticatedUsers.RemoveAt(SelectedUser);
+                    }
                 });
             }
         }
@@ -353,6 +358,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if (changeConfirmation)
                     {
                         affectedUser.Role = newRole;
+                        MONGO.UpdateUser(affectedUser);
+
                         MessageBox.ShowInformation(string.Format("{0} has been changed to {1}.", affectedUser.Username, newRole));
                     }
                 });
@@ -365,8 +372,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// </summary>
         /// <param name="settingsView">The view to obtain controls from</param>
         /// <param name="mainViewModel">The MainView's view model</param>
-        /// <param name="authenticatedUsers">List of all users who can authenticate to the system</param>
-        public void Init(SettingsView settingsView, MainViewModel mainViewModel, ObservableCollection<UserModel> authenticatedUsers)
+        public void Init(SettingsView settingsView, MainViewModel mainViewModel)
         {
             PasswordBox newPasswordBox = null, confirmPasswordBox = null;
             TextBox usernameTextBox = null;
@@ -374,7 +380,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             SettingsView = settingsView;
             MainViewModel = mainViewModel;
 
-            AuthenticatedUsers = authenticatedUsers;
+            AuthenticatedUsers = new ObservableCollection<UserModel>(MONGO.Users);
             IsNewPasswordVisible = false;
 
             newPasswordBox = (PasswordBox)SettingsView.FindName("NewPasswordBox");

@@ -9,6 +9,10 @@ namespace ScreenplayClassifier.MVVM.Models
 {
     public class UserModel : PropertyChangeNotifier
     {
+        // Constants
+        public static string USERNAMEPATTERN = "[A-Z]{1}[a-z]+(.[A-Z]{1}[a-z]+){1,2}";  // E.G. Ran.Yunger, Shy.Ohev.Zion
+        public static string PASSWORDPATTERN = "[A-Z]{2,3}[0-9]{5,6}";                  // E.G. RY120696, SHZ101098
+
         // Enums
         public enum UserRole { GUEST, MEMBER, ADMIN };
 
@@ -17,7 +21,7 @@ namespace ScreenplayClassifier.MVVM.Models
         private UserRole role;
 
         // Properties
-        //public ObjectId Id { get; set; }
+        public ObjectId Id { get; set; }
 
         public string Username
         {

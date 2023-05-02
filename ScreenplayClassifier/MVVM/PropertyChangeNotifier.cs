@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace ScreenplayClassifier.Utilities
+namespace ScreenplayClassifier.MVVM
 {
     public abstract class PropertyChangeNotifier : INotifyPropertyChanged
     {

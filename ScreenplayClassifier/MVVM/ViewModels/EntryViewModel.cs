@@ -19,24 +19,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class EntryViewModel : PropertyChangeNotifier
     {
         // Fields
-        private ObservableCollection<UserModel> authenticatedUsers;
         private string usernameError, passwordError;
         private int attemptsCount;
         private bool canSignIn;
 
         // Properties
         public EntryView EntryView { get; private set; }
-
-        public ObservableCollection<UserModel> AuthenticatedUsers
-        {
-            get { return authenticatedUsers; }
-            set
-            {
-                authenticatedUsers = value;
-
-                NotifyPropertyChange();
-            }
-        }
 
         public string UsernameError
         {
@@ -85,6 +73,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Constructors
         public EntryViewModel()
         {
+            InitMongoDB();
+
             Init();
         }
 
@@ -280,12 +270,24 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         #endregion
 
         /// <summary>
+        /// Inits the MongoDB handler (if it hasn't been initiated).
+        /// </summary>
+        public void InitMongoDB()
+        {
+            // If the Mongo database is initiated for the first time
+            if (MONGO.DATABASE == null)
+                MONGO.Init();
+
+            // If the users collection is loaded for the first time
+            if (MONGO.Users == null)
+                MONGO.LoadUsers();
+        }
+
+        /// <summary>
         /// Initiates the view model.
         /// </summary>
         public void Init()
         {
-            //JSON.InitMongoDBServer();
-
             TextBox usernameTextBox = null;
             MediaElement kickUserMediaElement = null;
 
@@ -295,10 +297,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     EntryView = (EntryView)view;
                     break;
                 }
-
-            if (JSON.LoadedUsers == null)
-                JSON.LoadUsers();
-            AuthenticatedUsers = new ObservableCollection<UserModel>(JSON.LoadedUsers);
 
             UsernameError = string.Empty;
             PasswordError = string.Empty;
@@ -321,7 +319,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         {
             App.Current.MainWindow = new MainView();
 
-            ((MainViewModel)App.Current.MainWindow.DataContext).Init(user, AuthenticatedUsers);
+            ((MainViewModel)App.Current.MainWindow.DataContext).Init(user);
             EntryView.Close();
 
             App.Current.MainWindow.Show();
@@ -334,7 +332,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <returns>The user (if exists), null otherwise</returns>
         private UserModel FindUser(string username)
         {
-            foreach (UserModel user in AuthenticatedUsers)
+            foreach (UserModel user in MONGO.Users)
                 if (user.Username.Equals(username))
                     return user;
 

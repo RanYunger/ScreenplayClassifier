@@ -58,20 +58,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     ReportsViewModel reportsViewModel = (ReportsViewModel)ReportsView.DataContext;
                     AboutViewModel aboutViewModel = (AboutViewModel)AboutView.DataContext;
 
-                    // Stops any sound
+                    // Stops all sounds
                     aboutViewModel.IsPlaying = false;
                     archivesViewModel.ArchivesSelectionViewModel.IsPlayingMedia = false;
 
                     // Kills the classification thread (if it's active)
                     if (classificationViewModel.ClassificationProgressViewModel.ClassificationThread != null)
                         classificationViewModel.ClassificationProgressViewModel.IsThreadAlive = false;
-
-                    // Guest's changes aren't saved (invisible to the database)
-                    if (UserToolbarViewModel.User.Role != UserModel.UserRole.GUEST)
-                    {
-                        JSON.SaveReports(reportsViewModel.Reports);
-                        JSON.SaveUsers(settingsViewModel.AuthenticatedUsers);
-                    }
                 });
             }
         }
@@ -81,8 +74,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// Initiates the view model.
         /// </summary>
         /// <param name="user">The user who authenticated to the system</param>
-        /// <param name="authenticatedUsers">List of all users who can authenticate to the system</param>
-        public void Init(UserModel user, ObservableCollection<UserModel> authenticatedUsers)
+        public void Init(UserModel user)
         {
             UserToolbarView userToolbarView;
 
@@ -93,8 +85,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     break;
                 }
 
-            JSON.LoadGenres();
-            JSON.LoadReports();
+            MONGO.LoadGenres();
 
             userToolbarView = (UserToolbarView)MainView.FindName("UserToolbarView");
             UserToolbarViewModel = (UserToolbarViewModel)userToolbarView.DataContext;
@@ -108,7 +99,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ClassificationView = (ClassificationView)MainView.FindName("ClassificationView");
 
             ((HomeViewModel)HomeView.DataContext).Init(HomeView, this);
-            ((SettingsViewModel)SettingsView.DataContext).Init(SettingsView, this, authenticatedUsers);
+            ((SettingsViewModel)SettingsView.DataContext).Init(SettingsView, this);
             ((AboutViewModel)AboutView.DataContext).Init(AboutView, this);
             ((ReportsViewModel)ReportsView.DataContext).Init(ReportsView, this, UserToolbarViewModel.User);
             ((ArchivesViewModel)ArchivesView.DataContext).Init(ArchivesView, this);
