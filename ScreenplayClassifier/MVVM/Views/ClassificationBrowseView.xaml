@@ -8,7 +8,12 @@
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <StackPanel HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="10">
             <TextBlock Text="Which screenplays would you like to classify?" FontSize="25" HorizontalAlignment="Center"
                        Style="{StaticResource TextBlockStyle}"/>
             <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,0">
@@ -46,7 +51,19 @@
                 </Button>
             </WrapPanel>
             <v:ScreenplaysSelectionView x:Name="ScreenplaysSelectionView" Margin="0,10,0,10"/>
-            <Button Command="{Binding ClassifyCommand}" Width="150">
+
+        </StackPanel>
+        <WrapPanel Grid.Row="1" HorizontalAlignment="Center" Margin="10">
+            <Button Command="{Binding Path=ClassificationViewModel.MainViewModel.ShowHomeViewCommand}" Width="150" Margin="10"
+                    Style="{StaticResource ButtonStyle}">
+                <Button.Content>
+                    <WrapPanel>
+                        <TextBlock Text="Back" FontSize="20" TextAlignment="Center" Margin="0,0,70,0" Style="{StaticResource TextBlockStyle}"/>
+                        <Image Source="/Media/Images/Back.png" Height="30" Width="30"/>
+                    </WrapPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding ClassifyCommand}" Width="150" Margin="10">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
@@ -70,15 +87,6 @@
                     </WrapPanel>
                 </Button.Content>
             </Button>
-            <Button Command="{Binding Path=ClassificationViewModel.MainViewModel.ShowHomeViewCommand}" Width="150" Margin="10"
-                    Style="{StaticResource ButtonStyle}">
-                <Button.Content>
-                    <WrapPanel>
-                        <TextBlock Text="Back" FontSize="20" TextAlignment="Center" Margin="0,0,70,0" Style="{StaticResource TextBlockStyle}"/>
-                        <Image Source="/Media/Images/Back.png" Height="30" Width="30"/>
-                    </WrapPanel>
-                </Button.Content>
-            </Button>
-        </StackPanel>
+        </WrapPanel>
     </Grid>
 </UserControl>

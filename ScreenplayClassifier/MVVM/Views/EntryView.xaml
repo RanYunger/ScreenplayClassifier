@@ -5,11 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
-        Title="Screenplay Classifier" Height="700" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="Screenplay Classifier" Height="600" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Style="{StaticResource EntryWindowStyle}">
     <Grid>
         <StackPanel HorizontalAlignment="Stretch">
-            <Image Source="/Media/Images/TicketSign.png" Margin="10"/>
             <MediaElement x:Name="KickUserMediaElement" Height="250" Width="350" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill"
                           Margin="10">
                 <MediaElement.Style>
@@ -25,7 +24,7 @@
                     </Style>
                 </MediaElement.Style>
             </MediaElement>
-            <Image Source="/Media/Images/Icon.png" Height="250" Width="250" Stretch="Fill" Margin="10">
+            <Image Source="/Media/Images/Icon.png" Width="250" Margin="10">
                 <Image.Style>
                     <Style TargetType="Image">
                         <Style.Triggers>
@@ -59,7 +58,7 @@
                 </WrapPanel>
                 <WrapPanel x:Name="UsernameErrorWrapPanel" Visibility="Hidden">
                     <Image Source="/Media/Images/Error.png" Height="30" Width="30" HorizontalAlignment="Left" Margin="0,5,0,0"/>
-                    <TextBlock Text="{Binding UsernameError}" FontSize="20" Foreground="IndianRed" Margin="10,0,0,0"
+                    <TextBlock Text="{Binding UsernameError}" FontSize="20" Foreground="DarkRed" Margin="10,0,0,0"
                                    Style="{StaticResource TextBlockStyle}"/>
                 </WrapPanel>
             </StackPanel>
@@ -87,7 +86,7 @@
                 </WrapPanel>
                 <WrapPanel x:Name="PasswordErrorWrapPanel" Visibility="Hidden">
                     <Image Source="/Media/Images/Error.png" Height="30" Width="30" HorizontalAlignment="Left" Margin="0,5,0,0"/>
-                    <TextBlock Text="{Binding PasswordError}" FontSize="20" Foreground="IndianRed" Margin="10,0,0,0"
+                    <TextBlock Text="{Binding PasswordError}" FontSize="20" Foreground="DarkRed" Margin="10,0,0,0"
                                    Style="{StaticResource TextBlockStyle}"/>
                 </WrapPanel>
             </StackPanel>

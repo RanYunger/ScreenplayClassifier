@@ -14,7 +14,6 @@
                     <StackPanel>
                         <Image Source="/Media/Images/Archives.png" Height="300" Width="300"/>
                         <TextBlock Text="Archives" HorizontalAlignment="Center" FontSize="40" Margin="5" Style="{StaticResource TextBlockStyle}"/>
-                        <TextBlock Text="Now Playing" HorizontalAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -25,7 +24,6 @@
                         <Image Source="/Media/Images/Classification.png" Height="300" Width="300"/>
                         <TextBlock Text="Classification" HorizontalAlignment="Center" FontSize="40" Margin="5"
                                    Style="{StaticResource TextBlockStyle}"/>
-                        <TextBlock Text="Now Playing" HorizontalAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -35,7 +33,6 @@
                     <StackPanel>
                         <Image Source="/Media/Images/Reports.png" Height="300" Width="300"/>
                         <TextBlock Text="Reports" HorizontalAlignment="Center" FontSize="40" Margin="5" Style="{StaticResource TextBlockStyle}"/>
-                        <TextBlock Text="Now Playing" HorizontalAlignment="Center" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
                     </StackPanel>
                 </Button.Content>
             </Button>

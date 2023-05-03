@@ -41,6 +41,7 @@
     <None Remove="Media\Images\Back.png" />
     <None Remove="Media\Images\BarChart.png" />
     <None Remove="Media\Images\Browse.png" />
+    <None Remove="Media\Images\Clapper.png" />
     <None Remove="Media\Images\Classification.png" />
     <None Remove="Media\Images\Clear.png" />
     <None Remove="Media\Images\Complete.png" />
@@ -83,7 +84,6 @@
     <None Remove="Media\Images\Settings.png" />
     <None Remove="Media\Images\SignIn.png" />
     <None Remove="Media\Images\SignOut.png" />
-    <None Remove="Media\Images\TicketSign.png" />
     <None Remove="Media\Images\User.png" />
     <None Remove="Media\Images\V.png" />
     <None Remove="Media\Images\Visible.png" />
@@ -200,6 +200,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Browse.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Images\Clapper.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\Classification.png">
@@ -323,9 +326,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\SignOut.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Images\TicketSign.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Images\User.png">

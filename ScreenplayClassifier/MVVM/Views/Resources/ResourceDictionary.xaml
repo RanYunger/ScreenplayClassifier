@@ -3,13 +3,13 @@
                     xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
     
     <!--Backgrounds-->
-    <SolidColorBrush x:Key="EntryWindowBackground" Color="#392C2B"/>
-    <SolidColorBrush x:Key="WindowBackground" Color="Gray"/>
+    <SolidColorBrush x:Key="EntryWindowBackground" Color="Gray"/>
+    <SolidColorBrush x:Key="WindowBackground" Color="LightGray"/>
     <SolidColorBrush x:Key="UserControlBackground" Color="DarkGray"/>
     <SolidColorBrush x:Key="GroupBoxBackground" Color="Transparent"/>
     <SolidColorBrush x:Key="MainColumnHeaderBackground" Color="DarkGray"/>
     <SolidColorBrush x:Key="SubColumnHeaderBackground" Color="DarkGray"/>
-    <SolidColorBrush x:Key="ButtonBackground" Color="LightGray"/>
+    <SolidColorBrush x:Key="ButtonBackground" Color="#FAE289"/>
     
     <!--Components Style-->  
     

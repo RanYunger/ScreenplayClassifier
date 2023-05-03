@@ -14,10 +14,12 @@
     </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="90"/> <!---->
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
         <v:UserToolbarView x:Name="UserToolbarView" Grid.Row="0"/>
+        
         <v:HomeView x:Name="HomeView" Grid.Row="1" Visibility="Visible"/>
         <v:SettingsView x:Name="SettingsView" Grid.Row="1" Visibility="Collapsed"/>
         <v:AboutView x:Name="AboutView" Grid.Row="1" Visibility="Collapsed"/>

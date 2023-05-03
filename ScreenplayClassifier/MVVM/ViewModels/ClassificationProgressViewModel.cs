@@ -305,6 +305,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         outputLine = reader.ReadLine();
                         if (!string.IsNullOrEmpty(outputLine))
                         {
+                            // TODO: FIX (reads null for some reason?)
                             if (int.TryParse(outputLine, out progressOutput))
                             {
                                 CurrentPhase = 1;
