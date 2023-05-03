@@ -275,12 +275,12 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public void InitMongoDB()
         {
             // If the Mongo database is initiated for the first time
-            if (MONGO.DATABASE == null)
-                MONGO.Init();
+            if (DATABASE.MONGODATABASE == null)
+                DATABASE.Init();
 
             // If the users collection is loaded for the first time
-            if (MONGO.Users == null)
-                MONGO.LoadUsers();
+            if (DATABASE.Users == null)
+                DATABASE.LoadUsers();
         }
 
         /// <summary>
@@ -332,7 +332,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <returns>The user (if exists), null otherwise</returns>
         private UserModel FindUser(string username)
         {
-            foreach (UserModel user in MONGO.Users)
+            foreach (UserModel user in DATABASE.Users)
                 if (user.Username.Equals(username))
                     return user;
 

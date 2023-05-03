@@ -8,20 +8,11 @@
              MaxHeight="90" MinWidth="1200" Style="{StaticResource UserToolbarStyle}">
     <Grid>
         <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
+            <Image Source="/Media/Images/Icon.png" Height="70" Width="70" Cursor="Hand" Margin="80,0,0,0"/>
             <TextBlock Text="{Binding User.Username, StringFormat=Hi\, {0}}" FontSize="30" Foreground="{StaticResource ButtonBackground}"
-                       Margin="80,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+                       Margin="10,0,0,0" Style="{StaticResource TextBlockStyle}"/>
             <TextBlock Text="{Binding User.Role, StringFormat=[{0}]}" FontSize="30" Foreground="{StaticResource ButtonBackground}" Margin="5,0,0,0"
                        Style="{StaticResource TextBlockStyle}"/>
-        </WrapPanel>
-        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Source="/Media/Images/Clapper.png" Height="70" Width="70" Cursor="Hand" Margin="10,0,10,0">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDown">
-                        <i:InvokeCommandAction Command="{Binding ScreamCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Image>
-            <Image Source="/Media/Images/Logo.png" Height="70"/>
         </WrapPanel>
         <Menu Height="60" Width="60" HorizontalAlignment="Right" Focusable="False" Margin="0,0,110,0" Style="{StaticResource MenuStyle}">
             <MenuItem Style="{StaticResource MenuItemStyle}">

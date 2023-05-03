@@ -189,7 +189,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 reportsViewModel.Reports.Add(createdReports[createdReports.Count - 1]);
             }
 
-            MONGO.AddReports(createdReports);
+            DATABASE.AddReports(createdReports);
 
             reportsViewModel.Reports = reportsViewModel.Reports; // triggers PropertyChanged events
         }

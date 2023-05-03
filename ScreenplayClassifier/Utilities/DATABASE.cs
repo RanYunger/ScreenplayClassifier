@@ -11,11 +11,11 @@ using System.Text;
 
 namespace ScreenplayClassifier.Utilities
 {
-    public static class MONGO
+    public static class DATABASE
     {
         // Fields
         public static MongoConfigurations CONFIGURATIONS;
-        public static IMongoDatabase DATABASE;
+        public static IMongoDatabase MONGODATABASE;
 
         // Fields
         public static List<string> Genres;
@@ -33,7 +33,7 @@ namespace ScreenplayClassifier.Utilities
             CONFIGURATIONS = JsonConvert.DeserializeObject<MongoConfigurations>(configurationsJson);
             settings = MongoClientSettings.FromConnectionString(CONFIGURATIONS.ConnectionString);
             settings.ServerApi = new ServerApi(ServerApiVersion.V1);
-            DATABASE = new MongoClient(settings).GetDatabase(CONFIGURATIONS.DatabaseName);
+            MONGODATABASE = new MongoClient(settings).GetDatabase(CONFIGURATIONS.DatabaseName);
         }
 
         /// <summary>
@@ -41,11 +41,9 @@ namespace ScreenplayClassifier.Utilities
         /// </summary>
         public static void LoadGenres()
         {
-            IMongoQueryable<BsonDocument> genreDocuments = DATABASE.GetCollection<BsonDocument>(CONFIGURATIONS.GenresCollectionName).AsQueryable();
+            string genresJson = File.ReadAllText(FolderPaths.JSONS + "Genres.json");
 
-            Genres = new List<string>();
-            foreach (BsonDocument document in genreDocuments)
-                Genres.Add(document.GetValue("genre").ToString());
+            Genres = JsonConvert.DeserializeObject<List<string>>(genresJson);
         }
 
         #region Reports
@@ -63,7 +61,7 @@ namespace ScreenplayClassifier.Utilities
                 return new ObservableCollection<ReportModel>();
 
             // Admins can see all reports; Members can see only their reports
-            reports = DATABASE.GetCollection<ReportModel>(CONFIGURATIONS.ReportsCollectionName).AsQueryable();
+            reports = MONGODATABASE.GetCollection<ReportModel>(CONFIGURATIONS.ReportsCollectionName).AsQueryable();
 
             if (user.Role == UserModel.UserRole.MEMBER)
                 reports = reports.Where(report => report.Owner.Username.Equals(user.Username));
@@ -77,7 +75,7 @@ namespace ScreenplayClassifier.Utilities
         /// <param name="reports">The reports to add</param>
         public static void AddReports(List<ReportModel> reports)
         {
-            DATABASE.GetCollection<ReportModel>(CONFIGURATIONS.ReportsCollectionName).InsertMany(reports);
+            MONGODATABASE.GetCollection<ReportModel>(CONFIGURATIONS.ReportsCollectionName).InsertMany(reports);
         }
         #endregion
 
@@ -87,7 +85,7 @@ namespace ScreenplayClassifier.Utilities
         /// </summary>
         public static void LoadUsers()
         {
-            Users = DATABASE.GetCollection<UserModel>(CONFIGURATIONS.UsersCollectionName).AsQueryable();
+            Users = MONGODATABASE.GetCollection<UserModel>(CONFIGURATIONS.UsersCollectionName).AsQueryable();
         }
 
         /// <summary>
@@ -96,7 +94,7 @@ namespace ScreenplayClassifier.Utilities
         /// <param name="user">The user to add</param>
         public static void AddUser(UserModel user)
         {
-            DATABASE.GetCollection<UserModel>(CONFIGURATIONS.UsersCollectionName).InsertOne(user);
+            MONGODATABASE.GetCollection<UserModel>(CONFIGURATIONS.UsersCollectionName).InsertOne(user);
         }
 
         /// <summary>
@@ -110,7 +108,7 @@ namespace ScreenplayClassifier.Utilities
                 .Set("Role", user.Role)
                 .Set("Password", user.Password);
 
-            DATABASE.GetCollection<UserModel>(CONFIGURATIONS.UsersCollectionName).UpdateOne(u => u.Id.Equals(user.Id), update);
+            MONGODATABASE.GetCollection<UserModel>(CONFIGURATIONS.UsersCollectionName).UpdateOne(u => u.Id.Equals(user.Id), update);
         }
 
         /// <summary>
@@ -121,7 +119,7 @@ namespace ScreenplayClassifier.Utilities
         {
             FilterDefinition<UserModel> filter = Builders<UserModel>.Filter.Eq("Id", user.Id);
 
-            DATABASE.GetCollection<UserModel>(CONFIGURATIONS.UsersCollectionName).DeleteOne(filter);
+            MONGODATABASE.GetCollection<UserModel>(CONFIGURATIONS.UsersCollectionName).DeleteOne(filter);
         }
         #endregion
     }

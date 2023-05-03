@@ -11,12 +11,12 @@
         <WrapPanel HorizontalAlignment="Center">
             <StackPanel>
                 <TextBlock Text="Content" FontSize="30" HorizontalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
-                <TextBox Text="{Binding ScreenplayContent}" TextWrapping="Wrap" Height="380" Width="550" VerticalScrollBarVisibility="Visible"
+                <TextBox Text="{Binding ScreenplayContent}" TextWrapping="Wrap" Height="350" Width="550" VerticalScrollBarVisibility="Visible"
                          Margin="10" Style="{StaticResource ReadOnlyTextBoxStyle}"/>
             </StackPanel>
             <StackPanel Margin="10">
                 <TextBlock Text="Model Classification" FontSize="30" HorizontalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
-                <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="330" Width="400" FontSize="20" Hoverable="True"
+                <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="300" Width="400" FontSize="20" Hoverable="True"
                               HorizontalAlignment="Center" Margin="10">
                     <lvc:PieChart.ChartLegend>
                         <lvc:DefaultLegend BulletSize="30" FontWeight="Bold" HorizontalAlignment="Center" TextBlock.FontSize="20"/>

@@ -206,7 +206,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     }
 
                     AuthenticatedUsers[userOffset].Password = NewPassword;
-                    MONGO.UpdateUser(AuthenticatedUsers[userOffset]);
+                    DATABASE.UpdateUser(AuthenticatedUsers[userOffset]);
 
                     newPasswordBox.Clear();
                     newPasswordTextBox.Clear();
@@ -318,7 +318,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     }
 
                     AuthenticatedUsers.Add(new UserModel(usernameInput, UserRole.MEMBER, "ABC123"));
-                    MONGO.AddUser(new UserModel(usernameInput, UserRole.MEMBER, "ABC123"));
+                    DATABASE.AddUser(new UserModel(usernameInput, UserRole.MEMBER, "ABC123"));
 
                     MessageBox.ShowInformation(usernameInput + " added successfuly");
                 });
@@ -336,7 +336,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     if (removeConfirmation)
                     {
-                        MONGO.RemoveUser(AuthenticatedUsers[SelectedUser]);
+                        DATABASE.RemoveUser(AuthenticatedUsers[SelectedUser]);
                         AuthenticatedUsers.RemoveAt(SelectedUser);
                     }
                 });
@@ -358,7 +358,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if (changeConfirmation)
                     {
                         affectedUser.Role = newRole;
-                        MONGO.UpdateUser(affectedUser);
+                        DATABASE.UpdateUser(affectedUser);
 
                         MessageBox.ShowInformation(string.Format("{0} has been changed to {1}.", affectedUser.Username, newRole));
                     }
@@ -380,7 +380,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             SettingsView = settingsView;
             MainViewModel = mainViewModel;
 
-            AuthenticatedUsers = new ObservableCollection<UserModel>(MONGO.Users);
+            AuthenticatedUsers = new ObservableCollection<UserModel>(DATABASE.Users);
             IsNewPasswordVisible = false;
 
             newPasswordBox = (PasswordBox)SettingsView.FindName("NewPasswordBox");

@@ -85,7 +85,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     break;
                 }
 
-            MONGO.LoadGenres();
+            DATABASE.LoadGenres();
 
             userToolbarView = (UserToolbarView)MainView.FindName("UserToolbarView");
             UserToolbarViewModel = (UserToolbarViewModel)userToolbarView.DataContext;
