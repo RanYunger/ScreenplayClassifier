@@ -92,11 +92,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 filteredGenre = value;
 
-                SubGenre1Options = new ObservableCollection<string>(DATABASE.Genres);
+                SubGenre1Options = new ObservableCollection<string>(CONFIGURATIONS.Genres);
                 SubGenre1Options.Remove(filteredGenre);
                 SubGenre1Options.Remove(FilteredSubGenre2);
 
-                SubGenre2Options = new ObservableCollection<string>(DATABASE.Genres);
+                SubGenre2Options = new ObservableCollection<string>(CONFIGURATIONS.Genres);
                 SubGenre2Options.Remove(filteredGenre);
                 SubGenre2Options.Remove(FilteredSubGenre1);
 
@@ -111,11 +111,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 filteredSubGenre1 = value;
 
-                GenreOptions = new ObservableCollection<string>(DATABASE.Genres);
+                GenreOptions = new ObservableCollection<string>(CONFIGURATIONS.Genres);
                 GenreOptions.Remove(filteredSubGenre1);
                 GenreOptions.Remove(FilteredSubGenre2);
 
-                SubGenre2Options = new ObservableCollection<string>(DATABASE.Genres);
+                SubGenre2Options = new ObservableCollection<string>(CONFIGURATIONS.Genres);
                 SubGenre2Options.Remove(filteredSubGenre1);
                 SubGenre2Options.Remove(FilteredGenre);
 
@@ -130,11 +130,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 filteredSubGenre2 = value;
 
-                GenreOptions = new ObservableCollection<string>(DATABASE.Genres);
+                GenreOptions = new ObservableCollection<string>(CONFIGURATIONS.Genres);
                 GenreOptions.Remove(filteredSubGenre2);
                 GenreOptions.Remove(FilteredSubGenre1);
 
-                SubGenre1Options = new ObservableCollection<string>(DATABASE.Genres);
+                SubGenre1Options = new ObservableCollection<string>(CONFIGURATIONS.Genres);
                 SubGenre1Options.Remove(filteredSubGenre2);
                 SubGenre1Options.Remove(FilteredGenre);
 
@@ -354,9 +354,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     Filter = (o) => { return true; }; // Default filter
 
-                    GenreOptions = new ObservableCollection<string>(DATABASE.Genres);
-                    SubGenre1Options = new ObservableCollection<string>(DATABASE.Genres);
-                    SubGenre2Options = new ObservableCollection<string>(DATABASE.Genres);
+                    GenreOptions = new ObservableCollection<string>(CONFIGURATIONS.Genres);
+                    SubGenre1Options = new ObservableCollection<string>(CONFIGURATIONS.Genres);
+                    SubGenre2Options = new ObservableCollection<string>(CONFIGURATIONS.Genres);
 
                     FilteredOwner = string.Empty;
                     FilteredGenre = string.Empty;
@@ -405,9 +405,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             InitOwners();
 
-            GenreOptions = new ObservableCollection<string>(DATABASE.Genres);
-            SubGenre1Options = new ObservableCollection<string>(DATABASE.Genres);
-            SubGenre2Options = new ObservableCollection<string>(DATABASE.Genres);
+            GenreOptions = new ObservableCollection<string>(CONFIGURATIONS.Genres);
+            SubGenre1Options = new ObservableCollection<string>(CONFIGURATIONS.Genres);
+            SubGenre2Options = new ObservableCollection<string>(CONFIGURATIONS.Genres);
         }
 
         /// <summary>
@@ -440,7 +440,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             if (user.Role == UserModel.UserRole.ADMIN)
             {
                 OwnerOptions.Clear();
-                foreach (UserModel owner in DATABASE.Users)
+                foreach (UserModel owner in MONGODB.Users)
                     OwnerOptions.Add(owner.Username);
             }
         }

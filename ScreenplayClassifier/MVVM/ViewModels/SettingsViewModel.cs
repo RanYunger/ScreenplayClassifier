@@ -169,7 +169,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    Regex passwordRegex = new Regex(PASSWORDPATTERN);
+                    Regex passwordRegex = new Regex(CONFIGURATIONS.CONSTANTS.PasswordPattern);
                     TextBox newPasswordTextBox = (TextBox)SettingsView.FindName("NewPasswordTextBox");
                     PasswordBox newPasswordBox = (PasswordBox)SettingsView.FindName("NewPasswordBox"),
                         confirmPasswordBox = (PasswordBox)SettingsView.FindName("ConfirmPasswordBox");
@@ -206,7 +206,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     }
 
                     AuthenticatedUsers[userOffset].Password = NewPassword;
-                    DATABASE.UpdateUser(AuthenticatedUsers[userOffset]);
+                    MONGODB.UpdateUser(AuthenticatedUsers[userOffset]);
 
                     newPasswordBox.Clear();
                     newPasswordTextBox.Clear();
@@ -307,7 +307,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                    Regex usernameRegex = new Regex(USERNAMEPATTERN);
+                    Regex usernameRegex = new Regex(CONFIGURATIONS.CONSTANTS.UsernamePattern);
                     TextBox usernameTextBox = (TextBox)SettingsView.FindName("UsernameTextBox");
                     string usernameInput = usernameTextBox.Text;
 
@@ -317,8 +317,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         return;
                     }
 
-                    AuthenticatedUsers.Add(new UserModel(usernameInput, UserRole.MEMBER, "ABC123"));
-                    DATABASE.AddUser(new UserModel(usernameInput, UserRole.MEMBER, "ABC123"));
+                    AuthenticatedUsers.Add(new UserModel(usernameInput, UserRole.MEMBER, CONFIGURATIONS.CONSTANTS.DefaultPassword));
+                    MONGODB.AddUser(new UserModel(usernameInput, UserRole.MEMBER, CONFIGURATIONS.CONSTANTS.DefaultPassword));
 
                     MessageBox.ShowInformation(usernameInput + " added successfuly");
                 });
@@ -336,7 +336,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     if (removeConfirmation)
                     {
-                        DATABASE.RemoveUser(AuthenticatedUsers[SelectedUser]);
+                        MONGODB.RemoveUser(AuthenticatedUsers[SelectedUser]);
                         AuthenticatedUsers.RemoveAt(SelectedUser);
                     }
                 });
@@ -358,7 +358,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     if (changeConfirmation)
                     {
                         affectedUser.Role = newRole;
-                        DATABASE.UpdateUser(affectedUser);
+                        MONGODB.UpdateUser(affectedUser);
 
                         MessageBox.ShowInformation(string.Format("{0} has been changed to {1}.", affectedUser.Username, newRole));
                     }
@@ -380,7 +380,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             SettingsView = settingsView;
             MainViewModel = mainViewModel;
 
-            AuthenticatedUsers = new ObservableCollection<UserModel>(DATABASE.Users);
+            AuthenticatedUsers = new ObservableCollection<UserModel>(MONGODB.Users);
             IsNewPasswordVisible = false;
 
             newPasswordBox = (PasswordBox)SettingsView.FindName("NewPasswordBox");

@@ -17,8 +17,8 @@
     <None Remove="Classifier\script_info.py" />
     <None Remove="Classifier\Train.csv" />
     <None Remove="Icon.ico" />
+    <None Remove="Jsons\Configurations.json" />
     <None Remove="Jsons\Genres.json" />
-    <None Remove="Jsons\MongoDB.json" />
     <None Remove="Media\Audios\Clapper.mp3" />
     <None Remove="Media\Audios\Genres\Action.mp3" />
     <None Remove="Media\Audios\Genres\Adventure.mp3" />
@@ -137,7 +137,7 @@
     <Content Include="Jsons\Genres.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Jsons\MongoDB.json">
+    <Content Include="Jsons\Configurations.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\Audios\Clapper.mp3">

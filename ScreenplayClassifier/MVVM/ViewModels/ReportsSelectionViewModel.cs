@@ -78,7 +78,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             foreach (ReportModel report in ReportsViewModel.Reports)
                 selectionEntries.Add(new SelectionEntryModel(report.Owner.Username, report.Screenplay.FilePath));
 
-            ScreenplaysSelectionViewModel.RefreshView(selectionEntries, "inspect", "No Reports to inspect");
+            ScreenplaysSelectionViewModel.RefreshView(selectionEntries, "inspect", "No reports to inspect");
         }
 
         /// <summary>

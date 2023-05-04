@@ -8,6 +8,36 @@
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <MediaElement x:Name="MediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill"/>
+        <MediaElement x:Name="MediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MediaEnded">
+                    <i:InvokeCommandAction Command="{Binding ShowBackButtonCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </MediaElement>
+        <Button Command="{Binding Path=MainViewModel.ShowHomeViewCommand}" Width="300" Height="80" Margin="10">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CanGoHome}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CanGoHome}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Content>
+                <WrapPanel>
+                    <TextBlock Text="Go Home" FontSize="40" TextAlignment="Center" Margin="0,0,50,0" Style="{StaticResource TextBlockStyle}"/>
+                    <Image Source="/Media/Images/Home.png" Height="60" Width="60"/>
+                </WrapPanel>
+            </Button.Content>
+        </Button>
     </Grid>
 </UserControl>

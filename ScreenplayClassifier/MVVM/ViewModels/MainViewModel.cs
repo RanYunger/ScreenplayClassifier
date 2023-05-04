@@ -85,8 +85,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     break;
                 }
 
-            DATABASE.LoadGenres();
-
             userToolbarView = (UserToolbarView)MainView.FindName("UserToolbarView");
             UserToolbarViewModel = (UserToolbarViewModel)userToolbarView.DataContext;
             UserToolbarViewModel.Init(userToolbarView, this, user);

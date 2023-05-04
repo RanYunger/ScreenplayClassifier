@@ -1,7 +1,9 @@
 ﻿{
   "ConnectionString": "mongodb+srv://ScreenplayAdmin:mrirHwZ9V6ykEQs7@cluster0.ynsicx7.mongodb.net/?retryWrites=true&w=majority",
   "DatabaseName": "screenplay-classifier-db",
-  "GenresCollectionName": "genres",
   "ReportsCollectionName": "reports",
-  "UsersCollectionName":  "users"
+  "UsersCollectionName": "users",
+  "UsernamePattern": "[A-Z]{1}[a-z]+(.[A-Z]{1}[a-z]+){1,2}",
+  "PasswordPattern": "[A-Z]{2,3}[0-9]{5,6}",
+  "DefaultPassword": "ABC123"
 }

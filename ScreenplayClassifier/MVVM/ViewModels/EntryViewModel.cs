@@ -73,6 +73,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         // Constructors
         public EntryViewModel()
         {
+            InitCongifurations();
             InitMongoDB();
 
             Init();
@@ -270,17 +271,26 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         #endregion
 
         /// <summary>
-        /// Inits the MongoDB handler (if it hasn't been initiated).
+        /// Initiates the configurations handler (if it hasn't been initiated).
+        /// </summary>
+        private void InitCongifurations()
+        {
+            if (CONFIGURATIONS.CONSTANTS == null)
+                CONFIGURATIONS.Init();
+        }
+
+        /// <summary>
+        /// Initiatess the MongoDB handler (if it hasn't been initiated).
         /// </summary>
         public void InitMongoDB()
         {
             // If the Mongo database is initiated for the first time
-            if (DATABASE.MONGODATABASE == null)
-                DATABASE.Init();
+            if (MONGODB.DATABASE == null)
+                MONGODB.Init();
 
             // If the users collection is loaded for the first time
-            if (DATABASE.Users == null)
-                DATABASE.LoadUsers();
+            if (MONGODB.Users == null)
+                MONGODB.LoadUsers();
         }
 
         /// <summary>
@@ -332,7 +342,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <returns>The user (if exists), null otherwise</returns>
         private UserModel FindUser(string username)
         {
-            foreach (UserModel user in DATABASE.Users)
+            foreach (UserModel user in MONGODB.Users)
                 if (user.Username.Equals(username))
                     return user;
 

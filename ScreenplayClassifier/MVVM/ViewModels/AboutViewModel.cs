@@ -12,11 +12,22 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class AboutViewModel : PropertyChangeNotifier
     {
         // Fields
-        private bool isPlaying;
+        private bool canGoHome, isPlaying;
 
         // Properties
         public MainViewModel MainViewModel { get; private set; }
         public AboutView AboutView { get; private set; }
+
+        public bool CanGoHome
+        {
+            get { return canGoHome; }
+            set
+            {
+                canGoHome = value;
+
+                NotifyPropertyChange();
+            }
+        }
 
         public bool IsPlaying
         {
@@ -26,7 +37,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 isPlaying = value;
 
                 if (isPlaying)
+                {
                     PlayVideoCommand.Execute(null);
+                    CanGoHome = false;
+                }
                 else
                     InterruptVideoCommand.Execute(null);
 
@@ -62,6 +76,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 return new Command(() => mediaElement.Stop());
             }
+        }
+
+        public Command ShowBackButtonCommand
+        {
+            get { return new Command(() => CanGoHome = true); }
         }
         #endregion
 

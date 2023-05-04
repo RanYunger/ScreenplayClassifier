@@ -172,15 +172,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ScreenplaysSelectionViewModel screenplaysSelectionViewModel = ClassificationViewModel.ClassificationBrowseViewModel.ScreenplaysSelectionViewModel;
             ReportsViewModel reportsViewModel = (ReportsViewModel)ClassificationViewModel.MainViewModel.ReportsView.DataContext;
             List<ReportModel> createdReports = new List<ReportModel>();
-            SelectionEntryModel selectionEntry;
+            List<SelectionEntryModel> removedEntries = new List<SelectionEntryModel>();
 
             // Removes classified screenplays from selection options
-            for (int i = 0; i < screenplaysSelectionViewModel.SelectionEntries.Count; i++)
-            {
-                selectionEntry = screenplaysSelectionViewModel.SelectionEntries[i];
+            foreach (SelectionEntryModel selectionEntry in screenplaysSelectionViewModel.SelectionEntries)
                 if (selectionEntry.IsChecked)
-                    screenplaysSelectionViewModel.RemoveEntry(selectionEntry);
-            }
+                    removedEntries.Add(selectionEntry);
+
+            foreach (SelectionEntryModel selectionEntry in removedEntries)
+                screenplaysSelectionViewModel.RemoveEntry(selectionEntry);
 
             // Creates a report for each classified screenplay
             foreach (ScreenplayModel classifiedScreenplay in ClassifiedScreenplays)
@@ -189,7 +189,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 reportsViewModel.Reports.Add(createdReports[createdReports.Count - 1]);
             }
 
-            DATABASE.AddReports(createdReports);
+            MONGODB.AddReports(createdReports);
 
             reportsViewModel.Reports = reportsViewModel.Reports; // triggers PropertyChanged events
         }

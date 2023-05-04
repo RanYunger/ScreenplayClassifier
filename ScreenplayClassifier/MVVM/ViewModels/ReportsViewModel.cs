@@ -59,7 +59,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ReportsView = reportsView;
             MainViewModel = mainViewModel;
 
-            Reports = DATABASE.LoadReports(user);
+            Reports = MONGODB.LoadReports(user);
 
             reportsSelectionView = (ReportsSelectionView)ReportsView.FindName("ReportsSelectionView");
             ReportsSelectionViewModel = (ReportsSelectionViewModel)reportsSelectionView.DataContext;
