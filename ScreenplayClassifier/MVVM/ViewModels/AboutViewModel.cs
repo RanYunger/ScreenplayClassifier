@@ -12,37 +12,31 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     public class AboutViewModel : PropertyChangeNotifier
     {
         // Fields
-        private bool canGoHome, isPlaying;
+        private bool isPlayingVideo;
 
         // Properties
         public MainViewModel MainViewModel { get; private set; }
         public AboutView AboutView { get; private set; }
 
-        public bool CanGoHome
+        public bool IsPlayingVideo
         {
-            get { return canGoHome; }
+            get { return isPlayingVideo; }
             set
             {
-                canGoHome = value;
+                MediaElement mediaElement = null;
 
-                NotifyPropertyChange();
-            }
-        }
+                // Validation
+                if (AboutView == null)
+                    return;
 
-        public bool IsPlaying
-        {
-            get { return isPlaying; }
-            set
-            {
-                isPlaying = value;
+                mediaElement = (MediaElement)AboutView.FindName("MediaElement");
 
-                if (isPlaying)
-                {
-                    PlayVideoCommand.Execute(null);
-                    CanGoHome = false;
-                }
+                isPlayingVideo = value;
+
+                if (isPlayingVideo)
+                    mediaElement.Play();
                 else
-                    InterruptVideoCommand.Execute(null);
+                    mediaElement.Pause();
 
                 NotifyPropertyChange();
             }
@@ -53,34 +47,31 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
         // Methods
         #region Commands
-        public Command PlayVideoCommand
+        public Command ToggleVideoStateCommand
+        {
+            get { return new Command(() => IsPlayingVideo = !IsPlayingVideo); }
+        }
+
+        public Command StartVideoCommand
         {
             get
             {
-                MediaElement mediaElement = (MediaElement)AboutView.FindName("MediaElement");
+                MediaElement mediaElement = null;
 
                 return new Command(() =>
                 {
-                    mediaElement.Source = new Uri(FolderPaths.VIDEOS + "About.mp4");
+                    // Restarts the video
+                    mediaElement = (MediaElement)AboutView.FindName("MediaElement");
+                    mediaElement.Position = TimeSpan.Zero; 
 
-                    mediaElement.Play();
+                    IsPlayingVideo = true;
                 });
             }
         }
 
-        public Command InterruptVideoCommand
+        public Command EndVideoCommand
         {
-            get
-            {
-                MediaElement mediaElement = (MediaElement)AboutView.FindName("MediaElement");
-
-                return new Command(() => mediaElement.Stop());
-            }
-        }
-
-        public Command ShowBackButtonCommand
-        {
-            get { return new Command(() => CanGoHome = true); }
+            get { return new Command(() => IsPlayingVideo = false); }
         }
         #endregion
 
@@ -91,8 +82,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         /// <param name="mainViewModel">The MainView's view model</param>
         public void Init(AboutView aboutView, MainViewModel mainViewModel)
         {
+            MediaElement mediaElement = null;
+
             AboutView = aboutView;
             MainViewModel = mainViewModel;
+
+            mediaElement = (MediaElement)AboutView.FindName("MediaElement");
+            mediaElement.Source = new Uri(FolderPaths.VIDEOS + "About.mp4");
         }
     }
 }

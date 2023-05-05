@@ -59,7 +59,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     AboutViewModel aboutViewModel = (AboutViewModel)AboutView.DataContext;
 
                     // Stops all sounds
-                    aboutViewModel.IsPlaying = false;
+                    aboutViewModel.EndVideoCommand.Execute(null);
                     archivesViewModel.ArchivesSelectionViewModel.IsPlayingMedia = false;
 
                     // Kills the classification thread (if it's active)
@@ -121,7 +121,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             foreach (UserControl view in views)
                 view.Visibility = view == viewToShow ? Visibility.Visible : Visibility.Collapsed;
 
-            ((AboutViewModel)AboutView.DataContext).IsPlaying = viewToShow == AboutView;
+            if (viewToShow == AboutView)
+                ((AboutViewModel)AboutView.DataContext).StartVideoCommand.Execute(null);
 
             if (viewToShow != ArchivesView)
                 ((ArchivesViewModel)ArchivesView.DataContext).ArchivesFilterViewModel.ShowView();

@@ -8,10 +8,13 @@
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              Style="{StaticResource UserControlStyle}">
     <Grid>
-        <MediaElement x:Name="MediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill">
+        <MediaElement x:Name="MediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill" Cursor="Hand">
             <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ToggleVideoStateCommand}"/>
+                </i:EventTrigger>
                 <i:EventTrigger EventName="MediaEnded">
-                    <i:InvokeCommandAction Command="{Binding ShowBackButtonCommand}"/>
+                    <i:InvokeCommandAction Command="{Binding EndVideoCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </MediaElement>
@@ -23,11 +26,11 @@
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     <Setter Property="Cursor" Value="Hand"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding CanGoHome}" Value="True">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding CanGoHome}" Value="False">
+                        <DataTrigger Binding="{Binding IsPlayingVideo}" Value="True">
                             <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsPlayingVideo}" Value="False">
+                            <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
