@@ -331,13 +331,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 return new Command(() =>
                 {
-                bool removeConfirmation = MessageBox.ShowQuestion(string.Format("Are you sure you want to remove {0}?" +
-                    "\nThis action cannot be undone.", AuthenticatedUsers[SelectedUser].Username), true);
+                    bool removeConfirmation = MessageBox.ShowQuestion(string.Format("Are you sure you want to remove {0}?" +
+                        "\nThis action cannot be undone.", AuthenticatedUsers[SelectedUser].Username), true);
 
                     if (removeConfirmation)
                     {
                         MONGODB.RemoveUser(AuthenticatedUsers[SelectedUser]);
-                        AuthenticatedUsers.RemoveAt(SelectedUser);
+                        AuthenticatedUsers.Remove(AuthenticatedUsers[SelectedUser]);
                     }
                 });
             }
@@ -351,7 +351,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     UserModel affectedUser = AuthenticatedUsers[selectedUser];
                     UserRole newRole = affectedUser.Role == UserRole.ADMIN ? UserRole.MEMBER : UserRole.ADMIN;
-                    bool changeConfirmation = MessageBox.ShowQuestion(string.Format("Are you sure you want to change {0}'s role to {1}?", 
+                    bool changeConfirmation = MessageBox.ShowQuestion(string.Format("Are you sure you want to change {0}'s role to {1}?",
                         affectedUser.Username, newRole), true);
 
                     // Changes the user's role (if confirmation is given)
