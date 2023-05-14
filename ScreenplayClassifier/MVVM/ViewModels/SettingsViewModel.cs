@@ -173,7 +173,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     TextBox newPasswordTextBox = (TextBox)SettingsView.FindName("NewPasswordTextBox");
                     PasswordBox newPasswordBox = (PasswordBox)SettingsView.FindName("NewPasswordBox"),
                         confirmPasswordBox = (PasswordBox)SettingsView.FindName("ConfirmPasswordBox");
-                    int userOffset = AuthenticatedUsers.IndexOf(MainViewModel.UserToolbarViewModel.User);
 
                     // Obtains the current string representations of both old and new passwords
                     OldPassword = MainViewModel.UserToolbarViewModel.User.Password;
@@ -205,8 +204,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         return;
                     }
 
-                    AuthenticatedUsers[userOffset].Password = NewPassword;
-                    MONGODB.UpdateUser(AuthenticatedUsers[userOffset]);
+                    MainViewModel.UserToolbarViewModel.User.Password = NewPassword;
+                    MONGODB.UpdateUser(MainViewModel.UserToolbarViewModel.User);
 
                     newPasswordBox.Clear();
                     newPasswordTextBox.Clear();
