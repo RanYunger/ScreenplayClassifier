@@ -189,7 +189,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 reportsViewModel.Reports.Add(createdReports[createdReports.Count - 1]);
             }
 
-            MONGODB.AddReports(createdReports);
+            // Guests activities do no affect database
+            if (owner.Role != UserModel.UserRole.GUEST)
+                MONGODB.AddReports(createdReports);
 
             reportsViewModel.Reports = reportsViewModel.Reports; // triggers PropertyChanged events
         }

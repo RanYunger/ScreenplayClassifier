@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <TextBlock Text="Genre Percentages" FontSize="30" TextAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Model Classification [All Genres, %]" FontSize="30" TextAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
             <lvc:CartesianChart Series="{Binding PercentageSeries}" LegendLocation="Bottom" Height="280" Width="700" FontSize="20"
                                 TextBlock.FontWeight="Bold" Margin="10">
                 <lvc:CartesianChart.ChartLegend>
