@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net481</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <UseWPF>True</UseWPF>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
