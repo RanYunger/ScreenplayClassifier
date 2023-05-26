@@ -31,7 +31,7 @@
                         <StackPanel>
                             <WrapPanel Margin="5">
                                 <TextBlock Text="New Password:" Style="{StaticResource TextBlockStyle}"/>
-                                <PasswordBox x:Name="NewPasswordBox" Width="150" MaxLength="9" Margin="20,0,0,0"
+                                <PasswordBox x:Name="NewPasswordBox" Width="150" MaxLength="0" Margin="20,0,0,0"
                                      Style="{StaticResource PasswordBoxStyle}"/>
                                 <TextBox x:Name="NewPasswordTextBox" Width="150" Margin="20,0,0,0">
                                     <TextBox.Style>
@@ -72,7 +72,7 @@
                             </WrapPanel>
                             <WrapPanel Margin="5">
                                 <TextBlock Text="Confirm:" Style="{StaticResource TextBlockStyle}"/>
-                                <PasswordBox x:Name="ConfirmPasswordBox" Width="150" MaxLength="9" Margin="80,0,0,0"
+                                <PasswordBox x:Name="ConfirmPasswordBox" Width="150" MaxLength="0" Margin="80,0,0,0"
                                      Style="{StaticResource PasswordBoxStyle}"/>
                             </WrapPanel>
                             <Button Command="{Binding ChangePasswordCommand}" Margin="10" Style="{StaticResource ButtonStyle}">
@@ -109,7 +109,7 @@
                     </GroupBox.Header>
                     <StackPanel>
                         <WrapPanel Margin="10">
-                            <TextBox x:Name="UsernameTextBox" Width="310" MaxLength="16" Margin="5" Style="{StaticResource BaseTextBoxStyle}">
+                            <TextBox x:Name="UsernameTextBox" Width="310" MaxLength="0" Margin="5" Style="{StaticResource BaseTextBoxStyle}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="GotFocus">
                                         <i:InvokeCommandAction Command="{Binding EnterUsernameTextboxCommand}"/>

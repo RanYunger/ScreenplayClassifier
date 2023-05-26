@@ -270,7 +270,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             SelectionEntries.Add(entry);
 
             HasEntries = true;
-            HasSelections = new List<SelectionEntryModel>(selectionEntries).Exists(entry => entry.IsChecked);
+            HasSelections = new List<SelectionEntryModel>(selectionEntries).Exists(_entry => _entry.IsChecked);
         }
 
         /// <summary>
@@ -284,7 +284,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             RecheckAllSelected();
 
             HasEntries = SelectionEntries.Count > 0;
-            HasSelections = new List<SelectionEntryModel>(selectionEntries).Exists(entry => entry.IsChecked);
+            HasSelections = new List<SelectionEntryModel>(selectionEntries).Exists(_entry => _entry.IsChecked);
         }
 
         /// <summary>

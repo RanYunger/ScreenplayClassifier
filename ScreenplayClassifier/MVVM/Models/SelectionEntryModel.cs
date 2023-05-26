@@ -1,7 +1,9 @@
 ﻿using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -67,7 +69,7 @@ namespace ScreenplayClassifier.MVVM.Models
         {
             OwnerName = ownerName;
             ScreenplayFilePath = screenplayFilePath;
-            ScreenplayFileName = Path.GetFileNameWithoutExtension(screenplayFilePath);
+            ScreenplayFileName = Path.GetFileNameWithoutExtension(screenplayFilePath.Replace("\"", string.Empty));
             IsChecked = false;
         }
     }

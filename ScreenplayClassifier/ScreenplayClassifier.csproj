@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UseWPF>true</UseWPF>
+    <TargetFramework>net481</TargetFramework>
+    <UseWPF>True</UseWPF>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
 

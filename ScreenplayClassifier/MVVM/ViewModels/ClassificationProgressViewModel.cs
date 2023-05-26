@@ -259,19 +259,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         }
 
         /// <summary>
-        /// Retrieves the installation path of Python.exe on the local machine.
-        /// </summary>
-        /// <returns>The installation path of Python.exe on the local machine</returns>
-        private string GetPythonPath()
-        {
-            RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Python\PythonCore\3.9\PythonPath");
-            string registryValue = registryKey.GetValue("").ToString();
-            string pythonPath = registryValue.Substring(0, registryValue.IndexOf("Lib"));
-
-            return pythonPath;
-        }
-
-        /// <summary>
         /// Classification thread: sends the screenplays to the python classifier for processing.
         /// </summary>
         /// <param name="screenplayFilePaths">The file paths of the screenplays to be processed by the thread</param>
@@ -284,7 +271,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             List<ScreenplayModel> deserializedScreenplays;
             ProcessStartInfo processStartInfo = new ProcessStartInfo()
             {
-                FileName = GetPythonPath() + "python.exe",
+                FileName = "python",
                 Arguments = string.Format("\"{0}\" {1}", scriptPath, scriptArgs),
                 UseShellExecute = false,
                 RedirectStandardOutput = true,

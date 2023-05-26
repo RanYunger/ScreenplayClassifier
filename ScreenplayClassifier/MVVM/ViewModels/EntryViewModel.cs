@@ -173,6 +173,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 return new Command(() =>
                 {
                     UserModel identifiedUser = null;
+                    bool emptyUsername = (string.IsNullOrEmpty(usernameTextBox.Text)) || (usernameTextBox.Text == "Username");
+                    bool emptyPassword = string.IsNullOrEmpty(passwordBox.Password);
 
                     UsernameError = string.Empty;
                     usernameErrorWrapPanel.Visibility = Visibility.Hidden;
@@ -181,25 +183,29 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     passwordErrorWrapPanel.Visibility = Visibility.Hidden;
 
                     // Validates input credentials were entered
-                    if ((string.IsNullOrEmpty(usernameTextBox.Text)) || (usernameTextBox.Text == "Username"))
-                    {
-                        UsernameError = "Enter username";
-                        usernameErrorWrapPanel.Visibility = Visibility.Visible;
-                    }
-                    if (string.IsNullOrEmpty(passwordBox.Password))
-                    {
-                        PasswordError = "Enter password";
-                        passwordErrorWrapPanel.Visibility = Visibility.Visible;
-                    }
 
+                    if (emptyUsername || emptyPassword)
+                    {
+                        if (emptyUsername)
+                        {
+                            UsernameError = "Enter username";
+                            usernameErrorWrapPanel.Visibility = Visibility.Visible;
+                        }
+
+                        if (emptyPassword)
+                        {
+                            PasswordError = "Enter password";
+                            passwordErrorWrapPanel.Visibility = Visibility.Visible;
+                        }
+
+                        return;
+
+                    }
                     // Validates the user's credentials
                     identifiedUser = FindUser(usernameTextBox.Text.Trim());
-                    if ((identifiedUser == null) && (++AttemptsCount == 3))
-                    {
-                        CanSignIn = false;
-                        KickUserCommand.Execute(null);
-                    }
-                    else if (identifiedUser != null)
+                    if (identifiedUser == null)
+                        CheckAttempts();
+                    else
                     {
                         if (string.IsNullOrEmpty(passwordBox.Password))
                         {
@@ -209,18 +215,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         else if (identifiedUser.Password.Equals(passwordBox.Password.Trim()))
                             OpenMainView(identifiedUser);
                         else
-                        {
-                            if (++AttemptsCount == 3)
-                            {
-                                CanSignIn = false;
-                                KickUserCommand.Execute(null);
-                            }
-                            else
-                            {
-                                PasswordError = "Wrong password";
-                                passwordErrorWrapPanel.Visibility = Visibility.Visible;
-                            }
-                        }
+                            CheckAttempts();
                     }
                 });
             }
@@ -310,7 +305,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             UsernameError = string.Empty;
             PasswordError = string.Empty;
-
+            attemptsCount = 3;
             CanSignIn = true;
 
             usernameTextBox = (TextBox)EntryView.FindName("UsernameTextBox");
@@ -347,6 +342,25 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     return user;
 
             return null;
+        }
+
+        /// <summary>
+        /// Checks number of sign-in attempts and raises an error if the credentials do not match.
+        /// </summary>
+        private void CheckAttempts()
+        {
+            bool pluralCondition;
+            if (--AttemptsCount == 0)
+            {
+                CanSignIn = false;
+                KickUserCommand.Execute(null);
+            }
+            else
+            {
+                pluralCondition = AttemptsCount == 1;
+                Utilities.MessageBox.ShowError(string.Format("Wrong username or password.\n{0} attempt{1} remain{2}.",
+                AttemptsCount, pluralCondition ? string.Empty : "s", pluralCondition ? "s" : string.Empty));
+            }
         }
     }
 }

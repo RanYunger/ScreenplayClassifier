@@ -200,7 +200,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     ConfirmedPassword = confirmPasswordBox.Password.Trim();
                     if (!ConfirmedPassword.Equals(NewPassword))
                     {
-                        MessageBox.ShowError("New password must be confirmed.");
+                        MessageBox.ShowError("New password and confirmation do not match.");
                         return;
                     }
 
