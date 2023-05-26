@@ -19,7 +19,7 @@
                 <lvc:PieChart LegendLocation="Bottom" Series="{Binding PercentageSeries}" Height="300" Width="400" FontSize="20" Hoverable="True"
                               HorizontalAlignment="Center" Margin="10">
                     <lvc:PieChart.ChartLegend>
-                        <lvc:DefaultLegend BulletSize="30" FontWeight="Bold" HorizontalAlignment="Center" TextBlock.FontSize="20"/>
+                        <lvc:DefaultLegend BulletSize="30" HorizontalAlignment="Center" TextBlock.FontSize="20"/>
                     </lvc:PieChart.ChartLegend>
                 </lvc:PieChart>
                 <Button Command="{Binding ShowInspectionViewCommand}" Height="50" Width="210" Style="{StaticResource ButtonStyle}">
@@ -49,141 +49,131 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <WrapPanel >
-                    <StackPanel>
-                        <WrapPanel>
-                            <TextBlock Text="Main Genre:" FontSize="20" Margin="0,35,10,0" Style="{StaticResource TextBlockStyle}"/>
-                            <Ellipse Height="30" Width="30" Margin="0,35,10,0">
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="{Binding OwnerGenreImage}"/>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <TextBlock Text="{Binding Path=Screenplay.OwnerGenre}" Width="100" FontSize="20" Margin="0,35,0,0">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="VerticalAlignment" Value="Center"/>
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                            <ComboBox ItemsSource="{Binding OwnerGenreOptions}" SelectedValue="{Binding SelectedOwnerGenre}" Width="150"
+                <WrapPanel>
+                    <TextBlock Text="Main Genre:" FontSize="20" Margin="0,35,10,0" Style="{StaticResource TextBlockStyle}"/>
+                    <Ellipse Height="30" Width="30" Margin="0,35,10,0">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding OwnerGenreImage}"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <TextBlock Text="{Binding Path=Screenplay.OwnerGenre}" Width="100" FontSize="20" Margin="0,35,0,0">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <ComboBox ItemsSource="{Binding OwnerGenreOptions}" SelectedValue="{Binding SelectedOwnerGenre}" Width="150"
                                   FontSize="20" Margin="0,35,0,0">
-                                <ComboBox.Style>
-                                    <Style TargetType="ComboBox">
-                                        <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                                        <Setter Property="Width" Value="100"/>
-                                        <Setter Property="Cursor" Value="Hand"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ComboBox.Style>
-                            </ComboBox>
-                        </WrapPanel>
-                        <WrapPanel>
-                            <TextBlock Text="SubGenre 1:" FontSize="20" Margin="0,85,10,0" Style="{StaticResource TextBlockStyle}"/>
-                            <Ellipse Height="30" Width="30" Margin="0,85,10,0">
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="{Binding OwnerSubGenre1Image}"/>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <TextBlock Text="{Binding Path=Screenplay.OwnerSubGenre1}" Width="100" FontSize="20" Margin="0,85,0,0">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="VerticalAlignment" Value="Center"/>
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                            <ComboBox ItemsSource="{Binding OwnerSubGenre1Options}" SelectedValue="{Binding SelectedOwnerSubGenre1}" Width="150"
+                        <ComboBox.Style>
+                            <Style TargetType="ComboBox">
+                                <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Width" Value="100"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>
+                    </ComboBox>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="SubGenre 1:" FontSize="20" Margin="0,85,10,0" Style="{StaticResource TextBlockStyle}"/>
+                    <Ellipse Height="30" Width="30" Margin="0,85,10,0">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding OwnerSubGenre1Image}"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <TextBlock Text="{Binding Path=Screenplay.OwnerSubGenre1}" Width="100" FontSize="20" Margin="0,85,0,0">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <ComboBox ItemsSource="{Binding OwnerSubGenre1Options}" SelectedValue="{Binding SelectedOwnerSubGenre1}" Width="150"
                                   FontSize="20" Margin="0,85,0,0">
-                                <ComboBox.Style>
-                                    <Style TargetType="ComboBox">
-                                        <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                                        <Setter Property="Width" Value="100"/>
-                                        <Setter Property="Cursor" Value="Hand"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ComboBox.Style>
-                            </ComboBox>
-                        </WrapPanel>
-                        <WrapPanel>
-                            <TextBlock Text="SubGenre 2:" FontSize="20" Margin="0,85,10,0" Style="{StaticResource TextBlockStyle}"/>
-                            <Ellipse Height="30" Width="30" Margin="0,85,10,0">
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="{Binding OwnerSubGenre2Image}"/>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <TextBlock Text="{Binding Path=Screenplay.OwnerSubGenre2}" Width="100" FontSize="20" Margin="0,85,0,0">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="VerticalAlignment" Value="Center"/>
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                            <ComboBox ItemsSource="{Binding OwnerSubGenre2Options}" SelectedValue="{Binding SelectedOwnerSubGenre2}" Width="150"
+                        <ComboBox.Style>
+                            <Style TargetType="ComboBox">
+                                <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Width" Value="100"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>
+                    </ComboBox>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="SubGenre 2:" FontSize="20" Margin="0,85,10,0" Style="{StaticResource TextBlockStyle}"/>
+                    <Ellipse Height="30" Width="30" Margin="0,85,10,0">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding OwnerSubGenre2Image}"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <TextBlock Text="{Binding Path=Screenplay.OwnerSubGenre2}" Width="100" FontSize="20" Margin="0,85,0,0">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <ComboBox ItemsSource="{Binding OwnerSubGenre2Options}" SelectedValue="{Binding SelectedOwnerSubGenre2}" Width="150"
                                   FontSize="20" Margin="0,85,0,0">
-                                <ComboBox.Style>
-                                    <Style TargetType="ComboBox">
-                                        <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                                        <Setter Property="Width" Value="100"/>
-                                        <Setter Property="Cursor" Value="Hand"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ComboBox.Style>
-                            </ComboBox>
-                        </WrapPanel>
-                    </StackPanel>
+                        <ComboBox.Style>
+                            <Style TargetType="ComboBox">
+                                <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Width" Value="100"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CanGiveFeedback}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding CanGiveFeedback}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>
+                    </ComboBox>
                 </WrapPanel>
             </StackPanel>
         </WrapPanel>

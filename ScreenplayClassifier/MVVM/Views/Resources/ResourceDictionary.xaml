@@ -3,8 +3,8 @@
                     xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
     
     <!--Backgrounds-->
-    <SolidColorBrush x:Key="EntryWindowBackground" Color="Gray"/>
     <SolidColorBrush x:Key="WindowBackground" Color="LightGray"/>
+    <SolidColorBrush x:Key="UserToolbarBackground" Color="Gray"/>
     <SolidColorBrush x:Key="UserControlBackground" Color="DarkGray"/>
     <SolidColorBrush x:Key="GroupBoxBackground" Color="Transparent"/>
     <SolidColorBrush x:Key="MainColumnHeaderBackground" Color="DarkGray"/>
@@ -13,12 +13,7 @@
     
     <!--Components Style-->  
     
-    <!--Window Style-->
-    <Style x:Key="EntryWindowStyle" TargetType="Window">
-        <Setter Property="Background" Value="{StaticResource EntryWindowBackground}"/>
-        <Setter Property="FontSize" Value="14"/>
-    </Style>
-    
+    <!--Window Style-->   
     <Style x:Key="WindowStyle" TargetType="Window">
         <Setter Property="Background" Value="{StaticResource WindowBackground}"/>
         <Setter Property="FontSize" Value="14"/>
@@ -26,7 +21,7 @@
 
     <!--UserToolbar Style-->
     <Style x:Key="UserToolbarStyle" TargetType="UserControl">
-        <Setter Property="Background" Value="{StaticResource EntryWindowBackground}"/>
+        <Setter Property="Background" Value="{StaticResource UserToolbarBackground}"/>
     </Style>
 
     <!--UserControl Style-->

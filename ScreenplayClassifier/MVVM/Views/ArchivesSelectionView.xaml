@@ -20,9 +20,37 @@
                     <TextBlock Text="Filter Criteria" FontSize="30" Style="{StaticResource TextBlockStyle}"/>
                 </WrapPanel>
             </GroupBox.Header>
-            <TextBlock Text="{Binding FilterText}" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+            <WrapPanel TextBlock.FontSize="20" VerticalAlignment="Center">
+                <WrapPanel>
+                    <WrapPanel.Style>
+                        <Style TargetType="WrapPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ArchivesViewModel.MainViewModel.UserToolbarViewModel.User.Role}" Value="Guest">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ArchivesViewModel.MainViewModel.UserToolbarViewModel.User.Role}" Value="Member">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ArchivesViewModel.MainViewModel.UserToolbarViewModel.User.Role}" Value="Admin">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </WrapPanel.Style>
+                    <TextBlock Text="Owner: " Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="{Binding OwnerFilter}" FontWeight="Normal"/>
+                    <TextBlock Text=" | " Style="{StaticResource TextBlockStyle}"/>
+                </WrapPanel>
+                <WrapPanel TextBlock.FontSize="20" VerticalAlignment="Center">
+                    <TextBlock Text="Main Genre: " Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="{Binding GenreFilter}" FontWeight="Normal"/>
+                    <TextBlock Text=" | Subgenre 1: " Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="{Binding SubGenre1Filter}" FontWeight="Normal"/>
+                    <TextBlock Text=" | Subgenre 2: " Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="{Binding SubGenre2Filter}" FontWeight="Normal"/>
+                </WrapPanel>
+            </WrapPanel>
         </GroupBox>
-
         <WrapPanel Grid.Row="1" HorizontalAlignment="Center">
             <StackPanel Margin="0,0,10,0">
                 <StackPanel.Style>

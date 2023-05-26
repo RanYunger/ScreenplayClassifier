@@ -18,7 +18,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
     {
         // Fields
         private MediaPlayer mediaPlayer;
-        private string filterText;
+        private string ownerFilter, genreFilter, subGenre1Filter, subGenre2Filter;
         private bool isFilteredByGenre, isPlayingMedia;
 
         // Properties
@@ -26,12 +26,45 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         public ArchivesViewModel ArchivesViewModel { get; private set; }
         public ScreenplaysSelectionViewModel ScreenplaysSelectionViewModel { get; private set; }
 
-        public string FilterText
+        public string OwnerFilter
         {
-            get { return filterText; }
+            get { return ownerFilter; }
             set
             {
-                filterText = value;
+                ownerFilter = value;
+
+                NotifyPropertyChange();
+            }
+        }
+
+        public string GenreFilter
+        {
+            get { return genreFilter; }
+            set
+            {
+                genreFilter = value;
+
+                NotifyPropertyChange();
+            }
+        }
+
+        public string SubGenre1Filter
+        {
+            get { return subGenre1Filter; }
+            set
+            {
+                subGenre1Filter = value;
+
+                NotifyPropertyChange();
+            }
+        }
+
+        public string SubGenre2Filter
+        {
+            get { return subGenre2Filter; }
+            set
+            {
+                subGenre2Filter = value;
 
                 NotifyPropertyChange();
             }
@@ -163,7 +196,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ScreenplaysSelectionViewModel.Init(screenplaysSelectionView);
             ArchivesViewModel = archivesViewModel;
 
-            FilterText = string.Empty;
+            OwnerFilter = string.Empty;
+            GenreFilter = string.Empty;
+            SubGenre1Filter = string.Empty;
+            SubGenre2Filter = string.Empty;
+
             IsFilteredByGenre = false;
             IsPlayingMedia = false;
         }
@@ -245,15 +282,13 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 subGenre1Range = new int[] { filterViewModel.FilteredSubGenre1MinPercentage, filterViewModel.FilteredSubGenre1MaxPercentage },
                 subGenre2Range = new int[] { filterViewModel.FilteredSubGenre2MinPercentage, filterViewModel.FilteredSubGenre2MaxPercentage };
 
-            // Builds the filter string 
-            FilterText = string.Empty;
+            // Builds the filter strings
             if (user.Role == UserModel.UserRole.ADMIN)
-                FilterText = string.Format("Owner: {0} | ", string.IsNullOrEmpty(owner) ? "All Owners" : owner);
+                OwnerFilter = string.IsNullOrEmpty(owner) ? "All Owners" : owner;
 
-            FilterText += string.Format("Main Genre: {0} | Subgenre 1: {1} | Subgenre 2: {2}",
-                BuildGenreFilterText(filterViewModel.FilteredGenre, genreRange),
-                BuildGenreFilterText(filterViewModel.FilteredSubGenre1, subGenre1Range),
-                BuildGenreFilterText(filterViewModel.FilteredSubGenre2, subGenre2Range));
+            GenreFilter = BuildGenreFilterText(filterViewModel.FilteredGenre, genreRange);
+            SubGenre1Filter = BuildGenreFilterText(filterViewModel.FilteredSubGenre1, subGenre1Range);
+            SubGenre2Filter = BuildGenreFilterText(filterViewModel.FilteredSubGenre2, subGenre2Range);
         }
 
         /// <summary>

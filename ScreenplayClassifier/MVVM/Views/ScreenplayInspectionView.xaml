@@ -15,9 +15,9 @@
         <StackPanel Grid.Row="0">
             <TextBlock Text="Model Classification [All Genres, %]" FontSize="30" TextAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
             <lvc:CartesianChart Series="{Binding PercentageSeries}" LegendLocation="Bottom" Height="280" Width="700" FontSize="20"
-                                TextBlock.FontWeight="Bold" Margin="10">
+                                Margin="10">
                 <lvc:CartesianChart.ChartLegend>
-                    <lvc:DefaultLegend BulletSize="30" FontWeight="Bold" HorizontalAlignment="Center" TextBlock.FontSize="20"/>
+                    <lvc:DefaultLegend BulletSize="30" HorizontalAlignment="Center" TextBlock.FontSize="20"/>
                 </lvc:CartesianChart.ChartLegend>
             </lvc:CartesianChart>
         </StackPanel>

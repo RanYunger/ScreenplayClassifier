@@ -6,7 +6,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:v="clr-namespace:ScreenplayClassifier.MVVM.Views"
         Title="Screenplay Classifier" Height="600" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        Style="{StaticResource EntryWindowStyle}">
+        Style="{StaticResource WindowStyle}">
     <Grid>
         <StackPanel HorizontalAlignment="Stretch">
             <MediaElement x:Name="KickUserMediaElement" Height="250" Width="350" LoadedBehavior="Manual" UnloadedBehavior="Manual" Stretch="Fill"

@@ -358,9 +358,9 @@
                     Style="{StaticResource ButtonStyle}">
                     <Button.Content>
                         <WrapPanel>
-                            <TextBlock Text="Complete Classification" TextAlignment="Center" FontSize="20" Margin="0,0,10,0"
+                            <TextBlock Text="Complete Classification" TextAlignment="Center" FontSize="20" Margin="0,0,20,0"
                                    Style="{StaticResource TextBlockStyle}"/>
-                            <Image Source="/Media/Images/Complete.png" Height="50" Width="50"/>
+                            <Image Source="/Media/Images/Complete.png" Height="50" Width="40"/>
                         </WrapPanel>
                     </Button.Content>
                 </Button>
