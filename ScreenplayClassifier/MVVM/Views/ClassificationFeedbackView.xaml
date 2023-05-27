@@ -12,8 +12,10 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="{Binding NextTitle, StringFormat=Next: {0}}" FontSize="30"  Grid.Row="0" HorizontalAlignment="Center"
-                   VerticalAlignment="Center" Margin="10" Style="{StaticResource TextBlockStyle}"/>
+        <WrapPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Next Title: " FontSize="30" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="{Binding NextTitle}" FontSize="30" FontWeight="Normal" Style="{StaticResource TextBlockStyle}"/>
+        </WrapPanel>
 
         <v:ScreenplayView x:Name="ScreenplayView" Grid.Row="1"/>
 

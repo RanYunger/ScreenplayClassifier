@@ -350,6 +350,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private void CheckAttempts()
         {
             bool pluralCondition;
+
             if (--AttemptsCount == 0)
             {
                 CanSignIn = false;
