@@ -60,7 +60,6 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                     // Stops all sounds
                     aboutViewModel.EndVideoCommand.Execute(null);
-                    archivesViewModel.ArchivesSelectionViewModel.IsPlayingMedia = false;
 
                     // Kills the classification thread (if it's active)
                     if (classificationViewModel.ClassificationProgressViewModel.ClassificationThread != null)
