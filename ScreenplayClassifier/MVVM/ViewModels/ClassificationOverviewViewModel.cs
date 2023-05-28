@@ -4,6 +4,7 @@ using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 using System.Windows;
 
@@ -173,6 +174,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ReportsViewModel reportsViewModel = (ReportsViewModel)ClassificationViewModel.MainViewModel.ReportsView.DataContext;
             List<ReportModel> createdReports = new List<ReportModel>();
             List<SelectionEntryModel> removedEntries = new List<SelectionEntryModel>();
+            FileModel screenplayFile;
 
             // Removes classified screenplays from selection options
             foreach (SelectionEntryModel selectionEntry in screenplaysSelectionViewModel.SelectionEntries)
@@ -185,6 +187,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             // Creates a report for each classified screenplay
             foreach (ScreenplayModel classifiedScreenplay in ClassifiedScreenplays)
             {
+                screenplayFile = new FileModel(classifiedScreenplay.Title, File.ReadAllText(classifiedScreenplay.FilePath));
+
+                classifiedScreenplay.ScreenplayFileID = MONGODB.AddScreenplay(screenplayFile);
+
                 createdReports.Add(new ReportModel(owner, classifiedScreenplay));
                 reportsViewModel.Reports.Add(createdReports[createdReports.Count - 1]);
             }

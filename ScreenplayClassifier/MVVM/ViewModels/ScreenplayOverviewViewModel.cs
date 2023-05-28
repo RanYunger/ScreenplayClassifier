@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
@@ -284,7 +285,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             OwnerSubGenre2Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanGiveFeedback ?
                 "Unknown" : Screenplay.OwnerSubGenre2)));
 
-            ScreenplayContent = File.ReadAllText(Screenplay.FilePath);
+            if (Screenplay.FilePath == null)
+                ScreenplayContent = MONGODB.Screenplays.First(file => file.Id.Equals(Screenplay.ScreenplayFileID)).Text;
+            else
+                ScreenplayContent = File.ReadAllText(Screenplay.FilePath);
 
             SelectedOwnerGenre = CanGiveFeedback ? screenplay.OwnerGenre : string.Empty;
             SelectedOwnerSubGenre1 = CanGiveFeedback ? screenplay.OwnerSubGenre1 : string.Empty;

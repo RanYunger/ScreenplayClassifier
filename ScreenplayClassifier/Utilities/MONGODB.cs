@@ -1,10 +1,12 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using ScreenplayClassifier.MVVM.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace ScreenplayClassifier.Utilities
@@ -14,6 +16,7 @@ namespace ScreenplayClassifier.Utilities
         // Fields
         public static IMongoDatabase DATABASE;
 
+        public static IMongoQueryable<FileModel> Screenplays;
         public static IMongoQueryable<UserModel> Users;
 
         // Methods
@@ -59,6 +62,38 @@ namespace ScreenplayClassifier.Utilities
         public static void AddReports(List<ReportModel> reports)
         {
             DATABASE.GetCollection<ReportModel>(CONFIGURATIONS.CONSTANTS.ReportsCollectionName).InsertMany(reports);
+        }
+        #endregion
+
+        #region Screenplays
+        /// <summary>
+        /// Loads the screenplays collection from server.
+        /// </summary>
+        public static void LoadScreenplays()
+        {
+            Screenplays = DATABASE.GetCollection<FileModel>(CONFIGURATIONS.CONSTANTS.ScreenplaysCollectionName).AsQueryable();
+        }
+
+        /// <summary>
+        /// Adds a screenplay to the screenplays collection.
+        /// </summary>
+        /// <param name="screenplay">The screenplay to add</param>
+        public static ObjectId AddScreenplay(FileModel screenplay)
+        {
+            DATABASE.GetCollection<FileModel>(CONFIGURATIONS.CONSTANTS.ScreenplaysCollectionName).InsertOne(screenplay);
+
+            return screenplay.Id;
+        }
+
+        /// <summary>
+        /// Adds screenplays to the screenplays collection.
+        /// </summary>
+        /// <param name="screenplays">The screenplays to add</param>
+        public static List<ObjectId> AddScreenplays(List<FileModel> screenplays)
+        {
+            DATABASE.GetCollection<FileModel>(CONFIGURATIONS.CONSTANTS.ScreenplaysCollectionName).InsertMany(screenplays);
+
+            return screenplays.Select(screenplay => screenplay.Id).ToList();
         }
         #endregion
 

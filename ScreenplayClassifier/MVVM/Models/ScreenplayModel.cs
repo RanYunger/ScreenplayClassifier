@@ -1,7 +1,10 @@
-﻿using ScreenplayClassifier.Utilities;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace ScreenplayClassifier.MVVM.Models
@@ -9,26 +12,50 @@ namespace ScreenplayClassifier.MVVM.Models
     public class ScreenplayModel : PropertyChangeNotifier
     {
         // Fields
+        private ObjectId screenplayFileID;
+        private string title = null, filePath = null;
         private Dictionary<string, float> genrePercentages;
-        private string filePath, title;
         private string modelGenre, modelSubGenre1, modelSubGenre2;
         private string ownerGenre, ownerSubGenre1, ownerSubGenre2;
 
         // Properties
-        public Dictionary<string, float> GenrePercentages
+        public ObjectId Id { get; set; }
+
+        public ObjectId ScreenplayFileID
         {
-            get { return genrePercentages; }
+            get { return screenplayFileID; }
             set
             {
-                genrePercentages = value;
+                screenplayFileID = value;
 
                 NotifyPropertyChange();
             }
         }
 
+        [BsonIgnore]
+        public string Title
+        {
+            get
+            {
+                // title initialization from the associated screenplay 
+                if (title == null)
+                    Title = MONGODB.Screenplays.First(file => file.Id.Equals(ScreenplayFileID)).Title;
+
+                return title;
+            }
+
+            set
+            {
+                title = value;
+
+                NotifyPropertyChange();
+            }
+        }
+
+        [BsonIgnore]
         public string FilePath
         {
-            get { return filePath; }
+            get { return FilePath; }
             set
             {
                 filePath = value;
@@ -37,12 +64,12 @@ namespace ScreenplayClassifier.MVVM.Models
             }
         }
 
-        public string Title
+        public Dictionary<string, float> GenrePercentages
         {
-            get { return title; }
+            get { return genrePercentages; }
             set
             {
-                title = value;
+                genrePercentages = value;
 
                 NotifyPropertyChange();
             }
@@ -144,8 +171,8 @@ namespace ScreenplayClassifier.MVVM.Models
         {
             List<string> predictedGenres = new List<string>(genrePercentages.Keys);
 
-            FilePath = filePath;
-            Title = Path.GetFileNameWithoutExtension(filePath);
+            //FilePath = filePath;
+            //Title = Path.GetFileNameWithoutExtension(filePath);
 
             GenrePercentages = genrePercentages;
 

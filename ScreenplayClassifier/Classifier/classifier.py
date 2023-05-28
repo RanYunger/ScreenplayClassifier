@@ -1,5 +1,7 @@
 # Imports
 import time
+from pathlib import Path
+
 import numpy
 import pandas
 import pickle
@@ -80,14 +82,18 @@ def classify(file_paths):
     # Loads test screenplays and classification model
     test_screenplays = load_test_screenplays(file_paths)
     model = load_model()
-    classifications_dict = {}
+    classifications = []
     classifications_complete = 0
 
     # Classifies the test screenplays
     for offset, screenplay in test_screenplays.iterrows():
         features_vector = [feature[0] for feature in numpy.array(screenplay[1:]).reshape(-1, 1)]
         genre_probabilities = model.predict_proba([features_vector])[0]
-        classifications_dict[file_paths[offset]] = probabilities_to_percentages(genre_probabilities)
+        classifications.append({
+            "Title": Path(file_paths[offset]).stem,
+            "FilePath": file_paths[offset],
+            "GenrePercentages": probabilities_to_percentages(genre_probabilities)
+        })
 
         # Prints progress (for GUI to update progress)
         classifications_complete += 1
@@ -95,5 +101,4 @@ def classify(file_paths):
 
         time.sleep(0.5)  # seconds
 
-    return pandas.DataFrame({"FilePath": classifications_dict.keys(),
-                             "GenrePercentages": classifications_dict.values()})
+    return pandas.DataFrame(classifications)

@@ -12,6 +12,7 @@ namespace ScreenplayClassifier.Utilities
         public string ServerConnectionString { get; set; }
         public string DatabaseName { get; set; }
         public string ReportsCollectionName { get; set; }
+        public string ScreenplaysCollectionName { get; set; }
         public string UsersCollectionName { get; set; }
         #endregion
 
@@ -22,12 +23,13 @@ namespace ScreenplayClassifier.Utilities
         #endregion
 
         // Constructors
-        public Constants(string connectionString, string databaseName, string reportsCollectionName, string usersCollectionName,
+        public Constants(string connectionString, string databaseName, string reportsCollectionName, string screenplaysCollectionName, string usersCollectionName,
             string usernamePattern, string passwordPattern, string defaultPassword)
         {
             ServerConnectionString = connectionString;
             DatabaseName = databaseName;
             ReportsCollectionName = reportsCollectionName;
+            ScreenplaysCollectionName = screenplaysCollectionName;
             UsersCollectionName = usersCollectionName;
 
             UsernamePattern = usernamePattern;
