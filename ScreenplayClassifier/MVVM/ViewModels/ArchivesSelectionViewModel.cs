@@ -169,7 +169,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             reportsCollectionView.Refresh();
 
             foreach (ReportModel filteredReport in reportsCollectionView)
-                selectionEntries.Add(new SelectionEntryModel(filteredReport.Owner.Username, filteredReport.Screenplay.FilePath));
+                selectionEntries.Add(new SelectionEntryModel(filteredReport.Screenplay.FileId,
+                                                             filteredReport.OwnerName,
+                                                             filteredReport.Screenplay.FilePath,
+                                                             filteredReport.Screenplay.Title));
 
             ScreenplaysSelectionViewModel.RefreshView(selectionEntries, "inspect", "No screenplays matching the criteria");
 

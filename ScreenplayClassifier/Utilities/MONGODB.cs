@@ -50,7 +50,7 @@ namespace ScreenplayClassifier.Utilities
             reports = DATABASE.GetCollection<ReportModel>(CONFIGURATIONS.CONSTANTS.ReportsCollectionName).AsQueryable();
 
             if (user.Role == UserModel.UserRole.MEMBER)
-                reports = reports.Where(report => report.Owner.Username.Equals(user.Username));
+                reports = reports.Where(report => report.OwnerName.Equals(user.Username));
 
             return new ObservableCollection<ReportModel>(reports);
         }

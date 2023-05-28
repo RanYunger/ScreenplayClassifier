@@ -1,4 +1,5 @@
-﻿using ScreenplayClassifier.Utilities;
+﻿using MongoDB.Bson;
+using ScreenplayClassifier.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,10 +13,22 @@ namespace ScreenplayClassifier.MVVM.Models
     public class SelectionEntryModel : PropertyChangeNotifier
     {
         // Fields
-        private string ownerName, screenplayFilePath, screenplayFileName;
+        private ObjectId fileId;
+        private string ownerName, filePath, fileName;
         private bool isChecked;
 
         // Properties
+        public ObjectId FileId
+        {
+            get { return fileId; }
+            set
+            {
+                fileId = value;
+
+                NotifyPropertyChange();
+            }
+        }
+
         public string OwnerName
         {
             get { return ownerName; }
@@ -27,23 +40,23 @@ namespace ScreenplayClassifier.MVVM.Models
             }
         }
 
-        public string ScreenplayFilePath
+        public string FilePath
         {
-            get { return screenplayFilePath; }
+            get { return filePath; }
             set
             {
-                screenplayFilePath = value;
+                filePath = value;
 
                 NotifyPropertyChange();
             }
         }
 
-        public string ScreenplayFileName
+        public string FileName
         {
-            get { return screenplayFileName; }
+            get { return fileName; }
             set
             {
-                screenplayFileName = value;
+                fileName = value;
 
                 NotifyPropertyChange();
             }
@@ -65,11 +78,21 @@ namespace ScreenplayClassifier.MVVM.Models
         }
 
         // Constructors
-        public SelectionEntryModel(string ownerName, string screenplayFilePath)
+        public SelectionEntryModel(ObjectId fileId, string ownerName, string filePath, string fileName)
         {
+            FileId = fileId;
             OwnerName = ownerName;
-            ScreenplayFilePath = screenplayFilePath;
-            ScreenplayFileName = Path.GetFileNameWithoutExtension(screenplayFilePath.Replace("\"", string.Empty));
+            FilePath = filePath;
+            FileName = fileName;
+            IsChecked = false;
+        }
+
+        public SelectionEntryModel(string ownerName, string filePath)
+        {
+            FileId = ObjectId.Empty;
+            OwnerName = ownerName;
+            FilePath = filePath;
+            FileName = Path.GetFileNameWithoutExtension(FilePath.Replace("\"", string.Empty));
             IsChecked = false;
         }
     }

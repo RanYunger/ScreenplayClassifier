@@ -286,7 +286,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 "Unknown" : Screenplay.OwnerSubGenre2)));
 
             if (Screenplay.FilePath == null)
-                ScreenplayContent = MONGODB.Screenplays.First(file => file.Id.Equals(Screenplay.ScreenplayFileID)).Text;
+                ScreenplayContent = MONGODB.Screenplays.First(file => file.Id.Equals(Screenplay.FileId)).Text;
             else
                 ScreenplayContent = File.ReadAllText(Screenplay.FilePath);
 

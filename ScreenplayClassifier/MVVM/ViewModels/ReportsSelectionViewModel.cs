@@ -76,7 +76,10 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ObservableCollection<SelectionEntryModel> selectionEntries = new ObservableCollection<SelectionEntryModel>();
 
             foreach (ReportModel report in ReportsViewModel.Reports)
-                selectionEntries.Add(new SelectionEntryModel(report.Owner.Username, report.Screenplay.FilePath));
+                selectionEntries.Add(new SelectionEntryModel(report.Screenplay.FileId,
+                                                             report.OwnerName,
+                                                             report.Screenplay.FilePath,
+                                                             report.Screenplay.Title));
 
             ScreenplaysSelectionViewModel.RefreshView(selectionEntries, "inspect", "No reports to inspect");
         }

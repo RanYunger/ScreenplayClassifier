@@ -286,6 +286,9 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             // If the users collection is loaded for the first time
             if (MONGODB.Users == null)
                 MONGODB.LoadUsers();
+
+            if (MONGODB.Screenplays == null)
+                MONGODB.LoadScreenplays();
         }
 
         /// <summary>

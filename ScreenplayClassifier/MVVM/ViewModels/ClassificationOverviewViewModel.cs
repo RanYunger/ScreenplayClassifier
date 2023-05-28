@@ -189,7 +189,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 screenplayFile = new FileModel(classifiedScreenplay.Title, File.ReadAllText(classifiedScreenplay.FilePath));
 
-                classifiedScreenplay.ScreenplayFileID = MONGODB.AddScreenplay(screenplayFile);
+                classifiedScreenplay.FileId = MONGODB.AddScreenplay(screenplayFile);
 
                 createdReports.Add(new ReportModel(owner, classifiedScreenplay));
                 reportsViewModel.Reports.Add(createdReports[createdReports.Count - 1]);

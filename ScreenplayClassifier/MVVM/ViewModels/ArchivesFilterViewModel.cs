@@ -276,7 +276,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     // Updates all filters
                     ownerFilter = (o) =>
                     {
-                        return string.IsNullOrEmpty(FilteredOwner) ? true : ((ReportModel)o).Owner.Username == FilteredOwner;
+                        return string.IsNullOrEmpty(FilteredOwner) ? true : ((ReportModel)o).OwnerName == FilteredOwner;
                     };
                     genreFilter = (o) =>
                     {

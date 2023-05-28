@@ -12,21 +12,20 @@ namespace ScreenplayClassifier.MVVM.Models
     public class ScreenplayModel : PropertyChangeNotifier
     {
         // Fields
-        private ObjectId screenplayFileID;
+        private ObjectId fileId;
         private string title = null, filePath = null;
         private Dictionary<string, float> genrePercentages;
         private string modelGenre, modelSubGenre1, modelSubGenre2;
         private string ownerGenre, ownerSubGenre1, ownerSubGenre2;
 
         // Properties
-        public ObjectId Id { get; set; }
 
-        public ObjectId ScreenplayFileID
+        public ObjectId FileId
         {
-            get { return screenplayFileID; }
+            get { return fileId; }
             set
             {
-                screenplayFileID = value;
+                fileId = value;
 
                 NotifyPropertyChange();
             }
@@ -39,7 +38,7 @@ namespace ScreenplayClassifier.MVVM.Models
             {
                 // title initialization from the associated screenplay 
                 if (title == null)
-                    Title = MONGODB.Screenplays.First(file => file.Id.Equals(ScreenplayFileID)).Title;
+                    Title = MONGODB.Screenplays.First(file => file.Id.Equals(FileId)).Title;
 
                 return title;
             }
@@ -55,7 +54,7 @@ namespace ScreenplayClassifier.MVVM.Models
         [BsonIgnore]
         public string FilePath
         {
-            get { return FilePath; }
+            get { return filePath; }
             set
             {
                 filePath = value;
@@ -167,12 +166,12 @@ namespace ScreenplayClassifier.MVVM.Models
         }
 
         // Constructors
-        public ScreenplayModel(string filePath, Dictionary<string, float> genrePercentages)
+        public ScreenplayModel(string filePath, string title, Dictionary<string, float> genrePercentages)
         {
             List<string> predictedGenres = new List<string>(genrePercentages.Keys);
 
-            //FilePath = filePath;
-            //Title = Path.GetFileNameWithoutExtension(filePath);
+            FilePath = filePath;
+            Title = title;
 
             GenrePercentages = genrePercentages;
 

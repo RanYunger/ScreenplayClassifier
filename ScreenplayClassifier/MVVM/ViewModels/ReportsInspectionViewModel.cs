@@ -122,7 +122,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     {
                         ((ScreenplayViewModel)screenplayView.DataContext).Init(screenplayView,
                             InspectedReports[SelectedScreenplay].Screenplay, false);
-                        ScreenplayOwner = InspectedReports[SelectedScreenplay].Owner.Username;
+                        ScreenplayOwner = InspectedReports[SelectedScreenplay].OwnerName;
                     }
                 });
             }
@@ -230,7 +230,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             InspectedReports.Clear();
             foreach (SelectionEntryModel selectedReport in selectedReports)
                 if (selectedReport.IsChecked)
-                    InspectedReports.Add(ReportsViewModel.FindReportByTitle(selectedReport.ScreenplayFileName));
+                    InspectedReports.Add(ReportsViewModel.FindReportByTitle(selectedReport.FileName));
 
             SelectedScreenplay = -1;
             ParentView = parent;

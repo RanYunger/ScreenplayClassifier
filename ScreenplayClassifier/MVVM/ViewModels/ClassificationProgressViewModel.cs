@@ -244,7 +244,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             ObservableCollection<string> screenplayFilePaths = new ObservableCollection<string>();
 
             foreach (SelectionEntryModel browsedScreenplay in screenplaysToClassify)
-                screenplayFilePaths.Add(browsedScreenplay.ScreenplayFilePath);
+                screenplayFilePaths.Add(browsedScreenplay.FilePath);
 
             DurationTimer.Start();
 

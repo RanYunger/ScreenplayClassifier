@@ -201,7 +201,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                     titleFilter = (o) =>
                     {
                         return (string.IsNullOrEmpty(titleInput.Trim())) || (string.Equals(titleInput, "Search screenplay by title"))
-                            ? true : ((SelectionEntryModel)o).ScreenplayFileName.Contains(titleInput);
+                            ? true : ((SelectionEntryModel)o).FileName.Contains(titleInput);
                     };
                     screenplaysCollectionView.Filter = (o) => { return titleFilter.Invoke(o); };
                     screenplaysCollectionView.Refresh();
