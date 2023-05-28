@@ -44,12 +44,15 @@ Classification Process:
 ![image](https://github.com/RanYunger/ScreenplayClassifier/assets/62587988/2ba2fbda-bea2-44a0-bc42-78dd1c6637ba)
 
 Archives:
+
 ![image](https://github.com/RanYunger/ScreenplayClassifier/assets/62587988/505f13ea-e07c-4e48-92cf-f354855d2509)
 ![image](https://github.com/RanYunger/ScreenplayClassifier/assets/62587988/f3c95973-86c5-4ee6-b8c1-561a2781532b)
 
 Reports:
+
 ![image](https://github.com/RanYunger/ScreenplayClassifier/assets/62587988/974b9366-577b-4bc4-9ca7-5cd5146ae651)
 ![image](https://github.com/RanYunger/ScreenplayClassifier/assets/62587988/bf08a868-f207-44a7-907e-555172aa6b18)
 
 Settings:
+
 ![image](https://github.com/RanYunger/ScreenplayClassifier/assets/62587988/7227cb68-6559-4e27-ae9d-eeead482bfc6)
