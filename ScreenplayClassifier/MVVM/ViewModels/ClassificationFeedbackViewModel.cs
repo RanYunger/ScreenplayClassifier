@@ -17,7 +17,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
         private ObservableCollection<ScreenplayModel> feedbackedScreenplays;
         private ObservableCollection<string> screenplayTitles;
         private int screenplayOffset;
-        private string nextTitle;
+        private string nextTitle, nextButtonText;
 
         // Properties
         public ClassificationViewModel ClassificationViewModel { get; private set; }
@@ -68,6 +68,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             }
         }
 
+        public string NextButtonText
+        {
+            get { return nextButtonText; }
+            set
+            {
+                nextButtonText = value;
+
+                NotifyPropertyChange();
+            }
+        }
+
         // Constructors
         public ClassificationFeedbackViewModel() { }
 
@@ -102,7 +113,17 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                         ClassificationViewModel.FeedbackComplete = ++ScreenplayOffset == FeedbackedScreenplays.Count;
                         if (!ClassificationViewModel.FeedbackComplete)
                         {
-                            NextTitle = ScreenplayOffset == ScreenplayTitles.Count - 1 ? "-" : ScreenplayTitles[ScreenplayOffset + 1];
+                            if (ScreenplayOffset == ScreenplayTitles.Count - 1)
+                            {
+                                NextTitle = "-";
+                                NextButtonText = "Finish";
+                            }
+                            else
+                            {
+                                NextTitle = ScreenplayTitles[ScreenplayOffset + 1];
+                                NextButtonText = "Next Title";
+                            }
+
                             ScreenplayViewModel.Init(screenplayView, FeedbackedScreenplays[ScreenplayOffset], true);
                         }
                     }
@@ -128,6 +149,8 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             screenplayView = (ScreenplayView)ClassificationFeedbackView.FindName("ScreenplayView");
             ScreenplayViewModel = (ScreenplayViewModel)screenplayView.DataContext;
+
+            NextButtonText = "Next Title";
         }
 
         /// <summary>

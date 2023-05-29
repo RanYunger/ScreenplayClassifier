@@ -13,6 +13,18 @@
         </Grid.RowDefinitions>
 
         <WrapPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <WrapPanel.Style>
+                <Style TargetType="WrapPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding NextButtonText}" Value="Next Title">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding NextButtonText}" Value="Finish">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </WrapPanel.Style>
             <TextBlock Text="Next Title: " FontSize="30" Style="{StaticResource TextBlockStyle}"/>
             <TextBlock Text="{Binding NextTitle}" FontSize="30" FontWeight="Normal" Style="{StaticResource TextBlockStyle}"/>
         </WrapPanel>
@@ -23,7 +35,7 @@
                 Style="{StaticResource ButtonStyle}">
             <Button.Content>
                 <WrapPanel>
-                    <TextBlock Text="Next Title" FontSize="20" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="{Binding NextButtonText}" Width="95" FontSize="20" HorizontalAlignment="Left" Style="{StaticResource TextBlockStyle}"/>
                     <Image Source="/Media/Images/Next.png" Height="30" Width="30"/>
                 </WrapPanel>
             </Button.Content>
