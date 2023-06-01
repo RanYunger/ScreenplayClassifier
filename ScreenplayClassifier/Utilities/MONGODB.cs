@@ -16,6 +16,7 @@ namespace ScreenplayClassifier.Utilities
         // Fields
         public static IMongoDatabase DATABASE;
 
+        public static IMongoQueryable<ReportModel> Reports;
         public static IMongoQueryable<FileModel> Screenplays;
         public static IMongoQueryable<UserModel> Users;
 
@@ -34,25 +35,29 @@ namespace ScreenplayClassifier.Utilities
 
         #region Reports
         /// <summary>
+        /// Loads the reports collection from server.
+        /// </summary>
+        public static void LoadReports()
+        {
+            Reports = DATABASE.GetCollection<ReportModel>(CONFIGURATIONS.CONSTANTS.ReportsCollectionName).AsQueryable();
+        }
+
+        /// <summary>
         /// Loads the reports collection (according to the signed in user's role) from the server.
         /// <param name="user">The signed in user</param>
         /// </summary>
         /// <returns>The collection of reports loaded from the server.</returns>
         public static ObservableCollection<ReportModel> LoadReports(UserModel user)
         {
-            IMongoQueryable<ReportModel> reports = null;
-
             // Guests are invisible to the database - their actions are not saved
             if (user.Role == UserModel.UserRole.GUEST)
                 return new ObservableCollection<ReportModel>();
 
             // Admins can see all reports; Members can see only their reports
-            reports = DATABASE.GetCollection<ReportModel>(CONFIGURATIONS.CONSTANTS.ReportsCollectionName).AsQueryable();
-
             if (user.Role == UserModel.UserRole.MEMBER)
-                reports = reports.Where(report => report.OwnerName.Equals(user.Username));
+                Reports = Reports.Where(report => report.OwnerName.Equals(user.Username));
 
-            return new ObservableCollection<ReportModel>(reports);
+            return new ObservableCollection<ReportModel>(Reports);
         }
 
         /// <summary>

@@ -189,13 +189,15 @@ namespace ScreenplayClassifier.MVVM.ViewModels
             {
                 screenplayFile = new FileModel(classifiedScreenplay.Title, File.ReadAllText(classifiedScreenplay.FilePath));
 
-                classifiedScreenplay.FileId = MONGODB.AddScreenplay(screenplayFile);
+                // Guests activities do not affect database
+                if (owner.Role != UserModel.UserRole.GUEST)
+                    classifiedScreenplay.FileId = MONGODB.AddScreenplay(screenplayFile);
 
                 createdReports.Add(new ReportModel(owner, classifiedScreenplay));
                 reportsViewModel.Reports.Add(createdReports[createdReports.Count - 1]);
             }
 
-            // Guests activities do no affect database
+            // Guests activities do not affect database
             if (owner.Role != UserModel.UserRole.GUEST)
                 MONGODB.AddReports(createdReports);
 
