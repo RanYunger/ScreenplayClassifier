@@ -19,20 +19,6 @@
     <None Remove="Icon.ico" />
     <None Remove="Jsons\Configurations.json" />
     <None Remove="Jsons\Genres.json" />
-    <None Remove="Media\Audios\Clapper.mp3" />
-    <None Remove="Media\Audios\Genres\Action.mp3" />
-    <None Remove="Media\Audios\Genres\Adventure.mp3" />
-    <None Remove="Media\Audios\Genres\Comedy.mp3" />
-    <None Remove="Media\Audios\Genres\Crime.mp3" />
-    <None Remove="Media\Audios\Genres\Drama.mp3" />
-    <None Remove="Media\Audios\Genres\Family.mp3" />
-    <None Remove="Media\Audios\Genres\Fantasy.mp3" />
-    <None Remove="Media\Audios\Genres\Horror.mp3" />
-    <None Remove="Media\Audios\Genres\Romance.mp3" />
-    <None Remove="Media\Audios\Genres\SciFi.mp3" />
-    <None Remove="Media\Audios\Genres\Thriller.mp3" />
-    <None Remove="Media\Audios\Genres\War.mp3" />
-    <None Remove="Media\Audios\Wilhelm Scream.mp3" />
     <None Remove="Media\GIFs\Done!.gif" />
     <None Remove="Media\GIFs\Loading.gif" />
     <None Remove="Media\GIFs\Processing.gif" />
@@ -91,18 +77,6 @@
     <None Remove="Media\Images\Warning.png" />
     <None Remove="Media\Images\X.png" />
     <None Remove="Media\Videos\About.mp4" />
-    <None Remove="Media\Videos\Genres\Action.mp4" />
-    <None Remove="Media\Videos\Genres\Adventure.mp4" />
-    <None Remove="Media\Videos\Genres\Comedy.mp4" />
-    <None Remove="Media\Videos\Genres\Crime.mp4" />
-    <None Remove="Media\Videos\Genres\Drama.mp4" />
-    <None Remove="Media\Videos\Genres\Family.mp4" />
-    <None Remove="Media\Videos\Genres\Fantasy.mp4" />
-    <None Remove="Media\Videos\Genres\Horror.mp4" />
-    <None Remove="Media\Videos\Genres\Romance.mp4" />
-    <None Remove="Media\Videos\Genres\SciFi.mp4" />
-    <None Remove="Media\Videos\Genres\Thriller.mp4" />
-    <None Remove="Media\Videos\Genres\War.mp4" />
     <None Remove="Media\Videos\You Shall Not Pass.mp4" />
   </ItemGroup>
 
@@ -139,45 +113,6 @@
     </Content>
     <Content Include="Jsons\Configurations.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Clapper.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Genres\Action.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Genres\Adventure.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Genres\Fantasy.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Genres\Comedy.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Genres\Crime.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Genres\Drama.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Genres\Family.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Genres\Horror.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Genres\Romance.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Genres\SciFi.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Genres\Thriller.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Audios\Genres\War.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Media\GIFs\Loading.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -350,49 +285,7 @@
     <Content Include="Media\Videos\About.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Media\Videos\Genres\Action.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Videos\Genres\Adventure.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Videos\Genres\Comedy.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Videos\Genres\Crime.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Videos\Genres\Drama.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Videos\Genres\Family.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Videos\Genres\Fantasy.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Videos\Genres\Horror.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Videos\Genres\Romance.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Videos\Genres\SciFi.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Videos\Genres\Thriller.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Media\Videos\Genres\War.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Media\Videos\You Shall Not Pass.mp4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Media\Audios\Wilhelm Scream.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

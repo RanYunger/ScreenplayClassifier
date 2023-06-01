@@ -140,7 +140,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     Screenplay.OwnerGenre = selectedOwnerGenre;
 
-                    OwnerGenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.OwnerGenre)));
+                    OwnerGenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENRE_IMAGES, Screenplay.OwnerGenre)));
 
                     // Restores options to their default collection
                     OwnerSubGenre1Options = new ObservableCollection<string>(CONFIGURATIONS.Genres);
@@ -173,7 +173,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     Screenplay.OwnerSubGenre1 = selectedOwnerSubGenre1;
 
-                    OwnerSubGenre1Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.OwnerSubGenre1)));
+                    OwnerSubGenre1Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENRE_IMAGES, Screenplay.OwnerSubGenre1)));
 
                     // Restores options to their default collection
                     OwnerGenreOptions = new ObservableCollection<string>(CONFIGURATIONS.Genres);
@@ -206,7 +206,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
                 {
                     Screenplay.OwnerSubGenre2 = selectedOwnerSubGenre2;
 
-                    OwnerSubGenre2Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, Screenplay.OwnerSubGenre2)));
+                    OwnerSubGenre2Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENRE_IMAGES, Screenplay.OwnerSubGenre2)));
 
                     // Restores options to their default collection
                     OwnerGenreOptions = new ObservableCollection<string>(CONFIGURATIONS.Genres);
@@ -278,11 +278,11 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             RefreshPieChart();
 
-            OwnerGenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanGiveFeedback ?
+            OwnerGenreImage = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENRE_IMAGES, CanGiveFeedback ?
                 "Unknown" : Screenplay.OwnerGenre)));
-            OwnerSubGenre1Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanGiveFeedback ?
+            OwnerSubGenre1Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENRE_IMAGES, CanGiveFeedback ?
                 "Unknown" : Screenplay.OwnerSubGenre1)));
-            OwnerSubGenre2Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, CanGiveFeedback ?
+            OwnerSubGenre2Image = new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENRE_IMAGES, CanGiveFeedback ?
                 "Unknown" : Screenplay.OwnerSubGenre2)));
 
             if (Screenplay.FilePath == null)
@@ -332,7 +332,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 PercentageSeries.Add(new PieSeries()
                 {
-                    Fill = new ImageBrush(new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, genreName)))),
+                    Fill = new ImageBrush(new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENRE_IMAGES, genreName)))),
                     Title = genreName,
                     Values = new ChartValues<ObservableValue> { new ObservableValue(double.Parse(textualPercentage)) },
                     FontSize = 30,

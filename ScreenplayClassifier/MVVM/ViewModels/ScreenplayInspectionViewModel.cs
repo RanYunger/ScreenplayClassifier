@@ -119,7 +119,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
                 PercentageSeries.Add(new ColumnSeries()
                 {
-                    Fill = new ImageBrush(new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENREIMAGES, genreName)))),
+                    Fill = new ImageBrush(new BitmapImage(new Uri(string.Format("{0}{1}.png", FolderPaths.GENRE_IMAGES, genreName)))),
                     Title = genreName,
                     Values = new ChartValues<ObservableValue> { new ObservableValue(double.Parse(textualPercentage)) },
                     FontSize = 15,

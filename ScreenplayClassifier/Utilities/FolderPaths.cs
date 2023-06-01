@@ -10,16 +10,12 @@ namespace ScreenplayClassifier.Utilities
         #region Media
         public static string MEDIA = Environment.CurrentDirectory + @"\Media\";
 
-        public static string AUDIOS = MEDIA + @"\Audios\";
-        public static string GENREAUDIOS = AUDIOS + @"\Genres\";
-
         public static string GIFS = MEDIA + @"\GIFs\";
 
         public static string IMAGES = MEDIA + @"\Images\";
-        public static string GENREIMAGES = IMAGES + @"\Genres\";
+        public static string GENRE_IMAGES = IMAGES + @"\Genres\";
 
         public static string VIDEOS = MEDIA + @"\Videos\";
-        public static string GENREVIDEOS = VIDEOS + @"\Genres\";
         #endregion
 
         public static string CLASSIFIER = Environment.CurrentDirectory + @"\Classifier\";
