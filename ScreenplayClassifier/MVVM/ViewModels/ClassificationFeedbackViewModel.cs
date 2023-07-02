@@ -175,6 +175,7 @@ namespace ScreenplayClassifier.MVVM.ViewModels
 
             ScreenplayOffset = 0;
             NextTitle = ScreenplayOffset == ScreenplayTitles.Count - 1 ? "-" : ScreenplayTitles[screenplayOffset + 1];
+            NextButtonText = "Next Title";
 
             ((ScreenplayViewModel)screenplayView.DataContext).Init(screenplayView, FeedbackedScreenplays[ScreenplayOffset], true);
         }
